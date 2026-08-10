@@ -260,9 +260,6 @@ main {
     flex-direction: column;
     gap: 8px;
 }
-/* =====================================================
-   PLAYER WRAPPER
-===================================================== */
 .player-wrapper {
     width: 100%;
 }
@@ -580,6 +577,21 @@ main {
         rgba(255,255,255,.35);
 }
 /* =====================================================
+   NO DATA
+===================================================== */
+.no-stats {
+    padding:
+        14px 4px;
+    text-align:
+        center;
+    color:
+        rgba(255,255,255,.40);
+    font-size:
+        11px;
+    line-height:
+        1.6;
+}
+/* =====================================================
    MESSAGE
 ===================================================== */
 .message {
@@ -708,9 +720,6 @@ main {
 <p class="player-subtitle">
     PHILADELPHIA PHILLIES
 </p>
-<!-- =================================================
-     FILTER
-================================================== -->
 <div class="filter-area">
     <div class="filter-block">
         <div class="filter-caption">
@@ -769,9 +778,6 @@ main {
 </div>
 </section>
 </main>
-<!-- =================================================
-     BOTTOM NAV
-================================================== -->
 <nav class="bottom-nav">
 <a
     href="schedule.html"
@@ -826,12 +832,13 @@ main {
 </nav>
 <script>
 /* =====================================================
-   DATA
+   GLOBAL DATA
 ===================================================== */
 let allPlayers = [];
+let playerStats = {};
 let openedPlayerId = null;
 /* =====================================================
-   POSITION GROUP
+   POSITION
 ===================================================== */
 function getPositionGroup(player) {
     const position =
@@ -848,17 +855,13 @@ function getPositionGroup(player) {
         position === "RP" ||
         position === "RHP" ||
         position === "LHP" ||
-        positionName.includes(
-            "pitcher"
-        )
+        positionName.includes("pitcher")
     ) {
         return "P";
     }
     if (
         position === "C" ||
-        positionName.includes(
-            "catcher"
-        )
+        positionName.includes("catcher")
     ) {
         return "C";
     }
@@ -869,21 +872,11 @@ function getPositionGroup(player) {
             "3B",
             "SS"
         ].includes(position) ||
-        positionName.includes(
-            "infielder"
-        ) ||
-        positionName.includes(
-            "first baseman"
-        ) ||
-        positionName.includes(
-            "second baseman"
-        ) ||
-        positionName.includes(
-            "third baseman"
-        ) ||
-        positionName.includes(
-            "shortstop"
-        )
+        positionName.includes("infielder") ||
+        positionName.includes("first baseman") ||
+        positionName.includes("second baseman") ||
+        positionName.includes("third baseman") ||
+        positionName.includes("shortstop")
     ) {
         return "IF";
     }
@@ -894,24 +887,20 @@ function getPositionGroup(player) {
             "RF",
             "OF"
         ].includes(position) ||
-        positionName.includes(
-            "outfielder"
-        )
+        positionName.includes("outfielder")
     ) {
         return "OF";
     }
     if (
         position === "DH" ||
-        positionName.includes(
-            "designated"
-        )
+        positionName.includes("designated")
     ) {
         return "DH";
     }
     return "OTHER";
 }
 /* =====================================================
-   POSITION ORDER
+   SORT
 ===================================================== */
 function positionOrder(player) {
     const group =
@@ -926,30 +915,23 @@ function positionOrder(player) {
     };
     return order[group] || 99;
 }
-/* =====================================================
-   NUMBER
-===================================================== */
 function getNumber(player) {
     const number =
         parseInt(
             player.number,
             10
         );
-    if (
-        Number.isNaN(number)
-    ) {
-        return 999;
-    }
-    return number;
+    return Number.isNaN(number)
+        ? 999
+        : number;
 }
 /* =====================================================
-   STATUS
+   ROSTER STATUS
 ===================================================== */
 function getStatusClass(player) {
     const status =
         String(
-            player.rosterStatus ||
-            ""
+            player.rosterStatus || ""
         ).toUpperCase();
     if (
         status === "26MAN"
@@ -966,8 +948,7 @@ function getStatusClass(player) {
 function getStatusText(player) {
     const status =
         String(
-            player.rosterStatus ||
-            ""
+            player.rosterStatus || ""
         ).toUpperCase();
     if (
         status === "26MAN"
@@ -982,46 +963,50 @@ function getStatusText(player) {
     return "40-MAN";
 }
 /* =====================================================
-   MOCK STATS
+   FORMAT NUMBER
 ===================================================== */
-function getMockStats(player) {
-    const group =
-        getPositionGroup(player);
+function formatStat(
+    value,
+    decimals = 0
+) {
     if (
-        group === "P"
+        value === null ||
+        value === undefined ||
+        value === ""
     ) {
-        return {
-            type: "PITCHING",
-            primary: [
-                ["4.12", "ERA"],
-                ["1.24", "WHIP"],
-                ["8.9", "K/9"],
-                ["2.8", "BB/9"]
-            ],
-            secondary: [
-                ["128", "IP"],
-                ["126", "K"],
-                ["41", "BB"]
-            ]
-        };
+        return "—";
     }
-    return {
-        type: "BATTING",
-        primary: [
-            [".267", "AVG"],
-            [".338", "OBP"],
-            [".462", "SLG"],
-            [".800", "OPS"]
-        ],
-        secondary: [
-            ["128", "H"],
-            ["18", "HR"],
-            ["61", "RBI"]
-        ]
-    };
+    if (
+        typeof value === "number"
+    ) {
+        return value.toFixed(
+            decimals
+        );
+    }
+    return String(value);
 }
 /* =====================================================
-   CREATE STATS CARD
+   FIND PLAYER STATS
+===================================================== */
+function findPlayerStats(player) {
+    const id =
+        String(
+            player.id ||
+            player.playerId ||
+            ""
+        );
+    if (
+        !id
+    ) {
+        return null;
+    }
+    return (
+        playerStats[id] ||
+        null
+    );
+}
+/* =====================================================
+   STATS CARD
 ===================================================== */
 function createStatsCard(player) {
     const card =
@@ -1031,110 +1016,243 @@ function createStatsCard(player) {
     card.className =
         "stats-card";
     const stats =
-        getMockStats(player);
-    const header =
-        document.createElement(
-            "div"
+        findPlayerStats(player);
+    if (!stats) {
+        card.innerHTML = `
+            <div class="stats-header">
+                <div class="stats-title">
+                    PLAYER STATS
+                </div>
+                <div class="stats-period">
+                    2026 SEASON
+                </div>
+            </div>
+            <div class="no-stats">
+                No statistics available yet.
+            </div>
+        `;
+        return card;
+    }
+    const group =
+        getPositionGroup(player);
+    const isPitcher =
+        group === "P";
+    if (isPitcher) {
+        createPitchingStats(
+            card,
+            stats
         );
-    header.className =
-        "stats-header";
-    const title =
-        document.createElement(
-            "div"
+    } else {
+        createBattingStats(
+            card,
+            stats
         );
-    title.className =
-        "stats-title";
-    title.textContent =
-        stats.type;
-    const period =
-        document.createElement(
-            "div"
-        );
-    period.className =
-        "stats-period";
-    period.textContent =
-        "2026 SEASON";
-    header.appendChild(title);
-    header.appendChild(period);
-    const grid =
-        document.createElement(
-            "div"
-        );
-    grid.className =
-        "stat-grid";
-    stats.primary.forEach(
-        stat => {
-            const box =
-                document.createElement(
-                    "div"
-                );
-            box.className =
-                "stat-box";
-            const value =
-                document.createElement(
-                    "span"
-                );
-            value.className =
-                "stat-value";
-            value.textContent =
-                stat[0];
-            const label =
-                document.createElement(
-                    "span"
-                );
-            label.className =
-                "stat-label";
-            label.textContent =
-                stat[1];
-            box.appendChild(value);
-            box.appendChild(label);
-            grid.appendChild(box);
-        }
-    );
-    const secondary =
-        document.createElement(
-            "div"
-        );
-    secondary.className =
-        "stats-secondary";
-    stats.secondary.forEach(
-        stat => {
-            const item =
-                document.createElement(
-                    "div"
-                );
-            item.className =
-                "secondary-item";
-            const value =
-                document.createElement(
-                    "div"
-                );
-            value.className =
-                "secondary-value";
-            value.textContent =
-                stat[0];
-            const label =
-                document.createElement(
-                    "div"
-                );
-            label.className =
-                "secondary-label";
-            label.textContent =
-                stat[1];
-            item.appendChild(value);
-            item.appendChild(label);
-            secondary.appendChild(item);
-        }
-    );
-    card.appendChild(header);
-    card.appendChild(grid);
-    card.appendChild(secondary);
+    }
     return card;
 }
 /* =====================================================
-   OPEN / CLOSE PLAYER
+   BATTING
 ===================================================== */
-function toggleStats(wrapper, player) {
+function createBattingStats(
+    card,
+    stats
+) {
+    const batting =
+        stats.batting || {};
+    card.innerHTML = `
+        <div class="stats-header">
+            <div class="stats-title">
+                BATTING
+            </div>
+            <div class="stats-period">
+                2026 SEASON
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        batting.avg,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    AVG
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        batting.obp,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    OBP
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        batting.slg,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    SLG
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        batting.ops,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    OPS
+                </span>
+            </div>
+        </div>
+        <div class="stats-secondary">
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        batting.hits
+                    )}
+                </div>
+                <div class="secondary-label">
+                    H
+                </div>
+            </div>
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        batting.homeRuns
+                    )}
+                </div>
+                <div class="secondary-label">
+                    HR
+                </div>
+            </div>
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        batting.rbi
+                    )}
+                </div>
+                <div class="secondary-label">
+                    RBI
+                </div>
+            </div>
+        </div>
+    `;
+}
+/* =====================================================
+   PITCHING
+===================================================== */
+function createPitchingStats(
+    card,
+    stats
+) {
+    const pitching =
+        stats.pitching || {};
+    card.innerHTML = `
+        <div class="stats-header">
+            <div class="stats-title">
+                PITCHING
+            </div>
+            <div class="stats-period">
+                2026 SEASON
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        pitching.era,
+                        2
+                    )}
+                </span>
+                <span class="stat-label">
+                    ERA
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        pitching.whip,
+                        2
+                    )}
+                </span>
+                <span class="stat-label">
+                    WHIP
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        pitching.k9,
+                        1
+                    )}
+                </span>
+                <span class="stat-label">
+                    K/9
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        pitching.bb9,
+                        1
+                    )}
+                </span>
+                <span class="stat-label">
+                    BB/9
+                </span>
+            </div>
+        </div>
+        <div class="stats-secondary">
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        pitching.inningsPitched
+                    )}
+                </div>
+                <div class="secondary-label">
+                    IP
+                </div>
+            </div>
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        pitching.strikeouts
+                    )}
+                </div>
+                <div class="secondary-label">
+                    SO
+                </div>
+            </div>
+            <div class="secondary-item">
+                <div class="secondary-value">
+                    ${formatStat(
+                        pitching.walks
+                    )}
+                </div>
+                <div class="secondary-label">
+                    BB
+                </div>
+            </div>
+        </div>
+    `;
+}
+/* =====================================================
+   TOGGLE
+===================================================== */
+function toggleStats(
+    wrapper,
+    player
+) {
     const card =
         wrapper.querySelector(
             ".player-card"
@@ -1147,9 +1265,8 @@ function toggleStats(wrapper, player) {
         String(
             player.id ||
             player.playerId ||
-            player.name
+            ""
         );
-    /* CLOSE CURRENT */
     if (
         openedPlayerId === playerId
     ) {
@@ -1163,7 +1280,6 @@ function toggleStats(wrapper, player) {
             null;
         return;
     }
-    /* CLOSE ALL */
     document
         .querySelectorAll(
             ".player-card.open"
@@ -1186,7 +1302,6 @@ function toggleStats(wrapper, player) {
                 );
             }
         );
-    /* OPEN */
     card.classList.add(
         "open"
     );
@@ -1195,7 +1310,6 @@ function toggleStats(wrapper, player) {
     );
     openedPlayerId =
         playerId;
-    /* Bring card into view */
     setTimeout(
         () => {
             card.scrollIntoView({
@@ -1207,9 +1321,11 @@ function toggleStats(wrapper, player) {
     );
 }
 /* =====================================================
-   CREATE PLAYER CARD
+   CREATE PLAYER
 ===================================================== */
-function createPlayerWrapper(player) {
+function createPlayerWrapper(
+    player
+) {
     const wrapper =
         document.createElement(
             "div"
@@ -1223,7 +1339,6 @@ function createPlayerWrapper(player) {
     card.className =
         "player-card " +
         getStatusClass(player);
-    /* NUMBER */
     const number =
         document.createElement(
             "div"
@@ -1232,7 +1347,6 @@ function createPlayerWrapper(player) {
         "player-number";
     number.textContent =
         player.number || "--";
-    /* B/T */
     const bt =
         document.createElement(
             "div"
@@ -1241,7 +1355,6 @@ function createPlayerWrapper(player) {
         "player-bt";
     bt.textContent =
         player.bt || "--";
-    /* POSITION */
     const position =
         document.createElement(
             "div"
@@ -1250,7 +1363,6 @@ function createPlayerWrapper(player) {
         "player-pos";
     position.textContent =
         player.position || "--";
-    /* INFO */
     const info =
         document.createElement(
             "div"
@@ -1276,7 +1388,6 @@ function createPlayerWrapper(player) {
         getStatusText(player);
     info.appendChild(name);
     info.appendChild(status);
-    /* ARROW */
     const arrow =
         document.createElement(
             "div"
@@ -1290,14 +1401,12 @@ function createPlayerWrapper(player) {
     card.appendChild(position);
     card.appendChild(info);
     card.appendChild(arrow);
-    /* STATS */
     const statsCard =
         createStatsCard(
             player
         );
     wrapper.appendChild(card);
     wrapper.appendChild(statsCard);
-    /* TAP */
     card.addEventListener(
         "click",
         () => {
@@ -1352,7 +1461,6 @@ function renderPlayers() {
                 return true;
             }
         );
-    /* SORT */
     players.sort(
         (a, b) => {
             const groupDifference =
@@ -1369,7 +1477,6 @@ function renderPlayers() {
             );
         }
     );
-    /* RESET OPEN */
     openedPlayerId =
         null;
     container.innerHTML =
@@ -1425,15 +1532,14 @@ function renderPlayers() {
             }
         }
     );
-    const displayOrder = [
+    [
         "P",
         "C",
         "IF",
         "OF",
         "DH",
         "OTHER"
-    ];
-    displayOrder.forEach(
+    ].forEach(
         key => {
             const group =
                 groups[key];
@@ -1471,9 +1577,15 @@ function renderPlayers() {
                     );
                 }
             );
-            section.appendChild(title);
-            section.appendChild(list);
-            container.appendChild(section);
+            section.appendChild(
+                title
+            );
+            section.appendChild(
+                list
+            );
+            container.appendChild(
+                section
+            );
         }
     );
 }
@@ -1481,31 +1593,64 @@ function renderPlayers() {
    LOAD ROSTER
 ===================================================== */
 async function loadRoster() {
+    const response =
+        await fetch(
+            "data/roster.json?ts=" +
+            Date.now()
+        );
+    if (
+        !response.ok
+    ) {
+        throw new Error(
+            "roster.json could not be loaded."
+        );
+    }
+    const data =
+        await response.json();
+    allPlayers =
+        Array.isArray(
+            data.players
+        )
+            ? data.players
+            : [];
+}
+/* =====================================================
+   LOAD STATS
+===================================================== */
+async function loadPlayerStats() {
+    const response =
+        await fetch(
+            "data/player_stats.json?ts=" +
+            Date.now()
+        );
+    if (
+        !response.ok
+    ) {
+        throw new Error(
+            "player_stats.json could not be loaded."
+        );
+    }
+    const data =
+        await response.json();
+    playerStats =
+        data.players &&
+        typeof data.players === "object"
+            ? data.players
+            : {};
+}
+/* =====================================================
+   INITIALIZE
+===================================================== */
+async function initialize() {
     const container =
         document.getElementById(
             "player-container"
         );
     try {
-        const response =
-            await fetch(
-                "data/roster.json?ts=" +
-                Date.now()
-            );
-        if (
-            !response.ok
-        ) {
-            throw new Error(
-                "roster.json could not be loaded."
-            );
-        }
-        const data =
-            await response.json();
-        allPlayers =
-            Array.isArray(
-                data.players
-            )
-                ? data.players
-                : [];
+        await Promise.all([
+            loadRoster(),
+            loadPlayerStats()
+        ]);
         renderPlayers();
     }
     catch(error) {
@@ -1513,6 +1658,10 @@ async function loadRoster() {
         container.innerHTML = `
             <div class="message">
                 Player data could not be loaded.
+                <br>
+                Please check
+                roster.json and
+                player_stats.json.
             </div>
         `;
     }
@@ -1539,7 +1688,7 @@ document
 /* =====================================================
    START
 ===================================================== */
-loadRoster();
+initialize();
 </script>
 </body>
 </html>
