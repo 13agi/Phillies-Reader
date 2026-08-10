@@ -29,7 +29,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -38,7 +37,6 @@ html,
 body {
     width: 100%;
     min-height: 100%;
-
     background: var(--navy);
 }
 
@@ -75,46 +73,76 @@ body {
 
     height: 68px;
 
-    display: flex;
+    overflow: hidden;
 
-    align-items: center;
-
-    justify-content: flex-start;
-
-    padding-left: 20px;
-
-    background: var(--red);
+    background:
+        linear-gradient(
+            135deg,
+            #e31937 0%,
+            #d91532 55%,
+            #c8102e 100%
+        );
 
     box-shadow:
-        0 4px 14px
-        rgba(0,0,0,0.20);
+        0 5px 18px
+        rgba(0,0,0,0.25);
 }
 
 
 /* =========================
-   PHILADELPHIA PHILLIES
+   HEADER DIAGONAL
 ========================= */
 
-.logo {
+.header::before {
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    content: "";
 
-    font-size: 25px;
+    position: absolute;
 
-    font-weight: 700;
+    top: -90px;
+    right: -45px;
 
-    font-style: normal;
+    width: 210px;
+    height: 210px;
 
-    letter-spacing: 0.2px;
+    transform: rotate(25deg);
 
-    line-height: 1;
+    background:
+        rgba(255,255,255,0.055);
 
-    color: var(--white);
+    pointer-events: none;
+}
 
-    white-space: nowrap;
+
+/* =========================
+   HEADER SECOND LAYER
+========================= */
+
+.header::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: -20%;
+    right: -20%;
+
+    bottom: 0;
+
+    height: 3px;
+
+    transform: skewX(-25deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255,255,255,0.28) 25%,
+            rgba(255,255,255,0.08) 55%,
+            transparent 100%
+        );
+
+    pointer-events: none;
 }
 
 
@@ -213,8 +241,7 @@ main {
 
 .nav-item:active {
 
-    transform:
-        scale(.94);
+    transform: scale(.94);
 }
 
 
@@ -280,27 +307,14 @@ main {
 @media (max-width: 360px) {
 
     .header {
-
         height: 64px;
-
-        padding-left: 16px;
     }
 
-
     main {
-
         padding-top: 64px;
     }
 
-
-    .logo {
-
-        font-size: 22px;
-    }
-
-
     .nav-label {
-
         font-size: 9px;
     }
 
@@ -314,35 +328,16 @@ main {
 <body>
 
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
-
-    <div class="logo">
-        Philadelphia Phillies
-    </div>
-
 </header>
 
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main>
 </main>
 
 
-<!-- =========================
-     BOTTOM NAV
-========================= -->
-
 <nav class="bottom-nav">
 
-
-    <!-- SCHEDULE -->
 
     <a href="#" class="nav-item">
 
@@ -357,8 +352,6 @@ main {
     </a>
 
 
-    <!-- SCORE -->
-
     <a href="#" class="nav-item">
 
         <div class="nav-icon">
@@ -371,8 +364,6 @@ main {
 
     </a>
 
-
-    <!-- HOME -->
 
     <a href="#" class="nav-item active">
 
@@ -387,8 +378,6 @@ main {
     </a>
 
 
-    <!-- PLAYER -->
-
     <a href="#" class="nav-item">
 
         <div class="nav-icon">
@@ -401,8 +390,6 @@ main {
 
     </a>
 
-
-    <!-- STATS -->
 
     <a href="#" class="nav-item">
 
