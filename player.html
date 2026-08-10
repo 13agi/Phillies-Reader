@@ -8,6 +8,9 @@
                viewport-fit=cover">
 <title>PLAYER | PHILLIES</title>
 <style>
+/* =====================================================
+   COLOR
+===================================================== */
 :root {
     --navy: #07152b;
     --navy-light: #0b1c38;
@@ -17,20 +20,26 @@
     --yellow: #f4c430;
     --gray: #64748b;
 }
+/* =====================================================
+   RESET
+===================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+        transparent;
 }
 html,
 body {
     width: 100%;
     min-height: 100%;
-    background: var(--navy);
+    background:
+        var(--navy);
 }
 body {
-    color: var(--white);
+    color:
+        var(--white);
     font-family:
         Arial,
         Helvetica,
@@ -116,19 +125,19 @@ main {
 .player-title {
     font-size: 27px;
     font-weight: 800;
-    letter-spacing: .3px;
     line-height: 1.1;
     margin-bottom: 5px;
 }
 .player-subtitle {
-    color: var(--muted);
+    color:
+        var(--muted);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.3px;
     margin-bottom: 20px;
 }
 /* =====================================================
-   FILTER
+   FILTER AREA
 ===================================================== */
 .filter-area {
     width: 100%;
@@ -149,7 +158,8 @@ main {
         rgba(0,0,0,0.12);
 }
 .filter-area::before {
-    content: "FILTER";
+    content:
+        "FILTER";
     display: block;
     margin:
         0 2px 11px;
@@ -191,7 +201,8 @@ main {
     border-radius: 11px;
     background:
         rgba(7,21,43,0.82);
-    color: var(--white);
+    color:
+        var(--white);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: .45px;
@@ -217,10 +228,6 @@ main {
         6px 6px;
     background-repeat:
         no-repeat;
-}
-.filter-select:focus {
-    border-color:
-        rgba(227,25,55,.65);
 }
 .filter-select option {
     background:
@@ -297,12 +304,6 @@ main {
 .player-card.open {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.075),
-            rgba(255,255,255,0.035)
-        );
 }
 /* =====================================================
    STATUS LINE
@@ -316,13 +317,16 @@ main {
     width: 4px;
 }
 .player-card.active::after {
-    background: var(--red);
+    background:
+        var(--red);
 }
 .player-card.il::after {
-    background: var(--yellow);
+    background:
+        var(--yellow);
 }
 .player-card.outside::after {
-    background: var(--gray);
+    background:
+        var(--gray);
 }
 /* =====================================================
    NUMBER
@@ -410,17 +414,23 @@ main {
     letter-spacing: .8px;
     line-height: 1;
 }
-.player-card.active .player-status {
-    color: var(--red);
+.player-card.active
+.player-status {
+    color:
+        var(--red);
 }
-.player-card.il .player-status {
-    color: var(--yellow);
+.player-card.il
+.player-status {
+    color:
+        var(--yellow);
 }
-.player-card.outside .player-status {
-    color: #94a3b8;
+.player-card.outside
+.player-status {
+    color:
+        #94a3b8;
 }
 /* =====================================================
-   EXPAND MARK
+   EXPAND
 ===================================================== */
 .expand-mark {
     width: 22px;
@@ -512,13 +522,12 @@ main {
 ===================================================== */
 .stat-grid {
     display: grid;
-    /*
-       6項目でも7項目でも
-       スマホで無理なく収まるようにする
-    */
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
     gap: 6px;
+}
+.stat-grid.second-row {
+    margin-top: 6px;
 }
 .stat-box {
     min-width: 0;
@@ -551,27 +560,6 @@ main {
     letter-spacing: .55px;
     color:
         rgba(255,255,255,.38);
-}
-/* =====================================================
-   SECOND ROW
-===================================================== */
-.stat-grid.second-row {
-    margin-top: 6px;
-}
-/* =====================================================
-   NO DATA
-===================================================== */
-.no-stats {
-    padding:
-        14px 4px;
-    text-align:
-        center;
-    color:
-        rgba(255,255,255,.40);
-    font-size:
-        11px;
-    line-height:
-        1.6;
 }
 /* =====================================================
    MESSAGE
@@ -685,10 +673,6 @@ main {
     .player-name {
         font-size: 14px;
     }
-    .stat-grid {
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-    }
     .stat-value {
         font-size: 12px;
     }
@@ -708,6 +692,9 @@ main {
 <p class="player-subtitle">
     PHILADELPHIA PHILLIES
 </p>
+<!-- =================================================
+     FILTER
+================================================== -->
 <div class="filter-area">
     <div class="filter-block">
         <div class="filter-caption">
@@ -736,8 +723,7 @@ main {
             </option>
         </select>
     </div>
-    <div
-        class="filter-block roster-filter-block">
+    <div class="filter-block roster-filter-block">
         <div class="filter-caption">
             ROSTER
         </div>
@@ -766,6 +752,9 @@ main {
 </div>
 </section>
 </main>
+<!-- =================================================
+     BOTTOM NAV
+================================================== -->
 <nav class="bottom-nav">
 <a
     href="schedule.html"
@@ -820,13 +809,13 @@ main {
 </nav>
 <script>
 /* =====================================================
-   GLOBAL DATA
+   DATA
 ===================================================== */
 let allPlayers = [];
 let playerStats = {};
 let openedPlayerId = null;
 /* =====================================================
-   POSITION
+   POSITION GROUP
 ===================================================== */
 function getPositionGroup(player) {
     const position =
@@ -843,13 +832,17 @@ function getPositionGroup(player) {
         position === "RP" ||
         position === "RHP" ||
         position === "LHP" ||
-        positionName.includes("pitcher")
+        positionName.includes(
+            "pitcher"
+        )
     ) {
         return "P";
     }
     if (
         position === "C" ||
-        positionName.includes("catcher")
+        positionName.includes(
+            "catcher"
+        )
     ) {
         return "C";
     }
@@ -860,11 +853,21 @@ function getPositionGroup(player) {
             "3B",
             "SS"
         ].includes(position) ||
-        positionName.includes("infielder") ||
-        positionName.includes("first baseman") ||
-        positionName.includes("second baseman") ||
-        positionName.includes("third baseman") ||
-        positionName.includes("shortstop")
+        positionName.includes(
+            "infielder"
+        ) ||
+        positionName.includes(
+            "first baseman"
+        ) ||
+        positionName.includes(
+            "second baseman"
+        ) ||
+        positionName.includes(
+            "third baseman"
+        ) ||
+        positionName.includes(
+            "shortstop"
+        )
     ) {
         return "IF";
     }
@@ -875,20 +878,24 @@ function getPositionGroup(player) {
             "RF",
             "OF"
         ].includes(position) ||
-        positionName.includes("outfielder")
+        positionName.includes(
+            "outfielder"
+        )
     ) {
         return "OF";
     }
     if (
         position === "DH" ||
-        positionName.includes("designated")
+        positionName.includes(
+            "designated"
+        )
     ) {
         return "DH";
     }
     return "OTHER";
 }
 /* =====================================================
-   SORT
+   POSITION ORDER
 ===================================================== */
 function positionOrder(player) {
     const group =
@@ -903,6 +910,9 @@ function positionOrder(player) {
     };
     return order[group] || 99;
 }
+/* =====================================================
+   NUMBER
+===================================================== */
 function getNumber(player) {
     const number =
         parseInt(
@@ -914,7 +924,7 @@ function getNumber(player) {
         : number;
 }
 /* =====================================================
-   ROSTER STATUS
+   STATUS
 ===================================================== */
 function getStatusClass(player) {
     const status =
@@ -974,7 +984,7 @@ function formatStat(
     return String(value);
 }
 /* =====================================================
-   FIND PLAYER STATS
+   FIND STATS
 ===================================================== */
 function findPlayerStats(player) {
     const id =
@@ -992,9 +1002,401 @@ function findPlayerStats(player) {
     );
 }
 /* =====================================================
-   STATS CARD
+   BATTING STATS
+   G / H / HR / RBI
+   PA / AVG / OBP / OPS
 ===================================================== */
-function createStatsCard(player) {
+function createBattingStats(
+    card,
+    stats
+) {
+    const batting =
+        stats.batting || {};
+    const games =
+        batting.games ??
+        batting.G ??
+        batting.gamesPlayed;
+    const hits =
+        batting.hits ??
+        batting.H;
+    const homeRuns =
+        batting.homeRuns ??
+        batting.HR ??
+        batting.home_runs;
+    const rbi =
+        batting.rbi ??
+        batting.RBI;
+    const plateAppearances =
+        batting.plateAppearances ??
+        batting.PA ??
+        batting.plate_appearances;
+    const avg =
+        batting.avg ??
+        batting.AVG ??
+        batting.battingAverage;
+    const obp =
+        batting.obp ??
+        batting.OBP ??
+        batting.onBasePercentage;
+    const ops =
+        batting.ops ??
+        batting.OPS;
+    card.innerHTML = `
+        <div class="stats-header">
+            <div class="stats-title">
+                BATTING
+            </div>
+            <div class="stats-period">
+                2026 SEASON
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(games)}
+                </span>
+                <span class="stat-label">
+                    G
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(hits)}
+                </span>
+                <span class="stat-label">
+                    H
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(homeRuns)}
+                </span>
+                <span class="stat-label">
+                    HR
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(rbi)}
+                </span>
+                <span class="stat-label">
+                    RBI
+                </span>
+            </div>
+        </div>
+        <div class="stat-grid second-row">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        plateAppearances
+                    )}
+                </span>
+                <span class="stat-label">
+                    PA
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        avg,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    AVG
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        obp,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    OBP
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        ops,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    OPS
+                </span>
+            </div>
+        </div>
+    `;
+}
+/* =====================================================
+   PITCHING STATS
+   G / W-L / IP / K
+   ERA / WHIP / K% / BB%
+===================================================== */
+function createPitchingStats(
+    card,
+    stats
+) {
+    const pitching =
+        stats.pitching || {};
+    /* =========================
+       BASIC
+    ========================== */
+    const games =
+        pitching.games ??
+        pitching.G ??
+        pitching.gamesPlayed;
+    const wins =
+        pitching.wins ??
+        pitching.W;
+    const losses =
+        pitching.losses ??
+        pitching.L;
+    const inningsPitched =
+        pitching.inningsPitched ??
+        pitching.IP ??
+        pitching.innings;
+    const strikeouts =
+        pitching.strikeouts ??
+        pitching.SO ??
+        pitching.K ??
+        pitching.strikeOuts;
+    const era =
+        pitching.era ??
+        pitching.ERA;
+    const whip =
+        pitching.whip ??
+        pitching.WHIP;
+    const walks =
+        pitching.walks ??
+        pitching.BB ??
+        pitching.baseOnBalls;
+    /* =========================
+       BATTERS FACED
+    ========================== */
+    const battersFaced =
+        pitching.battersFaced ??
+        pitching.BF ??
+        pitching.PA ??
+        pitching.plateAppearances ??
+        pitching.plate_appearances;
+    /* =========================
+       K%
+    ========================== */
+    let kPercent =
+        pitching.kPercent ??
+        pitching.KPercent ??
+        pitching.KPct ??
+        pitching.KPercentage;
+    if (
+        (
+            kPercent === null ||
+            kPercent === undefined
+        ) &&
+        strikeouts !== null &&
+        strikeouts !== undefined &&
+        battersFaced !== null &&
+        battersFaced !== undefined
+    ) {
+        const so =
+            parseFloat(
+                strikeouts
+            );
+        const bf =
+            parseFloat(
+                battersFaced
+            );
+        if (
+            !Number.isNaN(so) &&
+            !Number.isNaN(bf) &&
+            bf > 0
+        ) {
+            kPercent =
+                (
+                    so / bf
+                ) * 100;
+        }
+    }
+    /* =========================
+       BB%
+    ========================== */
+    let bbPercent =
+        pitching.bbPercent ??
+        pitching.BBPercent ??
+        pitching.BBPct ??
+        pitching.BBPercentage;
+    if (
+        (
+            bbPercent === null ||
+            bbPercent === undefined
+        ) &&
+        walks !== null &&
+        walks !== undefined &&
+        battersFaced !== null &&
+        battersFaced !== undefined
+    ) {
+        const bb =
+            parseFloat(
+                walks
+            );
+        const bf =
+            parseFloat(
+                battersFaced
+            );
+        if (
+            !Number.isNaN(bb) &&
+            !Number.isNaN(bf) &&
+            bf > 0
+        ) {
+            bbPercent =
+                (
+                    bb / bf
+                ) * 100;
+        }
+    }
+    /* =========================
+       DISPLAY
+    ========================== */
+    const kDisplay =
+        (
+            kPercent !== null &&
+            kPercent !== undefined
+        )
+            ? Number(
+                kPercent
+            ).toFixed(1) + "%"
+            : "—";
+    const bbDisplay =
+        (
+            bbPercent !== null &&
+            bbPercent !== undefined
+        )
+            ? Number(
+                bbPercent
+            ).toFixed(1) + "%"
+            : "—";
+    /* =========================
+       W-L
+    ========================== */
+    let record = "—";
+    if (
+        wins !== null &&
+        wins !== undefined &&
+        losses !== null &&
+        losses !== undefined
+    ) {
+        record =
+            String(wins) +
+            "-" +
+            String(losses);
+    }
+    /* =========================
+       CARD
+    ========================== */
+    card.innerHTML = `
+        <div class="stats-header">
+            <div class="stats-title">
+                PITCHING
+            </div>
+            <div class="stats-period">
+                2026 SEASON
+            </div>
+        </div>
+        <!-- =====================
+             ROW 1
+        ====================== -->
+        <div class="stat-grid">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(games)}
+                </span>
+                <span class="stat-label">
+                    G
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${record}
+                </span>
+                <span class="stat-label">
+                    W-L
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        inningsPitched
+                    )}
+                </span>
+                <span class="stat-label">
+                    IP
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        strikeouts
+                    )}
+                </span>
+                <span class="stat-label">
+                    K
+                </span>
+            </div>
+        </div>
+        <!-- =====================
+             ROW 2
+        ====================== -->
+        <div class="stat-grid second-row">
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        era,
+                        2
+                    )}
+                </span>
+                <span class="stat-label">
+                    ERA
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        whip,
+                        2
+                    )}
+                </span>
+                <span class="stat-label">
+                    WHIP
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${kDisplay}
+                </span>
+                <span class="stat-label">
+                    K%
+                </span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${bbDisplay}
+                </span>
+                <span class="stat-label">
+                    BB%
+                </span>
+            </div>
+        </div>
+    `;
+}
+/* =====================================================
+   CREATE STATS CARD
+===================================================== */
+function createStatsCard(
+    player
+) {
     const card =
         document.createElement(
             "div"
@@ -1013,248 +1415,31 @@ function createStatsCard(player) {
                     2026 SEASON
                 </div>
             </div>
-            <div class="no-stats">
+            <div class="message">
                 No statistics available yet.
             </div>
         `;
         return card;
     }
     const group =
-        getPositionGroup(player);
-    if (group === "P") {
+        getPositionGroup(
+            player
+        );
+    if (
+        group === "P"
+    ) {
         createPitchingStats(
             card,
             stats
         );
-    } else {
+    }
+    else {
         createBattingStats(
             card,
             stats
         );
     }
     return card;
-}
-/* =====================================================
-   BATTING
-   G / PA / H / HR / RBI / AVG / OPS
-===================================================== */
-function createBattingStats(
-    card,
-    stats
-) {
-    const batting =
-        stats.batting || {};
-    card.innerHTML = `
-        <div class="stats-header">
-            <div class="stats-title">
-                BATTING
-            </div>
-            <div class="stats-period">
-                2026 SEASON
-            </div>
-        </div>
-        <div class="stat-grid">
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.games
-                    )}
-                </span>
-                <span class="stat-label">
-                    G
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.plateAppearances
-                    )}
-                </span>
-                <span class="stat-label">
-                    PA
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.hits
-                    )}
-                </span>
-                <span class="stat-label">
-                    H
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.homeRuns
-                    )}
-                </span>
-                <span class="stat-label">
-                    HR
-                </span>
-            </div>
-        </div>
-        <div class="stat-grid second-row">
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.rbi
-                    )}
-                </span>
-                <span class="stat-label">
-                    RBI
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.avg,
-                        3
-                    )}
-                </span>
-                <span class="stat-label">
-                    AVG
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        batting.ops,
-                        3
-                    )}
-                </span>
-                <span class="stat-label">
-                    OPS
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    —
-                </span>
-                <span class="stat-label">
-                    —
-                </span>
-            </div>
-        </div>
-    `;
-}
-/* =====================================================
-   PITCHING
-   G / W-L / ERA / IP / SO / WHIP
-===================================================== */
-function createPitchingStats(
-    card,
-    stats
-) {
-    const pitching =
-        stats.pitching || {};
-    const wins =
-        pitching.wins;
-    const losses =
-        pitching.losses;
-    let record = "—";
-    if (
-        wins !== null &&
-        wins !== undefined &&
-        losses !== null &&
-        losses !== undefined
-    ) {
-        record =
-            String(wins) +
-            "-" +
-            String(losses);
-    }
-    card.innerHTML = `
-        <div class="stats-header">
-            <div class="stats-title">
-                PITCHING
-            </div>
-            <div class="stats-period">
-                2026 SEASON
-            </div>
-        </div>
-        <div class="stat-grid">
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        pitching.games
-                    )}
-                </span>
-                <span class="stat-label">
-                    G
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${record}
-                </span>
-                <span class="stat-label">
-                    W-L
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        pitching.era,
-                        2
-                    )}
-                </span>
-                <span class="stat-label">
-                    ERA
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        pitching.inningsPitched
-                    )}
-                </span>
-                <span class="stat-label">
-                    IP
-                </span>
-            </div>
-        </div>
-        <div class="stat-grid second-row">
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        pitching.strikeouts
-                    )}
-                </span>
-                <span class="stat-label">
-                    SO
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
-                        pitching.whip,
-                        2
-                    )}
-                </span>
-                <span class="stat-label">
-                    WHIP
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    —
-                </span>
-                <span class="stat-label">
-                    —
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    —
-                </span>
-                <span class="stat-label">
-                    —
-                </span>
-            </div>
-        </div>
-    `;
 }
 /* =====================================================
    TOGGLE
@@ -1339,7 +1524,9 @@ function createPlayerWrapper(
         );
     card.className =
         "player-card " +
-        getStatusClass(player);
+        getStatusClass(
+            player
+        );
     const number =
         document.createElement(
             "div"
@@ -1386,9 +1573,15 @@ function createPlayerWrapper(
     status.className =
         "player-status";
     status.textContent =
-        getStatusText(player);
-    info.appendChild(name);
-    info.appendChild(status);
+        getStatusText(
+            player
+        );
+    info.appendChild(
+        name
+    );
+    info.appendChild(
+        status
+    );
     const arrow =
         document.createElement(
             "div"
@@ -1397,15 +1590,31 @@ function createPlayerWrapper(
         "expand-mark";
     arrow.textContent =
         "⌄";
-    card.appendChild(number);
-    card.appendChild(bt);
-    card.appendChild(position);
-    card.appendChild(info);
-    card.appendChild(arrow);
+    card.appendChild(
+        number
+    );
+    card.appendChild(
+        bt
+    );
+    card.appendChild(
+        position
+    );
+    card.appendChild(
+        info
+    );
+    card.appendChild(
+        arrow
+    );
     const statsCard =
-        createStatsCard(player);
-    wrapper.appendChild(card);
-    wrapper.appendChild(statsCard);
+        createStatsCard(
+            player
+        );
+    wrapper.appendChild(
+        card
+    );
+    wrapper.appendChild(
+        statsCard
+    );
     card.addEventListener(
         "click",
         () => {
@@ -1492,27 +1701,33 @@ function renderPlayers() {
     }
     const groups = {
         P: {
-            title: "PITCHERS",
+            title:
+                "PITCHERS",
             players: []
         },
         C: {
-            title: "CATCHERS",
+            title:
+                "CATCHERS",
             players: []
         },
         IF: {
-            title: "INFIELDERS",
+            title:
+                "INFIELDERS",
             players: []
         },
         OF: {
-            title: "OUTFIELDERS",
+            title:
+                "OUTFIELDERS",
             players: []
         },
         DH: {
-            title: "DESIGNATED HITTERS",
+            title:
+                "DESIGNATED HITTERS",
             players: []
         },
         OTHER: {
-            title: "OTHER",
+            title:
+                "OTHER",
             players: []
         }
     };
@@ -1527,7 +1742,9 @@ function renderPlayers() {
             ) {
                 groups[group]
                     .players
-                    .push(player);
+                    .push(
+                        player
+                    );
             }
         }
     );
@@ -1614,7 +1831,7 @@ async function loadRoster() {
             : [];
 }
 /* =====================================================
-   LOAD STATS
+   LOAD PLAYER STATS
 ===================================================== */
 async function loadPlayerStats() {
     const response =
@@ -1653,7 +1870,9 @@ async function initialize() {
         renderPlayers();
     }
     catch(error) {
-        console.error(error);
+        console.error(
+            error
+        );
         container.innerHTML = `
             <div class="message">
                 Player data could not be loaded.
