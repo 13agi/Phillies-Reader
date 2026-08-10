@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PHILLIES</title>
-
 
 <style>
 
@@ -19,15 +13,10 @@
 ========================= */
 
 :root {
-
     --red: #E31837;
-
     --navy: #002D72;
-
     --navy-dark: #001F4F;
-
     --white: #FFFFFF;
-
 }
 
 
@@ -41,16 +30,12 @@
     box-sizing: border-box;
 }
 
-
 body {
-
     min-height: 100vh;
 
-    background:
-        var(--navy);
+    background: var(--navy);
 
-    color:
-        var(--white);
+    color: var(--white);
 
     font-family:
         -apple-system,
@@ -60,7 +45,6 @@ body {
         sans-serif;
 
     padding-bottom: 76px;
-
 }
 
 
@@ -69,19 +53,19 @@ body {
 ========================= */
 
 .header {
-
     width: 100%;
 
     height: 72px;
 
-    background:
-        var(--red);
-
+    background: var(--red);
 }
 
 
-.header-inner {
+/* =========================
+   HEADER INNER
+========================= */
 
+.header-inner {
     width: 100%;
 
     max-width: 1200px;
@@ -90,15 +74,13 @@ body {
 
     margin: 0 auto;
 
-    padding:
-        0 24px;
+    padding: 0 24px;
 
     display: flex;
 
     align-items: center;
 
     justify-content: space-between;
-
 }
 
 
@@ -107,51 +89,42 @@ body {
 ========================= */
 
 .logo {
-
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    color:
-        white;
+    color: white;
 
     text-decoration: none;
-
 }
 
 
 .logo-text {
-
     font-size: 24px;
 
     font-weight: 900;
 
     letter-spacing: 1px;
-
 }
 
 
 /* =========================
-   DESKTOP NAV
+   NAV
 ========================= */
 
 .nav {
-
     display: flex;
 
     align-items: center;
 
     gap: 4px;
-
 }
 
 
 .nav a {
-
-    color:
-        white;
+    color: white;
 
     text-decoration: none;
 
@@ -159,20 +132,15 @@ body {
 
     font-weight: 700;
 
-    padding:
-        10px 14px;
+    padding: 10px 14px;
 
-    border-radius:
-        6px;
-
+    border-radius: 6px;
 }
 
 
 .nav a:hover {
-
     background:
         rgba(0,0,0,0.12);
-
 }
 
 
@@ -181,7 +149,6 @@ body {
 ========================= */
 
 .menu {
-
     display: none;
 
     width: 42px;
@@ -193,8 +160,7 @@ body {
     background:
         rgba(0,0,0,0.12);
 
-    border-radius:
-        7px;
+    border-radius: 7px;
 
     align-items: center;
 
@@ -203,39 +169,33 @@ body {
     flex-direction: column;
 
     gap: 5px;
-
 }
 
 
 .menu span {
-
     width: 20px;
 
     height: 2px;
 
-    background:
-        white;
-
+    background: white;
 }
 
 
 /* =========================
-   MAIN
+   EMPTY NAVY AREA
 ========================= */
 
 main {
-
     min-height:
         calc(100vh - 72px);
 
     background:
         var(--navy);
-
 }
 
 
 /* =========================
-   BOTTOM TAB BAR
+   BOTTOM TABS
 ========================= */
 
 .bottom-tabs {
@@ -253,7 +213,7 @@ main {
 
     border-top:
         1px solid
-        rgba(255,255,255,0.14);
+        rgba(255,255,255,0.12);
 
     display: grid;
 
@@ -261,7 +221,6 @@ main {
         repeat(5, 1fr);
 
     z-index: 1000;
-
 }
 
 
@@ -282,8 +241,7 @@ main {
     text-decoration: none;
 
     color:
-        rgba(255,255,255,0.58);
-
+        rgba(255,255,255,0.65);
 }
 
 
@@ -299,20 +257,18 @@ main {
 
     justify-content: center;
 
-    font-size: 19px;
-
+    font-size: 20px;
 }
 
 
 /* =========================
-   HOME TAB
+   HOME
 ========================= */
 
 .home-tab {
 
     color:
         var(--white);
-
 }
 
 
@@ -324,9 +280,9 @@ main {
 
     position: absolute;
 
-    top: -25px;
-
     left: 50%;
+
+    top: -25px;
 
     width: 52px;
 
@@ -350,12 +306,11 @@ main {
             50% 100%,
             0 58%
         );
-
 }
 
 
 /* =========================
-   HOME CONTENT
+   HOME TEXT
 ========================= */
 
 .home-content {
@@ -369,40 +324,11 @@ main {
     color:
         var(--white);
 
-    font-size: 9px;
+    font-size: 8px;
 
     font-weight: 900;
 
-    letter-spacing:
-        0.8px;
-
-}
-
-
-/* =========================
-   HOME BASE LINE
-========================= */
-
-.home-tab::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: 50%;
-
-    width: 52px;
-
-    height: 1px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        rgba(255,255,255,0.25);
-
+    letter-spacing: 0.5px;
 }
 
 
@@ -412,75 +338,39 @@ main {
 
 @media (max-width: 700px) {
 
-
     .header {
-
         height: 64px;
-
     }
-
 
     .header-inner {
-
-        padding:
-            0 18px;
-
+        padding: 0 18px;
     }
-
 
     .logo-text {
-
         font-size: 21px;
-
     }
-
 
     .nav {
-
         display: none;
-
     }
-
 
     .menu {
-
         display: flex;
-
     }
-
 
     main {
-
         min-height:
             calc(100vh - 64px);
-
     }
-
 
     .bottom-tabs {
-
         height: 72px;
-
     }
-
 
     .home-base {
-
         width: 50px;
-
         height: 50px;
-
         top: -24px;
-
-    }
-
-
-    .home-content {
-
-        margin-top: 17px;
-
-        font-size: 8px;
-
     }
 
 }
@@ -497,7 +387,6 @@ main {
         max-width: 520px;
 
         left: 50%;
-
         right: auto;
 
         transform:
@@ -507,34 +396,25 @@ main {
 
         border:
             1px solid
-            rgba(255,255,255,0.14);
+            rgba(255,255,255,0.12);
 
         border-radius:
             12px;
-
-        overflow:
-            visible;
 
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
 
     <div class="header-inner">
-
 
         <a href="#" class="logo">
 
@@ -566,10 +446,7 @@ main {
         </nav>
 
 
-        <button
-            class="menu"
-            aria-label="menu"
-        >
+        <button class="menu" aria-label="menu">
 
             <span></span>
             <span></span>
@@ -577,15 +454,10 @@ main {
 
         </button>
 
-
     </div>
 
 </header>
 
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main>
 </main>
@@ -600,10 +472,7 @@ main {
 
     <!-- 左① -->
 
-    <a
-        href="#"
-        class="tab"
-    >
+    <a href="#" class="tab">
 
         <span class="tab-icon">
             ○
@@ -614,10 +483,7 @@ main {
 
     <!-- 左② -->
 
-    <a
-        href="#"
-        class="tab"
-    >
+    <a href="#" class="tab">
 
         <span class="tab-icon">
             ○
@@ -628,10 +494,7 @@ main {
 
     <!-- HOME -->
 
-    <a
-        href="#"
-        class="tab home-tab"
-    >
+    <a href="#" class="tab home-tab">
 
         <span class="home-base"></span>
 
@@ -644,10 +507,7 @@ main {
 
     <!-- 右① -->
 
-    <a
-        href="#"
-        class="tab"
-    >
+    <a href="#" class="tab">
 
         <span class="tab-icon">
             ○
@@ -658,10 +518,7 @@ main {
 
     <!-- 右② -->
 
-    <a
-        href="#"
-        class="tab"
-    >
+    <a href="#" class="tab">
 
         <span class="tab-icon">
             ○
