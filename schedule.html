@@ -2,11 +2,29 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               viewport-fit=cover">
+<meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1.0,
+             viewport-fit=cover"
+>
 <title>Schedule</title>
+<!-- =========================================================
+     FONT
+========================================================= -->
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 <style>
 /* =========================================================
    ROOT
@@ -59,7 +77,7 @@ body {
 }
 /* =========================================================
    HEADER
-   HOME / PLAYER と統一
+   INDEX / PLAYER と統一
 ========================================================= */
 .header {
     position: fixed;
@@ -250,7 +268,8 @@ main {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 4px;
+    width:
+        4px;
     background:
         rgba(255,255,255,.10);
 }
@@ -549,7 +568,6 @@ main {
 }
 /* =========================================================
    DETAIL
-   タップ時に展開
 ========================================================= */
 .game-detail {
     display:
@@ -565,9 +583,6 @@ main {
     display:
         block;
 }
-/* =========================================================
-   DETAIL SECTION
-========================================================= */
 .detail-section {
     padding:
         13px 15px;
@@ -670,7 +685,8 @@ main {
 }
 /* =========================================================
    BOTTOM NAV
-   順番固定
+   INDEX / PLAYER と完全統一
+   並び順固定
 ========================================================= */
 .bottom-nav {
     position:
@@ -732,17 +748,28 @@ main {
         13px;
     cursor:
         pointer;
+    transition:
+        color .15s ease,
+        background .15s ease,
+        transform .15s ease;
 }
 .nav-item:active {
     transform:
         scale(.94);
 }
+/* =========================================================
+   ACTIVE
+========================================================= */
 .nav-item.active {
     color:
-        var(--white);
+        #ffffff;
     background:
         rgba(227,25,55,.13);
 }
+/* =========================================================
+   NAV ICON
+   INDEX / PLAYER と同一
+========================================================= */
 .nav-icon {
     width:
         25px;
@@ -758,19 +785,30 @@ main {
         18px;
     font-weight:
         700;
+    line-height:
+        1;
 }
 .nav-item.active
 .nav-icon {
     color:
-        var(--red);
+        #e31937;
 }
+/* =========================================================
+   NAV LABEL
+   INDEX / PLAYER と同一
+========================================================= */
 .nav-label {
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
-        11px;
+        12px;
     font-weight:
         700;
+    line-height:
+        1;
     letter-spacing:
-        .7px;
+        .8px;
 }
 /* =========================================================
    EMPTY
@@ -787,6 +825,7 @@ main {
 }
 /* =========================================================
    SMALL IPHONE
+   ヘッダーサイズは変更しない
 ========================================================= */
 @media (
     max-width: 360px
@@ -842,6 +881,9 @@ main {
 ===================================================== -->
 <main>
 <section class="page">
+    <!-- =================================================
+         PAGE TITLE
+    ================================================== -->
     <div class="page-heading">
         <h1>
             Schedule
@@ -851,19 +893,21 @@ main {
         </p>
     </div>
     <!-- =================================================
-         MONTH
+         MONTH SELECTOR
     ================================================== -->
     <div class="month-selector">
         <button
             type="button"
             class="month-button"
-            id="prev-month">
+            id="prev-month"
+        >
             ‹
         </button>
         <div class="month-center">
             <span
                 class="month"
-                id="month-name">
+                id="month-name"
+            >
                 AUGUST 2026
             </span>
             <span class="month-sub">
@@ -873,27 +917,30 @@ main {
         <button
             type="button"
             class="month-button"
-            id="next-month">
+            id="next-month"
+        >
             ›
         </button>
     </div>
     <!-- =================================================
-         GAME LIST
+         SCHEDULE LIST
     ================================================== -->
     <div
         class="schedule-list"
-        id="schedule-list">
-    </div>
+        id="schedule-list"
+    ></div>
 </section>
 </main>
 <!-- =====================================================
-     BOTTOM NAV
-     順番を変更しない
+     BOTTOM NAVIGATION
+     順番固定
 ===================================================== -->
 <nav class="bottom-nav">
+    <!-- 1. SCHEDULE -->
     <a
         href="schedule.html"
-        class="nav-item active">
+        class="nav-item active"
+    >
         <div class="nav-icon">
             ▣
         </div>
@@ -901,9 +948,11 @@ main {
             SCHEDULE
         </div>
     </a>
+    <!-- 2. SCORE -->
     <a
         href="score.html"
-        class="nav-item">
+        class="nav-item"
+    >
         <div class="nav-icon">
             ●
         </div>
@@ -911,9 +960,11 @@ main {
             SCORE
         </div>
     </a>
+    <!-- 3. HOME -->
     <a
         href="index.html"
-        class="nav-item">
+        class="nav-item"
+    >
         <div class="nav-icon">
             ⌂
         </div>
@@ -921,9 +972,11 @@ main {
             HOME
         </div>
     </a>
+    <!-- 4. PLAYER -->
     <a
         href="player.html"
-        class="nav-item">
+        class="nav-item"
+    >
         <div class="nav-icon">
             ♟
         </div>
@@ -931,9 +984,11 @@ main {
             PLAYER
         </div>
     </a>
+    <!-- 5. STATS -->
     <a
         href="stats.html"
-        class="nav-item">
+        class="nav-item"
+    >
         <div class="nav-icon">
             ▥
         </div>
@@ -971,10 +1026,12 @@ const nextButton =
    STATE
 ========================================================= */
 let scheduleData = [];
-let currentMonth =
-    new Date().getMonth();
+let currentDate =
+    new Date();
 let currentYear =
-    2026;
+    currentDate.getFullYear();
+let currentMonth =
+    currentDate.getMonth();
 /* =========================================================
    MONTH NAMES
 ========================================================= */
@@ -1005,154 +1062,11 @@ const weekdays = [
     "SAT"
 ];
 /* =========================================================
-   LOAD JSON
-========================================================= */
-async function loadSchedule() {
-    try {
-        const response =
-            await fetch(
-                DATA_URL,
-                {
-                    cache:
-                        "no-store"
-                }
-            );
-        if (
-            !response.ok
-        ) {
-            throw new Error(
-                "Schedule JSON could not be loaded."
-            );
-        }
-        const data =
-            await response.json();
-        scheduleData =
-            Array.isArray(
-                data.games
-            )
-                ? data.games
-                : [];
-        renderSchedule();
-    } catch (error) {
-        console.error(
-            error
-        );
-        scheduleList.innerHTML = `
-            <div class="empty">
-                Schedule data
-                could not be loaded.
-            </div>
-        `;
-    }
-}
-/* =========================================================
-   MONTH DISPLAY
-========================================================= */
-function updateMonthTitle() {
-    monthName.textContent =
-        `${monthNames[currentMonth]} ${currentYear}`;
-}
-/* =========================================================
-   GET GAMES FOR MONTH
-========================================================= */
-function getGamesForMonth() {
-    return scheduleData.filter(
-        game => {
-            if (
-                !game.date
-            ) {
-                return false;
-            }
-            const date =
-                new Date(
-                    `${game.date}T12:00:00`
-                );
-            return (
-                date.getFullYear()
-                ===
-                currentYear
-                &&
-                date.getMonth()
-                ===
-                currentMonth
-            );
-        }
-    );
-}
-/* =========================================================
-   FORMAT TIME
-========================================================= */
-function formatGameTime(
-    gameDate
-) {
-    if (
-        !gameDate
-    ) {
-        return "";
-    }
-    const date =
-        new Date(
-            gameDate
-        );
-    return date.toLocaleTimeString(
-        "en-US",
-        {
-            hour:
-                "numeric",
-            minute:
-                "2-digit",
-            hour12:
-                true,
-            timeZone:
-                "America/New_York"
-        }
-    );
-}
-/* =========================================================
-   FORMAT VENUE LOCATION
-========================================================= */
-function formatVenueLocation(
-    venue
-) {
-    if (
-        !venue
-    ) {
-        return "";
-    }
-    const parts = [];
-    if (
-        venue.city
-    ) {
-        parts.push(
-            venue.city
-        );
-    }
-    if (
-        venue.stateAbbrev
-    ) {
-        parts.push(
-            venue.stateAbbrev
-        );
-    } else if (
-        venue.state
-    ) {
-        parts.push(
-            venue.state
-        );
-    }
-    return parts.join(
-        ", "
-    );
-}
-/* =========================================================
    ESCAPE HTML
 ========================================================= */
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
     if (
-        value === null
-        ||
+        value === null ||
         value === undefined
     ) {
         return "";
@@ -1180,7 +1094,314 @@ function escapeHTML(
         );
 }
 /* =========================================================
-   INNING DETAIL
+   LOAD JSON
+========================================================= */
+async function loadSchedule() {
+    try {
+        const response =
+            await fetch(
+                DATA_URL,
+                {
+                    cache:
+                        "no-store"
+                }
+            );
+        if (
+            !response.ok
+        ) {
+            throw new Error(
+                "Schedule JSON could not be loaded."
+            );
+        }
+        const data =
+            await response.json();
+        if (
+            Array.isArray(data)
+        ) {
+            scheduleData =
+                data;
+        } else if (
+            Array.isArray(data.games)
+        ) {
+            scheduleData =
+                data.games;
+        } else {
+            scheduleData =
+                [];
+        }
+        renderSchedule();
+    } catch (error) {
+        console.error(
+            error
+        );
+        scheduleList.innerHTML = `
+            <div class="empty">
+                Schedule data could not be loaded.
+            </div>
+        `;
+    }
+}
+/* =========================================================
+   MONTH TITLE
+========================================================= */
+function updateMonthTitle() {
+    monthName.textContent =
+        `${monthNames[currentMonth]} ${currentYear}`;
+}
+/* =========================================================
+   GAME DATE
+========================================================= */
+function parseGameDate(
+    game
+) {
+    if (
+        !game ||
+        !game.date
+    ) {
+        return null;
+    }
+    const date =
+        new Date(
+            `${game.date}T12:00:00`
+        );
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return null;
+    }
+    return date;
+}
+/* =========================================================
+   MONTH FILTER
+========================================================= */
+function getGamesForMonth() {
+    return scheduleData
+        .filter(
+            game => {
+                const date =
+                    parseGameDate(
+                        game
+                    );
+                if (
+                    !date
+                ) {
+                    return false;
+                }
+                return (
+                    date.getFullYear()
+                    ===
+                    currentYear
+                    &&
+                    date.getMonth()
+                    ===
+                    currentMonth
+                );
+            }
+        )
+        .sort(
+            (
+                a,
+                b
+            ) => {
+                return (
+                    String(a.date)
+                    .localeCompare(
+                        String(b.date)
+                    )
+                );
+            }
+        );
+}
+/* =========================================================
+   TIME
+========================================================= */
+function formatGameTime(
+    game
+) {
+    if (
+        !game.gameDate
+    ) {
+        return "";
+    }
+    const date =
+        new Date(
+            game.gameDate
+        );
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return "";
+    }
+    return date.toLocaleTimeString(
+        "en-US",
+        {
+            hour:
+                "numeric",
+            minute:
+                "2-digit",
+            hour12:
+                true,
+            timeZone:
+                "America/New_York"
+        }
+    );
+}
+/* =========================================================
+   VENUE LOCATION
+========================================================= */
+function formatVenueLocation(
+    venue
+) {
+    if (
+        !venue
+    ) {
+        return "";
+    }
+    const parts =
+        [];
+    if (
+        venue.city
+    ) {
+        parts.push(
+            venue.city
+        );
+    }
+    if (
+        venue.stateAbbrev
+    ) {
+        parts.push(
+            venue.stateAbbrev
+        );
+    } else if (
+        venue.state
+    ) {
+        parts.push(
+            venue.state
+        );
+    }
+    return parts.join(
+        ", "
+    );
+}
+/* =========================================================
+   TEAM HELPERS
+========================================================= */
+function getOpponent(
+    game
+) {
+    return (
+        game.opponent ||
+        {}
+    );
+}
+function getOpponentCode(
+    game
+) {
+    return (
+        getOpponent(
+            game
+        ).abbreviation
+        ||
+        getOpponent(
+            game
+        ).code
+        ||
+        ""
+    );
+}
+function getOpponentName(
+    game
+) {
+    return (
+        getOpponent(
+            game
+        ).name
+        ||
+        ""
+    );
+}
+/* =========================================================
+   SCORE
+========================================================= */
+function getPhilliesScore(
+    game
+) {
+    return (
+        game.phillies?.score
+        ??
+        game.philliesScore
+        ??
+        "-"
+    );
+}
+function getOpponentScore(
+    game
+) {
+    return (
+        game.opponent?.score
+        ??
+        game.opponentScore
+        ??
+        "-"
+    );
+}
+/* =========================================================
+   STATUS
+========================================================= */
+function getStatus(
+    game
+) {
+    const raw =
+        String(
+            game.status
+            ||
+            ""
+        ).toLowerCase();
+    if (
+        raw === "final"
+        ||
+        raw === "completed"
+        ||
+        raw === "gameover"
+    ) {
+        return "FINAL";
+    }
+    if (
+        raw === "live"
+        ||
+        raw === "in progress"
+    ) {
+        return "LIVE";
+    }
+    return "UPCOMING";
+}
+/* =========================================================
+   LOCATION
+========================================================= */
+function getLocation(
+    game
+) {
+    const value =
+        String(
+            game.location
+            ||
+            game.homeAway
+            ||
+            ""
+        ).toUpperCase();
+    if (
+        value === "HOME"
+    ) {
+        return "HOME";
+    }
+    return "AWAY";
+}
+/* =========================================================
+   INNING SCORES
 ========================================================= */
 function renderInningScores(
     game
@@ -1215,11 +1436,16 @@ function renderInningScores(
             <div class="inning-cell"></div>
     `;
     innings.forEach(
-        inning => {
+        (
+            inning,
+            index
+        ) => {
             header += `
                 <div class="inning-cell">
                     ${escapeHTML(
                         inning.inning
+                        ??
+                        index + 1
                     )}
                 </div>
             `;
@@ -1231,20 +1457,26 @@ function renderInningScores(
             </div>
         </div>
     `;
-    let awayRow = `
+    const location =
+        getLocation(
+            game
+        );
+    let opponentRow = `
         <div
             class="inning-row"
             style="--innings:${count}"
         >
             <div class="inning-cell">
                 ${escapeHTML(
-                    game.opponent
-                    ?.abbreviation
-                    || "OPP"
+                    getOpponentCode(
+                        game
+                    )
+                    ||
+                    "OPP"
                 )}
             </div>
     `;
-    let homeRow = `
+    let philliesRow = `
         <div
             class="inning-row"
             style="--innings:${count}"
@@ -1253,88 +1485,65 @@ function renderInningScores(
                 PHI
             </div>
     `;
+    let opponentTotal =
+        0;
+    let philliesTotal =
+        0;
     innings.forEach(
         inning => {
-            awayRow += `
+            const away =
+                Number(
+                    inning.away
+                    ??
+                    0
+                );
+            const home =
+                Number(
+                    inning.home
+                    ??
+                    0
+                );
+            let opponentRuns;
+            let philliesRuns;
+            if (
+                location ===
+                "HOME"
+            ) {
+                opponentRuns =
+                    away;
+                philliesRuns =
+                    home;
+            } else {
+                opponentRuns =
+                    home;
+                philliesRuns =
+                    away;
+            }
+            opponentTotal +=
+                opponentRuns;
+            philliesTotal +=
+                philliesRuns;
+            opponentRow += `
                 <div class="inning-cell">
-                    ${escapeHTML(
-                        inning.away ?? 0
-                    )}
+                    ${opponentRuns}
                 </div>
             `;
-            homeRow += `
+            philliesRow += `
                 <div class="inning-cell">
-                    ${escapeHTML(
-                        inning.home ?? 0
-                    )}
+                    ${philliesRuns}
                 </div>
             `;
         }
     );
-    const isHome =
-        game.location ===
-        "HOME";
-    const philliesRuns =
-        isHome
-            ? innings.reduce(
-                (
-                    total,
-                    inning
-                ) =>
-                    total +
-                    Number(
-                        inning.home
-                        || 0
-                    ),
-                0
-            )
-            : innings.reduce(
-                (
-                    total,
-                    inning
-                ) =>
-                    total +
-                    Number(
-                        inning.away
-                        || 0
-                    ),
-                0
-            );
-    const opponentRuns =
-        isHome
-            ? innings.reduce(
-                (
-                    total,
-                    inning
-                ) =>
-                    total +
-                    Number(
-                        inning.away
-                        || 0
-                    ),
-                0
-            )
-            : innings.reduce(
-                (
-                    total,
-                    inning
-                ) =>
-                    total +
-                    Number(
-                        inning.home
-                        || 0
-                    ),
-                0
-            );
-    awayRow += `
+    opponentRow += `
             <div class="inning-cell">
-                ${opponentRuns}
+                ${opponentTotal}
             </div>
         </div>
     `;
-    homeRow += `
+    philliesRow += `
             <div class="inning-cell">
-                ${philliesRuns}
+                ${philliesTotal}
             </div>
         </div>
     `;
@@ -1345,20 +1554,20 @@ function renderInningScores(
             </div>
             <div class="inning-table">
                 ${header}
-                ${isHome
-                    ? homeRow
-                    : awayRow
+                ${location === "HOME"
+                    ? philliesRow
+                    : opponentRow
                 }
-                ${isHome
-                    ? awayRow
-                    : homeRow
+                ${location === "HOME"
+                    ? opponentRow
+                    : philliesRow
                 }
             </div>
         </div>
     `;
 }
 /* =========================================================
-   PITCHERS
+   PHILLIES PITCHERS
 ========================================================= */
 function renderPitchers(
     game
@@ -1369,34 +1578,59 @@ function renderPitchers(
         )
             ? game.philliesPitchers
             : [];
-    let content = "";
     if (
         pitchers.length === 0
     ) {
-        content = `
-            <div class="no-data">
-                No pitching data available.
+        return `
+            <div class="detail-section">
+                <div class="detail-title">
+                    PHILLIES PITCHING
+                </div>
+                <div class="no-data">
+                    No pitching data available.
+                </div>
             </div>
         `;
-    } else {
-        content =
-            pitchers.map(
-                pitcher => `
-                    <div class="pitcher">
-                        ${escapeHTML(
-                            pitcher.name
-                        )}
-                    </div>
-                `
-            ).join("");
     }
+    const html =
+        pitchers
+            .map(
+                pitcher => {
+                    let name =
+                        "";
+                    if (
+                        typeof pitcher ===
+                        "string"
+                    ) {
+                        name =
+                            pitcher;
+                    } else {
+                        name =
+                            pitcher.name
+                            ||
+                            pitcher.fullName
+                            ||
+                            pitcher.playerName
+                            ||
+                            "";
+                    }
+                    return `
+                        <div class="pitcher">
+                            ${escapeHTML(
+                                name
+                            )}
+                        </div>
+                    `;
+                }
+            )
+            .join("");
     return `
         <div class="detail-section">
             <div class="detail-title">
                 PHILLIES PITCHING
             </div>
             <div class="pitcher-list">
-                ${content}
+                ${html}
             </div>
         </div>
     `;
@@ -1425,49 +1659,61 @@ function renderGame(
     game
 ) {
     const date =
-        new Date(
-            `${game.date}T12:00:00`
+        parseGameDate(
+            game
         );
+    if (
+        !date
+    ) {
+        return null;
+    }
     const day =
         date.getDate();
     const weekday =
         weekdays[
             date.getDay()
         ];
-    const result =
-        game.result;
-    const cardClass =
-        result === "W"
-            ? "win"
-            : result === "L"
-                ? "loss"
-                : "";
+    const location =
+        getLocation(
+            game
+        );
     const status =
-        game.status ===
-        "Final"
-            ? "FINAL"
-            : game.status ===
-              "Live"
-                ? "LIVE"
-                : "UPCOMING";
-    const isFinal =
-        game.status ===
-        "Final";
-    let center;
+        getStatus(
+            game
+        );
+    const result =
+        String(
+            game.result
+            ||
+            ""
+        ).toUpperCase();
+    let cardClass =
+        "";
     if (
-        isFinal
-        ||
-        game.status ===
-        "Live"
+        result === "W"
     ) {
-        center = `
+        cardClass =
+            "win";
+    } else if (
+        result === "L"
+    ) {
+        cardClass =
+            "loss";
+    }
+    const isCompleted =
+        status === "FINAL";
+    let centerHTML;
+    if (
+        isCompleted ||
+        status === "LIVE"
+    ) {
+        centerHTML = `
             <div class="score">
-                <span
-                    class="score-main"
-                >
+                <span class="score-main">
                     ${escapeHTML(
-                        game.phillies?.score
-                        ?? "-"
+                        getPhilliesScore(
+                            game
+                        )
                     )}
                     <span
                         class="score-divider"
@@ -1475,42 +1721,46 @@ function renderGame(
                         —
                     </span>
                     ${escapeHTML(
-                        game.opponent?.score
-                        ?? "-"
+                        getOpponentScore(
+                            game
+                        )
                     )}
                 </span>
                 ${
-                    result
-                    ? `
-                        <span
-                            class="result ${
-                                result === "W"
-                                    ? "win"
-                                    : "loss"
-                            }"
-                        >
-                            ${
-                                result === "W"
-                                    ? "WIN"
-                                    : result === "L"
-                                        ? "LOSS"
-                                        : "TIE"
-                            }
-                        </span>
+                    result === "W"
+                    ?
                     `
-                    : ""
+                    <span
+                        class="result win"
+                    >
+                        WIN
+                    </span>
+                    `
+                    :
+                    result === "L"
+                    ?
+                    `
+                    <span
+                        class="result loss"
+                    >
+                        LOSS
+                    </span>
+                    `
+                    :
+                    ""
                 }
             </div>
         `;
     } else {
-        center = `
+        centerHTML = `
             <div class="future-time">
                 <strong>
                     ${escapeHTML(
                         formatGameTime(
-                            game.gameDate
+                            game
                         )
-                        || "--:--"
+                        ||
+                        "--:--"
                     )}
                 </strong>
                 <span>
@@ -1519,15 +1769,6 @@ function renderGame(
             </div>
         `;
     }
-    const locationLabel =
-        game.location ===
-        "HOME"
-            ? "HOME"
-            : "AWAY";
-    const venueLocation =
-        formatVenueLocation(
-            game.venue
-        );
     const card =
         document.createElement(
             "article"
@@ -1536,7 +1777,7 @@ function renderGame(
         `game-card ${cardClass}`;
     card.innerHTML = `
         <div class="game-label">
-            ${locationLabel}
+            ${location}
         </div>
         <div class="game-top">
             <div class="game-date">
@@ -1552,63 +1793,51 @@ function renderGame(
             </div>
         </div>
         <div class="matchup">
-            <div
-                class="team ${
-                    game.location === "AWAY"
-                        ? "away"
-                        : "away"
-                }"
-            >
+            <div class="team away">
                 <span class="team-code">
                     ${
-                        game.location ===
-                        "AWAY"
+                        location === "AWAY"
                             ? "PHI"
                             : escapeHTML(
-                                game.opponent
-                                ?.abbreviation
-                                || ""
+                                getOpponentCode(
+                                    game
+                                )
                             )
                     }
                 </span>
                 <span class="team-name">
                     ${
-                        game.location ===
-                        "AWAY"
+                        location === "AWAY"
                             ? "PHILADELPHIA"
                             : escapeHTML(
-                                game.opponent
-                                ?.name
-                                || ""
+                                getOpponentName(
+                                    game
+                                )
                             )
                     }
                 </span>
             </div>
-            ${center}
-            <div
-                class="team home"
-            >
+            ${centerHTML}
+            <div class="team home">
                 <span class="team-code">
                     ${
-                        game.location ===
-                        "HOME"
+                        location === "HOME"
                             ? "PHI"
                             : escapeHTML(
-                                game.opponent
-                                ?.abbreviation
-                                || ""
+                                getOpponentCode(
+                                    game
+                                )
                             )
                     }
                 </span>
                 <span class="team-name">
                     ${
-                        game.location ===
-                        "HOME"
+                        location === "HOME"
                             ? "PHILADELPHIA"
                             : escapeHTML(
-                                game.opponent
-                                ?.name
-                                || ""
+                                getOpponentName(
+                                    game
+                                )
                             )
                     }
                 </span>
@@ -1620,20 +1849,24 @@ function renderGame(
             </div>
             <div class="venue-info">
                 <span class="venue-name">
-                    ${
-                        escapeHTML(
-                            game.venue
-                            ?.name
-                            || "Venue"
-                        )
-                    }
+                    ${escapeHTML(
+                        game.venue?.name
+                        ||
+                        game.venueName
+                        ||
+                        "Venue"
+                    )}
                 </span>
                 <span class="venue-location">
-                    ${
-                        escapeHTML(
-                            venueLocation
+                    ${escapeHTML(
+                        formatVenueLocation(
+                            game.venue
                         )
-                    }
+                        ||
+                        game.venueLocation
+                        ||
+                        ""
+                    )}
                 </span>
             </div>
         </div>
@@ -1652,7 +1885,7 @@ function renderGame(
     return card;
 }
 /* =========================================================
-   RENDER
+   RENDER SCHEDULE
 ========================================================= */
 function renderSchedule() {
     updateMonthTitle();
@@ -1673,16 +1906,22 @@ function renderSchedule() {
     }
     games.forEach(
         game => {
-            scheduleList.appendChild(
+            const card =
                 renderGame(
                     game
-                )
-            );
+                );
+            if (
+                card
+            ) {
+                scheduleList.appendChild(
+                    card
+                );
+            }
         }
     );
 }
 /* =========================================================
-   MONTH NAVIGATION
+   MONTH PREVIOUS
 ========================================================= */
 previousButton.addEventListener(
     "click",
@@ -1690,7 +1929,8 @@ previousButton.addEventListener(
         if (
             currentMonth === 0
         ) {
-            currentMonth = 11;
+            currentMonth =
+                11;
             currentYear--;
         } else {
             currentMonth--;
@@ -1698,13 +1938,17 @@ previousButton.addEventListener(
         renderSchedule();
     }
 );
+/* =========================================================
+   MONTH NEXT
+========================================================= */
 nextButton.addEventListener(
     "click",
     function () {
         if (
             currentMonth === 11
         ) {
-            currentMonth = 0;
+            currentMonth =
+                0;
             currentYear++;
         } else {
             currentMonth++;
@@ -1713,7 +1957,7 @@ nextButton.addEventListener(
     }
 );
 /* =========================================================
-   INITIAL
+   INITIAL LOAD
 ========================================================= */
 loadSchedule();
 </script>
