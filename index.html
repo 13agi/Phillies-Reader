@@ -19,7 +19,6 @@
     --white: #FFFFFF;
 }
 
-
 /* =========================
    BASE
 ========================= */
@@ -43,10 +42,7 @@ body {
         "Helvetica Neue",
         Arial,
         sans-serif;
-
-    padding-bottom: 76px;
 }
-
 
 /* =========================
    HEADER
@@ -59,7 +55,6 @@ body {
 
     background: var(--red);
 }
-
 
 /* =========================
    HEADER INNER
@@ -83,7 +78,6 @@ body {
     justify-content: space-between;
 }
 
-
 /* =========================
    LOGO
 ========================= */
@@ -100,7 +94,6 @@ body {
     text-decoration: none;
 }
 
-
 .logo-text {
     font-size: 24px;
 
@@ -108,7 +101,6 @@ body {
 
     letter-spacing: 1px;
 }
-
 
 /* =========================
    NAV
@@ -121,7 +113,6 @@ body {
 
     gap: 4px;
 }
-
 
 .nav a {
     color: white;
@@ -137,12 +128,10 @@ body {
     border-radius: 6px;
 }
 
-
 .nav a:hover {
     background:
         rgba(0,0,0,0.12);
 }
-
 
 /* =========================
    MOBILE MENU
@@ -171,7 +160,6 @@ body {
     gap: 5px;
 }
 
-
 .menu span {
     width: 20px;
 
@@ -179,7 +167,6 @@ body {
 
     background: white;
 }
-
 
 /* =========================
    EMPTY NAVY AREA
@@ -192,145 +179,6 @@ main {
     background:
         var(--navy);
 }
-
-
-/* =========================
-   BOTTOM TABS
-========================= */
-
-.bottom-tabs {
-
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 76px;
-
-    background:
-        var(--navy-dark);
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.12);
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5, 1fr);
-
-    z-index: 1000;
-}
-
-
-/* =========================
-   TAB
-========================= */
-
-.tab {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-decoration: none;
-
-    color:
-        rgba(255,255,255,0.65);
-}
-
-
-.tab-icon {
-
-    width: 22px;
-
-    height: 22px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 20px;
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.home-tab {
-
-    color:
-        var(--white);
-}
-
-
-/* =========================
-   HOME BASE
-========================= */
-
-.home-base {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: -25px;
-
-    width: 52px;
-
-    height: 52px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        var(--red);
-
-    /*
-       ホームベースの五角形
-    */
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            100% 58%,
-            50% 100%,
-            0 58%
-        );
-}
-
-
-/* =========================
-   HOME TEXT
-========================= */
-
-.home-content {
-
-    position: relative;
-
-    z-index: 2;
-
-    margin-top: 18px;
-
-    color:
-        var(--white);
-
-    font-size: 8px;
-
-    font-weight: 900;
-
-    letter-spacing: 0.5px;
-}
-
 
 /* =========================
    MOBILE
@@ -362,68 +210,22 @@ main {
         min-height:
             calc(100vh - 64px);
     }
-
-    .bottom-tabs {
-        height: 72px;
-    }
-
-    .home-base {
-        width: 50px;
-        height: 50px;
-        top: -24px;
-    }
-
-}
-
-
-/* =========================
-   DESKTOP
-========================= */
-
-@media (min-width: 701px) {
-
-    .bottom-tabs {
-
-        max-width: 520px;
-
-        left: 50%;
-        right: auto;
-
-        transform:
-            translateX(-50%);
-
-        bottom: 18px;
-
-        border:
-            1px solid
-            rgba(255,255,255,0.12);
-
-        border-radius:
-            12px;
-
-    }
-
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <header class="header">
 
     <div class="header-inner">
 
         <a href="#" class="logo">
-
             <span class="logo-text">
                 PHILLIES
             </span>
-
         </a>
-
 
         <nav class="nav">
 
@@ -445,7 +247,6 @@ main {
 
         </nav>
 
-
         <button class="menu" aria-label="menu">
 
             <span></span>
@@ -458,77 +259,8 @@ main {
 
 </header>
 
-
-<main>
-</main>
-
-
-<!-- =========================
-     BOTTOM TABS
-========================= -->
-
-<nav class="bottom-tabs">
-
-
-    <!-- 左① -->
-
-    <a href="#" class="tab">
-
-        <span class="tab-icon">
-            ○
-        </span>
-
-    </a>
-
-
-    <!-- 左② -->
-
-    <a href="#" class="tab">
-
-        <span class="tab-icon">
-            ○
-        </span>
-
-    </a>
-
-
-    <!-- HOME -->
-
-    <a href="#" class="tab home-tab">
-
-        <span class="home-base"></span>
-
-        <span class="home-content">
-            HOME
-        </span>
-
-    </a>
-
-
-    <!-- 右① -->
-
-    <a href="#" class="tab">
-
-        <span class="tab-icon">
-            ○
-        </span>
-
-    </a>
-
-
-    <!-- 右② -->
-
-    <a href="#" class="tab">
-
-        <span class="tab-icon">
-            ○
-        </span>
-
-    </a>
-
-
-</nav>
-
+<main></main>
 
 </body>
 </html>
+元にするのはこれ
