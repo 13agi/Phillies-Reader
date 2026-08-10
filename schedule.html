@@ -16,6 +16,7 @@
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
+    crossorigin
 >
 <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
@@ -26,16 +27,11 @@
    ROOT
 ========================================================= */
 :root {
-    --navy:
-        #07152b;
-    --navy-2:
-        #0b1c38;
-    --red:
-        #e31937;
-    --white:
-        #ffffff;
-    --muted:
-        #718096;
+    --navy: #07152b;
+    --navy-2: #0b1c38;
+    --red: #e31937;
+    --white: #ffffff;
+    --muted: #64748b;
     --line:
         rgba(255,255,255,.075);
 }
@@ -73,6 +69,7 @@ body {
 }
 /* =========================================================
    HEADER
+   INDEX / PLAYER と統一
 ========================================================= */
 .header {
     position: fixed;
@@ -80,9 +77,115 @@ body {
     left: 0;
     right: 0;
     z-index: 100;
-    height: 76px;
+    height: 72px;
+    overflow: hidden;
     background:
-        var(--red);
+        linear-gradient(
+            115deg,
+            #b90f2e 0%,
+            #e31937 38%,
+            #ef233c 65%,
+            #c8102e 100%
+        );
+    box-shadow:
+        0 7px 22px
+        rgba(0,0,0,.30);
+}
+.header::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -55px;
+    width: 300px;
+    height: 300px;
+    transform:
+        rotate(27deg);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.015)
+        );
+    border-left:
+        1px solid
+        rgba(255,255,255,.16);
+    pointer-events:
+        none;
+}
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background:
+        linear-gradient(
+            90deg,
+            #07152b 0%,
+            #07152b 18%,
+            rgba(7,21,43,.35) 45%,
+            rgba(255,255,255,.28) 72%,
+            transparent 100%
+        );
+    pointer-events:
+        none;
+}
+.header-navy-shape {
+    position: absolute;
+    top: -20px;
+    left: 43%;
+    width: 130px;
+    height: 130px;
+    transform:
+        rotate(25deg);
+    background:
+        rgba(7,21,43,.16);
+    pointer-events:
+        none;
+}
+.header-line-one {
+    position: absolute;
+    left: -20px;
+    bottom: 14px;
+    width: 55%;
+    height: 2px;
+    transform:
+        skewX(-35deg);
+    background:
+        rgba(255,255,255,.34);
+    pointer-events:
+        none;
+}
+.header-line-two {
+    position: absolute;
+    left: 4%;
+    bottom: 8px;
+    width: 35%;
+    height: 1px;
+    transform:
+        skewX(-35deg);
+    background:
+        rgba(255,255,255,.18);
+    pointer-events:
+        none;
+}
+.header-light {
+    position: absolute;
+    top: -85px;
+    right: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.18) 0%,
+            rgba(255,255,255,.06) 35%,
+            transparent 72%
+        );
+    pointer-events:
+        none;
 }
 /* =========================================================
    MAIN
@@ -91,7 +194,7 @@ main {
     min-height:
         100vh;
     padding-top:
-        76px;
+        72px;
 }
 .page {
     width: 100%;
@@ -106,6 +209,9 @@ main {
         17px;
 }
 .page-heading h1 {
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         31px;
     font-weight:
@@ -175,14 +281,16 @@ main {
         scale(.92);
 }
 .month-center {
-    flex:
-        1;
+    flex: 1;
     text-align:
         center;
 }
 .month {
     display:
         block;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         20px;
     font-weight:
@@ -295,6 +403,9 @@ main {
         7px;
 }
 .game-day {
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         25px;
     font-weight:
@@ -370,6 +481,9 @@ main {
 .team-code {
     display:
         block;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         27px;
     font-weight:
@@ -405,6 +519,9 @@ main {
         center;
 }
 .score-main {
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         28px;
     font-weight:
@@ -450,6 +567,9 @@ main {
 .future-time strong {
     display:
         block;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size:
         23px;
     font-weight:
@@ -518,6 +638,12 @@ main {
         10px;
     font-weight:
         800;
+    white-space:
+        nowrap;
+    overflow:
+        hidden;
+    text-overflow:
+        ellipsis;
 }
 .venue-location {
     display:
@@ -600,7 +726,7 @@ main {
     grid-template-columns:
         40px repeat(
             var(--innings),
-            minmax(24px,1fr)
+            minmax(24px, 1fr)
         ) 34px;
     min-width:
         max-content;
@@ -671,7 +797,8 @@ main {
 }
 /* =========================================================
    BOTTOM NAV
-   ★ INDEX / PLAYER と完全統一
+   INDEX / PLAYER と統一
+   並び順固定
 ========================================================= */
 .bottom-nav {
     position:
@@ -687,14 +814,14 @@ main {
             env(safe-area-inset-bottom)
         );
     padding:
-        7px 8px
+        7px 5px
         env(safe-area-inset-bottom);
     display:
         flex;
     align-items:
         flex-start;
     justify-content:
-        space-around;
+        space-between;
     background:
         rgba(5,16,34,.97);
     backdrop-filter:
@@ -705,14 +832,11 @@ main {
         1px solid
         rgba(255,255,255,.08);
 }
-/* =========================================================
-   NAV ITEM
-========================================================= */
 .nav-item {
     flex:
         1;
-    max-width:
-        100px;
+    min-width:
+        0;
     height:
         60px;
     display:
@@ -731,33 +855,21 @@ main {
         #64748b;
     border-radius:
         13px;
-    cursor:
-        pointer;
     transition:
         color .15s ease,
         background .15s ease,
         transform .15s ease;
 }
-/* =========================================================
-   TAP
-========================================================= */
 .nav-item:active {
     transform:
         scale(.94);
 }
-/* =========================================================
-   ACTIVE
-========================================================= */
 .nav-item.active {
     color:
         #ffffff;
     background:
         rgba(227,25,55,.13);
 }
-/* =========================================================
-   NAV ICON
-   ★ サイズ固定
-========================================================= */
 .nav-icon {
     width:
         25px;
@@ -769,8 +881,6 @@ main {
         center;
     justify-content:
         center;
-    flex-shrink:
-        0;
     font-size:
         18px;
     font-weight:
@@ -778,30 +888,23 @@ main {
     line-height:
         1;
 }
-/* =========================================================
-   ACTIVE ICON
-========================================================= */
 .nav-item.active
 .nav-icon {
     color:
         #e31937;
 }
-/* =========================================================
-   NAV LABEL
-   ★ サイズ固定
-========================================================= */
 .nav-label {
     font-family:
         "Barlow Condensed",
         sans-serif;
     font-size:
-        12px;
+        10px;
     font-weight:
         700;
     line-height:
         1;
     letter-spacing:
-        .8px;
+        .45px;
     white-space:
         nowrap;
 }
@@ -820,18 +923,17 @@ main {
 }
 /* =========================================================
    SMALL IPHONE
-   ★ 下タブサイズは変更しない
 ========================================================= */
 @media (
     max-width: 360px
 ) {
     .header {
         height:
-            76px;
+            68px;
     }
     main {
         padding-top:
-            76px;
+            68px;
     }
     .page {
         padding-left:
@@ -851,17 +953,9 @@ main {
         font-size:
             23px;
     }
-}
-/* =========================================================
-   SAFE AREA
-========================================================= */
-@supports (
-    padding:
-    env(safe-area-inset-bottom)
-) {
-    .bottom-nav {
-        padding-bottom:
-            env(safe-area-inset-bottom);
+    .nav-label {
+        font-size:
+            9px;
     }
 }
 </style>
@@ -870,7 +964,12 @@ main {
 <!-- =====================================================
      HEADER
 ===================================================== -->
-<header class="header"></header>
+<header class="header">
+    <div class="header-navy-shape"></div>
+    <div class="header-line-one"></div>
+    <div class="header-line-two"></div>
+    <div class="header-light"></div>
+</header>
 <!-- =====================================================
      MAIN
 ===================================================== -->
@@ -918,11 +1017,11 @@ main {
 </section>
 </main>
 <!-- =====================================================
-     BOTTOM NAVIGATION
-     ★ 順番固定
+     BOTTOM NAV
+     順番は絶対固定
 ===================================================== -->
 <nav class="bottom-nav">
-    <!-- 1. SCHEDULE -->
+    <!-- 1 SCHEDULE -->
     <a
         href="schedule.html"
         class="nav-item active"
@@ -934,7 +1033,7 @@ main {
             SCHEDULE
         </div>
     </a>
-    <!-- 2. SCORE -->
+    <!-- 2 SCORE -->
     <a
         href="score.html"
         class="nav-item"
@@ -946,7 +1045,7 @@ main {
             SCORE
         </div>
     </a>
-    <!-- 3. HOME -->
+    <!-- 3 HOME -->
     <a
         href="index.html"
         class="nav-item"
@@ -958,7 +1057,7 @@ main {
             HOME
         </div>
     </a>
-    <!-- 4. PLAYER -->
+    <!-- 4 PLAYER -->
     <a
         href="player.html"
         class="nav-item"
@@ -970,7 +1069,7 @@ main {
             PLAYER
         </div>
     </a>
-    <!-- 5. STATS -->
+    <!-- 5 STATS -->
     <a
         href="stats.html"
         class="nav-item"
@@ -1012,12 +1111,12 @@ const nextButton =
    STATE
 ========================================================= */
 let scheduleData = [];
-const today =
+const now =
     new Date();
 let currentYear =
-    today.getFullYear();
+    now.getFullYear();
 let currentMonth =
-    today.getMonth();
+    now.getMonth();
 /* =========================================================
    MONTH NAMES
 ========================================================= */
@@ -1048,7 +1147,7 @@ const weekdays = [
     "SAT"
 ];
 /* =========================================================
-   ESCAPE HTML
+   ESCAPE
 ========================================================= */
 function escapeHTML(value) {
     if (
@@ -1140,7 +1239,7 @@ function updateMonthTitle() {
         `${monthNames[currentMonth]} ${currentYear}`;
 }
 /* =========================================================
-   GAME DATE
+   DATE
 ========================================================= */
 function parseGameDate(game) {
     if (
@@ -1173,9 +1272,7 @@ function getGamesForMonth() {
                     parseGameDate(
                         game
                     );
-                if (
-                    !date
-                ) {
+                if (!date) {
                     return false;
                 }
                 return (
@@ -1194,17 +1291,18 @@ function getGamesForMonth() {
                 a,
                 b
             ) => {
-                return (
-                    String(a.date)
-                        .localeCompare(
-                            String(b.date)
-                        )
+                return String(
+                    a.date
+                ).localeCompare(
+                    String(
+                        b.date
+                    )
                 );
             }
         );
 }
 /* =========================================================
-   TIME
+   GAME TIME
 ========================================================= */
 function formatGameTime(game) {
     if (
@@ -1241,9 +1339,7 @@ function formatGameTime(game) {
    VENUE LOCATION
 ========================================================= */
 function formatVenueLocation(venue) {
-    if (
-        !venue
-    ) {
+    if (!venue) {
         return "";
     }
     const parts = [];
@@ -1283,22 +1379,19 @@ function getOpponent(game) {
 }
 function getOpponentCode(game) {
     return (
-        getOpponent(
-            game
-        ).abbreviation
+        getOpponent(game)
+            .abbreviation
         ||
-        getOpponent(
-            game
-        ).code
+        getOpponent(game)
+            .code
         ||
         ""
     );
 }
 function getOpponentName(game) {
     return (
-        getOpponent(
-            game
-        ).name
+        getOpponent(game)
+            .name
         ||
         ""
     );
@@ -1357,10 +1450,8 @@ function getStatus(game) {
 function getLocation(game) {
     const value =
         String(
-            game.location
-            ||
-            game.homeAway
-            ||
+            game.location ||
+            game.homeAway ||
             ""
         ).toUpperCase();
     if (
@@ -1378,10 +1469,8 @@ function renderInningScores(game) {
         Array.isArray(
             game.inningScores
         )
-            ?
-            game.inningScores
-            :
-            [];
+            ? game.inningScores
+            : [];
     if (
         innings.length === 0
     ) {
@@ -1440,8 +1529,7 @@ function renderInningScores(game) {
                 ${escapeHTML(
                     getOpponentCode(
                         game
-                    )
-                    ||
+                    ) ||
                     "OPP"
                 )}
             </div>
@@ -1455,22 +1543,18 @@ function renderInningScores(game) {
                 PHI
             </div>
     `;
-    let opponentTotal =
-        0;
-    let philliesTotal =
-        0;
+    let opponentTotal = 0;
+    let philliesTotal = 0;
     innings.forEach(
         inning => {
             const away =
                 Number(
-                    inning.away
-                    ??
+                    inning.away ??
                     0
                 );
             const home =
                 Number(
-                    inning.home
-                    ??
+                    inning.home ??
                     0
                 );
             let opponentRuns;
@@ -1526,17 +1610,13 @@ function renderInningScores(game) {
                 ${header}
                 ${
                     location === "HOME"
-                    ?
-                    philliesRow
-                    :
-                    opponentRow
+                    ? philliesRow
+                    : opponentRow
                 }
                 ${
                     location === "HOME"
-                    ?
-                    opponentRow
-                    :
-                    philliesRow
+                    ? opponentRow
+                    : philliesRow
                 }
             </div>
         </div>
@@ -1550,10 +1630,8 @@ function renderPitchers(game) {
         Array.isArray(
             game.philliesPitchers
         )
-            ?
-            game.philliesPitchers
-            :
-            [];
+            ? game.philliesPitchers
+            : [];
     if (
         pitchers.length === 0
     ) {
@@ -1572,8 +1650,7 @@ function renderPitchers(game) {
         pitchers
             .map(
                 pitcher => {
-                    let name =
-                        "";
+                    let name = "";
                     if (
                         typeof pitcher ===
                         "string"
@@ -1635,9 +1712,7 @@ function renderGame(game) {
         parseGameDate(
             game
         );
-    if (
-        !date
-    ) {
+    if (!date) {
         return null;
     }
     const day =
@@ -1659,8 +1734,7 @@ function renderGame(game) {
             game.result ||
             ""
         ).toUpperCase();
-    let cardClass =
-        "";
+    let cardClass = "";
     if (
         result === "W"
     ) {
@@ -1688,9 +1762,7 @@ function renderGame(game) {
                             game
                         )
                     )}
-                    <span
-                        class="score-divider"
-                    >
+                    <span class="score-divider">
                         —
                     </span>
                     ${escapeHTML(
@@ -1703,9 +1775,7 @@ function renderGame(game) {
                     result === "W"
                     ?
                     `
-                    <span
-                        class="result win"
-                    >
+                    <span class="result win">
                         WIN
                     </span>
                     `
@@ -1713,9 +1783,7 @@ function renderGame(game) {
                     result === "L"
                     ?
                     `
-                    <span
-                        class="result loss"
-                    >
+                    <span class="result loss">
                         LOSS
                     </span>
                     `
@@ -1732,8 +1800,7 @@ function renderGame(game) {
                     ${escapeHTML(
                         formatGameTime(
                             game
-                        )
-                        ||
+                        ) ||
                         "--:--"
                     )}
                 </strong>
@@ -1771,27 +1838,23 @@ function renderGame(game) {
                 <span class="team-code">
                     ${
                         location === "AWAY"
-                            ?
-                            "PHI"
-                            :
-                            escapeHTML(
-                                getOpponentCode(
-                                    game
-                                )
+                        ? "PHI"
+                        : escapeHTML(
+                            getOpponentCode(
+                                game
                             )
+                        )
                     }
                 </span>
                 <span class="team-name">
                     ${
                         location === "AWAY"
-                            ?
-                            "PHILADELPHIA"
-                            :
-                            escapeHTML(
-                                getOpponentName(
-                                    game
-                                )
+                        ? "PHILADELPHIA"
+                        : escapeHTML(
+                            getOpponentName(
+                                game
                             )
+                        )
                     }
                 </span>
             </div>
@@ -1800,27 +1863,23 @@ function renderGame(game) {
                 <span class="team-code">
                     ${
                         location === "HOME"
-                            ?
-                            "PHI"
-                            :
-                            escapeHTML(
-                                getOpponentCode(
-                                    game
-                                )
+                        ? "PHI"
+                        : escapeHTML(
+                            getOpponentCode(
+                                game
                             )
+                        )
                     }
                 </span>
                 <span class="team-name">
                     ${
                         location === "HOME"
-                            ?
-                            "PHILADELPHIA"
-                            :
-                            escapeHTML(
-                                getOpponentName(
-                                    game
-                                )
+                        ? "PHILADELPHIA"
+                        : escapeHTML(
+                            getOpponentName(
+                                game
                             )
+                        )
                     }
                 </span>
             </div>
@@ -1892,9 +1951,7 @@ function renderSchedule() {
                 renderGame(
                     game
                 );
-            if (
-                card
-            ) {
+            if (card) {
                 scheduleList.appendChild(
                     card
                 );
@@ -1941,7 +1998,7 @@ nextButton.addEventListener(
     }
 );
 /* =========================================================
-   INITIAL LOAD
+   START
 ========================================================= */
 loadSchedule();
 </script>
