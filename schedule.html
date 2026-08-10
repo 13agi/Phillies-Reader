@@ -6,14 +6,7 @@
       content="width=device-width,
                initial-scale=1.0,
                viewport-fit=cover">
-<title>SCHEDULE | PHILLIES</title>
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
-      rel="stylesheet">
+<title>Schedule</title>
 <style>
 /* =========================================================
    ROOT
@@ -21,17 +14,11 @@
 :root {
     --navy: #07152b;
     --navy-2: #0b1c38;
-    --navy-3: #102443;
     --red: #e31937;
-    --red-dark: #b90f2e;
     --white: #ffffff;
     --muted: #718096;
     --line:
         rgba(255,255,255,.075);
-    --green:
-        #38c172;
-    --loss:
-        #64748b;
 }
 /* =========================================================
    RESET
@@ -66,7 +53,8 @@ body {
         );
 }
 /* =========================================================
-   HEADER
+   TOP HEADER
+   完全な無地のフィリーズレッド
 ========================================================= */
 .header {
     position: fixed;
@@ -75,96 +63,8 @@ body {
     right: 0;
     z-index: 100;
     height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
     background:
-        linear-gradient(
-            115deg,
-            #b90f2e 0%,
-            #e31937 42%,
-            #ef233c 68%,
-            #c8102e 100%
-        );
-    box-shadow:
-        0 7px 22px
-        rgba(0,0,0,.30);
-}
-.header::before {
-    content: "";
-    position: absolute;
-    width: 155%;
-    height: 150px;
-    top: -78px;
-    left: -28%;
-    transform:
-        rotate(-7deg);
-    border-top:
-        2px solid
-        rgba(255,255,255,.13);
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
-}
-.header::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4px;
-    background:
-        linear-gradient(
-            90deg,
-            var(--navy) 0%,
-            var(--navy) 18%,
-            rgba(7,21,43,.45) 48%,
-            rgba(255,255,255,.20) 75%,
-            transparent 100%
-        );
-}
-/* =========================================================
-   HEADER TITLE
-========================================================= */
-.header-title {
-    position: relative;
-    z-index: 2;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        34px;
-    font-weight:
-        900;
-    font-style:
-        italic;
-    letter-spacing:
-        1.2px;
-    text-transform:
-        uppercase;
-    transform:
-        skewX(-5deg);
-    text-shadow:
-        2px 2px 0
-        rgba(0,0,0,.12);
-}
-.header-title span {
-    display: block;
-    margin-top:
-        2px;
-    text-align:
-        center;
-    font-size:
-        7px;
-    font-style:
-        normal;
-    font-weight:
-        800;
-    letter-spacing:
-        2.2px;
-    opacity:
-        .75;
+        var(--red);
 }
 /* =========================================================
    MAIN
@@ -181,33 +81,27 @@ main {
         21px 14px 35px;
 }
 /* =========================================================
-   PAGE HEADING
+   PAGE TITLE
 ========================================================= */
 .page-heading {
     margin-bottom:
         17px;
 }
 .page-heading h1 {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         31px;
     font-weight:
-        900;
+        800;
     line-height:
         .95;
     letter-spacing:
-        .4px;
+        -.5px;
 }
 .page-heading p {
     margin-top:
         6px;
     color:
         var(--muted);
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         10px;
     font-weight:
@@ -221,8 +115,10 @@ main {
 .month-selector {
     width: 100%;
     height: 59px;
-    display: flex;
-    align-items: center;
+    display:
+        flex;
+    align-items:
+        center;
     justify-content:
         space-between;
     padding:
@@ -235,27 +131,27 @@ main {
     border-radius:
         15px;
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.02)
-        );
+        rgba(255,255,255,.035);
 }
 .month-button {
     width: 43px;
     height: 43px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 0;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        center;
+    border:
+        0;
     border-radius:
         11px;
     background:
         rgba(255,255,255,.035);
     color:
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.70);
     font-size:
-        24px;
+        25px;
     cursor:
         pointer;
 }
@@ -264,34 +160,34 @@ main {
         scale(.92);
 }
 .month-center {
-    flex: 1;
+    flex:
+        1;
     text-align:
         center;
 }
 .month {
-    display: block;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
+    display:
+        block;
     font-size:
         20px;
     font-weight:
-        900;
+        800;
     letter-spacing:
-        1px;
+        .8px;
 }
 .month-sub {
-    display: block;
+    display:
+        block;
     margin-top:
-        1px;
+        2px;
     color:
         var(--muted);
     font-size:
         8px;
     font-weight:
-        800;
+        700;
     letter-spacing:
-        1.3px;
+        1.2px;
 }
 /* =========================================================
    SCHEDULE LIST
@@ -338,7 +234,7 @@ main {
     bottom: 0;
     width: 4px;
     background:
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.10);
 }
 .game-card.win::before {
     background:
@@ -346,14 +242,7 @@ main {
 }
 .game-card.loss::before {
     background:
-        var(--loss);
-}
-.game-card.today {
-    border-color:
-        rgba(227,25,55,.35);
-    box-shadow:
-        0 10px 30px
-        rgba(227,25,55,.10);
+        #64748b;
 }
 /* =========================================================
    GAME TOP
@@ -377,13 +266,10 @@ main {
         7px;
 }
 .game-day {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         25px;
     font-weight:
-        900;
+        800;
     line-height:
         1;
 }
@@ -393,7 +279,7 @@ main {
     font-size:
         9px;
     font-weight:
-        800;
+        700;
     letter-spacing:
         .7px;
 }
@@ -405,11 +291,11 @@ main {
     background:
         rgba(255,255,255,.05);
     color:
-        rgba(255,255,255,.48);
+        rgba(255,255,255,.50);
     font-size:
         7px;
     font-weight:
-        900;
+        800;
     letter-spacing:
         .8px;
 }
@@ -455,9 +341,6 @@ main {
 .team-code {
     display:
         block;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         29px;
     font-weight:
@@ -493,9 +376,6 @@ main {
         center;
 }
 .score-main {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         30px;
     font-weight:
@@ -532,7 +412,7 @@ main {
         #94a3b8;
 }
 /* =========================================================
-   FUTURE TIME
+   FUTURE GAME
 ========================================================= */
 .future-time {
     text-align:
@@ -541,9 +421,6 @@ main {
 .future-time strong {
     display:
         block;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
         24px;
     font-weight:
@@ -559,7 +436,7 @@ main {
     font-size:
         7px;
     font-weight:
-        800;
+        700;
     letter-spacing:
         .8px;
 }
@@ -630,7 +507,7 @@ main {
         8px;
 }
 /* =========================================================
-   HOME / AWAY
+   HOME / AWAY LABEL
 ========================================================= */
 .game-label {
     position:
@@ -648,12 +525,13 @@ main {
     font-size:
         6px;
     font-weight:
-        900;
+        800;
     letter-spacing:
         1px;
 }
 /* =========================================================
-   BOTTOM NAVIGATION
+   BOTTOM NAV
+   index / player と同じリンク方式
 ========================================================= */
 .bottom-nav {
     position:
@@ -689,7 +567,6 @@ main {
 }
 /* =========================================================
    NAV ITEM
-   index / player と同じ通常リンク方式
 ========================================================= */
 .nav-item {
     flex:
@@ -711,7 +588,7 @@ main {
     text-decoration:
         none;
     color:
-        var(--muted);
+        #64748b;
     border-radius:
         13px;
     cursor:
@@ -749,15 +626,12 @@ main {
         var(--red);
 }
 .nav-label {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
     font-size:
-        12px;
+        11px;
     font-weight:
         700;
     letter-spacing:
-        .8px;
+        .7px;
 }
 /* =========================================================
    SMALL IPHONE
@@ -792,29 +666,20 @@ main {
             23px;
     }
 }
-/* =========================================================
-   PREVIEW DATA
-   UI確認用。後でMLB APIデータに置換。
-========================================================= */
 </style>
 </head>
 <body>
-<!-- =======================================================
+<!-- =====================================================
      HEADER
-======================================================= -->
-<header class="header">
-    <div class="header-title">
-        SCHEDULE
-        <span>
-            PHILADELPHIA PHILLIES
-        </span>
-    </div>
-</header>
-<!-- =======================================================
+     完全に無地
+===================================================== -->
+<header class="header"></header>
+<!-- =====================================================
      MAIN
-======================================================= -->
+===================================================== -->
 <main>
 <section class="page">
+    <!-- PAGE TITLE -->
     <div class="page-heading">
         <h1>
             Schedule
@@ -823,15 +688,14 @@ main {
             2026 REGULAR SEASON
         </p>
     </div>
-    <!-- ===================================================
-         MONTH SELECTOR
-    ==================================================== -->
+    <!-- =================================================
+         MONTH
+    ================================================== -->
     <div class="month-selector">
         <button
             type="button"
             class="month-button"
-            id="prev-month"
-            aria-label="Previous month">
+            id="prev-month">
             ‹
         </button>
         <div class="month-center">
@@ -847,20 +711,18 @@ main {
         <button
             type="button"
             class="month-button"
-            id="next-month"
-            aria-label="Next month">
+            id="next-month">
             ›
         </button>
     </div>
-    <!-- ===================================================
+    <!-- =================================================
          GAME LIST
-    ==================================================== -->
+         現段階ではUI確認用サンプル
+    ================================================== -->
     <div
         class="schedule-list"
         id="schedule-list">
-        <!-- =================================================
-             SAMPLE GAME 1
-        ================================================== -->
+        <!-- GAME 1 -->
         <article
             class="game-card win">
             <div class="game-label">
@@ -924,9 +786,7 @@ main {
                 </div>
             </div>
         </article>
-        <!-- =================================================
-             SAMPLE GAME 2
-        ================================================== -->
+        <!-- GAME 2 -->
         <article
             class="game-card loss">
             <div class="game-label">
@@ -990,9 +850,7 @@ main {
                 </div>
             </div>
         </article>
-        <!-- =================================================
-             SAMPLE GAME 3
-        ================================================== -->
+        <!-- GAME 3 -->
         <article
             class="game-card">
             <div class="game-label">
@@ -1054,11 +912,9 @@ main {
     </div>
 </section>
 </main>
-<!-- =======================================================
+<!-- =====================================================
      BOTTOM NAVIGATION
-     index.html / player.html と同じ
-     通常の <a href=""> によるページ遷移
-======================================================= -->
+===================================================== -->
 <nav class="bottom-nav">
     <!-- SCHEDULE -->
     <a
@@ -1116,11 +972,9 @@ main {
         </div>
     </a>
 </nav>
-<!-- =======================================================
+<!-- =====================================================
      MONTH UI
-     現段階ではUI確認用。
-     MLB API接続は後で行う。
-======================================================= -->
+===================================================== -->
 <script>
 const monthName =
     document.getElementById(
