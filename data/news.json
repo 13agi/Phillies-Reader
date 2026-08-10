@@ -1,7 +1,13 @@
 {
-  "updated": "2026-08-10T17:00:59.356104+00:00",
+  "updated": "2026-08-10T20:02:43.360232+00:00",
   "days": 7,
   "articles": [
+    {
+      "title": "A look at why Flyers prospect Berglund will play on loan in Sweden",
+      "url": "https://www.nbcsportsphiladelphia.com/nhl/philadelphia-flyers/flyers-prospect-jack-berglund-loan-sweden-team-farjestad/746195/",
+      "source": "NBC Sports Philadelphia",
+      "published": "2026-08-10T17:09:05+00:00"
+    },
     {
       "title": "UFC Betting",
       "url": "https://www.cbssports.com/betting/news/ufc/",
@@ -36,7 +42,7 @@
       "title": "Power Rankings",
       "url": "https://www.cbssports.com/mlb/powerrankings/",
       "source": "CBS Sports",
-      "published": "2026-08-10T12:25:11+00:00"
+      "published": "2026-08-10T12:25:00+00:00"
     },
     {
       "title": "Eagles notebook: Jalen Hurts sees some rage in Dontayvion Wicks",
@@ -83,12 +89,6 @@
     {
       "title": "‘We'll be in good hands': Lane Johnson already knows who will replace him",
       "url": "https://www.nbcsportsphiladelphia.com/nfl/philadelphia-eagles/lane-johnson-markel-bell-howie-roseman-chris-kuper-eagles-offensive-line/746029/",
-      "source": "NBC Sports Philadelphia",
-      "published": "2026-08-09T11:00:00+00:00"
-    },
-    {
-      "title": "Eagles preach patience as Makai Lemon continues to battle hamstring injury",
-      "url": "https://www.nbcsportsphiladelphia.com/nfl/philadelphia-eagles/makai-lemon-injury-update-eagles-wide-receivers-devonta-smith/746033/",
       "source": "NBC Sports Philadelphia",
       "published": "2026-08-09T11:00:00+00:00"
     },
@@ -163,12 +163,6 @@
       "url": "https://www.nbcsportsphiladelphia.com/mlb/philadelphia-phillies/bryce-harper-outfield-luis-arraez-bryson-stott-don-mattingly/745110/",
       "source": "NBC Sports Philadelphia",
       "published": "2026-08-03T20:14:25+00:00"
-    },
-    {
-      "title": "How Luis Arraez gives Phillies a new look now and flexibility later",
-      "url": "https://www.nbcsportsphiladelphia.com/mlb/philadelphia-phillies/phillies-luis-arraez-trade-lineup-flexibility/745127/",
-      "source": "NBC Sports Philadelphia",
-      "published": "2026-08-03T18:12:00+00:00"
     }
   ]
 }
