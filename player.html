@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,15 +10,24 @@
                initial-scale=1.0,
                viewport-fit=cover">
 
-<title>PLAYER | Philadelphia Phillies</title>
+<title>PLAYER | PHILLIES</title>
+
 
 <style>
 
 :root {
+
     --navy: #07152b;
+
     --red: #e31937;
+
     --white: #ffffff;
+
     --muted: #64748b;
+
+    --yellow: #f4c430;
+
+    --gray: #64748b;
 }
 
 
@@ -26,23 +36,33 @@
 ===================================================== */
 
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
     -webkit-tap-highlight-color: transparent;
 }
 
 
 html,
 body {
+
     width: 100%;
+
     min-height: 100%;
-    background: var(--navy);
+
+    background:
+        var(--navy);
 }
 
 
 body {
-    color: var(--white);
+
+    color:
+        var(--white);
 
     font-family:
         Arial,
@@ -115,10 +135,6 @@ body {
     border-left:
         1px solid
         rgba(255,255,255,0.16);
-
-    box-shadow:
-        -15px 0 40px
-        rgba(0,0,0,0.08);
 
     pointer-events: none;
 }
@@ -261,7 +277,7 @@ main {
 
 
 /* =====================================================
-   PAGE TITLE
+   TITLE
 ===================================================== */
 
 .player-title {
@@ -272,21 +288,66 @@ main {
 
     letter-spacing: .5px;
 
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 
 .player-subtitle {
 
-    color: var(--muted);
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .7px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   POSITION GROUP
+===================================================== */
+
+.position-group {
+
+    margin-bottom: 25px;
+}
+
+
+.position-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
 
     font-size: 12px;
 
-    font-weight: 600;
+    font-weight: 800;
 
-    letter-spacing: .5px;
+    letter-spacing: 1px;
 
-    margin-bottom: 24px;
+    color:
+        rgba(255,255,255,0.70);
+}
+
+
+.position-title::after {
+
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,0.08);
 }
 
 
@@ -300,9 +361,7 @@ main {
 
     flex-direction: column;
 
-    gap: 10px;
-
-    width: 100%;
+    gap: 8px;
 }
 
 
@@ -316,14 +375,14 @@ main {
 
     width: 100%;
 
-    min-height: 78px;
+    min-height: 76px;
 
     display: flex;
 
     align-items: center;
 
     padding:
-        12px 15px 12px 18px;
+        11px 15px 11px 18px;
 
     background:
         linear-gradient(
@@ -336,7 +395,7 @@ main {
         1px solid
         rgba(255,255,255,0.075);
 
-    border-radius: 15px;
+    border-radius: 14px;
 
     overflow: hidden;
 
@@ -346,8 +405,18 @@ main {
 }
 
 
+.player-card:active {
+
+    transform:
+        scale(.98);
+
+    background:
+        rgba(227,25,55,0.10);
+}
+
+
 /* =====================================================
-   LEFT RED ACCENT
+   STATUS LINE
 ===================================================== */
 
 .player-card::after {
@@ -360,36 +429,44 @@ main {
     left: 0;
     bottom: 0;
 
-    width: 3px;
+    width: 4px;
 
     background:
-        linear-gradient(
-            180deg,
-            #ef233c,
-            #e31937,
-            #b90f2e
-        );
+        var(--red);
 
-    opacity: .9;
+    opacity: .95;
+}
+
+
+/* ACTIVE */
+
+.player-card.active::after {
+
+    background:
+        var(--red);
+}
+
+
+/* IL */
+
+.player-card.il::after {
+
+    background:
+        var(--yellow);
+}
+
+
+/* 26-MAN OUT */
+
+.player-card.outside::after {
+
+    background:
+        var(--gray);
 }
 
 
 /* =====================================================
-   CARD ACTIVE
-===================================================== */
-
-.player-card:active {
-
-    transform:
-        scale(.98);
-
-    background:
-        rgba(227,25,55,0.12);
-}
-
-
-/* =====================================================
-   PLAYER NUMBER
+   NUMBER
 ===================================================== */
 
 .player-number {
@@ -419,20 +496,13 @@ main {
 
     text-align: left;
 
-    text-shadow:
-        1px 1px 0
-        rgba(255,255,255,0.04);
-
     transform:
         scaleX(.88);
 
-    transform-origin: left center;
+    transform-origin:
+        left center;
 }
 
-
-/* =====================================================
-   NUMBER RED DETAIL
-===================================================== */
 
 .player-number::before {
 
@@ -441,6 +511,7 @@ main {
     position: absolute;
 
     left: -2px;
+
     top: -8px;
 
     font-family:
@@ -452,18 +523,13 @@ main {
 
     font-weight: 800;
 
-    letter-spacing: 0;
-
     color:
         rgba(227,25,55,0.75);
-
-    transform:
-        scaleX(1.12);
 }
 
 
 /* =====================================================
-   BAT / THROW
+   B/T
 ===================================================== */
 
 .player-bt {
@@ -489,7 +555,7 @@ main {
 
 .player-pos {
 
-    width: 42px;
+    width: 43px;
 
     flex-shrink: 0;
 
@@ -499,7 +565,8 @@ main {
 
     letter-spacing: .4px;
 
-    color: var(--red);
+    color:
+        var(--red);
 }
 
 
@@ -517,15 +584,86 @@ main {
 
     font-weight: 800;
 
-    letter-spacing: .2px;
+    letter-spacing: .15px;
 
-    color: var(--white);
+    color:
+        var(--white);
 
     white-space: nowrap;
 
     overflow: hidden;
 
     text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   STATUS LABEL
+===================================================== */
+
+.player-status {
+
+    margin-left: 8px;
+
+    flex-shrink: 0;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+    padding:
+        4px 6px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color:
+        rgba(255,255,255,0.55);
+}
+
+
+.player-card.active .player-status {
+
+    color:
+        var(--red);
+}
+
+
+.player-card.il .player-status {
+
+    color:
+        var(--yellow);
+}
+
+
+.player-card.outside .player-status {
+
+    color:
+        #94a3b8;
+}
+
+
+/* =====================================================
+   EMPTY / ERROR
+===================================================== */
+
+.message {
+
+    padding:
+        35px 20px;
+
+    text-align: center;
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
 }
 
 
@@ -599,7 +737,8 @@ main {
 
     text-decoration: none;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     border-radius: 13px;
 
@@ -617,10 +756,6 @@ main {
 }
 
 
-/* =====================================================
-   NAV ICON
-===================================================== */
-
 .nav-icon {
 
     width: 25px;
@@ -637,10 +772,6 @@ main {
 }
 
 
-/* =====================================================
-   NAV LABEL
-===================================================== */
-
 .nav-label {
 
     font-size: 10px;
@@ -653,13 +784,10 @@ main {
 }
 
 
-/* =====================================================
-   ACTIVE
-===================================================== */
-
 .nav-item.active {
 
-    color: var(--white);
+    color:
+        var(--white);
 
     background:
         rgba(227,25,55,0.13);
@@ -668,7 +796,8 @@ main {
 
 .nav-item.active .nav-icon {
 
-    color: var(--red);
+    color:
+        var(--red);
 }
 
 
@@ -697,15 +826,19 @@ main {
     }
 
     .player-bt {
-        width: 46px;
+        width: 45px;
     }
 
     .player-pos {
-        width: 35px;
+        width: 36px;
     }
 
     .player-name {
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+    .player-status {
+        display: none;
     }
 
     .nav-label {
@@ -755,118 +888,11 @@ main {
         PHILADELPHIA PHILLIES
     </p>
 
+    <div id="player-container">
 
-    <!-- =================================================
-         SAMPLE PLAYERS
-    ================================================== -->
-
-    <div class="player-list">
-
-
-        <div class="player-card">
-
-            <div class="player-number">
-                01
-            </div>
-
-            <div class="player-bt">
-                R/R
-            </div>
-
-            <div class="player-pos">
-                SS
-            </div>
-
-            <div class="player-name">
-                PLAYER ONE
-            </div>
-
+        <div class="message">
+            Loading players...
         </div>
-
-
-        <div class="player-card">
-
-            <div class="player-number">
-                02
-            </div>
-
-            <div class="player-bt">
-                L/L
-            </div>
-
-            <div class="player-pos">
-                OF
-            </div>
-
-            <div class="player-name">
-                PLAYER TWO
-            </div>
-
-        </div>
-
-
-        <div class="player-card">
-
-            <div class="player-number">
-                03
-            </div>
-
-            <div class="player-bt">
-                R/R
-            </div>
-
-            <div class="player-pos">
-                1B
-            </div>
-
-            <div class="player-name">
-                PLAYER THREE
-            </div>
-
-        </div>
-
-
-        <div class="player-card">
-
-            <div class="player-number">
-                04
-            </div>
-
-            <div class="player-bt">
-                R/R
-            </div>
-
-            <div class="player-pos">
-                RHP
-            </div>
-
-            <div class="player-name">
-                PLAYER FOUR
-            </div>
-
-        </div>
-
-
-        <div class="player-card">
-
-            <div class="player-number">
-                05
-            </div>
-
-            <div class="player-bt">
-                L/L
-            </div>
-
-            <div class="player-pos">
-                LHP
-            </div>
-
-            <div class="player-name">
-                PLAYER FIVE
-            </div>
-
-        </div>
-
 
     </div>
 
@@ -951,9 +977,631 @@ main {
 
     </a>
 
-
 </nav>
 
 
+<script>
+
+/* =====================================================
+   PLAYER DATA
+===================================================== */
+
+const container =
+    document.getElementById(
+        "player-container"
+    );
+
+
+/* =====================================================
+   POSITION GROUP
+===================================================== */
+
+function getPositionGroup(player) {
+
+    const position =
+        (player.position || "")
+        .toUpperCase();
+
+    const positionName =
+        (player.positionName || "")
+        .toLowerCase();
+
+
+    /*
+       投手
+    */
+
+    if (
+        position === "P" ||
+        position === "SP" ||
+        position === "RP" ||
+        position === "RHP" ||
+        position === "LHP" ||
+        positionName.includes("pitcher")
+    ) {
+
+        return {
+            key: "pitcher",
+            label: "PITCHERS",
+            order: 1
+        };
+
+    }
+
+
+    /*
+       捕手
+    */
+
+    if (
+        position === "C" ||
+        positionName.includes("catcher")
+    ) {
+
+        return {
+            key: "catcher",
+            label: "CATCHERS",
+            order: 2
+        };
+
+    }
+
+
+    /*
+       内野手
+    */
+
+    if (
+        [
+            "1B",
+            "2B",
+            "3B",
+            "SS"
+        ].includes(position) ||
+
+        positionName.includes("first baseman") ||
+        positionName.includes("second baseman") ||
+        positionName.includes("third baseman") ||
+        positionName.includes("shortstop") ||
+        positionName.includes("infielder")
+    ) {
+
+        return {
+            key: "infielder",
+            label: "INFIELDERS",
+            order: 3
+        };
+
+    }
+
+
+    /*
+       外野手
+    */
+
+    if (
+        [
+            "LF",
+            "CF",
+            "RF",
+            "OF"
+        ].includes(position) ||
+
+        positionName.includes("outfielder")
+    ) {
+
+        return {
+            key: "outfielder",
+            label: "OUTFIELDERS",
+            order: 4
+        };
+
+    }
+
+
+    /*
+       指名打者
+    */
+
+    if (
+        position === "DH" ||
+        positionName.includes("designated")
+    ) {
+
+        return {
+            key: "dh",
+            label: "DESIGNATED HITTERS",
+            order: 5
+        };
+
+    }
+
+
+    /*
+       判定できない場合
+    */
+
+    return {
+        key: "other",
+        label: "OTHER",
+        order: 6
+    };
+
+}
+
+
+/* =====================================================
+   JERSEY NUMBER SORT
+===================================================== */
+
+function jerseyNumber(player) {
+
+    const number =
+        parseInt(
+            player.number,
+            10
+        );
+
+    if (
+        Number.isNaN(number)
+    ) {
+
+        return 999;
+
+    }
+
+    return number;
+
+}
+
+
+/* =====================================================
+   CREATE PLAYER CARD
+===================================================== */
+
+function createPlayerCard(player) {
+
+    const group =
+        getPositionGroup(player);
+
+
+    const card =
+        document.createElement("div");
+
+
+    card.className =
+        "player-card";
+
+
+    /*
+       STATUS
+    */
+
+    let statusClass =
+        "outside";
+
+    let statusLabel =
+        "40-MAN";
+
+
+    if (
+        player.status === "IL" ||
+        player.il === true
+    ) {
+
+        statusClass =
+            "il";
+
+        statusLabel =
+            "IL";
+
+    }
+
+    else if (
+        player.activeRoster === true ||
+        player.twentySixMan === true ||
+        player.status === "ACTIVE"
+    ) {
+
+        statusClass =
+            "active";
+
+        statusLabel =
+            "ACTIVE";
+
+    }
+
+
+    card.classList.add(
+        statusClass
+    );
+
+
+    /*
+       NUMBER
+    */
+
+    const number =
+        document.createElement(
+            "div"
+        );
+
+    number.className =
+        "player-number";
+
+    number.textContent =
+        player.number || "--";
+
+
+    /*
+       B/T
+    */
+
+    const bt =
+        document.createElement(
+            "div"
+        );
+
+    bt.className =
+        "player-bt";
+
+    bt.textContent =
+        player.bt || "--";
+
+
+    /*
+       POSITION
+    */
+
+    const position =
+        document.createElement(
+            "div"
+        );
+
+    position.className =
+        "player-pos";
+
+    position.textContent =
+        player.position || "--";
+
+
+    /*
+       NAME
+    */
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+    name.className =
+        "player-name";
+
+    name.textContent =
+        player.name || "Unknown";
+
+
+    /*
+       STATUS
+    */
+
+    const status =
+        document.createElement(
+            "div"
+        );
+
+    status.className =
+        "player-status";
+
+    status.textContent =
+        statusLabel;
+
+
+    card.appendChild(
+        number
+    );
+
+    card.appendChild(
+        bt
+    );
+
+    card.appendChild(
+        position
+    );
+
+    card.appendChild(
+        name
+    );
+
+    card.appendChild(
+        status
+    );
+
+
+    return {
+        card,
+        group
+    };
+
+}
+
+
+/* =====================================================
+   LOAD ROSTER
+===================================================== */
+
+async function loadRoster() {
+
+    try {
+
+        const response =
+            await fetch(
+                "data/roster.json?ts=" +
+                Date.now()
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                "Roster data could not be loaded."
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const players =
+            Array.isArray(
+                data.players
+            )
+                ? data.players
+                : [];
+
+
+        if (
+            players.length === 0
+        ) {
+
+            container.innerHTML =
+                `
+                <div class="message">
+                    No player data found.
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        /*
+           グループ化
+        */
+
+        const groups =
+            {};
+
+
+        players.forEach(
+            player => {
+
+                const group =
+                    getPositionGroup(
+                        player
+                    );
+
+
+                if (
+                    !groups[group.key]
+                ) {
+
+                    groups[group.key] = {
+
+                        key:
+                            group.key,
+
+                        label:
+                            group.label,
+
+                        order:
+                            group.order,
+
+                        players:
+                            []
+
+                    };
+
+                }
+
+
+                groups[group.key]
+                    .players
+                    .push(player);
+
+            }
+        );
+
+
+        /*
+           グループ順
+        */
+
+        const sortedGroups =
+            Object.values(
+                groups
+            ).sort(
+                (a, b) =>
+                    a.order - b.order
+            );
+
+
+        container.innerHTML =
+            "";
+
+
+        /*
+           各ポジション
+        */
+
+        sortedGroups.forEach(
+            group => {
+
+
+                /*
+                   背番号順
+                */
+
+                group.players.sort(
+                    (a, b) => {
+
+                        const numberA =
+                            jerseyNumber(a);
+
+                        const numberB =
+                            jerseyNumber(b);
+
+
+                        if (
+                            numberA !== numberB
+                        ) {
+
+                            return (
+                                numberA -
+                                numberB
+                            );
+
+                        }
+
+
+                        return (
+                            (a.name || "")
+                            .localeCompare(
+                                b.name || ""
+                            )
+                        );
+
+                    }
+                );
+
+
+                /*
+                   GROUP
+                */
+
+                const groupElement =
+                    document.createElement(
+                        "section"
+                    );
+
+
+                groupElement.className =
+                    "position-group";
+
+
+                /*
+                   TITLE
+                */
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                title.className =
+                    "position-title";
+
+
+                title.textContent =
+                    group.label;
+
+
+                groupElement.appendChild(
+                    title
+                );
+
+
+                /*
+                   LIST
+                */
+
+                const list =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                list.className =
+                    "player-list";
+
+
+                group.players.forEach(
+                    player => {
+
+                        const result =
+                            createPlayerCard(
+                                player
+                            );
+
+
+                        list.appendChild(
+                            result.card
+                        );
+
+                    }
+                );
+
+
+                groupElement.appendChild(
+                    list
+                );
+
+
+                container.appendChild(
+                    groupElement
+                );
+
+            }
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        container.innerHTML =
+            `
+            <div class="message">
+                Player data could not be loaded.<br>
+                Please try again later.
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadRoster();
+
+</script>
+
+
 </body>
+
 </html>
