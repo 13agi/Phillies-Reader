@@ -4,263 +4,719 @@ import requests
 from datetime import datetime, timezone
 
 
-TEAM_ID = 143  # Philadelphia Phillies
+# =========================================================
+# CONFIG
+# =========================================================
+
+TEAM_ID = 143
+SEASON = 2026
 
 API_BASE = "https://statsapi.mlb.com/api/v1"
 
 DATA_DIR = "data"
-OUTPUT_FILE = os.path.join(DATA_DIR, "player_stats.json")
+OUTPUT_FILE = os.path.join(
+    DATA_DIR,
+    "player_stats.json"
+)
 
+
+# =========================================================
+# API
+# =========================================================
+
+def api_get(url, params=None):
+
+    response = requests.get(
+        url,
+        params=params,
+        timeout=30,
+        headers={
+            "User-Agent": "Phillies-Reader"
+        }
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
+
+# =========================================================
+# PHILLIES 40-MAN ROSTER
+# =========================================================
 
 def get_roster():
-    url = f"{API_BASE}/teams/{TEAM_ID}/roster"
+
+    url = (
+        f"{API_BASE}/teams/"
+        f"{TEAM_ID}/roster"
+    )
+
     params = {
         "rosterType": "40Man",
         "hydrate": "person"
     }
 
-    response = requests.get(url, params=params, timeout=30)
-    response.raise_for_status()
+    data = api_get(
+        url,
+        params
+    )
 
-    return response.json().get("roster", [])
+    return data.get(
+        "roster",
+        []
+    )
 
 
-def get_stats(player_id, group):
-    url = f"{API_BASE}/people/{player_id}/stats"
+# =========================================================
+# PLAYER SEASON STATS
+# =========================================================
+
+def get_stats(
+    player_id,
+    group
+):
+
+    url = (
+        f"{API_BASE}/people/"
+        f"{player_id}/stats"
+    )
 
     params = {
         "stats": "season",
         "group": group,
-        "season": "2026"
+        "season": str(SEASON)
     }
 
-    response = requests.get(url, params=params, timeout=30)
-    response.raise_for_status()
+    data = api_get(
+        url,
+        params
+    )
 
-    data = response.json()
-
-    stats = data.get("stats", [])
+    stats = data.get(
+        "stats",
+        []
+    )
 
     if not stats:
         return {}
 
-    splits = stats[0].get("splits", [])
+    # season stats
+    splits = stats[0].get(
+        "splits",
+        []
+    )
 
     if not splits:
         return {}
 
-    return splits[0].get("stat", {})
+    # 通常season=2026の1件
+    for split in splits:
+
+        if str(
+            split.get("season", "")
+        ) == str(SEASON):
+
+            return split.get(
+                "stat",
+                {}
+            )
+
+    return splits[0].get(
+        "stat",
+        {}
+    )
 
 
-def safe_number(value):
-    if value is None:
-        return None
+# =========================================================
+# SAFE VALUE
+# =========================================================
 
-    return value
+def value(
+    data,
+    key
+):
 
+    return data.get(
+        key
+    )
+
+
+# =========================================================
+# BATTING DATA
+#
+# APIから取得した通常シーズン打撃成績
+# =========================================================
+
+def build_batting(
+    batting
+):
+
+    return {
+
+        # 基本
+        "games":
+            value(
+                batting,
+                "gamesPlayed"
+            ),
+
+        "plateAppearances":
+            value(
+                batting,
+                "plateAppearances"
+            ),
+
+        "atBats":
+            value(
+                batting,
+                "atBats"
+            ),
+
+        "hits":
+            value(
+                batting,
+                "hits"
+            ),
+
+        "runs":
+            value(
+                batting,
+                "runs"
+            ),
+
+        # 長打
+        "doubles":
+            value(
+                batting,
+                "doubles"
+            ),
+
+        "triples":
+            value(
+                batting,
+                "triples"
+            ),
+
+        "homeRuns":
+            value(
+                batting,
+                "homeRuns"
+            ),
+
+        "totalBases":
+            value(
+                batting,
+                "totalBases"
+            ),
+
+        # 得点・走塁
+        "rbi":
+            value(
+                batting,
+                "rbi"
+            ),
+
+        "stolenBases":
+            value(
+                batting,
+                "stolenBases"
+            ),
+
+        "caughtStealing":
+            value(
+                batting,
+                "caughtStealing"
+            ),
+
+        # 四死球・三振
+        "walks":
+            value(
+                batting,
+                "baseOnBalls"
+            ),
+
+        "intentionalWalks":
+            value(
+                batting,
+                "intentionalWalks"
+            ),
+
+        "hitByPitch":
+            value(
+                batting,
+                "hitByPitch"
+            ),
+
+        "strikeouts":
+            value(
+                batting,
+                "strikeOuts"
+            ),
+
+        # 犠打・犠飛
+        "sacBunts":
+            value(
+                batting,
+                "sacBunts"
+            ),
+
+        "sacFlies":
+            value(
+                batting,
+                "sacFlies"
+            ),
+
+        # 併殺
+        "groundIntoDoublePlay":
+            value(
+                batting,
+                "groundIntoDoublePlay"
+            ),
+
+        # 打撃率
+        "avg":
+            value(
+                batting,
+                "avg"
+            ),
+
+        "obp":
+            value(
+                batting,
+                "obp"
+            ),
+
+        "slg":
+            value(
+                batting,
+                "slg"
+            ),
+
+        "ops":
+            value(
+                batting,
+                "ops"
+            ),
+
+        # BABIP等
+        "babip":
+            value(
+                batting,
+                "babip"
+            ),
+
+        "groundOuts":
+            value(
+                batting,
+                "groundOuts"
+            ),
+
+        "airOuts":
+            value(
+                batting,
+                "airOuts"
+            ),
+
+        "leftOnBase":
+            value(
+                batting,
+                "leftOnBase"
+            ),
+
+        "numberOfPitches":
+            value(
+                batting,
+                "numberOfPitches"
+            )
+
+    }
+
+
+# =========================================================
+# PITCHING DATA
+#
+# BFを含め、成績カードに必要な値を保存
+# =========================================================
+
+def build_pitching(
+    pitching
+):
+
+    return {
+
+        # 登板
+        "games":
+            value(
+                pitching,
+                "gamesPlayed"
+            ),
+
+        "gamesStarted":
+            value(
+                pitching,
+                "gamesStarted"
+            ),
+
+        # 勝敗
+        "wins":
+            value(
+                pitching,
+                "wins"
+            ),
+
+        "losses":
+            value(
+                pitching,
+                "losses"
+            ),
+
+        # セーブ関連
+        "saves":
+            value(
+                pitching,
+                "saves"
+            ),
+
+        "saveOpportunities":
+            value(
+                pitching,
+                "saveOpportunities"
+            ),
+
+        "holds":
+            value(
+                pitching,
+                "holds"
+            ),
+
+        "blownSaves":
+            value(
+                pitching,
+                "blownSaves"
+            ),
+
+        # イニング
+        "inningsPitched":
+            value(
+                pitching,
+                "inningsPitched"
+            ),
+
+        # 被打撃
+        "hits":
+            value(
+                pitching,
+                "hits"
+            ),
+
+        "runs":
+            value(
+                pitching,
+                "runs"
+            ),
+
+        "earnedRuns":
+            value(
+                pitching,
+                "earnedRuns"
+            ),
+
+        "homeRuns":
+            value(
+                pitching,
+                "homeRuns"
+            ),
+
+        # 四死球
+        "walks":
+            value(
+                pitching,
+                "baseOnBalls"
+            ),
+
+        "intentionalWalks":
+            value(
+                pitching,
+                "intentionalWalks"
+            ),
+
+        "hitByPitch":
+            value(
+                pitching,
+                "hitByPitch"
+            ),
+
+        # 三振
+        "strikeouts":
+            value(
+                pitching,
+                "strikeOuts"
+            ),
+
+        # ★ 対戦打者数
+        "battersFaced":
+            value(
+                pitching,
+                "battersFaced"
+            ),
+
+        # 基本指標
+        "era":
+            value(
+                pitching,
+                "era"
+            ),
+
+        "whip":
+            value(
+                pitching,
+                "whip"
+            ),
+
+        # その他
+        "completeGames":
+            value(
+                pitching,
+                "completeGames"
+            ),
+
+        "shutouts":
+            value(
+                pitching,
+                "shutouts"
+            ),
+
+        "wildPitches":
+            value(
+                pitching,
+                "wildPitches"
+            ),
+
+        "balks":
+            value(
+                pitching,
+                "balks"
+            ),
+
+        "pickoffs":
+            value(
+                pitching,
+                "pickoffs"
+            ),
+
+        # /9系
+        "k9":
+            value(
+                pitching,
+                "strikeoutsPer9"
+            ),
+
+        "bb9":
+            value(
+                pitching,
+                "walksPer9"
+            ),
+
+        "h9":
+            value(
+                pitching,
+                "hitsPer9"
+            ),
+
+        "kbb":
+            value(
+                pitching,
+                "strikeoutWalkRatio"
+            )
+
+    }
+
+
+# =========================================================
+# MAIN
+# =========================================================
 
 def main():
 
-    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(
+        DATA_DIR,
+        exist_ok=True
+    )
+
+    print(
+        "========================================"
+    )
+
+    print(
+        "PHILLIES PLAYER STATS UPDATE"
+    )
+
+    print(
+        f"Season: {SEASON}"
+    )
+
+    print(
+        "========================================"
+    )
+
+
+    # -----------------------------------------------------
+    # roster
+    # -----------------------------------------------------
 
     roster = get_roster()
 
+    print(
+        f"Roster players: {len(roster)}"
+    )
+
+
     players = {}
 
-    for entry in roster:
 
-        person = entry.get("person", {})
+    # -----------------------------------------------------
+    # players
+    # -----------------------------------------------------
 
-        player_id = person.get("id")
+    for index, entry in enumerate(
+        roster,
+        start=1
+    ):
+
+        person = entry.get(
+            "person",
+            {}
+        )
+
+        player_id = person.get(
+            "id"
+        )
 
         if not player_id:
             continue
 
-        name = person.get("fullName", "Unknown")
+
+        name = person.get(
+            "fullName",
+            "Unknown"
+        )
+
 
         position = (
-            entry.get("position", {})
-            .get("abbreviation", "")
+            entry
+            .get(
+                "position",
+                {}
+            )
+            .get(
+                "abbreviation",
+                ""
+            )
         )
+
 
         print(
-            f"Getting stats: {name} "
-            f"(ID: {player_id})"
+            f"[{index}/{len(roster)}] "
+            f"{name} ({position})"
         )
 
-        batting = {}
-        pitching = {}
+
+        batting_raw = {}
+
+        pitching_raw = {}
+
+
+        # -------------------------------------------------
+        # hitting
+        # -------------------------------------------------
 
         try:
-            batting = get_stats(
+
+            batting_raw = get_stats(
                 player_id,
                 "hitting"
             )
-        except Exception as e:
+
+        except Exception as error:
+
             print(
-                f"Batting error for {name}: {e}"
+                f"  Hitting error: {error}"
             )
 
+
+        # -------------------------------------------------
+        # pitching
+        # -------------------------------------------------
+
         try:
-            pitching = get_stats(
+
+            pitching_raw = get_stats(
                 player_id,
                 "pitching"
             )
-        except Exception as e:
+
+        except Exception as error:
+
             print(
-                f"Pitching error for {name}: {e}"
+                f"  Pitching error: {error}"
             )
 
-        players[str(player_id)] = {
 
-            "playerId": player_id,
+        # -------------------------------------------------
+        # save
+        # -------------------------------------------------
 
-            "name": name,
+        players[
+            str(player_id)
+        ] = {
 
-            "position": position,
+            "playerId":
+                player_id,
 
-            "season": 2026,
+            "name":
+                name,
 
-            "batting": {
+            "position":
+                position,
 
-                "games": safe_number(
-                    batting.get("gamesPlayed")
+            "season":
+                SEASON,
+
+            "batting":
+                build_batting(
+                    batting_raw
                 ),
 
-                "plateAppearances": safe_number(
-                    batting.get("plateAppearances")
-                ),
-
-                "atBats": safe_number(
-                    batting.get("atBats")
-                ),
-
-                "hits": safe_number(
-                    batting.get("hits")
-                ),
-
-                "runs": safe_number(
-                    batting.get("runs")
-                ),
-
-                "homeRuns": safe_number(
-                    batting.get("homeRuns")
-                ),
-
-                "rbi": safe_number(
-                    batting.get("rbi")
-                ),
-
-                "walks": safe_number(
-                    batting.get("baseOnBalls")
-                ),
-
-                "strikeouts": safe_number(
-                    batting.get("strikeOuts")
-                ),
-
-                "stolenBases": safe_number(
-                    batting.get("stolenBases")
-                ),
-
-                "avg": safe_number(
-                    batting.get("avg")
-                ),
-
-                "obp": safe_number(
-                    batting.get("obp")
-                ),
-
-                "slg": safe_number(
-                    batting.get("slg")
-                ),
-
-                "ops": safe_number(
-                    batting.get("ops")
+            "pitching":
+                build_pitching(
+                    pitching_raw
                 )
-
-            },
-
-            "pitching": {
-
-                "games": safe_number(
-                    pitching.get("gamesPlayed")
-                ),
-
-                "gamesStarted": safe_number(
-                    pitching.get("gamesStarted")
-                ),
-
-                "inningsPitched": safe_number(
-                    pitching.get("inningsPitched")
-                ),
-
-                "wins": safe_number(
-                    pitching.get("wins")
-                ),
-
-                "losses": safe_number(
-                    pitching.get("losses")
-                ),
-
-                "saves": safe_number(
-                    pitching.get("saves")
-                ),
-
-                "era": safe_number(
-                    pitching.get("era")
-                ),
-
-                "whip": safe_number(
-                    pitching.get("whip")
-                ),
-
-                "hits": safe_number(
-                    pitching.get("hits")
-                ),
-
-                "earnedRuns": safe_number(
-                    pitching.get("earnedRuns")
-                ),
-
-                "homeRuns": safe_number(
-                    pitching.get("homeRuns")
-                ),
-
-                "walks": safe_number(
-                    pitching.get("baseOnBalls")
-                ),
-
-                "strikeouts": safe_number(
-                    pitching.get("strikeOuts")
-                ),
-
-                "k9": safe_number(
-                    pitching.get("strikeoutsPer9")
-                ),
-
-                "bb9": safe_number(
-                    pitching.get("walksPer9")
-                )
-
-            }
 
         }
 
 
+    # =====================================================
+    # OUTPUT
+    # =====================================================
+
     output = {
 
-        "team": "Philadelphia Phillies",
+        "team":
+            "Philadelphia Phillies",
 
-        "teamId": TEAM_ID,
+        "teamId":
+            TEAM_ID,
 
-        "season": 2026,
+        "season":
+            SEASON,
 
-        "updatedAt": datetime.now(
-            timezone.utc
-        ).isoformat(),
+        "updatedAt":
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
 
-        "players": players
+        "players":
+            players
 
     }
 
@@ -269,21 +725,38 @@ def main():
         OUTPUT_FILE,
         "w",
         encoding="utf-8"
-    ) as f:
+    ) as file:
 
         json.dump(
             output,
-            f,
+            file,
             ensure_ascii=False,
             indent=2
         )
 
 
+    print("")
     print(
-        f"Saved {len(players)} players "
-        f"to {OUTPUT_FILE}"
+        "========================================"
+    )
+
+    print(
+        f"Saved {len(players)} players"
+    )
+
+    print(
+        f"Output: {OUTPUT_FILE}"
+    )
+
+    print(
+        "========================================"
     )
 
 
+# =========================================================
+# START
+# =========================================================
+
 if __name__ == "__main__":
+
     main()
