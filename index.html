@@ -9,6 +9,9 @@
 
 <title>PHILLIES</title>
 
+<!-- Excalibur Nouveau -->
+<link href="https://fonts.cdnfonts.com/css/excalibur-nouveau" rel="stylesheet">
+
 <style>
 
 :root {
@@ -27,6 +30,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -34,6 +38,7 @@ html,
 body {
     width: 100%;
     min-height: 100%;
+
     background: var(--navy);
 }
 
@@ -79,27 +84,22 @@ body {
 
 
 /* =========================
-   PHILLIES
+   PHILLIES LOGO
 ========================= */
 
 .logo {
 
     font-family:
-        Arial,
-        Helvetica,
+        'Excalibur Nouveau',
         sans-serif;
 
-    font-size: 42px;
+    font-size: 48px;
 
-    font-weight: 700;
-
-    letter-spacing: 1px;
+    font-weight: 500;
 
     line-height: 1;
 
     color: var(--white);
-
-    text-transform: uppercase;
 }
 
 
@@ -194,7 +194,6 @@ main {
         transform .15s ease;
 }
 
-
 .nav-item:active {
     transform: scale(.94);
 }
@@ -248,7 +247,6 @@ main {
         rgba(227,25,55,0.13);
 }
 
-
 .nav-item.active .nav-icon {
     color: var(--red);
 }
@@ -269,7 +267,7 @@ main {
     }
 
     .logo {
-        font-size: 37px;
+        font-size: 42px;
     }
 
     .nav-label {
@@ -285,6 +283,10 @@ main {
 <body>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
 
     <div class="logo">
@@ -294,13 +296,25 @@ main {
 </header>
 
 
+<!-- =========================
+     EMPTY MAIN
+========================= -->
+
 <main>
 </main>
 
 
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
 <nav class="bottom-nav">
 
-    <a href="#" class="nav-item">
+
+    <!-- SCHEDULE -->
+
+    <a href="#"
+       class="nav-item">
 
         <div class="nav-icon">
             ▣
@@ -313,7 +327,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- SCORE -->
+
+    <a href="#"
+       class="nav-item">
 
         <div class="nav-icon">
             ●
@@ -326,7 +343,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item active">
+    <!-- HOME -->
+
+    <a href="#"
+       class="nav-item active">
 
         <div class="nav-icon">
             ⌂
@@ -339,7 +359,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- PLAYER -->
+
+    <a href="#"
+       class="nav-item">
 
         <div class="nav-icon">
             ♟
@@ -352,7 +375,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- STATS -->
+
+    <a href="#"
+       class="nav-item">
 
         <div class="nav-icon">
             ▥
