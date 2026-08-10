@@ -9,9 +9,6 @@
              viewport-fit=cover"
 >
 <title>Schedule</title>
-<!-- =========================================================
-     FONT
-========================================================= -->
 <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -19,7 +16,6 @@
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
-    crossorigin
 >
 <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
@@ -77,7 +73,6 @@ body {
 }
 /* =========================================================
    HEADER
-   INDEX / PLAYER と統一
 ========================================================= */
 .header {
     position: fixed;
@@ -165,8 +160,7 @@ main {
         center;
     justify-content:
         center;
-    border:
-        0;
+    border: 0;
     border-radius:
         11px;
     background:
@@ -175,8 +169,6 @@ main {
         rgba(255,255,255,.70);
     font-size:
         25px;
-    cursor:
-        pointer;
 }
 .month-button:active {
     transform:
@@ -526,12 +518,6 @@ main {
         10px;
     font-weight:
         800;
-    white-space:
-        nowrap;
-    overflow:
-        hidden;
-    text-overflow:
-        ellipsis;
 }
 .venue-location {
     display:
@@ -544,7 +530,7 @@ main {
         8px;
 }
 /* =========================================================
-   HOME / AWAY
+   HOME / AWAY LABEL
 ========================================================= */
 .game-label {
     position:
@@ -614,7 +600,7 @@ main {
     grid-template-columns:
         40px repeat(
             var(--innings),
-            minmax(24px, 1fr)
+            minmax(24px,1fr)
         ) 34px;
     min-width:
         max-content;
@@ -685,8 +671,7 @@ main {
 }
 /* =========================================================
    BOTTOM NAV
-   INDEX / PLAYER と完全統一
-   並び順固定
+   ★ INDEX / PLAYER と完全統一
 ========================================================= */
 .bottom-nav {
     position:
@@ -753,6 +738,9 @@ main {
         background .15s ease,
         transform .15s ease;
 }
+/* =========================================================
+   TAP
+========================================================= */
 .nav-item:active {
     transform:
         scale(.94);
@@ -768,7 +756,7 @@ main {
 }
 /* =========================================================
    NAV ICON
-   INDEX / PLAYER と同一
+   ★ サイズ固定
 ========================================================= */
 .nav-icon {
     width:
@@ -781,6 +769,8 @@ main {
         center;
     justify-content:
         center;
+    flex-shrink:
+        0;
     font-size:
         18px;
     font-weight:
@@ -788,6 +778,9 @@ main {
     line-height:
         1;
 }
+/* =========================================================
+   ACTIVE ICON
+========================================================= */
 .nav-item.active
 .nav-icon {
     color:
@@ -795,7 +788,7 @@ main {
 }
 /* =========================================================
    NAV LABEL
-   INDEX / PLAYER と同一
+   ★ サイズ固定
 ========================================================= */
 .nav-label {
     font-family:
@@ -809,6 +802,8 @@ main {
         1;
     letter-spacing:
         .8px;
+    white-space:
+        nowrap;
 }
 /* =========================================================
    EMPTY
@@ -825,7 +820,7 @@ main {
 }
 /* =========================================================
    SMALL IPHONE
-   ヘッダーサイズは変更しない
+   ★ 下タブサイズは変更しない
 ========================================================= */
 @media (
     max-width: 360px
@@ -881,9 +876,6 @@ main {
 ===================================================== -->
 <main>
 <section class="page">
-    <!-- =================================================
-         PAGE TITLE
-    ================================================== -->
     <div class="page-heading">
         <h1>
             Schedule
@@ -892,9 +884,6 @@ main {
             2026 REGULAR SEASON
         </p>
     </div>
-    <!-- =================================================
-         MONTH SELECTOR
-    ================================================== -->
     <div class="month-selector">
         <button
             type="button"
@@ -922,9 +911,6 @@ main {
             ›
         </button>
     </div>
-    <!-- =================================================
-         SCHEDULE LIST
-    ================================================== -->
     <div
         class="schedule-list"
         id="schedule-list"
@@ -933,7 +919,7 @@ main {
 </main>
 <!-- =====================================================
      BOTTOM NAVIGATION
-     順番固定
+     ★ 順番固定
 ===================================================== -->
 <nav class="bottom-nav">
     <!-- 1. SCHEDULE -->
@@ -1026,12 +1012,12 @@ const nextButton =
    STATE
 ========================================================= */
 let scheduleData = [];
-let currentDate =
+const today =
     new Date();
 let currentYear =
-    currentDate.getFullYear();
+    today.getFullYear();
 let currentMonth =
-    currentDate.getMonth();
+    today.getMonth();
 /* =========================================================
    MONTH NAMES
 ========================================================= */
@@ -1120,17 +1106,22 @@ async function loadSchedule() {
         ) {
             scheduleData =
                 data;
-        } else if (
-            Array.isArray(data.games)
+        }
+        else if (
+            Array.isArray(
+                data.games
+            )
         ) {
             scheduleData =
                 data.games;
-        } else {
+        }
+        else {
             scheduleData =
                 [];
         }
         renderSchedule();
-    } catch (error) {
+    }
+    catch (error) {
         console.error(
             error
         );
@@ -1151,9 +1142,7 @@ function updateMonthTitle() {
 /* =========================================================
    GAME DATE
 ========================================================= */
-function parseGameDate(
-    game
-) {
+function parseGameDate(game) {
     if (
         !game ||
         !game.date
@@ -1207,9 +1196,9 @@ function getGamesForMonth() {
             ) => {
                 return (
                     String(a.date)
-                    .localeCompare(
-                        String(b.date)
-                    )
+                        .localeCompare(
+                            String(b.date)
+                        )
                 );
             }
         );
@@ -1217,9 +1206,7 @@ function getGamesForMonth() {
 /* =========================================================
    TIME
 ========================================================= */
-function formatGameTime(
-    game
-) {
+function formatGameTime(game) {
     if (
         !game.gameDate
     ) {
@@ -1253,16 +1240,13 @@ function formatGameTime(
 /* =========================================================
    VENUE LOCATION
 ========================================================= */
-function formatVenueLocation(
-    venue
-) {
+function formatVenueLocation(venue) {
     if (
         !venue
     ) {
         return "";
     }
-    const parts =
-        [];
+    const parts = [];
     if (
         venue.city
     ) {
@@ -1276,7 +1260,8 @@ function formatVenueLocation(
         parts.push(
             venue.stateAbbrev
         );
-    } else if (
+    }
+    else if (
         venue.state
     ) {
         parts.push(
@@ -1288,19 +1273,15 @@ function formatVenueLocation(
     );
 }
 /* =========================================================
-   TEAM HELPERS
+   OPPONENT
 ========================================================= */
-function getOpponent(
-    game
-) {
+function getOpponent(game) {
     return (
         game.opponent ||
         {}
     );
 }
-function getOpponentCode(
-    game
-) {
+function getOpponentCode(game) {
     return (
         getOpponent(
             game
@@ -1313,9 +1294,7 @@ function getOpponentCode(
         ""
     );
 }
-function getOpponentName(
-    game
-) {
+function getOpponentName(game) {
     return (
         getOpponent(
             game
@@ -1327,9 +1306,7 @@ function getOpponentName(
 /* =========================================================
    SCORE
 ========================================================= */
-function getPhilliesScore(
-    game
-) {
+function getPhilliesScore(game) {
     return (
         game.phillies?.score
         ??
@@ -1338,9 +1315,7 @@ function getPhilliesScore(
         "-"
     );
 }
-function getOpponentScore(
-    game
-) {
+function getOpponentScore(game) {
     return (
         game.opponent?.score
         ??
@@ -1352,13 +1327,10 @@ function getOpponentScore(
 /* =========================================================
    STATUS
 ========================================================= */
-function getStatus(
-    game
-) {
+function getStatus(game) {
     const raw =
         String(
-            game.status
-            ||
+            game.status ||
             ""
         ).toLowerCase();
     if (
@@ -1382,9 +1354,7 @@ function getStatus(
 /* =========================================================
    LOCATION
 ========================================================= */
-function getLocation(
-    game
-) {
+function getLocation(game) {
     const value =
         String(
             game.location
@@ -1403,15 +1373,15 @@ function getLocation(
 /* =========================================================
    INNING SCORES
 ========================================================= */
-function renderInningScores(
-    game
-) {
+function renderInningScores(game) {
     const innings =
         Array.isArray(
             game.inningScores
         )
-            ? game.inningScores
-            : [];
+            ?
+            game.inningScores
+            :
+            [];
     if (
         innings.length === 0
     ) {
@@ -1506,14 +1476,14 @@ function renderInningScores(
             let opponentRuns;
             let philliesRuns;
             if (
-                location ===
-                "HOME"
+                location === "HOME"
             ) {
                 opponentRuns =
                     away;
                 philliesRuns =
                     home;
-            } else {
+            }
+            else {
                 opponentRuns =
                     home;
                 philliesRuns =
@@ -1554,13 +1524,19 @@ function renderInningScores(
             </div>
             <div class="inning-table">
                 ${header}
-                ${location === "HOME"
-                    ? philliesRow
-                    : opponentRow
+                ${
+                    location === "HOME"
+                    ?
+                    philliesRow
+                    :
+                    opponentRow
                 }
-                ${location === "HOME"
-                    ? opponentRow
-                    : philliesRow
+                ${
+                    location === "HOME"
+                    ?
+                    opponentRow
+                    :
+                    philliesRow
                 }
             </div>
         </div>
@@ -1569,15 +1545,15 @@ function renderInningScores(
 /* =========================================================
    PHILLIES PITCHERS
 ========================================================= */
-function renderPitchers(
-    game
-) {
+function renderPitchers(game) {
     const pitchers =
         Array.isArray(
             game.philliesPitchers
         )
-            ? game.philliesPitchers
-            : [];
+            ?
+            game.philliesPitchers
+            :
+            [];
     if (
         pitchers.length === 0
     ) {
@@ -1604,7 +1580,8 @@ function renderPitchers(
                     ) {
                         name =
                             pitcher;
-                    } else {
+                    }
+                    else {
                         name =
                             pitcher.name
                             ||
@@ -1638,9 +1615,7 @@ function renderPitchers(
 /* =========================================================
    DETAIL
 ========================================================= */
-function renderDetail(
-    game
-) {
+function renderDetail(game) {
     return `
         <div class="game-detail">
             ${renderInningScores(
@@ -1655,9 +1630,7 @@ function renderDetail(
 /* =========================================================
    GAME CARD
 ========================================================= */
-function renderGame(
-    game
-) {
+function renderGame(game) {
     const date =
         parseGameDate(
             game
@@ -1683,8 +1656,7 @@ function renderGame(
         );
     const result =
         String(
-            game.result
-            ||
+            game.result ||
             ""
         ).toUpperCase();
     let cardClass =
@@ -1694,7 +1666,8 @@ function renderGame(
     ) {
         cardClass =
             "win";
-    } else if (
+    }
+    else if (
         result === "L"
     ) {
         cardClass =
@@ -1751,7 +1724,8 @@ function renderGame(
                 }
             </div>
         `;
-    } else {
+    }
+    else {
         centerHTML = `
             <div class="future-time">
                 <strong>
@@ -1797,8 +1771,10 @@ function renderGame(
                 <span class="team-code">
                     ${
                         location === "AWAY"
-                            ? "PHI"
-                            : escapeHTML(
+                            ?
+                            "PHI"
+                            :
+                            escapeHTML(
                                 getOpponentCode(
                                     game
                                 )
@@ -1808,8 +1784,10 @@ function renderGame(
                 <span class="team-name">
                     ${
                         location === "AWAY"
-                            ? "PHILADELPHIA"
-                            : escapeHTML(
+                            ?
+                            "PHILADELPHIA"
+                            :
+                            escapeHTML(
                                 getOpponentName(
                                     game
                                 )
@@ -1822,8 +1800,10 @@ function renderGame(
                 <span class="team-code">
                     ${
                         location === "HOME"
-                            ? "PHI"
-                            : escapeHTML(
+                            ?
+                            "PHI"
+                            :
+                            escapeHTML(
                                 getOpponentCode(
                                     game
                                 )
@@ -1833,8 +1813,10 @@ function renderGame(
                 <span class="team-name">
                     ${
                         location === "HOME"
-                            ? "PHILADELPHIA"
-                            : escapeHTML(
+                            ?
+                            "PHILADELPHIA"
+                            :
+                            escapeHTML(
                                 getOpponentName(
                                     game
                                 )
@@ -1885,7 +1867,7 @@ function renderGame(
     return card;
 }
 /* =========================================================
-   RENDER SCHEDULE
+   RENDER
 ========================================================= */
 function renderSchedule() {
     updateMonthTitle();
@@ -1921,7 +1903,7 @@ function renderSchedule() {
     );
 }
 /* =========================================================
-   MONTH PREVIOUS
+   PREVIOUS MONTH
 ========================================================= */
 previousButton.addEventListener(
     "click",
@@ -1932,14 +1914,15 @@ previousButton.addEventListener(
             currentMonth =
                 11;
             currentYear--;
-        } else {
+        }
+        else {
             currentMonth--;
         }
         renderSchedule();
     }
 );
 /* =========================================================
-   MONTH NEXT
+   NEXT MONTH
 ========================================================= */
 nextButton.addEventListener(
     "click",
@@ -1950,7 +1933,8 @@ nextButton.addEventListener(
             currentMonth =
                 0;
             currentYear++;
-        } else {
+        }
+        else {
             currentMonth++;
         }
         renderSchedule();
