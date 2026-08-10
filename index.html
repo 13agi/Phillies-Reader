@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,59 +10,60 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<title>PHILLIES</title>
+<title>Phillies Reader</title>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
-    rel="stylesheet"
->
 
 <style>
 
 /* =========================================================
-   ROOT
+   BASE
 ========================================================= */
 
-:root {
-    --navy: #07152b;
-    --navy-2: #0b1c38;
-    --red: #e31937;
-    --white: #ffffff;
-    --muted: #64748b;
-    --line: rgba(255,255,255,.075);
+:root{
+
+    --navy:#07152b;
+    --navy2:#0b1b34;
+    --navy3:#102544;
+
+    --red:#e31937;
+    --red-dark:#b9142d;
+
+    --white:#ffffff;
+
+    --gray:#91a0b8;
+    --gray2:#61718a;
+
+    --line:rgba(255,255,255,.08);
+
+    --gold:#ffd447;
 }
 
 
-/* =========================================================
-   RESET
-========================================================= */
+*{
+    box-sizing:border-box;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    margin:0;
+    padding:0;
+
+    -webkit-tap-highlight-color:transparent;
 }
+
 
 html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background: var(--navy);
+body{
+
+    width:100%;
+    min-height:100%;
+
+    background:var(--navy);
+
 }
 
-body {
-    color: var(--white);
+
+body{
+
+    color:var(--white);
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -71,9 +73,10 @@ body {
 
     padding-bottom:
         calc(
-            76px +
+            78px +
             env(safe-area-inset-bottom)
         );
+
 }
 
 
@@ -81,100 +84,89 @@ body {
    HEADER
 ========================================================= */
 
-.header {
-    position: fixed;
+.header{
 
-    top: 0;
-    left: 0;
-    right: 0;
+    position:fixed;
 
-    z-index: 100;
+    z-index:100;
 
-    height: 76px;
+    top:0;
+    left:0;
+    right:0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height:72px;
 
-    background: var(--red);
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e31937 0%,
+            #c91531 100%
+        );
+
+    overflow:hidden;
 
     box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.25);
+        0 5px 20px rgba(0,0,0,.25);
 
-    overflow: hidden;
 }
 
-.header::before {
-    content: "";
 
-    position: absolute;
+.header::before{
 
-    width: 160%;
-    height: 140px;
+    content:"";
 
-    top: -75px;
-    left: -30%;
+    position:absolute;
 
-    transform: rotate(-7deg);
+    width:160%;
+    height:130px;
+
+    left:-30%;
+    top:-62px;
+
+    transform:
+        rotate(-7deg);
 
     border-top:
         2px solid
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.13);
 
     border-bottom:
         2px solid
         rgba(255,255,255,.08);
 
-    opacity: .6;
 }
 
 
-/* =========================================================
-   LOGO
-========================================================= */
+.logo{
 
-.logo {
-    position: relative;
-    z-index: 2;
+    position:relative;
+
+    z-index:2;
+
+    color:#fff;
 
     font-family:
-        "Barlow Condensed",
+        Impact,
+        Haettenschweiler,
+        "Arial Narrow Bold",
         sans-serif;
 
-    font-size: 48px;
+    font-size:43px;
 
-    font-weight: 900;
+    font-style:italic;
 
-    font-style: italic;
+    letter-spacing:-1px;
 
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-
-    color: white;
-
-    transform: skewX(-5deg);
+    text-transform:uppercase;
 
     text-shadow:
-        2px 2px 0 rgba(0,0,0,.12),
-        0 4px 10px rgba(0,0,0,.12);
-}
+        2px 2px 0 rgba(0,0,0,.12);
 
-.logo::after {
-    content: "";
-
-    display: block;
-
-    width: 65%;
-    height: 3px;
-
-    margin: 3px auto 0;
-
-    border-radius: 99px;
-
-    background:
-        rgba(255,255,255,.9);
 }
 
 
@@ -182,241 +174,224 @@ body {
    MAIN
 ========================================================= */
 
-main {
-    min-height: 100vh;
-    padding-top: 76px;
+main{
+
+    padding-top:72px;
+
 }
 
 
-/* =========================================================
-   NEWS PAGE
-========================================================= */
+.page{
 
-.news-page {
-    width: 100%;
-    padding: 21px 14px 35px;
-}
-
-
-/* =========================================================
-   NEWS HEADING
-========================================================= */
-
-.news-heading {
-    margin-bottom: 17px;
-}
-
-.news-heading h1 {
-    font-size: 31px;
-
-    font-weight: 800;
-
-    line-height: .95;
-
-    letter-spacing: -.5px;
-}
-
-.news-heading p {
-    margin-top: 6px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 1.4px;
-}
-
-
-/* =========================================================
-   CONTROL AREA
-========================================================= */
-
-.news-controls {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 8px;
-
-    margin-bottom: 13px;
-}
-
-
-/* =========================================================
-   STATUS DROPDOWN
-========================================================= */
-
-.status-select-wrap {
-    position: relative;
-
-    flex: 1;
-
-    min-width: 0;
-}
-
-.status-select {
-    width: 100%;
-
-    height: 38px;
+    width:100%;
 
     padding:
-        0 34px 0 13px;
+        22px 14px 35px;
+
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title{
+
+    margin-bottom:17px;
+
+}
+
+
+.page-title h1{
+
+    font-size:30px;
+
+    line-height:1;
+
+    font-weight:850;
+
+    letter-spacing:-.6px;
+
+}
+
+
+.page-title p{
+
+    margin-top:6px;
+
+    color:var(--gray);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.4px;
+
+}
+
+
+/* =========================================================
+   FILTER AREA
+========================================================= */
+
+.filters-wrap{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    margin-bottom:10px;
+
+    scrollbar-width:none;
+
+}
+
+
+.filters-wrap::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+.filters{
+
+    display:flex;
+
+    gap:7px;
+
+    width:max-content;
+
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.filter-box{
+
+    position:relative;
+
+    width:120px;
+
+    flex-shrink:0;
+
+}
+
+
+.filter-box select{
+
+    width:100%;
+
+    height:38px;
+
+    padding:
+        0 28px
+        0 11px;
 
     border:
         1px solid
         var(--line);
 
-    border-radius: 10px;
+    border-radius:10px;
 
     background:
         rgba(255,255,255,.045);
 
-    color: white;
+    color:#fff;
 
-    font-family: inherit;
+    outline:none;
 
-    font-size: 11px;
+    appearance:none;
 
-    font-weight: 800;
+    -webkit-appearance:none;
 
-    appearance: none;
-    -webkit-appearance: none;
+    font-family:inherit;
 
-    outline: none;
+    font-size:10px;
+
+    font-weight:800;
+
 }
 
-.status-select:focus {
-    border-color:
-        rgba(227,25,55,.55);
+
+.filter-box select option{
+
+    background:var(--navy2);
+
+    color:#fff;
+
 }
 
-.status-select option {
-    background: #0b1c38;
-    color: white;
-}
 
-.status-select-wrap::after {
-    content: "⌄";
+.filter-box::after{
 
-    position: absolute;
+    content:"⌄";
 
-    right: 13px;
+    position:absolute;
 
-    top: 7px;
+    right:10px;
+
+    top:7px;
 
     color:
         rgba(255,255,255,.55);
 
-    font-size: 16px;
+    font-size:16px;
 
-    pointer-events: none;
+    pointer-events:none;
+
 }
 
 
 /* =========================================================
-   COUNTER
+   COUNT
 ========================================================= */
 
-.news-counter {
-    flex-shrink: 0;
+.news-info{
 
-    height: 38px;
+    display:flex;
 
-    min-width: 68px;
+    align-items:center;
 
-    padding: 0 11px;
+    justify-content:space-between;
 
-    display: flex;
+    margin-bottom:14px;
 
-    align-items: center;
+}
 
-    justify-content: center;
 
-    border:
-        1px solid
-        var(--line);
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,.035);
+.news-label{
 
     color:
-        rgba(255,255,255,.5);
+        rgba(255,255,255,.35);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+
+.news-count{
+
+    color:
+        rgba(255,255,255,.45);
 
     font-family:
-        "Barlow Condensed",
+        "Arial Narrow",
+        Arial,
         sans-serif;
 
-    font-size: 14px;
+    font-size:11px;
 
-    font-weight: 700;
+    font-weight:800;
 
-    letter-spacing: .5px;
-}
-
-
-/* =========================================================
-   SOURCE FILTER
-========================================================= */
-
-.news-filters {
-    display: flex;
-
-    gap: 7px;
-
-    overflow-x: auto;
-
-    margin-bottom: 17px;
-
-    padding-bottom: 2px;
-
-    scrollbar-width: none;
-}
-
-.news-filters::-webkit-scrollbar {
-    display: none;
-}
-
-.news-filter {
-    flex-shrink: 0;
-
-    height: 32px;
-
-    padding: 0 13px;
-
-    border:
-        1px solid
-        var(--line);
-
-    border-radius: 9px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    color: var(--muted);
-
-    font-family: inherit;
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: .5px;
-}
-
-.news-filter.active {
-    color: white;
-
-    background:
-        rgba(227,25,55,.14);
-
-    border-color:
-        rgba(227,25,55,.38);
 }
 
 
@@ -424,12 +399,14 @@ main {
    NEWS LIST
 ========================================================= */
 
-.news-list {
-    display: flex;
+.news-list{
 
-    flex-direction: column;
+    display:flex;
 
-    gap: 11px;
+    flex-direction:column;
+
+    gap:11px;
+
 }
 
 
@@ -437,23 +414,19 @@ main {
    NEWS CARD
 ========================================================= */
 
-.news-card {
-    position: relative;
+.news-card{
 
-    overflow: hidden;
+    position:relative;
 
-    display: block;
+    overflow:hidden;
 
-    width: 100%;
-
-    padding:
-        14px 15px 13px 18px;
+    width:100%;
 
     border:
         1px solid
         var(--line);
 
-    border-radius: 16px;
+    border-radius:16px;
 
     background:
         linear-gradient(
@@ -462,135 +435,272 @@ main {
             rgba(255,255,255,.018)
         );
 
-    color: white;
-
-    text-decoration: none;
-
     box-shadow:
-        0 8px 24px
+        0 8px 25px
         rgba(0,0,0,.12);
 
     transition:
-        transform .15s ease,
-        border-color .15s ease,
-        opacity .15s ease;
-}
+        opacity .15s ease,
+        transform .15s ease;
 
-.news-card::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-    bottom: 0;
-
-    width: 4px;
-
-    background: var(--red);
-}
-
-.news-card:active {
-    transform: scale(.985);
 }
 
 
-/* =========================================================
-   READ STATE
-========================================================= */
+.news-card::before{
 
-.news-card.is-read {
-    opacity: .58;
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+    bottom:0;
+
+    width:4px;
+
+    background:var(--red);
+
 }
 
-.news-card.is-read::before {
-    opacity: .35;
+
+.news-card.read{
+
+    opacity:.52;
+
 }
 
-.news-card.is-read .news-title {
-    color:
-        rgba(255,255,255,.68);
+
+.news-card:active{
+
+    transform:scale(.985);
+
 }
 
 
 /* =========================================================
-   NEWS TOP
+   NEWS LINK
 ========================================================= */
 
-.news-top {
-    display: flex;
+.news-link{
 
-    align-items: flex-start;
+    display:block;
 
-    justify-content: space-between;
+    padding:
+        14px
+        14px
+        13px
+        18px;
 
-    gap: 10px;
+    color:#fff;
 
-    margin-bottom: 8px;
+    text-decoration:none;
+
 }
 
 
 /* =========================================================
-   NEWS META
+   CARD TOP
 ========================================================= */
 
-.news-meta {
-    min-width: 0;
+.card-top{
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    gap: 9px;
+    justify-content:space-between;
+
+    gap:8px;
+
+    padding-right:76px;
+
+    margin-bottom:8px;
+
 }
 
-.news-source {
-    color: var(--red);
 
-    font-size: 9px;
+.meta{
 
-    font-weight: 800;
+    display:flex;
 
-    letter-spacing: .8px;
+    align-items:center;
+
+    gap:8px;
+
+    min-width:0;
+
 }
 
-.news-time {
+
+.source{
+
+    color:var(--red);
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:.7px;
+
+    white-space:nowrap;
+
+}
+
+
+.type{
+
     color:
         rgba(255,255,255,.38);
 
-    font-size: 8px;
+    font-size:8px;
 
-    font-weight: 700;
+    font-weight:800;
 
-    white-space: nowrap;
+    white-space:nowrap;
+
+}
+
+
+.date{
+
+    color:
+        rgba(255,255,255,.32);
+
+    font-size:8px;
+
+    white-space:nowrap;
+
 }
 
 
 /* =========================================================
-   FAVORITE BUTTON
+   TITLE
 ========================================================= */
 
-.favorite-button {
-    position: relative;
+.news-title{
 
-    z-index: 5;
+    font-size:18px;
 
-    flex-shrink: 0;
+    line-height:1.27;
 
-    width: 31px;
-    height: 31px;
+    font-weight:850;
 
-    display: flex;
+    letter-spacing:-.25px;
 
-    align-items: center;
-    justify-content: center;
+}
 
-    margin-top: -3px;
-    margin-right: -4px;
 
-    border: 0;
+.news-card.read
+.news-title{
 
-    border-radius: 50%;
+    color:
+        rgba(255,255,255,.65);
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.description{
+
+    margin-top:7px;
+
+    color:
+        rgba(255,255,255,.47);
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.card-footer{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-top:11px;
+
+    padding-top:9px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.045);
+
+}
+
+
+.status{
+
+    color:
+        rgba(255,255,255,.32);
+
+    font-size:8px;
+
+    font-weight:900;
+
+    letter-spacing:.7px;
+
+}
+
+
+.news-card.read
+.status{
+
+    color:
+        rgba(255,255,255,.55);
+
+}
+
+
+.arrow{
+
+    color:var(--red);
+
+    font-size:19px;
+
+    font-weight:800;
+
+    line-height:1;
+
+}
+
+
+/* =========================================================
+   FAVORITE
+========================================================= */
+
+.favorite-button{
+
+    position:absolute;
+
+    z-index:10;
+
+    top:9px;
+    right:9px;
+
+    width:34px;
+    height:34px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:0;
+
+    border-radius:50%;
 
     background:
         rgba(255,255,255,.045);
@@ -598,122 +708,89 @@ main {
     color:
         rgba(255,255,255,.35);
 
-    font-size: 18px;
+    font-size:20px;
 
-    line-height: 1;
+    cursor:pointer;
 
-    cursor: pointer;
 }
 
-.favorite-button.active {
-    color: #ffd447;
+
+.favorite-button.active{
+
+    color:var(--gold);
 
     background:
         rgba(255,212,71,.10);
+
 }
 
 
 /* =========================================================
-   NEWS TITLE
+   READ BUTTON
 ========================================================= */
 
-.news-title {
-    font-size: 18px;
+.read-button{
 
-    font-weight: 800;
+    position:absolute;
 
-    line-height: 1.25;
+    z-index:10;
 
-    letter-spacing: -.2px;
+    top:11px;
+    right:48px;
 
-    padding-right: 4px;
-}
+    height:30px;
 
+    padding:
+        0 8px;
 
-/* =========================================================
-   NEWS DESCRIPTION
-========================================================= */
+    border:0;
 
-.news-description {
-    margin-top: 7px;
+    border-radius:8px;
 
-    color:
-        rgba(255,255,255,.48);
-
-    font-size: 10px;
-
-    line-height: 1.45;
-}
-
-
-/* =========================================================
-   NEWS FOOTER
-========================================================= */
-
-.news-footer {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    margin-top: 11px;
-
-    padding-top: 9px;
-
-    border-top:
-        1px solid
+    background:
         rgba(255,255,255,.045);
-}
 
-.news-author {
-    color:
-        rgba(255,255,255,.28);
-
-    font-size: 8px;
-}
-
-.news-status {
-    color:
-        rgba(255,255,255,.25);
-
-    font-size: 8px;
-
-    font-weight: 700;
-
-    letter-spacing: .5px;
-}
-
-.news-card.is-read .news-status {
     color:
         rgba(255,255,255,.45);
+
+    font-family:inherit;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
 }
 
-.news-arrow {
-    color: var(--red);
 
-    font-size: 18px;
+.read-button.read{
 
-    font-weight: 800;
+    color:#fff;
 
-    line-height: 1;
+    background:
+        rgba(227,25,55,.16);
+
 }
 
 
 /* =========================================================
-   MESSAGE
+   EMPTY
 ========================================================= */
 
-.news-message {
-    padding: 50px 20px;
+.empty{
 
-    text-align: center;
+    padding:
+        55px 20px;
 
-    color: var(--muted);
+    text-align:center;
 
-    font-size: 11px;
+    color:var(--gray);
 
-    line-height: 1.6;
+    font-size:11px;
+
+    line-height:1.7;
+
 }
 
 
@@ -721,196 +798,179 @@ main {
    BOTTOM NAV
 ========================================================= */
 
-.bottom-nav {
-    position: fixed;
+.bottom-nav{
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position:fixed;
 
-    z-index: 200;
+    z-index:200;
+
+    left:0;
+    right:0;
+    bottom:0;
 
     height:
         calc(
-            76px +
+            78px +
             env(safe-area-inset-bottom)
         );
 
     padding:
-        7px 8px
+        6px 7px
         env(safe-area-inset-bottom);
 
-    display: flex;
+    display:flex;
 
-    align-items: flex-start;
+    align-items:flex-start;
 
-    justify-content: space-around;
+    justify-content:space-around;
 
     background:
         rgba(5,16,34,.97);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 
-    -webkit-backdrop-filter: blur(18px);
+    -webkit-backdrop-filter:
+        blur(18px);
 
     border-top:
         1px solid
         rgba(255,255,255,.08);
+
 }
 
 
-/* =========================================================
-   NAV ITEM
-========================================================= */
+.nav{
 
-.nav-item {
-    flex: 1;
+    flex:1;
 
-    max-width: 100px;
+    max-width:100px;
 
-    height: 60px;
+    height:61px;
 
-    display: flex;
+    display:flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    align-items: center;
+    align-items:center;
+    justify-content:center;
 
-    justify-content: center;
+    gap:5px;
 
-    gap: 5px;
+    border-radius:13px;
 
-    text-decoration: none;
+    color:var(--gray);
 
-    color: var(--muted);
+    text-decoration:none;
 
-    border-radius: 13px;
-
-    transition:
-        color .15s ease,
-        background .15s ease,
-        transform .15s ease;
 }
 
 
-/* =========================================================
-   NAV ACTIVE
-========================================================= */
+.nav.active{
 
-.nav-item.active {
-    color: white;
+    color:#fff;
 
     background:
         rgba(227,25,55,.13);
-}
 
-.nav-item.active .nav-icon {
-    color: var(--red);
 }
 
 
-/* =========================================================
-   NAV ICON
-========================================================= */
+.nav-icon{
 
-.nav-icon {
-    width: 25px;
-    height: 25px;
+    height:23px;
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:center;
 
-    font-size: 18px;
+    justify-content:center;
 
-    font-weight: 700;
+    font-size:18px;
+
 }
 
 
-/* =========================================================
-   NAV LABEL
-========================================================= */
+.nav-name{
 
-.nav-label {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
+    font-size:9px;
 
-    font-size: 12px;
+    font-weight:850;
 
-    font-weight: 700;
+    letter-spacing:.5px;
 
-    letter-spacing: .8px;
 }
 
 
 /* =========================================================
-   SMALL IPHONE
+   MOBILE
 ========================================================= */
 
-@media (max-width: 360px) {
+@media(max-width:360px){
 
-    .header {
-        height: 90px;
+    .page{
+
+        padding-left:11px;
+        padding-right:11px;
+
     }
 
-    main {
-        padding-top: 90px;
+
+    .logo{
+
+        font-size:39px;
+
     }
 
-    .logo {
-        font-size: 43px;
+
+    .news-title{
+
+        font-size:17px;
+
     }
 
-    .news-page {
-        padding-left: 11px;
-        padding-right: 11px;
+
+    .filter-box{
+
+        width:112px;
+
     }
 
-    .news-title {
-        font-size: 17px;
-    }
-
-    .news-counter {
-        min-width: 60px;
-    }
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 
-<!-- =====================================================
+<!-- =======================================================
      HEADER
-===================================================== -->
+======================================================= -->
 
 <header class="header">
 
     <div class="logo">
-        Phillies
+        PHILLIES
     </div>
 
 </header>
 
 
-<!-- =====================================================
+<!-- =======================================================
      MAIN
-===================================================== -->
+======================================================= -->
 
 <main>
 
-<section class="news-page">
+<section class="page">
 
 
-    <!-- =================================================
-         HEADING
-    ================================================== -->
+    <!-- TITLE -->
 
-    <div class="news-heading">
+    <div class="page-title">
 
         <h1>
             Phillies News
@@ -923,110 +983,160 @@ main {
     </div>
 
 
-    <!-- =================================================
-         STATUS CONTROL
-    ================================================== -->
+    <!-- ===================================================
+         4 FILTERS
+         横並び・横スクロール
+    ==================================================== -->
 
-    <div class="news-controls">
+    <div class="filters-wrap">
 
-        <div class="status-select-wrap">
-
-            <select
-                id="status-filter"
-                class="status-select"
-            >
-
-                <option value="ALL">
-                    すべてのニュース
-                </option>
-
-                <option value="UNREAD">
-                    未読
-                </option>
-
-                <option value="READ">
-                    既読
-                </option>
-
-                <option value="FAVORITE">
-                    お気に入り
-                </option>
-
-            </select>
-
-        </div>
+        <div class="filters">
 
 
-        <div
-            id="news-counter"
-            class="news-counter"
-        >
-            0
+            <!-- 状態 -->
+
+            <div class="filter-box">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        すべて
+                    </option>
+
+                    <option value="unread">
+                        未読
+                    </option>
+
+                    <option value="read">
+                        既読
+                    </option>
+
+                    <option value="favorite">
+                        お気に入り
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- 記事種類 -->
+
+            <div class="filter-box">
+
+                <select id="typeFilter">
+
+                    <option value="all">
+                        すべて
+                    </option>
+
+                    <option value="GAME">
+                        GAME
+                    </option>
+
+                    <option value="NEWS">
+                        NEWS
+                    </option>
+
+                    <option value="ANALYSIS">
+                        ANALYSIS
+                    </option>
+
+                    <option value="TRANSACTION">
+                        TRANSACTION
+                    </option>
+
+                    <option value="INJURY">
+                        INJURY
+                    </option>
+
+                    <option value="OTHER">
+                        その他
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- 媒体 -->
+
+            <div class="filter-box">
+
+                <select id="sourceFilter">
+
+                    <option value="all">
+                        すべて
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- 期間 -->
+
+            <div class="filter-box">
+
+                <select id="periodFilter">
+
+                    <option value="all">
+                        すべて
+                    </option>
+
+                    <option value="24">
+                        24時間
+                    </option>
+
+                    <option value="3">
+                        3日
+                    </option>
+
+                    <option value="7">
+                        7日
+                    </option>
+
+                    <option value="30">
+                        30日
+                    </option>
+
+                </select>
+
+            </div>
+
+
         </div>
 
     </div>
 
 
-    <!-- =================================================
-         SOURCE FILTER
-    ================================================== -->
+    <!-- NEWS INFO -->
 
-    <div class="news-filters">
+    <div class="news-info">
 
-        <button
-            type="button"
-            class="news-filter active"
-            data-source="ALL"
+        <span class="news-label">
+            NEWS
+        </span>
+
+        <span
+            id="newsCount"
+            class="news-count"
         >
-            ALL
-        </button>
-
-        <button
-            type="button"
-            class="news-filter"
-            data-source="MLB"
-        >
-            MLB
-        </button>
-
-        <button
-            type="button"
-            class="news-filter"
-            data-source="NBC"
-        >
-            NBC
-        </button>
-
-        <button
-            type="button"
-            class="news-filter"
-            data-source="CBS"
-        >
-            CBS
-        </button>
-
-        <button
-            type="button"
-            class="news-filter"
-            data-source="ESPN"
-        >
-            ESPN
-        </button>
+            0 ARTICLES
+        </span>
 
     </div>
 
 
-    <!-- =================================================
-         NEWS LIST
-    ================================================== -->
+    <!-- NEWS -->
 
     <div
+        id="newsList"
         class="news-list"
-        id="news-list"
     >
 
-        <div class="news-message">
-            Loading Phillies news...
+        <div class="empty">
+            ニュースを読み込んでいます…
         </div>
 
     </div>
@@ -1037,162 +1147,170 @@ main {
 </main>
 
 
-<!-- =====================================================
+<!-- =======================================================
      BOTTOM NAV
-===================================================== -->
+======================================================= -->
 
 <nav class="bottom-nav">
 
 
-    <!-- 1. SCHEDULE -->
-
     <a
         href="schedule.html"
-        class="nav-item"
+        class="nav"
     >
 
         <div class="nav-icon">
             ▣
         </div>
 
-        <div class="nav-label">
+        <div class="nav-name">
             SCHEDULE
         </div>
 
     </a>
 
 
-    <!-- 2. SCORE -->
-
     <a
         href="score.html"
-        class="nav-item"
+        class="nav"
     >
 
         <div class="nav-icon">
             ●
         </div>
 
-        <div class="nav-label">
+        <div class="nav-name">
             SCORE
         </div>
 
     </a>
 
 
-    <!-- 3. HOME -->
-
     <a
         href="index.html"
-        class="nav-item active"
+        class="nav active"
     >
 
         <div class="nav-icon">
             ⌂
         </div>
 
-        <div class="nav-label">
+        <div class="nav-name">
             HOME
         </div>
 
     </a>
 
 
-    <!-- 4. PLAYER -->
-
     <a
         href="player.html"
-        class="nav-item"
+        class="nav"
     >
 
         <div class="nav-icon">
             ♟
         </div>
 
-        <div class="nav-label">
+        <div class="nav-name">
             PLAYER
         </div>
 
     </a>
 
 
-    <!-- 5. STATS -->
-
     <a
         href="stats.html"
-        class="nav-item"
+        class="nav"
     >
 
         <div class="nav-icon">
             ▥
         </div>
 
-        <div class="nav-label">
+        <div class="nav-name">
             STATS
         </div>
 
     </a>
 
+
 </nav>
 
 
-<!-- =====================================================
-     NEWS SCRIPT
-===================================================== -->
-
 <script>
-
 
 /* =========================================================
    DATA
 ========================================================= */
 
-const NEWS_DATA_URL =
+const NEWS_URL =
     "data/news.json";
 
 
 /* =========================================================
-   STORAGE
+   LOCAL STORAGE
 ========================================================= */
 
-const READ_STORAGE_KEY =
+const READ_KEY =
     "phillies_reader_read";
 
-const FAVORITE_STORAGE_KEY =
-    "phillies_reader_favorites";
-
-
-/* =========================================================
-   ELEMENT
-========================================================= */
-
-const newsList =
-    document.getElementById(
-        "news-list"
-    );
-
-const statusFilter =
-    document.getElementById(
-        "status-filter"
-    );
-
-const newsCounter =
-    document.getElementById(
-        "news-counter"
-    );
+const FAVORITE_KEY =
+    "phillies_reader_favorite";
 
 
 /* =========================================================
    STATE
 ========================================================= */
 
-let newsArticles = [];
+let articles = [];
 
-let activeSource =
-    "ALL";
+let statusFilter = "all";
 
-let activeStatus =
-    "ALL";
+let typeFilter = "all";
+
+let sourceFilter = "all";
+
+let periodFilter = "all";
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const newsList =
+    document.getElementById(
+        "newsList"
+    );
+
+
+const newsCount =
+    document.getElementById(
+        "newsCount"
+    );
+
+
+const statusSelect =
+    document.getElementById(
+        "statusFilter"
+    );
+
+
+const typeSelect =
+    document.getElementById(
+        "typeFilter"
+    );
+
+
+const sourceSelect =
+    document.getElementById(
+        "sourceFilter"
+    );
+
+
+const periodSelect =
+    document.getElementById(
+        "periodFilter"
+    );
 
 
 /* =========================================================
@@ -1201,36 +1319,25 @@ let activeStatus =
 
 function loadStorage(
     key
-) {
+){
 
-    try {
+    try{
 
-        const value =
-            localStorage.getItem(
-                key
-            );
-
-        if (!value) {
-            return [];
-        }
-
-        const parsed =
+        const data =
             JSON.parse(
-                value
+                localStorage.getItem(
+                    key
+                ) || "[]"
             );
 
-        return Array.isArray(parsed)
-            ? parsed
+
+        return Array.isArray(data)
+            ? data
             : [];
 
     }
 
-    catch (error) {
-
-        console.error(
-            "Storage load error:",
-            error
-        );
+    catch(error){
 
         return [];
 
@@ -1241,42 +1348,28 @@ function loadStorage(
 
 function saveStorage(
     key,
-    value
-) {
+    data
+){
 
-    try {
-
-        localStorage.setItem(
-            key,
-            JSON.stringify(value)
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Storage save error:",
-            error
-        );
-
-    }
+    localStorage.setItem(
+        key,
+        JSON.stringify(
+            data
+        )
+    );
 
 }
 
 
-/* =========================================================
-   READ / FAVORITE STATE
-========================================================= */
-
-let readArticles =
+let readIds =
     loadStorage(
-        READ_STORAGE_KEY
+        READ_KEY
     );
 
-let favoriteArticles =
+
+let favoriteIds =
     loadStorage(
-        FAVORITE_STORAGE_KEY
+        FAVORITE_KEY
     );
 
 
@@ -1284,197 +1377,192 @@ let favoriteArticles =
    ARTICLE ID
 ========================================================= */
 
-function getArticleId(
+function getId(
     article
-) {
+){
 
-    const url =
+    return String(
+
+        article.id ||
+
+        article.guid ||
+
         article.url ||
+
         article.link ||
-        "";
 
-    if (url) {
-        return url;
-    }
+        (
+            String(
+                article.title ||
+                ""
+            )
+            +
+            "|"
+            +
+            String(
+                article.publishedAt ||
+                article.published ||
+                article.date ||
+                ""
+            )
+        )
 
-    const title =
-        article.title ||
-        "";
-
-    const date =
-        article.publishedAt ||
-        article.published ||
-        article.date ||
-        "";
-
-    return (
-        title +
-        "|" +
-        date
     );
 
 }
 
 
 /* =========================================================
-   READ CHECK
+   READ
 ========================================================= */
 
 function isRead(
     article
-) {
+){
 
-    const id =
-        getArticleId(
-            article
-        );
-
-    return readArticles.includes(
-        id
+    return readIds.includes(
+        getId(article)
     );
 
 }
 
 
-/* =========================================================
-   FAVORITE CHECK
-========================================================= */
-
-function isFavorite(
-    article
-) {
+function setRead(
+    article,
+    value
+){
 
     const id =
-        getArticleId(
-            article
-        );
+        getId(article);
 
-    return favoriteArticles.includes(
-        id
-    );
-
-}
-
-
-/* =========================================================
-   MARK READ
-========================================================= */
-
-function markAsRead(
-    article
-) {
-
-    const id =
-        getArticleId(
-            article
-        );
-
-    if (
-        !readArticles.includes(
-            id
-        )
-    ) {
-
-        readArticles.push(
-            id
-        );
-
-        saveStorage(
-            READ_STORAGE_KEY,
-            readArticles
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   TOGGLE FAVORITE
-========================================================= */
-
-function toggleFavorite(
-    article
-) {
-
-    const id =
-        getArticleId(
-            article
-        );
 
     const index =
-        favoriteArticles.indexOf(
-            id
-        );
+        readIds.indexOf(id);
 
-    if (index === -1) {
 
-        favoriteArticles.push(
-            id
-        );
+    if(
+        value &&
+        index === -1
+    ){
+
+        readIds.push(id);
 
     }
 
-    else {
 
-        favoriteArticles.splice(
+    if(
+        !value &&
+        index !== -1
+    ){
+
+        readIds.splice(
             index,
             1
         );
 
     }
 
+
     saveStorage(
-        FAVORITE_STORAGE_KEY,
-        favoriteArticles
+        READ_KEY,
+        readIds
     );
 
 }
 
 
 /* =========================================================
-   ESCAPE
+   FAVORITE
+========================================================= */
+
+function isFavorite(
+    article
+){
+
+    return favoriteIds.includes(
+        getId(article)
+    );
+
+}
+
+
+function toggleFavorite(
+    article
+){
+
+    const id =
+        getId(article);
+
+
+    const index =
+        favoriteIds.indexOf(id);
+
+
+    if(
+        index === -1
+    ){
+
+        favoriteIds.push(id);
+
+    }
+
+    else{
+
+        favoriteIds.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    saveStorage(
+        FAVORITE_KEY,
+        favoriteIds
+    );
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHTML(
     value
-) {
+){
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
+    return String(
+        value ?? ""
+    )
 
-        return "";
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-    }
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-    return String(value)
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1483,61 +1571,146 @@ function escapeHTML(
    SOURCE
 ========================================================= */
 
-function normalizeSource(
-    source
-) {
+function getSource(
+    article
+){
 
-    const value =
+    return String(
+
+        article.source ||
+
+        article.publisher ||
+
+        article.site ||
+
+        article.sourceName ||
+
+        article.outlet ||
+
+        "その他"
+
+    ).trim();
+
+}
+
+
+/* =========================================================
+   TYPE
+========================================================= */
+
+function getType(
+    article
+){
+
+    const raw =
         String(
-            source || ""
+
+            article.type ||
+
+            article.category ||
+
+            article.articleType ||
+
+            article.kind ||
+
+            ""
+
         )
         .trim()
         .toUpperCase();
 
-    if (
-        value.includes(
-            "MLB"
-        )
-    ) {
 
-        return "MLB";
+    if(
+        raw.includes("GAME") ||
+        raw.includes("RECAP") ||
+        raw.includes("PREVIEW")
+    ){
 
-    }
-
-    if (
-        value.includes(
-            "NBC"
-        )
-    ) {
-
-        return "NBC";
+        return "GAME";
 
     }
 
-    if (
-        value.includes(
-            "CBS"
-        )
-    ) {
 
-        return "CBS";
+    if(
+        raw.includes("ANALYSIS") ||
+        raw.includes("ANALYTICS")
+    ){
 
-    }
-
-    if (
-        value.includes(
-            "ESPN"
-        )
-    ) {
-
-        return "ESPN";
+        return "ANALYSIS";
 
     }
 
-    return (
-        value ||
-        "NEWS"
-    );
+
+    if(
+        raw.includes("TRANSACTION") ||
+        raw.includes("ROSTER") ||
+        raw.includes("SIGN") ||
+        raw.includes("TRADE")
+    ){
+
+        return "TRANSACTION";
+
+    }
+
+
+    if(
+        raw.includes("INJURY") ||
+        raw.includes("INJURED")
+    ){
+
+        return "INJURY";
+
+    }
+
+
+    if(
+        raw.includes("NEWS")
+    ){
+
+        return "NEWS";
+
+    }
+
+
+    /*
+     * typeが存在しない旧データについては
+     * タイトルから最低限判定
+     */
+
+    const title =
+        String(
+            article.title || ""
+        ).toUpperCase();
+
+
+    if(
+        /INJURY|INJURED|IL\b|INJURED LIST/.test(title)
+    ){
+
+        return "INJURY";
+
+    }
+
+
+    if(
+        /TRADE|SIGNED|SIGNING|ACQUIRED|DESIGNATED|ROSTER/.test(title)
+    ){
+
+        return "TRANSACTION";
+
+    }
+
+
+    if(
+        /ANALYSIS|WHY |BREAKDOWN|OUTLOOK/.test(title)
+    ){
+
+        return "ANALYSIS";
+
+    }
+
+
+    return "NEWS";
 
 }
 
@@ -1546,36 +1719,289 @@ function normalizeSource(
    DATE
 ========================================================= */
 
-function formatDate(
-    value
-) {
+function getDate(
+    article
+){
 
-    if (!value) {
-        return "";
-    }
+    return new Date(
+
+        article.publishedAt ||
+
+        article.published ||
+
+        article.date ||
+
+        article.datetime ||
+
+        article.createdAt ||
+
+        0
+
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(
+    article
+){
 
     const date =
-        new Date(
-            value
-        );
+        getDate(article);
 
-    if (
+
+    if(
         Number.isNaN(
             date.getTime()
         )
-    ) {
+    ){
 
         return "";
 
     }
+
 
     return date.toLocaleString(
         "ja-JP",
         {
-            month: "numeric",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
+            month:"numeric",
+            day:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD SOURCE OPTIONS
+========================================================= */
+
+function buildSourceOptions(){
+
+    const sources =
+        [...new Set(
+
+            articles.map(
+                article =>
+                    getSource(
+                        article
+                    )
+            )
+
+        )]
+        .filter(Boolean)
+        .sort();
+
+
+    sourceSelect.innerHTML = `
+
+        <option value="all">
+            すべて
+        </option>
+
+    `;
+
+
+    sources.forEach(
+        source => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                source;
+
+
+            option.textContent =
+                source;
+
+
+            sourceSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PERIOD
+========================================================= */
+
+function withinPeriod(
+    article
+){
+
+    if(
+        periodFilter === "all"
+    ){
+
+        return true;
+
+    }
+
+
+    const date =
+        getDate(
+            article
+        );
+
+
+    const time =
+        date.getTime();
+
+
+    if(
+        Number.isNaN(time)
+    ){
+
+        return false;
+
+    }
+
+
+    const now =
+        Date.now();
+
+
+    const days =
+        Number(
+            periodFilter
+        );
+
+
+    const limit =
+        days *
+        24 *
+        60 *
+        60 *
+        1000;
+
+
+    return (
+        now -
+        time
+        <=
+        limit
+    );
+
+}
+
+
+/* =========================================================
+   FILTER ARTICLES
+========================================================= */
+
+function getFilteredArticles(){
+
+    return articles.filter(
+        article => {
+
+            const read =
+                isRead(
+                    article
+                );
+
+
+            const favorite =
+                isFavorite(
+                    article
+                );
+
+
+            const type =
+                getType(
+                    article
+                );
+
+
+            const source =
+                getSource(
+                    article
+                );
+
+
+            if(
+                statusFilter ===
+                "unread" &&
+                read
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                statusFilter ===
+                "read" &&
+                !read
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                statusFilter ===
+                "favorite" &&
+                !favorite
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                typeFilter !==
+                "all" &&
+                type !==
+                typeFilter
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                sourceFilter !==
+                "all" &&
+                source !==
+                sourceFilter
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                !withinPeriod(
+                    article
+                )
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
         }
     );
 
@@ -1587,39 +2013,19 @@ function formatDate(
 ========================================================= */
 
 function sortArticles(
-    articles
-) {
+    list
+){
 
-    return [
-        ...articles
-    ]
-    .sort(
+    return [...list].sort(
         (
             a,
             b
         ) => {
 
-            const aDate =
-                new Date(
-                    a.publishedAt ||
-                    a.published ||
-                    a.date ||
-                    0
-                )
-                .getTime();
-
-            const bDate =
-                new Date(
-                    b.publishedAt ||
-                    b.published ||
-                    b.date ||
-                    0
-                )
-                .getTime();
-
             return (
-                bDate -
-                aDate
+                getDate(b).getTime()
+                -
+                getDate(a).getTime()
             );
 
         }
@@ -1629,118 +2035,24 @@ function sortArticles(
 
 
 /* =========================================================
-   FILTER ARTICLES
+   CREATE CARD
 ========================================================= */
 
-function filterArticles(
-    articles
-) {
-
-    let result =
-        sortArticles(
-            articles
-        );
-
-
-    /* SOURCE */
-
-    if (
-        activeSource !==
-        "ALL"
-    ) {
-
-        result =
-            result.filter(
-                article => {
-
-                    return (
-                        normalizeSource(
-                            article.source
-                        ) ===
-                        activeSource
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* STATUS */
-
-    if (
-        activeStatus ===
-        "UNREAD"
-    ) {
-
-        result =
-            result.filter(
-                article =>
-                    !isRead(
-                        article
-                    )
-            );
-
-    }
-
-    else if (
-        activeStatus ===
-        "READ"
-    ) {
-
-        result =
-            result.filter(
-                article =>
-                    isRead(
-                        article
-                    )
-            );
-
-    }
-
-    else if (
-        activeStatus ===
-        "FAVORITE"
-    ) {
-
-        result =
-            result.filter(
-                article =>
-                    isFavorite(
-                        article
-                    )
-            );
-
-    }
-
-
-    return result;
-
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-function createNewsCard(
+function createCard(
     article
-) {
+){
 
     const card =
         document.createElement(
-            "a"
+            "article"
         );
 
-    const articleUrl =
-        article.url ||
-        article.link ||
-        "#";
 
     const read =
         isRead(
             article
         );
+
 
     const favorite =
         isFavorite(
@@ -1752,173 +2064,229 @@ function createNewsCard(
         "news-card" +
         (
             read
-                ? " is-read"
-                : ""
+            ? " read"
+            : ""
         );
 
 
-    card.href =
-        articleUrl;
+    const url =
+        article.url ||
+        article.link ||
+        "#";
 
-    card.target =
-        "_blank";
-
-    card.rel =
-        "noopener noreferrer";
-
-
-    const source =
-        normalizeSource(
-            article.source
-        );
 
     const title =
         article.title ||
-        "Untitled";
+        "タイトルなし";
+
 
     const description =
         article.description ||
         article.summary ||
-        "";
-
-    const publishedAt =
-        article.publishedAt ||
-        article.published ||
-        article.date ||
-        "";
-
-    const author =
-        article.author ||
+        article.excerpt ||
         "";
 
 
     card.innerHTML = `
 
-        <div class="news-top">
+        <button
+            type="button"
+            class="read-button ${
+                read
+                ? "read"
+                : ""
+            }"
+        >
+            ${
+                read
+                ? "既読"
+                : "未読"
+            }
+        </button>
 
-            <div class="news-meta">
 
-                <span class="news-source">
-                    ${escapeHTML(source)}
-                </span>
+        <button
+            type="button"
+            class="favorite-button ${
+                favorite
+                ? "active"
+                : ""
+            }"
+        >
+            ${
+                favorite
+                ? "★"
+                : "☆"
+            }
+        </button>
 
-                <span class="news-time">
-                    ${escapeHTML(
-                        formatDate(
-                            publishedAt
-                        )
-                    )}
-                </span>
+
+        <a
+            class="news-link"
+            href="${escapeHTML(url)}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-top">
+
+                <div class="meta">
+
+                    <span class="source">
+
+                        ${escapeHTML(
+                            getSource(
+                                article
+                            )
+                        )}
+
+                    </span>
+
+
+                    <span class="type">
+
+                        ${escapeHTML(
+                            getType(
+                                article
+                            )
+                        )}
+
+                    </span>
+
+
+                    <span class="date">
+
+                        ${escapeHTML(
+                            formatDate(
+                                article
+                            )
+                        )}
+
+                    </span>
+
+                </div>
 
             </div>
 
 
-            <button
-                type="button"
-                class="
-                    favorite-button
-                    ${favorite ? "active" : ""}
-                "
-                aria-label="
-                    ${favorite
-                        ? "お気に入りから削除"
-                        : "お気に入りに追加"
-                    }
-                "
-            >
-                ${favorite ? "★" : "☆"}
-            </button>
+            <div class="news-title">
 
-        </div>
-
-
-        <div class="news-title">
-            ${escapeHTML(title)}
-        </div>
-
-
-        ${
-            description
-            ?
-            `
-            <div class="news-description">
                 ${escapeHTML(
-                    description
+                    title
                 )}
+
             </div>
-            `
-            :
-            ""
-        }
 
 
-        <div class="news-footer">
+            ${
+                description
+                ?
+                `
+                <div class="description">
 
-            <span class="news-author">
-                ${escapeHTML(author)}
-            </span>
+                    ${escapeHTML(
+                        description
+                    )}
 
-            <span class="news-status">
-                ${
-                    read
+                </div>
+                `
+                :
+                ""
+            }
+
+
+            <div class="card-footer">
+
+                <span class="status">
+
+                    ${
+                        read
                         ? "READ"
                         : "UNREAD"
-                }
-            </span>
+                    }
 
-            <span class="news-arrow">
-                ›
-            </span>
+                </span>
 
-        </div>
+
+                <span class="arrow">
+                    ›
+                </span>
+
+            </div>
+
+        </a>
 
     `;
 
 
-    /* =====================================================
-       FAVORITE BUTTON
-    ===================================================== */
+    /* -----------------------------------------------------
+       FAVORITE
+    ----------------------------------------------------- */
 
-    const favoriteButton =
-        card.querySelector(
-            ".favorite-button"
-        );
-
-
-    favoriteButton.addEventListener(
+    card
+    .querySelector(
+        ".favorite-button"
+    )
+    .addEventListener(
         "click",
-        function(event) {
+        event => {
 
             event.preventDefault();
 
             event.stopPropagation();
 
-
             toggleFavorite(
                 article
             );
-
-
-            renderNews();
 
         }
     );
 
 
-    /* =====================================================
-       ARTICLE OPEN
-    ===================================================== */
+    /* -----------------------------------------------------
+       READ BUTTON
+    ----------------------------------------------------- */
 
-    card.addEventListener(
+    card
+    .querySelector(
+        ".read-button"
+    )
+    .addEventListener(
         "click",
-        function() {
+        event => {
 
-            markAsRead(
-                article
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            setRead(
+                article,
+                !isRead(
+                    article
+                )
             );
 
-            card.classList.add(
-                "is-read"
+            render();
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       OPEN ARTICLE = READ
+    ----------------------------------------------------- */
+
+    card
+    .querySelector(
+        ".news-link"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            setRead(
+                article,
+                true
             );
 
         }
@@ -1931,99 +2299,89 @@ function createNewsCard(
 
 
 /* =========================================================
-   COUNTER
-========================================================= */
-
-function updateCounter(
-    count
-) {
-
-    newsCounter.textContent =
-        String(
-            count
-        );
-
-}
-
-
-/* =========================================================
    RENDER
 ========================================================= */
 
-function renderNews() {
+function render(){
+
+    const filtered =
+        sortArticles(
+            getFilteredArticles()
+        );
+
 
     newsList.innerHTML =
         "";
 
 
-    const articles =
-        filterArticles(
-            newsArticles
-        );
+    newsCount.textContent =
+        filtered.length +
+        " ARTICLES";
 
 
-    updateCounter(
-        articles.length
-    );
-
-
-    if (
-        articles.length === 0
-    ) {
+    if(
+        filtered.length ===
+        0
+    ){
 
         let message =
-            "ニュースがありません。";
+            "該当するニュースがありません。";
 
 
-        if (
-            activeStatus ===
-            "UNREAD"
-        ) {
+        if(
+            statusFilter ===
+            "favorite"
+        ){
 
             message =
-                "未読ニュースはありません。";
+                "お気に入りの記事がありません。";
 
         }
 
-        else if (
-            activeStatus ===
-            "READ"
-        ) {
+
+        if(
+            statusFilter ===
+            "unread"
+        ){
 
             message =
-                "既読ニュースはありません。";
+                "未読の記事がありません。";
 
         }
 
-        else if (
-            activeStatus ===
-            "FAVORITE"
-        ) {
+
+        if(
+            statusFilter ===
+            "read"
+        ){
 
             message =
-                "お気に入りはありません。";
+                "既読の記事がありません。";
 
         }
 
 
         newsList.innerHTML = `
 
-            <div class="news-message">
+            <div class="empty">
+
                 ${message}
+
             </div>
 
         `;
+
 
         return;
 
     }
 
 
-    articles.forEach(
+    filtered.forEach(
         article => {
 
             newsList.appendChild(
-                createNewsCard(
+                createCard(
                     article
                 )
             );
@@ -2035,29 +2393,28 @@ function renderNews() {
 
 
 /* =========================================================
-   LOAD NEWS
+   LOAD NEWS JSON
 ========================================================= */
 
-async function loadNews() {
+async function loadNews(){
 
-    try {
+    try{
 
         const response =
             await fetch(
-                NEWS_DATA_URL,
+                NEWS_URL,
                 {
-                    cache:
-                        "no-store"
+                    cache:"no-store"
                 }
             );
 
 
-        if (
+        if(
             !response.ok
-        ) {
+        ){
 
             throw new Error(
-                "news.json load failed"
+                "news.json could not be loaded"
             );
 
         }
@@ -2067,43 +2424,70 @@ async function loadNews() {
             await response.json();
 
 
-        if (
+        /*
+         * 対応形式
+         *
+         * [
+         *   {...}
+         * ]
+         *
+         * {
+         *   articles:[...]
+         * }
+         *
+         * {
+         *   news:[...]
+         * }
+         */
+
+        if(
             Array.isArray(
                 data
             )
-        ) {
+        ){
 
-            newsArticles =
+            articles =
                 data;
 
         }
 
-        else if (
+        else if(
             Array.isArray(
                 data.articles
             )
-        ) {
+        ){
 
-            newsArticles =
+            articles =
                 data.articles;
 
         }
 
-        else {
+        else if(
+            Array.isArray(
+                data.news
+            )
+        ){
 
-            newsArticles =
+            articles =
+                data.news;
+
+        }
+
+        else{
+
+            articles =
                 [];
 
         }
 
 
-        renderNews();
+        buildSourceOptions();
+
+        render();
 
     }
 
-    catch (
-        error
-    ) {
+    catch(error){
 
         console.error(
             error
@@ -2112,15 +2496,22 @@ async function loadNews() {
 
         newsList.innerHTML = `
 
-            <div class="news-message">
-                News data could not be loaded.
+            <div class="empty">
+
+                ニュースデータを
+                読み込めませんでした。
+
+                <br><br>
+
+                data/news.json
+                を確認してください。
+
             </div>
 
         `;
 
-        updateCounter(
-            0
-        );
+        newsCount.textContent =
+            "0 ARTICLES";
 
     }
 
@@ -2128,70 +2519,59 @@ async function loadNews() {
 
 
 /* =========================================================
-   STATUS DROPDOWN
+   FILTER EVENTS
 ========================================================= */
 
-statusFilter.addEventListener(
+statusSelect.addEventListener(
     "change",
-    function() {
+    function(){
 
-        activeStatus =
+        statusFilter =
             this.value;
 
-        renderNews();
+        render();
 
     }
 );
 
 
-/* =========================================================
-   SOURCE FILTER
-========================================================= */
+typeSelect.addEventListener(
+    "change",
+    function(){
 
-document
-    .querySelectorAll(
-        ".news-filter"
-    )
-    .forEach(
-        button => {
+        typeFilter =
+            this.value;
 
-            button.addEventListener(
-                "click",
-                function() {
+        render();
+
+    }
+);
 
 
-                    document
-                        .querySelectorAll(
-                            ".news-filter"
-                        )
-                        .forEach(
-                            item => {
+sourceSelect.addEventListener(
+    "change",
+    function(){
 
-                                item.classList
-                                    .remove(
-                                        "active"
-                                    );
+        sourceFilter =
+            this.value;
 
-                            }
-                        );
+        render();
+
+    }
+);
 
 
-                    this.classList.add(
-                        "active"
-                    );
+periodSelect.addEventListener(
+    "change",
+    function(){
 
+        periodFilter =
+            this.value;
 
-                    activeSource =
-                        this.dataset.source;
+        render();
 
-
-                    renderNews();
-
-                }
-            );
-
-        }
-    );
+    }
+);
 
 
 /* =========================================================
@@ -2202,5 +2582,7 @@ loadNews();
 
 </script>
 
+
 </body>
+
 </html>
