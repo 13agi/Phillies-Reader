@@ -1,558 +1,1161 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               viewport-fit=cover">
-
-<title>Philadelphia Phillies</title>
-
+<meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1.0,
+             viewport-fit=cover"
+>
+<title>PHILLIES</title>
+<!-- =========================================================
+     FONT
+========================================================= -->
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+>
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 <style>
-
+/* =========================================================
+   ROOT
+========================================================= */
 :root {
-    --navy: #07152b;
-    --red: #e31937;
-    --white: #ffffff;
-    --muted: #64748b;
+    --navy:
+        #07152b;
+    --navy-2:
+        #0b1c38;
+    --red:
+        #e31937;
+    --white:
+        #ffffff;
+    --muted:
+        #64748b;
+    --line:
+        rgba(255,255,255,.075);
 }
-
-
-/* =====================================================
+/* =========================================================
    RESET
-===================================================== */
-
+========================================================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    margin:
+        0;
+    padding:
+        0;
+    box-sizing:
+        border-box;
+    -webkit-tap-highlight-color:
+        transparent;
 }
-
-
 html,
 body {
-    width: 100%;
-    min-height: 100%;
-    background: var(--navy);
+    width:
+        100%;
+    min-height:
+        100%;
+    background:
+        var(--navy);
 }
-
-
 body {
-    color: var(--white);
-
+    color:
+        var(--white);
     font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
         Arial,
-        Helvetica,
         sans-serif;
-
     padding-bottom:
         calc(
             76px +
             env(safe-area-inset-bottom)
         );
 }
-
-
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
-
+   既存UI
+========================================================= */
 .header {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    z-index: 100;
-
-    height: 72px;
-
-    overflow: hidden;
-
+    position:
+        fixed;
+    top:
+        0;
+    left:
+        0;
+    right:
+        0;
+    z-index:
+        100;
+    height:
+        76px;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        center;
     background:
-        linear-gradient(
-            115deg,
-            #b90f2e 0%,
-            #e31937 38%,
-            #ef233c 65%,
-            #c8102e 100%
-        );
-
+        var(--red);
     box-shadow:
-        0 7px 22px
-        rgba(0,0,0,0.30);
+        0 5px 20px
+        rgba(0,0,0,.25);
+    overflow:
+        hidden;
 }
-
-
-/* =====================================================
-   HEADER DIAGONAL
-===================================================== */
-
+/* =========================================================
+   HEADER DETAIL
+========================================================= */
 .header::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: -120px;
-    right: -55px;
-
-    width: 300px;
-    height: 300px;
-
+    content:
+        "";
+    position:
+        absolute;
+    width:
+        160%;
+    height:
+        140px;
+    top:
+        -75px;
+    left:
+        -30%;
     transform:
-        rotate(27deg);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.13),
-            rgba(255,255,255,0.015)
-        );
-
-    border-left:
-        1px solid
-        rgba(255,255,255,0.16);
-
-    box-shadow:
-        -15px 0 40px
-        rgba(0,0,0,0.08);
-
-    pointer-events: none;
+        rotate(-7deg);
+    border-top:
+        2px solid
+        rgba(255,255,255,.12);
+    border-bottom:
+        2px solid
+        rgba(255,255,255,.08);
+    opacity:
+        .6;
 }
-
-
-/* =====================================================
-   NAVY DIAGONAL
-===================================================== */
-
-.header-navy-shape {
-
-    position: absolute;
-
-    top: -20px;
-    left: 43%;
-
-    width: 130px;
-    height: 130px;
-
+/* =========================================================
+   LOGO
+========================================================= */
+.logo {
+    position:
+        relative;
+    z-index:
+        2;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        48px;
+    font-weight:
+        900;
+    font-style:
+        italic;
+    letter-spacing:
+        1px;
+    text-transform:
+        uppercase;
+    color:
+        white;
     transform:
-        rotate(25deg);
-
-    background:
-        rgba(7,21,43,0.16);
-
-    pointer-events: none;
+        skewX(-5deg);
+    text-shadow:
+        2px 2px 0
+        rgba(0,0,0,.12),
+        0 4px 10px
+        rgba(0,0,0,.12);
 }
-
-
-/* =====================================================
-   HEADER LINES
-===================================================== */
-
-.header-line-one {
-
-    position: absolute;
-
-    left: -20px;
-    bottom: 14px;
-
-    width: 55%;
-
-    height: 2px;
-
-    transform:
-        skewX(-35deg);
-
+.logo::after {
+    content:
+        "";
+    display:
+        block;
+    width:
+        65%;
+    height:
+        3px;
+    margin:
+        3px auto 0;
+    border-radius:
+        99px;
     background:
-        rgba(255,255,255,0.34);
-
-    pointer-events: none;
+        rgba(255,255,255,.9);
 }
-
-
-.header-line-two {
-
-    position: absolute;
-
-    left: 4%;
-    bottom: 8px;
-
-    width: 35%;
-
-    height: 1px;
-
-    transform:
-        skewX(-35deg);
-
-    background:
-        rgba(255,255,255,0.18);
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   HEADER LIGHT
-===================================================== */
-
-.header-light {
-
-    position: absolute;
-
-    top: -85px;
-    right: 20px;
-
-    width: 180px;
-    height: 180px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,0.18) 0%,
-            rgba(255,255,255,0.06) 35%,
-            transparent 72%
-        );
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   HEADER BOTTOM EDGE
-===================================================== */
-
-.header::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-
-    bottom: 0;
-
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #07152b 0%,
-            #07152b 18%,
-            rgba(7,21,43,0.35) 45%,
-            rgba(255,255,255,0.28) 72%,
-            transparent 100%
-        );
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
+/* =========================================================
    MAIN
-===================================================== */
-
+========================================================= */
 main {
-
-    min-height: 100vh;
-
-    padding-top: 72px;
+    min-height:
+        100vh;
+    padding-top:
+        76px;
 }
-
-
-/* =====================================================
+/* =========================================================
+   =========================================================
+   NEWS
+   =========================================================
+   ========================================================= */
+/* =========================================================
+   NEWS PAGE
+========================================================= */
+.news-page {
+    width:
+        100%;
+    padding:
+        21px 14px 35px;
+}
+/* =========================================================
+   NEWS HEADING
+========================================================= */
+.news-heading {
+    margin-bottom:
+        17px;
+}
+.news-heading h1 {
+    font-size:
+        31px;
+    font-weight:
+        800;
+    line-height:
+        .95;
+    letter-spacing:
+        -.5px;
+}
+.news-heading p {
+    margin-top:
+        6px;
+    color:
+        var(--muted);
+    font-size:
+        10px;
+    font-weight:
+        700;
+    letter-spacing:
+        1.4px;
+}
+/* =========================================================
+   FILTER
+========================================================= */
+.news-filters {
+    display:
+        flex;
+    gap:
+        7px;
+    overflow-x:
+        auto;
+    margin-bottom:
+        17px;
+    padding-bottom:
+        2px;
+    scrollbar-width:
+        none;
+}
+.news-filters::-webkit-scrollbar {
+    display:
+        none;
+}
+.news-filter {
+    flex-shrink:
+        0;
+    height:
+        32px;
+    padding:
+        0 13px;
+    border:
+        1px solid
+        var(--line);
+    border-radius:
+        9px;
+    background:
+        rgba(255,255,255,.035);
+    color:
+        var(--muted);
+    font-family:
+        inherit;
+    font-size:
+        9px;
+    font-weight:
+        800;
+    letter-spacing:
+        .5px;
+}
+.news-filter.active {
+    color:
+        white;
+    background:
+        rgba(227,25,55,.14);
+    border-color:
+        rgba(227,25,55,.38);
+}
+/* =========================================================
+   NEWS LIST
+========================================================= */
+.news-list {
+    display:
+        flex;
+    flex-direction:
+        column;
+    gap:
+        11px;
+}
+/* =========================================================
+   NEWS CARD
+========================================================= */
+.news-card {
+    position:
+        relative;
+    overflow:
+        hidden;
+    display:
+        block;
+    width:
+        100%;
+    padding:
+        14px 15px 13px 18px;
+    border:
+        1px solid
+        var(--line);
+    border-radius:
+        16px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+    color:
+        white;
+    text-decoration:
+        none;
+    box-shadow:
+        0 8px 24px
+        rgba(0,0,0,.12);
+    transition:
+        transform .15s ease,
+        border-color .15s ease;
+}
+.news-card::before {
+    content:
+        "";
+    position:
+        absolute;
+    left:
+        0;
+    top:
+        0;
+    bottom:
+        0;
+    width:
+        4px;
+    background:
+        var(--red);
+}
+.news-card:active {
+    transform:
+        scale(.985);
+}
+/* =========================================================
+   NEWS META
+========================================================= */
+.news-meta {
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        space-between;
+    gap:
+        10px;
+    margin-bottom:
+        8px;
+}
+.news-source {
+    color:
+        var(--red);
+    font-size:
+        9px;
+    font-weight:
+        800;
+    letter-spacing:
+        .8px;
+}
+.news-time {
+    color:
+        rgba(255,255,255,.38);
+    font-size:
+        8px;
+    font-weight:
+        700;
+    white-space:
+        nowrap;
+}
+/* =========================================================
+   NEWS TITLE
+========================================================= */
+.news-title {
+    font-size:
+        18px;
+    font-weight:
+        800;
+    line-height:
+        1.25;
+    letter-spacing:
+        -.2px;
+}
+/* =========================================================
+   NEWS DESCRIPTION
+========================================================= */
+.news-description {
+    margin-top:
+        7px;
+    color:
+        rgba(255,255,255,.48);
+    font-size:
+        10px;
+    line-height:
+        1.45;
+}
+/* =========================================================
+   NEWS FOOTER
+========================================================= */
+.news-footer {
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        space-between;
+    margin-top:
+        11px;
+    padding-top:
+        9px;
+    border-top:
+        1px solid
+        rgba(255,255,255,.045);
+}
+.news-author {
+    color:
+        rgba(255,255,255,.28);
+    font-size:
+        8px;
+}
+.news-arrow {
+    color:
+        var(--red);
+    font-size:
+        18px;
+    font-weight:
+        800;
+    line-height:
+        1;
+}
+/* =========================================================
+   MESSAGE
+========================================================= */
+.news-message {
+    padding:
+        50px 20px;
+    text-align:
+        center;
+    color:
+        var(--muted);
+    font-size:
+        11px;
+}
+/* =========================================================
    BOTTOM NAV
-===================================================== */
-
+   既存UI
+   順番固定
+========================================================= */
 .bottom-nav {
-
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 200;
-
+    position:
+        fixed;
+    left:
+        0;
+    right:
+        0;
+    bottom:
+        0;
+    z-index:
+        200;
     height:
         calc(
             76px +
             env(safe-area-inset-bottom)
         );
-
     padding:
-        7px 5px
+        7px 8px
         env(safe-area-inset-bottom);
-
-    display: flex;
-
-    align-items: flex-start;
-
+    display:
+        flex;
+    align-items:
+        flex-start;
     justify-content:
-        space-between;
-
+        space-around;
     background:
-        rgba(5,16,34,0.97);
-
+        rgba(5,16,34,.97);
     backdrop-filter:
         blur(18px);
-
     -webkit-backdrop-filter:
         blur(18px);
-
     border-top:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 }
-
-
-/* =====================================================
+/* =========================================================
    NAV ITEM
-===================================================== */
-
+========================================================= */
 .nav-item {
-
-    flex: 1;
-
-    min-width: 0;
-
-    height: 60px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 5px;
-
-    text-decoration: none;
-
-    color: var(--muted);
-
-    border-radius: 13px;
-
+    flex:
+        1;
+    max-width:
+        100px;
+    height:
+        60px;
+    display:
+        flex;
+    flex-direction:
+        column;
+    align-items:
+        center;
+    justify-content:
+        center;
+    gap:
+        5px;
+    text-decoration:
+        none;
+    color:
+        var(--muted);
+    border-radius:
+        13px;
     transition:
         color .15s ease,
         background .15s ease,
         transform .15s ease;
 }
-
-
-.nav-item:active {
-
-    transform:
-        scale(.94);
-}
-
-
-/* =====================================================
-   ICON
-===================================================== */
-
-.nav-icon {
-
-    width: 25px;
-    height: 25px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 18px;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.nav-label {
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: .45px;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   ACTIVE
-===================================================== */
-
+/* =========================================================
+   NAV ACTIVE
+========================================================= */
 .nav-item.active {
-
-    color: var(--white);
-
+    color:
+        white;
     background:
-        rgba(227,25,55,0.13);
+        rgba(227,25,55,.13);
 }
-
-
-.nav-item.active .nav-icon {
-
-    color: var(--red);
+.nav-item.active
+.nav-icon {
+    color:
+        var(--red);
 }
-
-
-/* =====================================================
+/* =========================================================
+   NAV ICON
+========================================================= */
+.nav-icon {
+    width:
+        25px;
+    height:
+        25px;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        center;
+    font-size:
+        18px;
+    font-weight:
+        700;
+}
+/* =========================================================
+   NAV LABEL
+========================================================= */
+.nav-label {
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        12px;
+    font-weight:
+        700;
+    letter-spacing:
+        .8px;
+}
+/* =========================================================
    SMALL IPHONE
-===================================================== */
-
-@media (max-width: 360px) {
-
+========================================================= */
+@media (
+    max-width: 360px
+) {
     .header {
-        height: 68px;
+        height:
+            90px;
     }
-
     main {
-        padding-top: 68px;
+        padding-top:
+            90px;
     }
-
-    .nav-label {
-        font-size: 9px;
+    .logo {
+        font-size:
+            43px;
     }
-
+    .news-page {
+        padding-left:
+            11px;
+        padding-right:
+            11px;
+    }
+    .news-title {
+        font-size:
+            17px;
+    }
 }
-
 </style>
-
 </head>
-
-
 <body>
-
-
 <!-- =====================================================
      HEADER
 ===================================================== -->
-
 <header class="header">
-
-    <div class="header-navy-shape"></div>
-
-    <div class="header-line-one"></div>
-
-    <div class="header-line-two"></div>
-
-    <div class="header-light"></div>
-
+    <div class="logo">
+        Phillies
+    </div>
 </header>
-
-
 <!-- =====================================================
      MAIN
 ===================================================== -->
-
 <main>
+<section class="news-page">
+    <!-- =================================================
+         HEADING
+    ================================================== -->
+    <div class="news-heading">
+        <h1>
+            Phillies News
+        </h1>
+        <p>
+            LATEST PHILADELPHIA PHILLIES
+        </p>
+    </div>
+    <!-- =================================================
+         FILTER
+    ================================================== -->
+    <div class="news-filters">
+        <button
+            type="button"
+            class="news-filter active"
+            data-source="ALL"
+        >
+            ALL
+        </button>
+        <button
+            type="button"
+            class="news-filter"
+            data-source="MLB"
+        >
+            MLB
+        </button>
+        <button
+            type="button"
+            class="news-filter"
+            data-source="NBC"
+        >
+            NBC
+        </button>
+        <button
+            type="button"
+            class="news-filter"
+            data-source="CBS"
+        >
+            CBS
+        </button>
+        <button
+            type="button"
+            class="news-filter"
+            data-source="ESPN"
+        >
+            ESPN
+        </button>
+    </div>
+    <!-- =================================================
+         NEWS LIST
+    ================================================== -->
+    <div
+        class="news-list"
+        id="news-list"
+    >
+        <div class="news-message">
+            Loading Phillies news...
+        </div>
+    </div>
+</section>
 </main>
-
-
 <!-- =====================================================
      BOTTOM NAV
+     順番固定
 ===================================================== -->
-
 <nav class="bottom-nav">
-
-
-    <!-- SCHEDULE -->
-
-    <a href="schedule.html"
-       class="nav-item">
-
+    <!-- 1. SCHEDULE -->
+    <a
+        href="schedule.html"
+        class="nav-item"
+    >
         <div class="nav-icon">
             ▣
         </div>
-
         <div class="nav-label">
             SCHEDULE
         </div>
-
     </a>
-
-
-    <!-- SCORE -->
-
-    <a href="score.html"
-       class="nav-item">
-
+    <!-- 2. SCORE -->
+    <a
+        href="score.html"
+        class="nav-item"
+    >
         <div class="nav-icon">
             ●
         </div>
-
         <div class="nav-label">
             SCORE
         </div>
-
     </a>
-
-
-    <!-- HOME -->
-
-    <a href="index.html"
-       class="nav-item active">
-
+    <!-- 3. HOME -->
+    <a
+        href="index.html"
+        class="nav-item active"
+    >
         <div class="nav-icon">
             ⌂
         </div>
-
         <div class="nav-label">
             HOME
         </div>
-
     </a>
-
-
-    <!-- PLAYER -->
-
-    <a href="player.html"
-       class="nav-item">
-
+    <!-- 4. PLAYER -->
+    <a
+        href="player.html"
+        class="nav-item"
+    >
         <div class="nav-icon">
             ♟
         </div>
-
         <div class="nav-label">
             PLAYER
         </div>
-
     </a>
-
-
-    <!-- STATS -->
-
-    <a href="stats.html"
-       class="nav-item">
-
+    <!-- 5. STATS -->
+    <a
+        href="stats.html"
+        class="nav-item"
+    >
         <div class="nav-icon">
             ▥
         </div>
-
         <div class="nav-label">
             STATS
         </div>
-
     </a>
-
-
 </nav>
-
+<!-- =====================================================
+     NEWS SCRIPT
+===================================================== -->
+<script>
+/* =========================================================
+   DATA
+========================================================= */
+const NEWS_DATA_URL =
+    "data/news.json";
+/* =========================================================
+   ELEMENT
+========================================================= */
+const newsList =
+    document.getElementById(
+        "news-list"
+    );
+/* =========================================================
+   STATE
+========================================================= */
+let newsArticles =
+    [];
+let activeSource =
+    "ALL";
+/* =========================================================
+   ESCAPE
+========================================================= */
+function escapeHTML(
+    value
+) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+/* =========================================================
+   SOURCE
+========================================================= */
+function normalizeSource(
+    source
+) {
+    const value =
+        String(
+            source ||
+            ""
+        )
+        .trim()
+        .toUpperCase();
+    if (
+        value.includes("MLB")
+    ) {
+        return "MLB";
+    }
+    if (
+        value.includes("NBC")
+    ) {
+        return "NBC";
+    }
+    if (
+        value.includes("CBS")
+    ) {
+        return "CBS";
+    }
+    if (
+        value.includes("ESPN")
+    ) {
+        return "ESPN";
+    }
+    return value ||
+        "NEWS";
+}
+/* =========================================================
+   DATE
+========================================================= */
+function formatDate(
+    value
+) {
+    if (!value) {
+        return "";
+    }
+    const date =
+        new Date(
+            value
+        );
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return "";
+    }
+    return date.toLocaleString(
+        "ja-JP",
+        {
+            month:
+                "numeric",
+            day:
+                "numeric",
+            hour:
+                "2-digit",
+            minute:
+                "2-digit"
+        }
+    );
+}
+/* =========================================================
+   SORT
+========================================================= */
+function sortArticles(
+    articles
+) {
+    return [
+        ...articles
+    ]
+    .sort(
+        (
+            a,
+            b
+        ) => {
+            const aDate =
+                new Date(
+                    a.publishedAt ||
+                    a.published ||
+                    a.date ||
+                    0
+                )
+                .getTime();
+            const bDate =
+                new Date(
+                    b.publishedAt ||
+                    b.published ||
+                    b.date ||
+                    0
+                )
+                .getTime();
+            return (
+                bDate -
+                aDate
+            );
+        }
+    );
+}
+/* =========================================================
+   CARD
+========================================================= */
+function createNewsCard(
+    article
+) {
+    const card =
+        document.createElement(
+            "a"
+        );
+    card.className =
+        "news-card";
+    card.href =
+        article.url ||
+        article.link ||
+        "#";
+    card.target =
+        "_blank";
+    card.rel =
+        "noopener noreferrer";
+    const source =
+        normalizeSource(
+            article.source
+        );
+    const title =
+        article.title ||
+        "Untitled";
+    const description =
+        article.description ||
+        article.summary ||
+        "";
+    const publishedAt =
+        article.publishedAt ||
+        article.published ||
+        article.date ||
+        "";
+    card.innerHTML = `
+        <div class="news-meta">
+            <span class="news-source">
+                ${escapeHTML(
+                    source
+                )}
+            </span>
+            <span class="news-time">
+                ${escapeHTML(
+                    formatDate(
+                        publishedAt
+                    )
+                )}
+            </span>
+        </div>
+        <div class="news-title">
+            ${escapeHTML(
+                title
+            )}
+        </div>
+        ${
+            description
+            ?
+            `
+            <div
+                class="news-description"
+            >
+                ${escapeHTML(
+                    description
+                )}
+            </div>
+            `
+            :
+            ""
+        }
+        <div class="news-footer">
+            <span class="news-author">
+                ${escapeHTML(
+                    article.author ||
+                    ""
+                )}
+            </span>
+            <span class="news-arrow">
+                ›
+            </span>
+        </div>
+    `;
+    return card;
+}
+/* =========================================================
+   RENDER
+========================================================= */
+function renderNews() {
+    newsList.innerHTML =
+        "";
+    let articles =
+        sortArticles(
+            newsArticles
+        );
+    if (
+        activeSource !==
+        "ALL"
+    ) {
+        articles =
+            articles.filter(
+                article => {
+                    return (
+                        normalizeSource(
+                            article.source
+                        )
+                        ===
+                        activeSource
+                    );
+                }
+            );
+    }
+    if (
+        articles.length === 0
+    ) {
+        newsList.innerHTML = `
+            <div
+                class="news-message"
+            >
+                No Phillies news
+                available.
+            </div>
+        `;
+        return;
+    }
+    articles.forEach(
+        article => {
+            newsList.appendChild(
+                createNewsCard(
+                    article
+                )
+            );
+        }
+    );
+}
+/* =========================================================
+   LOAD
+========================================================= */
+async function loadNews() {
+    try {
+        const response =
+            await fetch(
+                NEWS_DATA_URL,
+                {
+                    cache:
+                        "no-store"
+                }
+            );
+        if (
+            !response.ok
+        ) {
+            throw new Error(
+                "news.json load failed"
+            );
+        }
+        const data =
+            await response.json();
+        if (
+            Array.isArray(
+                data
+            )
+        ) {
+            newsArticles =
+                data;
+        }
+        else if (
+            Array.isArray(
+                data.articles
+            )
+        ) {
+            newsArticles =
+                data.articles;
+        }
+        else {
+            newsArticles =
+                [];
+        }
+        renderNews();
+    }
+    catch (
+        error
+    ) {
+        console.error(
+            error
+        );
+        newsList.innerHTML = `
+            <div
+                class="news-message"
+            >
+                News data could not
+                be loaded.
+            </div>
+        `;
+    }
+}
+/* =========================================================
+   FILTER
+========================================================= */
+document
+    .querySelectorAll(
+        ".news-filter"
+    )
+    .forEach(
+        button => {
+            button.addEventListener(
+                "click",
+                function () {
+                    document
+                        .querySelectorAll(
+                            ".news-filter"
+                        )
+                        .forEach(
+                            item => {
+                                item.classList
+                                    .remove(
+                                        "active"
+                                    );
+                            }
+                        );
+                    this.classList
+                        .add(
+                            "active"
+                        );
+                    activeSource =
+                        this.dataset.source;
+                    renderNews();
+                }
+            );
+        }
+    );
+/* =========================================================
+   START
+========================================================= */
+loadNews();
+</script>
 </body>
 </html>
