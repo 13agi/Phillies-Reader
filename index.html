@@ -36,7 +36,10 @@ body {
         Helvetica,
         sans-serif;
     padding-bottom:
-        calc(76px + env(safe-area-inset-bottom));
+        calc(
+            76px +
+            env(safe-area-inset-bottom)
+        );
 }
 /* =========================
    HEADER
@@ -53,7 +56,8 @@ body {
     justify-content: center;
     background: var(--red);
     box-shadow:
-        0 5px 20px rgba(0,0,0,0.25);
+        0 5px 20px
+        rgba(0,0,0,0.25);
 }
 /* =========================
    PHILLIES
@@ -65,6 +69,8 @@ body {
         sans-serif;
     font-size: 42px;
     font-weight: 700;
+    /* 斜体を完全に解除 */
+    font-style: normal;
     letter-spacing: 1px;
     line-height: 1;
     color: var(--white);
@@ -96,7 +102,8 @@ main {
         env(safe-area-inset-bottom);
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content:
+        space-between;
     background:
         rgba(5,16,34,0.97);
     backdrop-filter:
@@ -128,7 +135,8 @@ main {
         transform .15s ease;
 }
 .nav-item:active {
-    transform: scale(.94);
+    transform:
+        scale(.94);
 }
 /* =========================
    ICON
@@ -190,6 +198,7 @@ main {
 <main>
 </main>
 <nav class="bottom-nav">
+    <!-- SCHEDULE -->
     <a href="#" class="nav-item">
         <div class="nav-icon">
             ▣
@@ -198,6 +207,7 @@ main {
             SCHEDULE
         </div>
     </a>
+    <!-- SCORE -->
     <a href="#" class="nav-item">
         <div class="nav-icon">
             ●
@@ -206,6 +216,7 @@ main {
             SCORE
         </div>
     </a>
+    <!-- HOME -->
     <a href="#" class="nav-item active">
         <div class="nav-icon">
             ⌂
@@ -214,6 +225,7 @@ main {
             HOME
         </div>
     </a>
+    <!-- PLAYER -->
     <a href="#" class="nav-item">
         <div class="nav-icon">
             ♟
@@ -222,6 +234,7 @@ main {
             PLAYER
         </div>
     </a>
+    <!-- STATS -->
     <a href="#" class="nav-item">
         <div class="nav-icon">
             ▥
