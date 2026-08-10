@@ -21,9 +21,9 @@
 }
 
 
-/* =========================
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 * {
     margin: 0;
@@ -91,7 +91,7 @@ body {
 
 
 /* =====================================================
-   LARGE DIAGONAL PANEL
+   HEADER LARGE DIAGONAL
 ===================================================== */
 
 .header::before {
@@ -129,7 +129,7 @@ body {
 
 
 /* =====================================================
-   NAVY DIAGONAL
+   HEADER NAVY SHAPE
 ===================================================== */
 
 .header-navy-shape {
@@ -153,7 +153,7 @@ body {
 
 
 /* =====================================================
-   HIGHLIGHT LINE 1
+   HEADER LINE 1
 ===================================================== */
 
 .header-line-one {
@@ -178,7 +178,7 @@ body {
 
 
 /* =====================================================
-   HIGHLIGHT LINE 2
+   HEADER LINE 2
 ===================================================== */
 
 .header-line-two {
@@ -203,7 +203,7 @@ body {
 
 
 /* =====================================================
-   RIGHT LIGHT
+   HEADER LIGHT
 ===================================================== */
 
 .header-light {
@@ -231,7 +231,7 @@ body {
 
 
 /* =====================================================
-   BOTTOM EDGE
+   HEADER BOTTOM EDGE
 ===================================================== */
 
 .header::after {
@@ -288,7 +288,9 @@ main {
 }
 
 
-/* ページタイトル */
+/* =====================================================
+   PAGE TITLE
+===================================================== */
 
 .player-title {
 
@@ -313,6 +315,150 @@ main {
     letter-spacing: 0.5px;
 
     margin-bottom: 24px;
+}
+
+
+/* =====================================================
+   PLAYER LIST
+===================================================== */
+
+.player-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+
+/* =====================================================
+   PLAYER CARD
+===================================================== */
+
+.player-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        14px 16px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    transition:
+        transform .15s ease,
+        background .15s ease;
+}
+
+
+.player-card:active {
+
+    transform:
+        scale(.98);
+
+    background:
+        rgba(227,25,55,0.12);
+}
+
+
+/* =====================================================
+   PLAYER NUMBER
+===================================================== */
+
+.player-number {
+
+    width: 48px;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    color:
+        rgba(255,255,255,0.22);
+
+    letter-spacing: -1px;
+}
+
+
+/* =====================================================
+   PLAYER INFO
+===================================================== */
+
+.player-info {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.player-name {
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing: .3px;
+
+    color: var(--white);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.player-position {
+
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .7px;
+
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   PLAYER ARROW
+===================================================== */
+
+.player-arrow {
+
+    width: 28px;
+
+    text-align: right;
+
+    font-size: 25px;
+
+    font-weight: 300;
+
+    color:
+        rgba(255,255,255,0.35);
 }
 
 
@@ -405,7 +551,7 @@ main {
 
 
 /* =====================================================
-   ICON
+   NAV ICON
 ===================================================== */
 
 .nav-icon {
@@ -425,7 +571,7 @@ main {
 
 
 /* =====================================================
-   LABEL
+   NAV LABEL
 ===================================================== */
 
 .nav-label {
@@ -525,9 +671,123 @@ main {
             PHILADELPHIA PHILLIES
         </p>
 
-        <!--
-            ここから選手一覧を追加します。
-        -->
+
+        <!-- =================================================
+             SAMPLE PLAYER CARDS
+        ================================================== -->
+
+        <div class="player-list">
+
+
+            <!-- PLAYER 01 -->
+
+            <div class="player-card">
+
+                <div class="player-number">
+                    01
+                </div>
+
+                <div class="player-info">
+
+                    <div class="player-name">
+                        PLAYER ONE
+                    </div>
+
+                    <div class="player-position">
+                        P • RHP
+                    </div>
+
+                </div>
+
+                <div class="player-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER 02 -->
+
+            <div class="player-card">
+
+                <div class="player-number">
+                    02
+                </div>
+
+                <div class="player-info">
+
+                    <div class="player-name">
+                        PLAYER TWO
+                    </div>
+
+                    <div class="player-position">
+                        IF • SS
+                    </div>
+
+                </div>
+
+                <div class="player-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER 03 -->
+
+            <div class="player-card">
+
+                <div class="player-number">
+                    03
+                </div>
+
+                <div class="player-info">
+
+                    <div class="player-name">
+                        PLAYER THREE
+                    </div>
+
+                    <div class="player-position">
+                        OF • CF
+                    </div>
+
+                </div>
+
+                <div class="player-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER 04 -->
+
+            <div class="player-card">
+
+                <div class="player-number">
+                    04
+                </div>
+
+                <div class="player-info">
+
+                    <div class="player-name">
+                        PLAYER FOUR
+                    </div>
+
+                    <div class="player-position">
+                        C
+                    </div>
+
+                </div>
+
+                <div class="player-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+        </div>
 
     </section>
 
@@ -622,6 +882,7 @@ main {
 
 
 </nav>
+
 
 </body>
 </html>
