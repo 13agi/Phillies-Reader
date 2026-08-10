@@ -1,569 +1,1460 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PHILLIES</title>
 
-
 <style>
 
-/* ========================================
-   PHILLIES NEXT UI
-======================================== */
+/* =========================================================
+   DESIGN SYSTEM
+========================================================= */
 
 :root {
+    --navy: #061633;
+    --navy-light: #0b2349;
+    --navy-card: #0d2852;
 
-    --red: #E31837;
+    --red: #c8102e;
+    --red-light: #e0183c;
 
-    --navy: #001B3D;
+    --white: #ffffff;
+    --gray: #91a0b7;
+    --gray-dark: #52627a;
 
-    --navy-2: #002D72;
-
-    --glass: rgba(255, 255, 255, 0.06);
-
-    --stroke: rgba(255, 255, 255, 0.12);
-
-    --text: #FFFFFF;
-
+    --line: rgba(255,255,255,0.08);
 }
 
 
-/* ========================================
-   BASE
-======================================== */
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
 
+html {
+    background: var(--navy);
+}
 
 body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(200,16,46,0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #061633 0%,
+            #071a3b 55%,
+            #041127 100%
+        );
+
+    color: var(--white);
 
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
-        Arial,
+        "Segoe UI",
         sans-serif;
 
-    background:
-        radial-gradient(
-            circle at top,
-            #002D72 0%,
-            #001B3D 60%,
-            #000F24 100%
-        );
-
-    color:
-        var(--text);
-
-    overflow-x:
-        hidden;
-
+    padding-bottom: 90px;
 }
 
 
-/* ========================================
-   BACKGROUND STRIPES
-======================================== */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        repeating-linear-gradient(
-            135deg,
-            rgba(255,255,255,0.03) 0px,
-            rgba(255,255,255,0.03) 1px,
-            transparent 1px,
-            transparent 12px
-        );
-
-    pointer-events:
-        none;
-
-    z-index:
-        0;
-
-}
-
-
-/* ========================================
-   APP
-======================================== */
-
-.app {
-
-    position:
-        relative;
-
-    z-index:
-        1;
-
-    min-height:
-        100dvh;
-
-}
-
-
-/* ========================================
-   HEADER GLASS
-======================================== */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header {
+    height: 76px;
 
-    position:
-        sticky;
+    display: flex;
+    align-items: center;
 
-    top:
-        0;
+    border-bottom: 1px solid var(--line);
 
-    z-index:
-        10;
+    background: rgba(6,22,51,0.82);
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
-    background:
-        rgba(0, 27, 61, 0.55);
-
-    border-bottom:
-        1px solid var(--stroke);
-
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
-
-
-/* ========================================
-   HEADER INNER
-======================================== */
 
 .header-inner {
+    width: 100%;
+    max-width: 1150px;
 
-    display:
-        flex;
+    margin: auto;
 
-    align-items:
-        center;
+    padding: 0 20px;
 
-    justify-content:
-        space-between;
-
-    padding:
-        14px 18px;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
-/* ========================================
-   LOGO EMBLEM
-======================================== */
+/* BRAND */
 
-.logo {
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    font-family:
-        Georgia,
-        serif;
+.brand-bar {
+    width: 4px;
+    height: 30px;
 
-    font-style:
-        italic;
+    background: var(--red);
 
-    font-weight:
-        900;
+    border-radius: 5px;
+}
 
-    font-size:
-        28px;
+.brand-main {
+    font-size: 20px;
+    font-weight: 950;
 
-    letter-spacing:
-        -1px;
+    letter-spacing: 3px;
+}
 
-    color:
-        var(--text);
+.brand-small {
+    margin-top: 2px;
 
-    text-decoration:
-        none;
+    color: var(--gray);
 
-    position:
-        relative;
+    font-size: 7px;
+    font-weight: 700;
 
-    text-shadow:
-        0 0 18px rgba(227, 24, 55, 0.6);
-
+    letter-spacing: 2.5px;
 }
 
 
-/* red glow underline */
-
-.logo::after {
-
-    content: "";
-
-    position:
-        absolute;
-
-    left:
-        0;
-
-    bottom:
-        -6px;
-
-    width:
-        100%;
-
-    height:
-        2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--red),
-            transparent
-        );
-
-    opacity:
-        0.8;
-
-}
-
-
-/* ========================================
-   MENU BUTTON
-======================================== */
+/* MENU */
 
 .menu {
+    width: 42px;
+    height: 42px;
 
-    width:
-        42px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
 
-    height:
-        42px;
+    background: rgba(255,255,255,0.035);
 
-    border-radius:
-        14px;
+    color: white;
 
-    border:
-        1px solid var(--stroke);
+    font-size: 19px;
 
-    background:
-        var(--glass);
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    backdrop-filter:
-        blur(10px);
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-/* hamburger */
-
-.menu span {
-
-    width:
-        18px;
-
-    height:
-        2px;
-
-    background:
-        var(--text);
-
-    position:
-        relative;
-
-}
-
-.menu span::before,
-.menu span::after {
-
-    content: "";
-
-    position:
-        absolute;
-
-    width:
-        18px;
-
-    height:
-        2px;
-
-    background:
-        var(--text);
-
-    left:
-        0;
-
-}
-
-.menu span::before {
-
-    top:
-        -6px;
-
-}
-
-.menu span::after {
-
-    top:
-        6px;
-
-}
-
-
-/* ========================================
+/* =========================================================
    MAIN
-======================================== */
+========================================================= */
 
-main {
+.main {
+    width: 100%;
+    max-width: 1150px;
 
-    padding:
-        18px;
+    margin: auto;
 
+    padding: 25px 16px 40px;
 }
 
 
-/* ========================================
-   HERO CARD
-======================================== */
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero {
+    position: relative;
+
+    min-height: 310px;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    padding: 27px 23px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(227, 24, 55, 0.18),
-            rgba(0, 45, 114, 0.35)
+            #c8102e 0%,
+            #b20e29 46%,
+            #8e0b22 100%
         );
 
-    border:
-        1px solid var(--stroke);
-
-    border-radius:
-        18px;
-
-    padding:
-        18px;
-
-    backdrop-filter:
-        blur(14px);
-
     box-shadow:
-        0 20px 60px rgba(0,0,0,0.35);
-
+        0 24px 60px rgba(0,0,0,0.28);
 }
 
 
-/* ========================================
-   HERO TITLE
-======================================== */
+/* giant PHI background */
 
-.hero h1 {
+.hero::before {
+    content: "PHI";
 
-    font-size:
-        22px;
+    position: absolute;
 
-    font-weight:
-        800;
+    right: -20px;
+    bottom: -35px;
 
-    line-height:
-        1.3;
+    font-size: 180px;
+    font-weight: 1000;
 
+    line-height: 1;
+
+    color: rgba(255,255,255,0.07);
+
+    letter-spacing: -15px;
 }
 
 
-/* ========================================
-   HERO SUB
-======================================== */
+/* subtle navy shape */
 
-.hero p {
+.hero::after {
+    content: "";
 
-    margin-top:
-        8px;
+    position: absolute;
 
-    font-size:
-        13px;
+    width: 240px;
+    height: 240px;
 
-    opacity:
-        0.8;
+    right: -90px;
+    top: -100px;
 
+    border-radius: 50%;
+
+    background: rgba(6,22,51,0.18);
 }
 
 
-/* ========================================
-   NEWS CARD
-======================================== */
+.hero-content {
+    position: relative;
 
-.card {
+    z-index: 2;
+}
 
-    margin-top:
-        14px;
 
-    padding:
-        14px;
+.hero-overline {
+    font-size: 9px;
 
-    border-radius:
-        16px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    color: rgba(255,255,255,0.7);
+}
+
+
+.hero-title {
+    margin-top: 9px;
+
+    font-size: 43px;
+
+    font-weight: 1000;
+
+    letter-spacing: -2px;
+
+    line-height: 0.95;
+}
+
+
+.hero-subtitle {
+    margin-top: 12px;
+
+    color: rgba(255,255,255,0.72);
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+.hero-date {
+    position: absolute;
+
+    left: 23px;
+    bottom: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 10px;
+
+    font-weight: 750;
+
+    letter-spacing: 1px;
+}
+
+
+.date-dot {
+    width: 6px;
+    height: 6px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+.game {
+    margin-top: 14px;
+
+    padding: 22px 18px;
 
     background:
-        var(--glass);
+        linear-gradient(
+            145deg,
+            rgba(14,43,86,0.98),
+            rgba(8,27,58,0.98)
+        );
 
-    border:
-        1px solid var(--stroke);
+    border: 1px solid var(--line);
 
-    backdrop-filter:
-        blur(12px);
-
+    border-radius: 22px;
 }
 
 
-/* ========================================
-   CARD TITLE
-======================================== */
-
-.card h2 {
-
-    font-size:
-        15px;
-
-    font-weight:
-        700;
-
+.game-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
-/* ========================================
-   CARD TEXT
-======================================== */
+.game-label {
+    color: var(--gray);
 
-.card p {
+    font-size: 9px;
 
-    margin-top:
-        6px;
+    font-weight: 800;
 
-    font-size:
-        12px;
-
-    opacity:
-        0.75;
-
+    letter-spacing: 1.7px;
 }
 
 
-/* ========================================
-   BOTTOM SAFE AREA
-======================================== */
+.game-status {
+    color: #ff667e;
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    font-size: 9px;
 
-    main {
+    font-weight: 900;
 
-        padding-bottom:
-            calc(18px + env(safe-area-inset-bottom));
+    letter-spacing: 1px;
+}
 
+
+.game-matchup {
+    margin-top: 22px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 80px 1fr;
+
+    align-items: center;
+}
+
+
+.team {
+    text-align: center;
+}
+
+
+.team-code {
+    font-size: 24px;
+
+    font-weight: 950;
+
+    letter-spacing: 1px;
+}
+
+
+.team-name {
+    margin-top: 4px;
+
+    color: var(--gray);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.game-score {
+    text-align: center;
+}
+
+
+.score {
+    font-size: 31px;
+
+    font-weight: 950;
+
+    letter-spacing: -2px;
+}
+
+
+.score-dash {
+    margin: 0 3px;
+
+    color: var(--gray-dark);
+
+    font-size: 14px;
+}
+
+
+.game-bottom {
+    margin-top: 20px;
+
+    padding-top: 13px;
+
+    border-top: 1px solid var(--line);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--gray);
+
+    font-size: 9px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section {
+    margin-top: 31px;
+}
+
+.section-head {
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+
+.section-title {
+    font-size: 16px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.3px;
+}
+
+
+.section-label {
+    color: var(--red-light);
+
+    font-size: 8px;
+
+    font-weight: 850;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   TEAM STATS
+========================================================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 9px;
+}
+
+
+.stat {
+    padding: 17px 10px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    border: 1px solid var(--line);
+
+    border-radius: 17px;
+
+    text-align: center;
+}
+
+
+.stat-name {
+    color: var(--gray);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.stat-number {
+    margin-top: 8px;
+
+    font-size: 21px;
+
+    font-weight: 950;
+}
+
+
+.stat-extra {
+    margin-top: 3px;
+
+    color: #e94a64;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+
+.feature {
+    min-height: 125px;
+
+    padding: 18px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(14,43,86,0.9),
+            rgba(7,25,54,0.9)
+        );
+
+    border: 1px solid var(--line);
+
+    border-radius: 19px;
+}
+
+
+.feature::after {
+    content: "";
+
+    position: absolute;
+
+    right: -30px;
+    bottom: -40px;
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(200,16,46,0.10);
+}
+
+
+.feature-icon {
+    font-size: 18px;
+
+    color: var(--red-light);
+}
+
+
+.feature-title {
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    font-weight: 850;
+}
+
+
+.feature-description {
+    margin-top: 5px;
+
+    color: var(--gray);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player-list {
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+
+    padding-bottom: 3px;
+}
+
+.player-list::-webkit-scrollbar {
+    display: none;
+}
+
+
+.player {
+    flex: 0 0 158px;
+
+    height: 180px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 17px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            155deg,
+            #0e2b57,
+            #081c3d
+        );
+
+    border: 1px solid var(--line);
+}
+
+
+.player::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -55px;
+    top: -55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(200,16,46,0.13);
+}
+
+
+.player-number {
+    position: absolute;
+
+    right: 9px;
+    bottom: -9px;
+
+    font-size: 90px;
+
+    font-weight: 1000;
+
+    line-height: 1;
+
+    color: rgba(255,255,255,0.035);
+}
+
+
+.player-position {
+    color: var(--red-light);
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.player-name {
+    position: absolute;
+
+    left: 17px;
+    bottom: 43px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+
+.player-stat {
+    position: absolute;
+
+    left: 17px;
+    bottom: 20px;
+
+    color: var(--gray);
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DAILY MESSAGE
+========================================================= */
+
+.daily {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 24px 21px;
+
+    border-radius: 21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d2b58,
+            #071a39
+        );
+
+    border: 1px solid var(--line);
+}
+
+
+.daily-red {
+    width: 35px;
+    height: 3px;
+
+    background: var(--red);
+
+    border-radius: 5px;
+}
+
+
+.daily-title {
+    margin-top: 17px;
+
+    font-size: 21px;
+
+    line-height: 1.25;
+
+    font-weight: 900;
+}
+
+
+.daily-text {
+    margin-top: 9px;
+
+    color: var(--gray);
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+
+.daily-word {
+    position: absolute;
+
+    right: -14px;
+    bottom: -28px;
+
+    font-size: 90px;
+
+    font-weight: 1000;
+
+    color: rgba(255,255,255,0.025);
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 72px;
+
+    background:
+        rgba(4,14,32,0.94);
+
+    border-top: 1px solid var(--line);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    z-index: 100;
+}
+
+
+.bottom-inner {
+    height: 100%;
+
+    max-width: 550px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+}
+
+
+.nav {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    color: var(--gray-dark);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+
+.nav-icon {
+    font-size: 18px;
+}
+
+
+.nav.active {
+    color: white;
+}
+
+
+.nav.active .nav-icon {
+    color: var(--red-light);
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    body {
+        padding-bottom: 30px;
     }
 
+    .main {
+        padding: 35px 25px 60px;
+    }
+
+    .hero {
+        min-height: 380px;
+
+        padding: 45px;
+    }
+
+    .hero-title {
+        font-size: 70px;
+    }
+
+    .game {
+        max-width: 600px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bottom {
+        display: none;
+    }
+
+    .desktop-grid {
+        display: grid;
+
+        grid-template-columns:
+            1.2fr 0.8fr;
+
+        gap: 20px;
+    }
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<div class="app">
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="brand-bar"></div>
+
+            <div>
+
+                <div class="brand-main">
+                    PHILLIES
+                </div>
+
+                <div class="brand-small">
+                    PHILADELPHIA BASEBALL
+                </div>
+
+            </div>
+
+        </div>
 
 
-    <header class="header">
+        <div class="menu">
+            ☰
+        </div>
 
-        <div class="header-inner">
+    </div>
+
+</header>
 
 
-            <a class="logo" href="#">
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="main">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-overline">
+                PHILADELPHIA
+            </div>
+
+            <h1 class="hero-title">
                 PHILLIES
-            </a>
+            </h1>
+
+            <div class="hero-subtitle">
+                BASEBALL · EVERY DAY
+            </div>
+
+        </div>
 
 
-            <div class="menu">
-                <span></span>
+        <div class="hero-date">
+
+            <span class="date-dot"></span>
+
+            AUGUST 10 · 2026
+
+        </div>
+
+    </section>
+
+
+
+    <!-- GAME -->
+
+    <section class="game">
+
+        <div class="game-top">
+
+            <div class="game-label">
+                TODAY'S GAME
+            </div>
+
+            <div class="game-status">
+                FINAL
+            </div>
+
+        </div>
+
+
+        <div class="game-matchup">
+
+
+            <div class="team">
+
+                <div class="team-code">
+                    PHI
+                </div>
+
+                <div class="team-name">
+                    PHILLIES
+                </div>
+
+            </div>
+
+
+            <div class="game-score">
+
+                <span class="score">
+                    5
+                </span>
+
+                <span class="score-dash">
+                    —
+                </span>
+
+                <span class="score">
+                    3
+                </span>
+
+            </div>
+
+
+            <div class="team">
+
+                <div class="team-code">
+                    OPP
+                </div>
+
+                <div class="team-name">
+                    OPPONENT
+                </div>
+
             </div>
 
 
         </div>
 
-    </header>
+
+        <div class="game-bottom">
+
+            <span>
+                CITIZENS BANK PARK
+            </span>
+
+            <span>
+                W · 68–48
+            </span>
+
+        </div>
+
+    </section>
 
 
-    <main>
+
+    <div class="desktop-grid">
 
 
-        <section class="hero">
-
-            <h1>
-                Philadelphia Phillies
-                <br>
-                Mobile Experience
-            </h1>
-
-            <p>
-                Breaking news · Live scores · Player updates
-            </p>
-
-        </section>
+        <div>
 
 
-        <section class="card">
+            <!-- TEAM -->
 
-            <h2>Latest News</h2>
+            <section class="section">
 
-            <p>
-                Harper leads Phillies to dominant win over Braves.
-            </p>
+                <div class="section-head">
 
-        </section>
+                    <h2 class="section-title">
+                        TEAM
+                    </h2>
 
+                    <span class="section-label">
+                        2026
+                    </span>
 
-        <section class="card">
-
-            <h2>Next Game</h2>
-
-            <p>
-                Phillies vs Mets — Tonight 7:05 PM
-            </p>
-
-        </section>
+                </div>
 
 
-    </main>
+                <div class="stats">
 
 
-</div>
+                    <div class="stat">
+
+                        <div class="stat-name">
+                            RECORD
+                        </div>
+
+                        <div class="stat-number">
+                            68–48
+                        </div>
+
+                        <div class="stat-extra">
+                            +20
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-name">
+                            WIN %
+                        </div>
+
+                        <div class="stat-number">
+                            .586
+                        </div>
+
+                        <div class="stat-extra">
+                            1ST
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-name">
+                            STREAK
+                        </div>
+
+                        <div class="stat-number">
+                            W3
+                        </div>
+
+                        <div class="stat-extra">
+                            HOT
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PLAYERS -->
+
+            <section class="section">
+
+                <div class="section-head">
+
+                    <h2 class="section-title">
+                        PLAYERS
+                    </h2>
+
+                    <span class="section-label">
+                        ROSTER
+                    </span>
+
+                </div>
+
+
+                <div class="player-list">
+
+
+                    <div class="player">
+
+                        <div class="player-position">
+                            INFIELDER
+                        </div>
+
+                        <div class="player-name">
+                            PLAYER
+                        </div>
+
+                        <div class="player-stat">
+                            AVG .300
+                        </div>
+
+                        <div class="player-number">
+                            3
+                        </div>
+
+                    </div>
+
+
+                    <div class="player">
+
+                        <div class="player-position">
+                            INFIELDER
+                        </div>
+
+                        <div class="player-name">
+                            PLAYER
+                        </div>
+
+                        <div class="player-stat">
+                            OPS .850
+                        </div>
+
+                        <div class="player-number">
+                            6
+                        </div>
+
+                    </div>
+
+
+                    <div class="player">
+
+                        <div class="player-position">
+                            PITCHER
+                        </div>
+
+                        <div class="player-name">
+                            PLAYER
+                        </div>
+
+                        <div class="player-stat">
+                            ERA 3.20
+                        </div>
+
+                        <div class="player-number">
+                            28
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <div>
+
+
+            <!-- FEATURES -->
+
+            <section class="section">
+
+                <div class="section-head">
+
+                    <h2 class="section-title">
+                        EXPLORE
+                    </h2>
+
+                </div>
+
+
+                <div class="features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ◉
+                        </div>
+
+                        <div class="feature-title">
+                            PLAYERS
+                        </div>
+
+                        <div class="feature-description">
+                            選手と成績を見る
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ◈
+                        </div>
+
+                        <div class="feature-title">
+                            STATS
+                        </div>
+
+                        <div class="feature-description">
+                            チームを数字で見る
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ◎
+                        </div>
+
+                        <div class="feature-title">
+                            GAMES
+                        </div>
+
+                        <div class="feature-description">
+                            試合を振り返る
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            +
+                        </div>
+
+                        <div class="feature-title">
+                            MORE
+                        </div>
+
+                        <div class="feature-description">
+                            これから追加
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- DAILY -->
+
+            <section class="section">
+
+                <div class="daily">
+
+                    <div class="daily-red"></div>
+
+                    <div class="daily-title">
+                        PHILLIES,<br>
+                        EVERY DAY.
+                    </div>
+
+                    <div class="daily-text">
+                        試合の日も、そうでない日も。<br>
+                        フィリーズを追いかけるための場所。
+                    </div>
+
+                    <div class="daily-word">
+                        PHI
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     BOTTOM NAV
+======================================================= -->
+
+<nav class="bottom">
+
+    <div class="bottom-inner">
+
+        <div class="nav active">
+
+            <div class="nav-icon">
+                ⌂
+            </div>
+
+            HOME
+
+        </div>
+
+
+        <div class="nav">
+
+            <div class="nav-icon">
+                ◉
+            </div>
+
+            PLAYERS
+
+        </div>
+
+
+        <div class="nav">
+
+            <div class="nav-icon">
+                ◎
+            </div>
+
+            STATS
+
+        </div>
+
+
+        <div class="nav">
+
+            <div class="nav-icon">
+                ⋯
+            </div>
+
+            MORE
+
+        </div>
+
+    </div>
+
+</nav>
 
 
 </body>
