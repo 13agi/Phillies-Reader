@@ -16,15 +16,14 @@
 :root {
     --navy: #07152b;
     --red: #e31937;
-    --deep-red: #a90f29;
     --white: #ffffff;
     --muted: #64748b;
 }
 
 
-/* =========================
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 * {
     margin: 0;
@@ -92,7 +91,7 @@ body {
 
 
 /* =====================================================
-   LARGE DIAGONAL PANEL
+   HEADER DIAGONAL
 ===================================================== */
 
 .header::before {
@@ -133,7 +132,8 @@ body {
    NAVY DIAGONAL
 ===================================================== */
 
-.header .header-navy-shape {
+.header-navy-shape {
+
     position: absolute;
 
     top: -20px;
@@ -153,10 +153,10 @@ body {
 
 
 /* =====================================================
-   HIGHLIGHT LINE 1
+   HEADER LINES
 ===================================================== */
 
-.header .header-line-one {
+.header-line-one {
 
     position: absolute;
 
@@ -177,11 +177,7 @@ body {
 }
 
 
-/* =====================================================
-   HIGHLIGHT LINE 2
-===================================================== */
-
-.header .header-line-two {
+.header-line-two {
 
     position: absolute;
 
@@ -203,10 +199,10 @@ body {
 
 
 /* =====================================================
-   RIGHT LIGHT
+   HEADER LIGHT
 ===================================================== */
 
-.header .header-light {
+.header-light {
 
     position: absolute;
 
@@ -231,7 +227,7 @@ body {
 
 
 /* =====================================================
-   BOTTOM EDGE
+   HEADER BOTTOM EDGE
 ===================================================== */
 
 .header::after {
@@ -355,7 +351,9 @@ main {
 
 
 .nav-item:active {
-    transform: scale(.94);
+
+    transform:
+        scale(.94);
 }
 
 
@@ -409,6 +407,7 @@ main {
 
 
 .nav-item.active .nav-icon {
+
     color: var(--red);
 }
 
@@ -473,7 +472,10 @@ main {
 <nav class="bottom-nav">
 
 
-    <a href="#" class="nav-item">
+    <!-- SCHEDULE -->
+
+    <a href="schedule.html"
+       class="nav-item">
 
         <div class="nav-icon">
             ▣
@@ -486,7 +488,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- SCORE -->
+
+    <a href="score.html"
+       class="nav-item">
 
         <div class="nav-icon">
             ●
@@ -499,7 +504,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item active">
+    <!-- HOME -->
+
+    <a href="index.html"
+       class="nav-item active">
 
         <div class="nav-icon">
             ⌂
@@ -512,7 +520,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- PLAYER -->
+
+    <a href="player.html"
+       class="nav-item">
 
         <div class="nav-icon">
             ♟
@@ -525,7 +536,10 @@ main {
     </a>
 
 
-    <a href="#" class="nav-item">
+    <!-- STATS -->
+
+    <a href="stats.html"
+       class="nav-item">
 
         <div class="nav-icon">
             ▥
@@ -537,33 +551,8 @@ main {
 
     </a>
 
+
 </nav>
-
-
-<script>
-
-const navItems =
-    document.querySelectorAll(".nav-item");
-
-
-navItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-        navItems.forEach(nav => {
-
-            nav.classList.remove("active");
-
-        });
-
-        item.classList.add("active");
-
-    });
-
-});
-
-</script>
-
 
 </body>
 </html>
