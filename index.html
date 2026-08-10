@@ -2,178 +2,230 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 <title>PHILLIES</title>
 <style>
-/* =========================
+/* ========================================
    PHILLIES COLORS
-========================= */
+======================================== */
 :root {
-    --red: #E31837;
-    --navy: #002D72;
-    --navy-dark: #001F4F;
+    --phillies-red: #E31837;
+    --phillies-navy: #002D72;
     --white: #FFFFFF;
 }
-/* =========================
-   BASE
-========================= */
+/* ========================================
+   RESET
+======================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+html,
 body {
-    min-height: 100vh;
-    background: var(--navy);
-    color: var(--white);
+    width: 100%;
+    min-height: 100%;
+}
+body {
+    background:
+        var(--phillies-navy);
+    color:
+        var(--white);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
+    -webkit-font-smoothing:
+        antialiased;
 }
-/* =========================
+/* ========================================
+   APP
+======================================== */
+.app {
+    width: 100%;
+    min-height:
+        100vh;
+    min-height:
+        100dvh;
+    background:
+        var(--phillies-navy);
+}
+/* ========================================
    HEADER
-========================= */
+======================================== */
 .header {
     width: 100%;
-    height: 72px;
-    background: var(--red);
+    height: 68px;
+    background:
+        var(--phillies-red);
+    display: flex;
+    align-items: center;
+    padding-top:
+        env(safe-area-inset-top);
 }
-/* =========================
+/* ========================================
    HEADER INNER
-========================= */
+======================================== */
 .header-inner {
     width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 24px;
+    height: 68px;
+    padding:
+        0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-/* =========================
-   LOGO
-========================= */
+/* ========================================
+   PHILLIES
+======================================== */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: white;
+    color:
+        var(--white);
     text-decoration: none;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+    font-size:
+        31px;
+    font-weight:
+        900;
+    font-style:
+        italic;
+    letter-spacing:
+        -1.2px;
+    line-height:
+        1;
+    user-select:
+        none;
 }
-.logo-text {
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
-/* =========================
-   NAV
-========================= */
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-.nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 10px 14px;
-    border-radius: 6px;
-}
-.nav a:hover {
-    background:
-        rgba(0,0,0,0.12);
-}
-/* =========================
-   MOBILE MENU
-========================= */
-.menu {
-    display: none;
-    width: 42px;
-    height: 42px;
+/* ========================================
+   HEADER RIGHT
+======================================== */
+.header-action {
+    width: 38px;
+    height: 38px;
     border: 0;
+    border-radius: 50%;
     background:
-        rgba(0,0,0,0.12);
-    border-radius: 7px;
+        rgba(0, 0, 0, 0.10);
+    display: flex;
     align-items: center;
     justify-content: center;
+}
+/* ========================================
+   SIMPLE MENU ICON
+======================================== */
+.menu-icon {
+    width: 18px;
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
-.menu span {
-    width: 20px;
+.menu-icon span {
+    width: 100%;
     height: 2px;
-    background: white;
-}
-/* =========================
-   EMPTY NAVY AREA
-========================= */
-main {
-    min-height:
-        calc(100vh - 72px);
     background:
-        var(--navy);
+        var(--white);
+    border-radius: 2px;
 }
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 700px) {
+/* ========================================
+   MAIN
+======================================== */
+main {
+    width: 100%;
+    min-height:
+        calc(100dvh - 68px);
+    background:
+        var(--phillies-navy);
+}
+/* ========================================
+   MOBILE CONTENT WIDTH
+======================================== */
+.main-inner {
+    width: 100%;
+    max-width: 600px;
+    margin:
+        0 auto;
+}
+/* ========================================
+   SAFE AREA
+======================================== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    body {
+        padding-bottom:
+            env(safe-area-inset-bottom);
+    }
+}
+/* ========================================
+   SMALL PHONES
+======================================== */
+@media (max-width: 375px) {
     .header {
         height: 64px;
     }
     .header-inner {
-        padding: 0 18px;
+        height: 64px;
+        padding:
+            0 16px;
     }
-    .logo-text {
-        font-size: 21px;
-    }
-    .nav {
-        display: none;
-    }
-    .menu {
-        display: flex;
+    .logo {
+        font-size:
+            28px;
     }
     main {
         min-height:
-            calc(100vh - 64px);
+            calc(100dvh - 64px);
+    }
+}
+/* ========================================
+   LARGER PHONES
+======================================== */
+@media (min-width: 430px) {
+    .header-inner {
+        padding:
+            0 22px;
     }
 }
 </style>
 </head>
 <body>
-<header class="header">
-    <div class="header-inner">
-        <a href="#" class="logo">
-            <span class="logo-text">
+<div class="app">
+    <!-- ================================
+         HEADER
+    ================================= -->
+    <header class="header">
+        <div class="header-inner">
+            <a
+                href="#"
+                class="logo"
+            >
                 PHILLIES
-            </span>
-        </a>
-        <nav class="nav">
-            <a href="#">
-                HOME
             </a>
-            <a href="#">
-                NEWS
-            </a>
-            <a href="#">
-                PLAYERS
-            </a>
-            <a href="#">
-                STATS
-            </a>
-        </nav>
-        <button class="menu" aria-label="menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</header>
-<main></main>
+            <button
+                class="header-action"
+                aria-label="メニュー"
+            >
+                <span class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+        </div>
+    </header>
+    <!-- ================================
+         MAIN
+    ================================= -->
+    <main>
+        <div class="main-inner">
+        </div>
+    </main>
+</div>
 </body>
 </html>
