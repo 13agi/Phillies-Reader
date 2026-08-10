@@ -649,7 +649,91 @@ main {
     .stat-label {
         font-size: 6px;
     }
+ /* SCHEDULE UI FIX */
+
+.header {
+    height: 72px !important;
+    background: #e31937 !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,.25) !important;
+    overflow: hidden !important;
 }
+
+main {
+    padding-top: 72px !important;
+}
+
+.player-title,
+.page-heading h1 {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif !important;
+    font-size: 31px !important;
+    font-weight: 800 !important;
+    line-height: .95 !important;
+    letter-spacing: -.5px !important;
+    color: #fff !important;
+}
+
+.bottom-nav {
+    height:
+        calc(76px + env(safe-area-inset-bottom))
+        !important;
+    padding:
+        7px 5px env(safe-area-inset-bottom)
+        !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    background: rgba(5,16,34,.97) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.nav-item {
+    flex: 1 !important;
+    min-width: 0 !important;
+    max-width: 100px !important;
+    height: 60px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+}
+
+.nav-icon {
+    width: 25px !important;
+    height: 25px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+}
+
+.nav-label {
+    font-family:
+        "Barlow Condensed",
+        sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: .45px !important;
+}
+
+.nav-item.active {
+    color: #fff !important;
+    background: rgba(227,25,55,.13) !important;
+}
+
+.nav-item.active .nav-icon {
+    color: #e31937 !important;
+}}
 </style>
 </head>
 <body>
