@@ -7,62 +7,92 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width,
+             initial-scale=1.0,
+             viewport-fit=cover"
 >
 
-<title>Phillies Reader</title>
+<title>Phillies News</title>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 
 
 <style>
 
 /* =========================================================
-   BASE
+   ROOT
 ========================================================= */
 
-:root{
+:root {
 
-    --navy:#07152b;
-    --navy2:#0b1b34;
-    --navy3:#102544;
+    --navy:
+        #07152b;
 
-    --red:#e31937;
-    --red-dark:#b9142d;
+    --navy-2:
+        #0b1c38;
 
-    --white:#ffffff;
+    --red:
+        #e31937;
 
-    --gray:#91a0b8;
-    --gray2:#61718a;
+    --white:
+        #ffffff;
 
-    --line:rgba(255,255,255,.08);
+    --muted:
+        #64748b;
 
-    --gold:#ffd447;
+    --line:
+        rgba(255,255,255,.075);
+
+    --gold:
+        #ffd447;
 }
 
 
-*{
-    box-sizing:border-box;
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
 
     margin:0;
     padding:0;
 
-    -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
 
 html,
-body{
+body {
 
     width:100%;
     min-height:100%;
 
-    background:var(--navy);
-
+    background:
+        var(--navy);
 }
 
 
-body{
+body {
 
-    color:var(--white);
+    color:
+        var(--white);
 
     font-family:
         -apple-system,
@@ -73,100 +103,190 @@ body{
 
     padding-bottom:
         calc(
-            78px +
+            76px +
             env(safe-area-inset-bottom)
         );
-
 }
 
 
 /* =========================================================
    HEADER
+   schedule.html と完全統一
 ========================================================= */
 
-.header{
+.header {
 
     position:fixed;
-
-    z-index:100;
 
     top:0;
     left:0;
     right:0;
 
+    z-index:100;
+
     height:72px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e31937 0%,
-            #c91531 100%
-        );
 
     overflow:hidden;
 
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.25);
+    background:
+        linear-gradient(
+            115deg,
+            #b90f2e 0%,
+            #e31937 38%,
+            #ef233c 65%,
+            #c8102e 100%
+        );
 
+    box-shadow:
+        0 7px 22px
+        rgba(0,0,0,.30);
 }
 
 
-.header::before{
+.header::before {
 
     content:"";
 
     position:absolute;
 
-    width:160%;
-    height:130px;
+    top:-120px;
+    right:-55px;
 
-    left:-30%;
-    top:-62px;
+    width:300px;
+    height:300px;
 
     transform:
-        rotate(-7deg);
+        rotate(27deg);
 
-    border-top:
-        2px solid
-        rgba(255,255,255,.13);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.015)
+        );
 
-    border-bottom:
-        2px solid
-        rgba(255,255,255,.08);
+    border-left:
+        1px solid
+        rgba(255,255,255,.16);
 
+    pointer-events:
+        none;
 }
 
 
-.logo{
+.header::after {
 
-    position:relative;
+    content:"";
 
-    z-index:2;
+    position:absolute;
 
-    color:#fff;
+    left:0;
+    right:0;
 
-    font-family:
-        Impact,
-        Haettenschweiler,
-        "Arial Narrow Bold",
-        sans-serif;
+    bottom:0;
 
-    font-size:43px;
+    height:4px;
 
-    font-style:italic;
+    background:
+        linear-gradient(
+            90deg,
+            #07152b 0%,
+            #07152b 18%,
+            rgba(7,21,43,.35) 45%,
+            rgba(255,255,255,.28) 72%,
+            transparent 100%
+        );
 
-    letter-spacing:-1px;
+    pointer-events:
+        none;
+}
 
-    text-transform:uppercase;
 
-    text-shadow:
-        2px 2px 0 rgba(0,0,0,.12);
+.header-navy-shape {
 
+    position:absolute;
+
+    top:-20px;
+    left:43%;
+
+    width:130px;
+    height:130px;
+
+    transform:
+        rotate(25deg);
+
+    background:
+        rgba(7,21,43,.16);
+
+    pointer-events:
+        none;
+}
+
+
+.header-line-one {
+
+    position:absolute;
+
+    left:-20px;
+    bottom:14px;
+
+    width:55%;
+    height:2px;
+
+    transform:
+        skewX(-35deg);
+
+    background:
+        rgba(255,255,255,.34);
+
+    pointer-events:
+        none;
+}
+
+
+.header-line-two {
+
+    position:absolute;
+
+    left:4%;
+    bottom:8px;
+
+    width:35%;
+    height:1px;
+
+    transform:
+        skewX(-35deg);
+
+    background:
+        rgba(255,255,255,.18);
+
+    pointer-events:
+        none;
+}
+
+
+.header-light {
+
+    position:absolute;
+
+    top:-85px;
+    right:20px;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.18) 0%,
+            rgba(255,255,255,.06) 35%,
+            transparent 72%
+        );
+
+    pointer-events:
+        none;
 }
 
 
@@ -174,119 +294,137 @@ body{
    MAIN
 ========================================================= */
 
-main{
+main {
 
-    padding-top:72px;
+    min-height:
+        100vh;
 
+    padding-top:
+        72px;
 }
 
 
-.page{
+.page {
 
     width:100%;
 
     padding:
-        22px 14px 35px;
-
+        21px 14px 35px;
 }
 
 
 /* =========================================================
-   PAGE TITLE
+   PAGE HEADING
+   schedule.html と統一
 ========================================================= */
 
-.page-title{
+.page-heading {
 
-    margin-bottom:17px;
-
+    margin-bottom:
+        17px;
 }
 
 
-.page-title h1{
+.page-heading h1 {
 
-    font-size:30px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    line-height:1;
+    font-size:
+        31px;
 
-    font-weight:850;
+    font-weight:
+        800;
 
-    letter-spacing:-.6px;
+    line-height:
+        .95;
 
+    letter-spacing:
+        -.5px;
 }
 
 
-.page-title p{
+.page-heading p {
 
-    margin-top:6px;
+    margin-top:
+        6px;
 
-    color:var(--gray);
+    color:
+        var(--muted);
 
-    font-size:9px;
+    font-size:
+        10px;
 
-    font-weight:800;
+    font-weight:
+        700;
 
-    letter-spacing:1.4px;
-
+    letter-spacing:
+        1.4px;
 }
 
 
 /* =========================================================
-   FILTER AREA
+   FILTERS
 ========================================================= */
 
-.filters-wrap{
+.filters-wrap {
 
     width:100%;
 
-    overflow-x:auto;
+    overflow-x:
+        auto;
 
-    overflow-y:hidden;
+    overflow-y:
+        hidden;
 
-    margin-bottom:10px;
+    margin-bottom:
+        19px;
 
-    scrollbar-width:none;
-
+    scrollbar-width:
+        none;
 }
 
 
-.filters-wrap::-webkit-scrollbar{
+.filters-wrap::-webkit-scrollbar {
 
     display:none;
-
 }
 
 
-.filters{
+.filters {
 
-    display:flex;
+    display:
+        flex;
 
-    gap:7px;
+    gap:
+        7px;
 
-    width:max-content;
-
+    width:
+        max-content;
 }
 
 
-/* =========================================================
-   SELECT
-========================================================= */
+.filter-box {
 
-.filter-box{
+    position:
+        relative;
 
-    position:relative;
+    width:
+        120px;
 
-    width:120px;
-
-    flex-shrink:0;
-
+    flex-shrink:
+        0;
 }
 
 
-.filter-box select{
+.filter-box select {
 
-    width:100%;
+    width:
+        100%;
 
-    height:38px;
+    height:
+        43px;
 
     padding:
         0 28px
@@ -296,102 +434,134 @@ main{
         1px solid
         var(--line);
 
-    border-radius:10px;
+    border-radius:
+        11px;
 
     background:
-        rgba(255,255,255,.045);
+        rgba(255,255,255,.035);
 
-    color:#fff;
+    color:
+        #ffffff;
 
-    outline:none;
+    outline:
+        none;
 
-    appearance:none;
+    appearance:
+        none;
 
-    -webkit-appearance:none;
+    -webkit-appearance:
+        none;
 
-    font-family:inherit;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-size:10px;
+    font-size:
+        12px;
 
-    font-weight:800;
+    font-weight:
+        700;
 
+    letter-spacing:
+        .35px;
 }
 
 
-.filter-box select option{
+.filter-box select option {
 
-    background:var(--navy2);
+    background:
+        var(--navy-2);
 
-    color:#fff;
-
+    color:
+        #ffffff;
 }
 
 
-.filter-box::after{
+.filter-box::after {
 
-    content:"⌄";
+    content:
+        "⌄";
 
-    position:absolute;
+    position:
+        absolute;
 
-    right:10px;
+    right:
+        10px;
 
-    top:7px;
+    top:
+        9px;
 
     color:
         rgba(255,255,255,.55);
 
-    font-size:16px;
+    font-size:
+        16px;
 
-    pointer-events:none;
+    line-height:
+        1;
 
+    pointer-events:
+        none;
 }
 
 
 /* =========================================================
-   COUNT
+   NEWS INFO
 ========================================================= */
 
-.news-info{
+.news-info {
 
-    display:flex;
+    display:
+        flex;
 
-    align-items:center;
+    align-items:
+        center;
 
-    justify-content:space-between;
+    justify-content:
+        space-between;
 
-    margin-bottom:14px;
-
+    margin-bottom:
+        11px;
 }
 
 
-.news-label{
+.news-label {
 
     color:
         rgba(255,255,255,.35);
 
-    font-size:9px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-weight:800;
+    font-size:
+        10px;
 
-    letter-spacing:1px;
+    font-weight:
+        700;
 
+    letter-spacing:
+        1.2px;
 }
 
 
-.news-count{
+.news-count {
 
     color:
-        rgba(255,255,255,.45);
+        var(--muted);
 
     font-family:
-        "Arial Narrow",
-        Arial,
+        "Barlow Condensed",
         sans-serif;
 
-    font-size:11px;
+    font-size:
+        10px;
 
-    font-weight:800;
+    font-weight:
+        700;
 
+    letter-spacing:
+        .7px;
 }
 
 
@@ -399,34 +569,41 @@ main{
    NEWS LIST
 ========================================================= */
 
-.news-list{
+.news-list {
 
-    display:flex;
+    display:
+        flex;
 
-    flex-direction:column;
+    flex-direction:
+        column;
 
-    gap:11px;
-
+    gap:
+        11px;
 }
 
 
 /* =========================================================
    NEWS CARD
+   schedule の game-card と同じ基本デザイン
 ========================================================= */
 
-.news-card{
+.news-card {
 
-    position:relative;
+    position:
+        relative;
 
-    overflow:hidden;
+    overflow:
+        hidden;
 
-    width:100%;
+    width:
+        100%;
 
     border:
         1px solid
         var(--line);
 
-    border-radius:16px;
+    border-radius:
+        16px;
 
     background:
         linear-gradient(
@@ -436,45 +613,47 @@ main{
         );
 
     box-shadow:
-        0 8px 25px
+        0 8px 24px
         rgba(0,0,0,.12);
 
     transition:
-        opacity .15s ease,
-        transform .15s ease;
-
+        transform .15s ease,
+        border-color .15s ease,
+        opacity .15s ease;
 }
 
 
-.news-card::before{
+.news-card:active {
+
+    transform:
+        scale(.985);
+}
+
+
+.news-card::before {
 
     content:"";
 
-    position:absolute;
+    position:
+        absolute;
 
     left:0;
 
     top:0;
     bottom:0;
 
-    width:4px;
+    width:
+        4px;
 
-    background:var(--red);
-
+    background:
+        var(--red);
 }
 
 
-.news-card.read{
+.news-card.read {
 
-    opacity:.52;
-
-}
-
-
-.news-card:active{
-
-    transform:scale(.985);
-
+    opacity:
+        .55;
 }
 
 
@@ -482,95 +661,127 @@ main{
    NEWS LINK
 ========================================================= */
 
-.news-link{
+.news-link {
 
-    display:block;
+    display:
+        block;
 
     padding:
-        14px
-        14px
-        13px
-        18px;
+        14px 14px
+        13px 16px;
 
-    color:#fff;
+    color:
+        #ffffff;
 
-    text-decoration:none;
-
+    text-decoration:
+        none;
 }
 
 
 /* =========================================================
-   CARD TOP
+   TOP
 ========================================================= */
 
-.card-top{
+.card-top {
 
-    display:flex;
+    display:
+        flex;
 
-    align-items:center;
+    align-items:
+        center;
 
-    justify-content:space-between;
+    justify-content:
+        space-between;
 
-    gap:8px;
+    padding-right:
+        78px;
 
-    padding-right:76px;
-
-    margin-bottom:8px;
-
+    margin-bottom:
+        7px;
 }
 
 
-.meta{
+.meta {
 
-    display:flex;
+    display:
+        flex;
 
-    align-items:center;
+    align-items:
+        center;
 
-    gap:8px;
+    gap:
+        7px;
 
-    min-width:0;
+    min-width:
+        0;
 
+    overflow:
+        hidden;
 }
 
 
-.source{
-
-    color:var(--red);
-
-    font-size:9px;
-
-    font-weight:900;
-
-    letter-spacing:.7px;
-
-    white-space:nowrap;
-
-}
-
-
-.type{
+.source {
 
     color:
-        rgba(255,255,255,.38);
+        var(--red);
 
-    font-size:8px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-weight:800;
+    font-size:
+        10px;
 
-    white-space:nowrap;
+    font-weight:
+        800;
 
+    letter-spacing:
+        .55px;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
 }
 
 
-.date{
+.type {
 
     color:
-        rgba(255,255,255,.32);
+        var(--muted);
 
-    font-size:8px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    white-space:nowrap;
+    font-size:
+        9px;
 
+    font-weight:
+        700;
+
+    letter-spacing:
+        .4px;
+
+    white-space:
+        nowrap;
+}
+
+
+.date {
+
+    color:
+        rgba(255,255,255,.30);
+
+    font-size:
+        8px;
+
+    white-space:
+        nowrap;
 }
 
 
@@ -578,25 +789,31 @@ main{
    TITLE
 ========================================================= */
 
-.news-title{
+.news-title {
 
-    font-size:18px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    line-height:1.27;
+    font-size:
+        21px;
 
-    font-weight:850;
+    line-height:
+        1.08;
 
-    letter-spacing:-.25px;
+    font-weight:
+        800;
 
+    letter-spacing:
+        -.15px;
 }
 
 
 .news-card.read
-.news-title{
+.news-title {
 
     color:
         rgba(255,255,255,.65);
-
 }
 
 
@@ -604,76 +821,94 @@ main{
    DESCRIPTION
 ========================================================= */
 
-.description{
+.description {
 
-    margin-top:7px;
+    margin-top:
+        7px;
 
     color:
-        rgba(255,255,255,.47);
+        rgba(255,255,255,.45);
 
-    font-size:10px;
+    font-size:
+        10px;
 
-    line-height:1.5;
-
+    line-height:
+        1.5;
 }
 
 
 /* =========================================================
-   CARD FOOTER
+   FOOTER
 ========================================================= */
 
-.card-footer{
+.card-footer {
 
-    display:flex;
+    display:
+        flex;
 
-    align-items:center;
+    align-items:
+        center;
 
-    justify-content:space-between;
+    justify-content:
+        space-between;
 
-    margin-top:11px;
+    margin-top:
+        11px;
 
-    padding-top:9px;
+    padding-top:
+        9px;
 
     border-top:
         1px solid
         rgba(255,255,255,.045);
-
 }
 
 
-.status{
+.status {
 
     color:
-        rgba(255,255,255,.32);
+        rgba(255,255,255,.30);
 
-    font-size:8px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-weight:900;
+    font-size:
+        9px;
 
-    letter-spacing:.7px;
+    font-weight:
+        700;
 
+    letter-spacing:
+        1px;
 }
 
 
 .news-card.read
-.status{
+.status {
 
     color:
-        rgba(255,255,255,.55);
-
+        var(--muted);
 }
 
 
-.arrow{
+.arrow {
 
-    color:var(--red);
+    color:
+        var(--red);
 
-    font-size:19px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-weight:800;
+    font-size:
+        22px;
 
-    line-height:1;
+    font-weight:
+        800;
 
+    line-height:
+        .8;
 }
 
 
@@ -681,47 +916,65 @@ main{
    FAVORITE
 ========================================================= */
 
-.favorite-button{
+.favorite-button {
 
-    position:absolute;
+    position:
+        absolute;
 
-    z-index:10;
+    z-index:
+        10;
 
-    top:9px;
-    right:9px;
+    top:
+        9px;
 
-    width:34px;
-    height:34px;
+    right:
+        9px;
 
-    display:flex;
+    width:
+        34px;
 
-    align-items:center;
-    justify-content:center;
+    height:
+        34px;
 
-    border:0;
+    display:
+        flex;
 
-    border-radius:50%;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        0;
+
+    border-radius:
+        9px;
 
     background:
-        rgba(255,255,255,.045);
+        rgba(255,255,255,.035);
 
     color:
         rgba(255,255,255,.35);
 
-    font-size:20px;
+    font-size:
+        20px;
 
-    cursor:pointer;
+    line-height:
+        1;
 
+    cursor:
+        pointer;
 }
 
 
-.favorite-button.active{
+.favorite-button.active {
 
-    color:var(--gold);
+    color:
+        var(--gold);
 
     background:
         rgba(255,212,71,.10);
-
 }
 
 
@@ -729,48 +982,63 @@ main{
    READ BUTTON
 ========================================================= */
 
-.read-button{
+.read-button {
 
-    position:absolute;
+    position:
+        absolute;
 
-    z-index:10;
+    z-index:
+        10;
 
-    top:11px;
-    right:48px;
+    top:
+        11px;
 
-    height:30px;
+    right:
+        48px;
+
+    height:
+        30px;
 
     padding:
         0 8px;
 
-    border:0;
+    border:
+        0;
 
-    border-radius:8px;
+    border-radius:
+        7px;
 
     background:
-        rgba(255,255,255,.045);
+        rgba(255,255,255,.035);
 
     color:
-        rgba(255,255,255,.45);
+        rgba(255,255,255,.38);
 
-    font-family:inherit;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
 
-    font-size:8px;
+    font-size:
+        8px;
 
-    font-weight:900;
+    font-weight:
+        700;
 
-    cursor:pointer;
+    letter-spacing:
+        .5px;
 
+    cursor:
+        pointer;
 }
 
 
-.read-button.read{
+.read-button.read {
 
-    color:#fff;
+    color:
+        var(--red);
 
     background:
-        rgba(227,25,55,.16);
-
+        rgba(227,25,55,.10);
 }
 
 
@@ -778,51 +1046,60 @@ main{
    EMPTY
 ========================================================= */
 
-.empty{
+.empty {
 
     padding:
-        55px 20px;
+        50px 20px;
 
-    text-align:center;
+    text-align:
+        center;
 
-    color:var(--gray);
+    color:
+        var(--muted);
 
-    font-size:11px;
+    font-size:
+        11px;
 
-    line-height:1.7;
-
+    line-height:
+        1.7;
 }
 
 
 /* =========================================================
    BOTTOM NAV
+   schedule.html と完全統一
 ========================================================= */
 
-.bottom-nav{
+.bottom-nav {
 
-    position:fixed;
-
-    z-index:200;
+    position:
+        fixed;
 
     left:0;
     right:0;
     bottom:0;
 
+    z-index:
+        999;
+
     height:
         calc(
-            78px +
+            76px +
             env(safe-area-inset-bottom)
         );
 
     padding:
-        6px 7px
+        7px 5px
         env(safe-area-inset-bottom);
 
-    display:flex;
+    display:
+        flex;
 
-    align-items:flex-start;
+    align-items:
+        flex-start;
 
-    justify-content:space-around;
+    justify-content:
+        space-between;
 
     background:
         rgba(5,16,34,.97);
@@ -836,104 +1113,171 @@ main{
     border-top:
         1px solid
         rgba(255,255,255,.08);
-
 }
 
 
-.nav{
+.nav-item {
 
-    flex:1;
+    flex:
+        1;
 
-    max-width:100px;
+    min-width:
+        0;
 
-    height:61px;
+    height:
+        60px;
 
-    display:flex;
+    display:
+        flex;
 
-    flex-direction:column;
+    flex-direction:
+        column;
 
-    align-items:center;
-    justify-content:center;
+    align-items:
+        center;
 
-    gap:5px;
+    justify-content:
+        center;
 
-    border-radius:13px;
+    gap:
+        5px;
 
-    color:var(--gray);
+    text-decoration:
+        none;
 
-    text-decoration:none;
+    color:
+        #64748b;
 
+    border-radius:
+        13px;
+
+    transition:
+        color .15s ease,
+        background .15s ease,
+        transform .15s ease;
 }
 
 
-.nav.active{
+.nav-item:active {
 
-    color:#fff;
+    transform:
+        scale(.94);
+}
+
+
+.nav-item.active {
+
+    color:
+        #ffffff;
 
     background:
         rgba(227,25,55,.13);
-
 }
 
 
-.nav-icon{
+.nav-icon {
 
-    height:23px;
+    width:
+        25px;
 
-    display:flex;
+    height:
+        25px;
 
-    align-items:center;
+    display:
+        flex;
 
-    justify-content:center;
+    align-items:
+        center;
 
-    font-size:18px;
+    justify-content:
+        center;
 
+    font-size:
+        18px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
 }
 
 
-.nav-name{
+.nav-item.active
+.nav-icon {
 
-    font-size:9px;
+    color:
+        #e31937;
+}
 
-    font-weight:850;
 
-    letter-spacing:.5px;
+.nav-label {
 
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        .45px;
+
+    white-space:
+        nowrap;
 }
 
 
 /* =========================================================
-   MOBILE
+   SMALL IPHONE
+   schedule.html と統一
 ========================================================= */
 
-@media(max-width:360px){
+@media (
+    max-width:360px
+) {
 
-    .page{
+    .header {
 
-        padding-left:11px;
-        padding-right:11px;
-
+        height:
+            68px;
     }
 
 
-    .logo{
+    main {
 
-        font-size:39px;
-
+        padding-top:
+            68px;
     }
 
 
-    .news-title{
+    .page {
 
-        font-size:17px;
+        padding-left:
+            11px;
 
+        padding-right:
+            11px;
     }
 
 
-    .filter-box{
+    .news-title {
 
-        width:112px;
+        font-size:
+            20px;
+    }
 
+
+    .nav-label {
+
+        font-size:
+            9px;
     }
 
 }
@@ -946,31 +1290,33 @@ main{
 <body>
 
 
-<!-- =======================================================
+<!-- =====================================================
      HEADER
-======================================================= -->
+===================================================== -->
 
 <header class="header">
 
-    <div class="logo">
-        PHILLIES
-    </div>
+    <div class="header-navy-shape"></div>
+
+    <div class="header-line-one"></div>
+
+    <div class="header-line-two"></div>
+
+    <div class="header-light"></div>
 
 </header>
 
 
-<!-- =======================================================
+<!-- =====================================================
      MAIN
-======================================================= -->
+===================================================== -->
 
 <main>
 
 <section class="page">
 
 
-    <!-- TITLE -->
-
-    <div class="page-title">
+    <div class="page-heading">
 
         <h1>
             Phillies News
@@ -983,21 +1329,23 @@ main{
     </div>
 
 
-    <!-- ===================================================
-         4 FILTERS
-         横並び・横スクロール
-    ==================================================== -->
+    <!-- =================================================
+         FILTERS
+         4つ横並び
+    ================================================== -->
 
     <div class="filters-wrap">
 
         <div class="filters">
 
 
-            <!-- 状態 -->
+            <!-- STATUS -->
 
             <div class="filter-box">
 
-                <select id="statusFilter">
+                <select
+                    id="statusFilter"
+                >
 
                     <option value="all">
                         すべて
@@ -1020,11 +1368,13 @@ main{
             </div>
 
 
-            <!-- 記事種類 -->
+            <!-- TYPE -->
 
             <div class="filter-box">
 
-                <select id="typeFilter">
+                <select
+                    id="typeFilter"
+                >
 
                     <option value="all">
                         すべて
@@ -1059,11 +1409,13 @@ main{
             </div>
 
 
-            <!-- 媒体 -->
+            <!-- SOURCE -->
 
             <div class="filter-box">
 
-                <select id="sourceFilter">
+                <select
+                    id="sourceFilter"
+                >
 
                     <option value="all">
                         すべて
@@ -1074,11 +1426,13 @@ main{
             </div>
 
 
-            <!-- 期間 -->
+            <!-- PERIOD -->
 
             <div class="filter-box">
 
-                <select id="periodFilter">
+                <select
+                    id="periodFilter"
+                >
 
                     <option value="all">
                         すべて
@@ -1110,7 +1464,9 @@ main{
     </div>
 
 
-    <!-- NEWS INFO -->
+    <!-- =================================================
+         NEWS INFO
+    ================================================== -->
 
     <div class="news-info">
 
@@ -1128,7 +1484,9 @@ main{
     </div>
 
 
-    <!-- NEWS -->
+    <!-- =================================================
+         NEWS LIST
+    ================================================== -->
 
     <div
         id="newsList"
@@ -1136,7 +1494,9 @@ main{
     >
 
         <div class="empty">
+
             ニュースを読み込んでいます…
+
         </div>
 
     </div>
@@ -1147,87 +1507,98 @@ main{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      BOTTOM NAV
-======================================================= -->
+     schedule.html と完全統一
+===================================================== -->
 
 <nav class="bottom-nav">
 
 
+    <!-- 1 SCHEDULE -->
+
     <a
         href="schedule.html"
-        class="nav"
+        class="nav-item"
     >
 
         <div class="nav-icon">
             ▣
         </div>
 
-        <div class="nav-name">
+        <div class="nav-label">
             SCHEDULE
         </div>
 
     </a>
 
 
+    <!-- 2 SCORE -->
+
     <a
         href="score.html"
-        class="nav"
+        class="nav-item"
     >
 
         <div class="nav-icon">
             ●
         </div>
 
-        <div class="nav-name">
+        <div class="nav-label">
             SCORE
         </div>
 
     </a>
 
 
+    <!-- 3 HOME -->
+
     <a
         href="index.html"
-        class="nav active"
+        class="nav-item active"
     >
 
         <div class="nav-icon">
             ⌂
         </div>
 
-        <div class="nav-name">
+        <div class="nav-label">
             HOME
         </div>
 
     </a>
 
 
+    <!-- 4 PLAYER -->
+
     <a
         href="player.html"
-        class="nav"
+        class="nav-item"
     >
 
         <div class="nav-icon">
             ♟
         </div>
 
-        <div class="nav-name">
+        <div class="nav-label">
             PLAYER
         </div>
 
     </a>
 
 
+    <!-- 5 STATS -->
+
     <a
         href="stats.html"
-        class="nav"
+        class="nav-item"
     >
 
         <div class="nav-icon">
             ▥
         </div>
 
-        <div class="nav-name">
+        <div class="nav-label">
             STATS
         </div>
 
@@ -1240,7 +1611,7 @@ main{
 <script>
 
 /* =========================================================
-   DATA
+   CONFIG
 ========================================================= */
 
 const NEWS_URL =
@@ -1248,11 +1619,12 @@ const NEWS_URL =
 
 
 /* =========================================================
-   LOCAL STORAGE
+   STORAGE
 ========================================================= */
 
 const READ_KEY =
     "phillies_reader_read";
+
 
 const FAVORITE_KEY =
     "phillies_reader_favorite";
@@ -1264,17 +1636,21 @@ const FAVORITE_KEY =
 
 let articles = [];
 
-let statusFilter = "all";
+let statusFilter =
+    "all";
 
-let typeFilter = "all";
+let typeFilter =
+    "all";
 
-let sourceFilter = "all";
+let sourceFilter =
+    "all";
 
-let periodFilter = "all";
+let periodFilter =
+    "all";
 
 
 /* =========================================================
-   DOM
+   ELEMENTS
 ========================================================= */
 
 const newsList =
@@ -1314,49 +1690,31 @@ const periodSelect =
 
 
 /* =========================================================
-   STORAGE HELPERS
+   STORAGE
 ========================================================= */
 
-function loadStorage(
-    key
-){
+function loadStorage(key) {
 
-    try{
+    try {
 
-        const data =
+        const value =
             JSON.parse(
                 localStorage.getItem(
                     key
                 ) || "[]"
             );
 
-
-        return Array.isArray(data)
-            ? data
+        return Array.isArray(value)
+            ? value
             : [];
 
     }
 
-    catch(error){
+    catch {
 
         return [];
 
     }
-
-}
-
-
-function saveStorage(
-    key,
-    data
-){
-
-    localStorage.setItem(
-        key,
-        JSON.stringify(
-            data
-        )
-    );
 
 }
 
@@ -1374,12 +1732,27 @@ let favoriteIds =
 
 
 /* =========================================================
+   SAVE STORAGE
+========================================================= */
+
+function saveStorage(
+    key,
+    value
+) {
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(value)
+    );
+
+}
+
+
+/* =========================================================
    ARTICLE ID
 ========================================================= */
 
-function getId(
-    article
-){
+function getId(article) {
 
     return String(
 
@@ -1393,8 +1766,7 @@ function getId(
 
         (
             String(
-                article.title ||
-                ""
+                article.title || ""
             )
             +
             "|"
@@ -1416,9 +1788,7 @@ function getId(
    READ
 ========================================================= */
 
-function isRead(
-    article
-){
+function isRead(article) {
 
     return readIds.includes(
         getId(article)
@@ -1430,30 +1800,29 @@ function isRead(
 function setRead(
     article,
     value
-){
+) {
 
     const id =
         getId(article);
-
 
     const index =
         readIds.indexOf(id);
 
 
-    if(
+    if (
         value &&
         index === -1
-    ){
+    ) {
 
         readIds.push(id);
 
     }
 
 
-    if(
+    if (
         !value &&
         index !== -1
-    ){
+    ) {
 
         readIds.splice(
             index,
@@ -1475,9 +1844,7 @@ function setRead(
    FAVORITE
 ========================================================= */
 
-function isFavorite(
-    article
-){
+function isFavorite(article) {
 
     return favoriteIds.includes(
         getId(article)
@@ -1486,27 +1853,22 @@ function isFavorite(
 }
 
 
-function toggleFavorite(
-    article
-){
+function toggleFavorite(article) {
 
     const id =
         getId(article);
-
 
     const index =
         favoriteIds.indexOf(id);
 
 
-    if(
-        index === -1
-    ){
+    if (index === -1) {
 
         favoriteIds.push(id);
 
     }
 
-    else{
+    else {
 
         favoriteIds.splice(
             index,
@@ -1528,12 +1890,10 @@ function toggleFavorite(
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE
 ========================================================= */
 
-function escapeHTML(
-    value
-){
+function escapeHTML(value) {
 
     return String(
         value ?? ""
@@ -1571,9 +1931,7 @@ function escapeHTML(
    SOURCE
 ========================================================= */
 
-function getSource(
-    article
-){
+function getSource(article) {
 
     return String(
 
@@ -1598,9 +1956,7 @@ function getSource(
    TYPE
 ========================================================= */
 
-function getType(
-    article
-){
+function getType(article) {
 
     const raw =
         String(
@@ -1620,62 +1976,57 @@ function getType(
         .toUpperCase();
 
 
-    if(
+    if (
         raw.includes("GAME") ||
         raw.includes("RECAP") ||
         raw.includes("PREVIEW")
-    ){
+    ) {
 
         return "GAME";
 
     }
 
 
-    if(
+    if (
         raw.includes("ANALYSIS") ||
         raw.includes("ANALYTICS")
-    ){
+    ) {
 
         return "ANALYSIS";
 
     }
 
 
-    if(
+    if (
         raw.includes("TRANSACTION") ||
         raw.includes("ROSTER") ||
         raw.includes("SIGN") ||
         raw.includes("TRADE")
-    ){
+    ) {
 
         return "TRANSACTION";
 
     }
 
 
-    if(
+    if (
         raw.includes("INJURY") ||
         raw.includes("INJURED")
-    ){
+    ) {
 
         return "INJURY";
 
     }
 
 
-    if(
+    if (
         raw.includes("NEWS")
-    ){
+    ) {
 
         return "NEWS";
 
     }
 
-
-    /*
-     * typeが存在しない旧データについては
-     * タイトルから最低限判定
-     */
 
     const title =
         String(
@@ -1683,27 +2034,33 @@ function getType(
         ).toUpperCase();
 
 
-    if(
-        /INJURY|INJURED|IL\b|INJURED LIST/.test(title)
-    ){
+    if (
+        /INJURY|INJURED|INJURED LIST|\bIL\b/.test(
+            title
+        )
+    ) {
 
         return "INJURY";
 
     }
 
 
-    if(
-        /TRADE|SIGNED|SIGNING|ACQUIRED|DESIGNATED|ROSTER/.test(title)
-    ){
+    if (
+        /TRADE|SIGNED|SIGNING|ACQUIRED|DESIGNATED|ROSTER/.test(
+            title
+        )
+    ) {
 
         return "TRANSACTION";
 
     }
 
 
-    if(
-        /ANALYSIS|WHY |BREAKDOWN|OUTLOOK/.test(title)
-    ){
+    if (
+        /ANALYSIS|BREAKDOWN|OUTLOOK/.test(
+            title
+        )
+    ) {
 
         return "ANALYSIS";
 
@@ -1719,9 +2076,7 @@ function getType(
    DATE
 ========================================================= */
 
-function getDate(
-    article
-){
+function getDate(article) {
 
     return new Date(
 
@@ -1743,22 +2098,20 @@ function getDate(
 
 
 /* =========================================================
-   FORMAT DATE
+   DATE FORMAT
 ========================================================= */
 
-function formatDate(
-    article
-){
+function formatDate(article) {
 
     const date =
         getDate(article);
 
 
-    if(
+    if (
         Number.isNaN(
             date.getTime()
         )
-    ){
+    ) {
 
         return "";
 
@@ -1779,22 +2132,22 @@ function formatDate(
 
 
 /* =========================================================
-   LOAD SOURCE OPTIONS
+   SOURCE OPTIONS
 ========================================================= */
 
-function buildSourceOptions(){
+function buildSourceOptions() {
 
     const sources =
-        [...new Set(
-
-            articles.map(
-                article =>
-                    getSource(
-                        article
-                    )
+        [
+            ...new Set(
+                articles.map(
+                    article =>
+                        getSource(
+                            article
+                        )
+                )
             )
-
-        )]
+        ]
         .filter(Boolean)
         .sort();
 
@@ -1820,7 +2173,6 @@ function buildSourceOptions(){
             option.value =
                 source;
 
-
             option.textContent =
                 source;
 
@@ -1839,13 +2191,12 @@ function buildSourceOptions(){
    PERIOD
 ========================================================= */
 
-function withinPeriod(
-    article
-){
+function withinPeriod(article) {
 
-    if(
-        periodFilter === "all"
-    ){
+    if (
+        periodFilter ===
+        "all"
+    ) {
 
         return true;
 
@@ -1853,26 +2204,20 @@ function withinPeriod(
 
 
     const date =
-        getDate(
-            article
-        );
+        getDate(article);
 
 
     const time =
         date.getTime();
 
 
-    if(
+    if (
         Number.isNaN(time)
-    ){
+    ) {
 
         return false;
 
     }
-
-
-    const now =
-        Date.now();
 
 
     const days =
@@ -1881,119 +2226,107 @@ function withinPeriod(
         );
 
 
-    const limit =
+    return (
+        Date.now() -
+        time
+        <=
         days *
         24 *
         60 *
         60 *
-        1000;
-
-
-    return (
-        now -
-        time
-        <=
-        limit
+        1000
     );
 
 }
 
 
 /* =========================================================
-   FILTER ARTICLES
+   FILTER
 ========================================================= */
 
-function getFilteredArticles(){
+function getFilteredArticles() {
 
     return articles.filter(
         article => {
 
             const read =
-                isRead(
-                    article
-                );
+                isRead(article);
 
 
             const favorite =
-                isFavorite(
-                    article
-                );
+                isFavorite(article);
 
 
             const type =
-                getType(
-                    article
-                );
+                getType(article);
 
 
             const source =
-                getSource(
-                    article
-                );
+                getSource(article);
 
 
-            if(
+            if (
                 statusFilter ===
                 "unread" &&
                 read
-            ){
+            ) {
 
                 return false;
 
             }
 
 
-            if(
+            if (
                 statusFilter ===
                 "read" &&
                 !read
-            ){
+            ) {
 
                 return false;
 
             }
 
 
-            if(
+            if (
                 statusFilter ===
                 "favorite" &&
                 !favorite
-            ){
+            ) {
 
                 return false;
 
             }
 
 
-            if(
+            if (
                 typeFilter !==
                 "all" &&
                 type !==
                 typeFilter
-            ){
+            ) {
 
                 return false;
 
             }
 
 
-            if(
+            if (
                 sourceFilter !==
                 "all" &&
                 source !==
                 sourceFilter
-            ){
+            ) {
 
                 return false;
 
             }
 
 
-            if(
+            if (
                 !withinPeriod(
                     article
                 )
-            ){
+            ) {
 
                 return false;
 
@@ -2012,9 +2345,7 @@ function getFilteredArticles(){
    SORT
 ========================================================= */
 
-function sortArticles(
-    list
-){
+function sortArticles(list) {
 
     return [...list].sort(
         (
@@ -2035,12 +2366,10 @@ function sortArticles(
 
 
 /* =========================================================
-   CREATE CARD
+   CARD
 ========================================================= */
 
-function createCard(
-    article
-){
+function createCard(article) {
 
     const card =
         document.createElement(
@@ -2049,15 +2378,11 @@ function createCard(
 
 
     const read =
-        isRead(
-            article
-        );
+        isRead(article);
 
 
     const favorite =
-        isFavorite(
-            article
-        );
+        isFavorite(article);
 
 
     card.className =
@@ -2219,9 +2544,7 @@ function createCard(
     `;
 
 
-    /* -----------------------------------------------------
-       FAVORITE
-    ----------------------------------------------------- */
+    /* FAVORITE */
 
     card
     .querySelector(
@@ -2243,9 +2566,7 @@ function createCard(
     );
 
 
-    /* -----------------------------------------------------
-       READ BUTTON
-    ----------------------------------------------------- */
+    /* READ */
 
     card
     .querySelector(
@@ -2261,9 +2582,7 @@ function createCard(
 
             setRead(
                 article,
-                !isRead(
-                    article
-                )
+                !isRead(article)
             );
 
             render();
@@ -2272,9 +2591,7 @@ function createCard(
     );
 
 
-    /* -----------------------------------------------------
-       OPEN ARTICLE = READ
-    ----------------------------------------------------- */
+    /* OPEN = READ */
 
     card
     .querySelector(
@@ -2302,7 +2619,7 @@ function createCard(
    RENDER
 ========================================================= */
 
-function render(){
+function render() {
 
     const filtered =
         sortArticles(
@@ -2319,19 +2636,19 @@ function render(){
         " ARTICLES";
 
 
-    if(
+    if (
         filtered.length ===
         0
-    ){
+    ) {
 
         let message =
             "該当するニュースがありません。";
 
 
-        if(
+        if (
             statusFilter ===
             "favorite"
-        ){
+        ) {
 
             message =
                 "お気に入りの記事がありません。";
@@ -2339,10 +2656,10 @@ function render(){
         }
 
 
-        if(
+        if (
             statusFilter ===
             "unread"
-        ){
+        ) {
 
             message =
                 "未読の記事がありません。";
@@ -2350,10 +2667,10 @@ function render(){
         }
 
 
-        if(
+        if (
             statusFilter ===
             "read"
-        ){
+        ) {
 
             message =
                 "既読の記事がありません。";
@@ -2393,25 +2710,26 @@ function render(){
 
 
 /* =========================================================
-   LOAD NEWS JSON
+   LOAD NEWS
 ========================================================= */
 
-async function loadNews(){
+async function loadNews() {
 
-    try{
+    try {
 
         const response =
             await fetch(
                 NEWS_URL,
                 {
-                    cache:"no-store"
+                    cache:
+                        "no-store"
                 }
             );
 
 
-        if(
+        if (
             !response.ok
-        ){
+        ) {
 
             throw new Error(
                 "news.json could not be loaded"
@@ -2424,56 +2742,38 @@ async function loadNews(){
             await response.json();
 
 
-        /*
-         * 対応形式
-         *
-         * [
-         *   {...}
-         * ]
-         *
-         * {
-         *   articles:[...]
-         * }
-         *
-         * {
-         *   news:[...]
-         * }
-         */
-
-        if(
-            Array.isArray(
-                data
-            )
-        ){
+        if (
+            Array.isArray(data)
+        ) {
 
             articles =
                 data;
 
         }
 
-        else if(
+        else if (
             Array.isArray(
                 data.articles
             )
-        ){
+        ) {
 
             articles =
                 data.articles;
 
         }
 
-        else if(
+        else if (
             Array.isArray(
                 data.news
             )
-        ){
+        ) {
 
             articles =
                 data.news;
 
         }
 
-        else{
+        else {
 
             articles =
                 [];
@@ -2487,7 +2787,7 @@ async function loadNews(){
 
     }
 
-    catch(error){
+    catch(error) {
 
         console.error(
             error
@@ -2510,6 +2810,7 @@ async function loadNews(){
 
         `;
 
+
         newsCount.textContent =
             "0 ARTICLES";
 
@@ -2524,7 +2825,7 @@ async function loadNews(){
 
 statusSelect.addEventListener(
     "change",
-    function(){
+    function() {
 
         statusFilter =
             this.value;
@@ -2537,7 +2838,7 @@ statusSelect.addEventListener(
 
 typeSelect.addEventListener(
     "change",
-    function(){
+    function() {
 
         typeFilter =
             this.value;
@@ -2550,7 +2851,7 @@ typeSelect.addEventListener(
 
 sourceSelect.addEventListener(
     "change",
-    function(){
+    function() {
 
         sourceFilter =
             this.value;
@@ -2563,7 +2864,7 @@ sourceSelect.addEventListener(
 
 periodSelect.addEventListener(
     "change",
-    function(){
+    function() {
 
         periodFilter =
             this.value;
