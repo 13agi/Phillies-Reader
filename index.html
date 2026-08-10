@@ -1,537 +1,978 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
-    content="width=device-width,
-             initial-scale=1.0,
-             viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
+
 <title>PHILLIES</title>
-<!-- =========================================================
-     FONT
-========================================================= -->
+
 <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
 >
+
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
-    crossorigin
 >
+
 <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
     rel="stylesheet"
 >
+
 <style>
+
 /* =========================================================
    ROOT
-   SCHEDULE と統一
 ========================================================= */
+
 :root {
-    --navy:
-        #07152b;
-    --navy-2:
-        #0b1c38;
-    --red:
-        #e31937;
-    --white:
-        #ffffff;
-    --muted:
-        #718096;
-    --line:
-        rgba(255,255,255,.075);
+    --navy: #07152b;
+    --navy-2: #0b1c38;
+    --red: #e31937;
+    --white: #ffffff;
+    --muted: #64748b;
+    --line: rgba(255,255,255,.075);
 }
+
+
 /* =========================================================
    RESET
 ========================================================= */
+
 * {
-    margin:
-        0;
-    padding:
-        0;
-    box-sizing:
-        border-box;
-    -webkit-tap-highlight-color:
-        transparent;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
+
 html,
 body {
-    width:
-        100%;
-    min-height:
-        100%;
-    background:
-        var(--navy);
+    width: 100%;
+    min-height: 100%;
+    background: var(--navy);
 }
+
 body {
-    color:
-        var(--white);
+    color: var(--white);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
+
     padding-bottom:
         calc(
             76px +
             env(safe-area-inset-bottom)
         );
 }
+
+
 /* =========================================================
    HEADER
-   SCHEDULE と完全統一
 ========================================================= */
+
 .header {
-    position:
-        fixed;
-    top:
-        0;
-    left:
-        0;
-    right:
-        0;
-    z-index:
-        100;
-    height:
-        76px;
-    background:
-        var(--red);
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--red);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.25);
+
+    overflow: hidden;
 }
+
+.header::before {
+    content: "";
+
+    position: absolute;
+
+    width: 160%;
+    height: 140px;
+
+    top: -75px;
+    left: -30%;
+
+    transform: rotate(-7deg);
+
+    border-top:
+        2px solid
+        rgba(255,255,255,.12);
+
+    border-bottom:
+        2px solid
+        rgba(255,255,255,.08);
+
+    opacity: .6;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    position: relative;
+    z-index: 2;
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 48px;
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: white;
+
+    transform: skewX(-5deg);
+
+    text-shadow:
+        2px 2px 0 rgba(0,0,0,.12),
+        0 4px 10px rgba(0,0,0,.12);
+}
+
+.logo::after {
+    content: "";
+
+    display: block;
+
+    width: 65%;
+    height: 3px;
+
+    margin: 3px auto 0;
+
+    border-radius: 99px;
+
+    background:
+        rgba(255,255,255,.9);
+}
+
+
 /* =========================================================
    MAIN
 ========================================================= */
+
 main {
-    min-height:
-        100vh;
-    padding-top:
-        76px;
+    min-height: 100vh;
+    padding-top: 76px;
 }
+
+
 /* =========================================================
-   NEWS
-   ここから下は既存ニュースUI用
+   NEWS PAGE
 ========================================================= */
+
 .news-page {
-    width:
-        100%;
-    padding:
-        21px 14px 35px;
+    width: 100%;
+    padding: 21px 14px 35px;
 }
-.news-heading {
-    margin-bottom:
-        17px;
-}
-.news-heading h1 {
-    font-size:
-        31px;
-    font-weight:
-        800;
-    line-height:
-        .95;
-    letter-spacing:
-        -.5px;
-}
-.news-heading p {
-    margin-top:
-        6px;
-    color:
-        var(--muted);
-    font-size:
-        10px;
-    font-weight:
-        700;
-    letter-spacing:
-        1.4px;
-}
+
+
 /* =========================================================
-   NEWS FILTER
+   NEWS HEADING
 ========================================================= */
-.news-filters {
-    display:
-        flex;
-    gap:
-        7px;
-    overflow-x:
-        auto;
-    margin-bottom:
-        17px;
-    padding-bottom:
-        2px;
-    scrollbar-width:
-        none;
+
+.news-heading {
+    margin-bottom: 17px;
 }
-.news-filters::-webkit-scrollbar {
-    display:
-        none;
+
+.news-heading h1 {
+    font-size: 31px;
+
+    font-weight: 800;
+
+    line-height: .95;
+
+    letter-spacing: -.5px;
 }
-.news-filter {
-    flex-shrink:
-        0;
-    height:
-        32px;
+
+.news-heading p {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+}
+
+
+/* =========================================================
+   CONTROL AREA
+========================================================= */
+
+.news-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 13px;
+}
+
+
+/* =========================================================
+   STATUS DROPDOWN
+========================================================= */
+
+.status-select-wrap {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+.status-select {
+    width: 100%;
+
+    height: 38px;
+
     padding:
-        0 13px;
+        0 34px 0 13px;
+
     border:
         1px solid
         var(--line);
-    border-radius:
-        9px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    outline: none;
+}
+
+.status-select:focus {
+    border-color:
+        rgba(227,25,55,.55);
+}
+
+.status-select option {
+    background: #0b1c38;
+    color: white;
+}
+
+.status-select-wrap::after {
+    content: "⌄";
+
+    position: absolute;
+
+    right: 13px;
+
+    top: 7px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 16px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.news-counter {
+    flex-shrink: 0;
+
+    height: 38px;
+
+    min-width: 68px;
+
+    padding: 0 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 10px;
+
     background:
         rgba(255,255,255,.035);
+
     color:
-        var(--muted);
+        rgba(255,255,255,.5);
+
     font-family:
-        inherit;
-    font-size:
-        9px;
-    font-weight:
-        800;
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
 }
+
+
+/* =========================================================
+   SOURCE FILTER
+========================================================= */
+
+.news-filters {
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    margin-bottom: 17px;
+
+    padding-bottom: 2px;
+
+    scrollbar-width: none;
+}
+
+.news-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.news-filter {
+    flex-shrink: 0;
+
+    height: 32px;
+
+    padding: 0 13px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: var(--muted);
+
+    font-family: inherit;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
 .news-filter.active {
-    color:
-        white;
+    color: white;
+
     background:
         rgba(227,25,55,.14);
+
     border-color:
         rgba(227,25,55,.38);
 }
+
+
 /* =========================================================
    NEWS LIST
 ========================================================= */
+
 .news-list {
-    display:
-        flex;
-    flex-direction:
-        column;
-    gap:
-        11px;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
 }
+
+
 /* =========================================================
    NEWS CARD
 ========================================================= */
+
 .news-card {
-    position:
-        relative;
-    overflow:
-        hidden;
-    display:
-        block;
-    width:
-        100%;
+    position: relative;
+
+    overflow: hidden;
+
+    display: block;
+
+    width: 100%;
+
     padding:
         14px 15px 13px 18px;
+
     border:
         1px solid
         var(--line);
-    border-radius:
-        16px;
+
+    border-radius: 16px;
+
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
             rgba(255,255,255,.018)
         );
-    color:
-        white;
-    text-decoration:
-        none;
+
+    color: white;
+
+    text-decoration: none;
+
     box-shadow:
         0 8px 24px
         rgba(0,0,0,.12);
+
     transition:
         transform .15s ease,
-        border-color .15s ease;
+        border-color .15s ease,
+        opacity .15s ease;
 }
+
 .news-card::before {
-    content:
-        "";
-    position:
-        absolute;
-    left:
-        0;
-    top:
-        0;
-    bottom:
-        0;
-    width:
-        4px;
-    background:
-        var(--red);
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: var(--red);
 }
+
 .news-card:active {
-    transform:
-        scale(.985);
+    transform: scale(.985);
 }
-.news-meta {
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        space-between;
-    gap:
-        10px;
-    margin-bottom:
-        8px;
+
+
+/* =========================================================
+   READ STATE
+========================================================= */
+
+.news-card.is-read {
+    opacity: .58;
 }
-.news-source {
+
+.news-card.is-read::before {
+    opacity: .35;
+}
+
+.news-card.is-read .news-title {
     color:
-        var(--red);
-    font-size:
-        9px;
-    font-weight:
-        800;
-    letter-spacing:
-        .8px;
+        rgba(255,255,255,.68);
 }
+
+
+/* =========================================================
+   NEWS TOP
+========================================================= */
+
+.news-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   NEWS META
+========================================================= */
+
+.news-meta {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+.news-source {
+    color: var(--red);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .8px;
+}
+
 .news-time {
     color:
         rgba(255,255,255,.38);
-    font-size:
-        8px;
-    font-weight:
-        700;
-    white-space:
-        nowrap;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
 }
+
+
+/* =========================================================
+   FAVORITE BUTTON
+========================================================= */
+
+.favorite-button {
+    position: relative;
+
+    z-index: 5;
+
+    flex-shrink: 0;
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: -3px;
+    margin-right: -4px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.045);
+
+    color:
+        rgba(255,255,255,.35);
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.favorite-button.active {
+    color: #ffd447;
+
+    background:
+        rgba(255,212,71,.10);
+}
+
+
+/* =========================================================
+   NEWS TITLE
+========================================================= */
+
 .news-title {
-    font-size:
-        18px;
-    font-weight:
-        800;
-    line-height:
-        1.25;
+    font-size: 18px;
+
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    letter-spacing: -.2px;
+
+    padding-right: 4px;
 }
+
+
+/* =========================================================
+   NEWS DESCRIPTION
+========================================================= */
+
 .news-description {
-    margin-top:
-        7px;
+    margin-top: 7px;
+
     color:
         rgba(255,255,255,.48);
-    font-size:
-        10px;
-    line-height:
-        1.45;
+
+    font-size: 10px;
+
+    line-height: 1.45;
 }
+
+
+/* =========================================================
+   NEWS FOOTER
+========================================================= */
+
 .news-footer {
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        space-between;
-    margin-top:
-        11px;
-    padding-top:
-        9px;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 11px;
+
+    padding-top: 9px;
+
     border-top:
         1px solid
         rgba(255,255,255,.045);
 }
+
 .news-author {
     color:
         rgba(255,255,255,.28);
-    font-size:
-        8px;
+
+    font-size: 8px;
 }
+
+.news-status {
+    color:
+        rgba(255,255,255,.25);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+}
+
+.news-card.is-read .news-status {
+    color:
+        rgba(255,255,255,.45);
+}
+
 .news-arrow {
-    color:
-        var(--red);
-    font-size:
-        18px;
-    font-weight:
-        800;
+    color: var(--red);
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    line-height: 1;
 }
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
 .news-message {
-    padding:
-        50px 20px;
-    text-align:
-        center;
-    color:
-        var(--muted);
-    font-size:
-        11px;
+    padding: 50px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
 }
+
+
 /* =========================================================
    BOTTOM NAV
-   SCHEDULE と完全統一
 ========================================================= */
+
 .bottom-nav {
-    position:
-        fixed;
-    left:
-        0;
-    right:
-        0;
-    bottom:
-        0;
-    z-index:
-        999;
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 200;
+
     height:
         calc(
             76px +
             env(safe-area-inset-bottom)
         );
+
     padding:
         7px 8px
         env(safe-area-inset-bottom);
-    display:
-        flex;
-    align-items:
-        flex-start;
-    justify-content:
-        space-around;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-around;
+
     background:
         rgba(5,16,34,.97);
-    backdrop-filter:
-        blur(18px);
-    -webkit-backdrop-filter:
-        blur(18px);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
     border-top:
         1px solid
         rgba(255,255,255,.08);
 }
+
+
 /* =========================================================
    NAV ITEM
-   SCHEDULE と完全統一
 ========================================================= */
+
 .nav-item {
-    flex:
-        1;
-    max-width:
-        100px;
-    height:
-        60px;
-    display:
-        flex;
-    flex-direction:
-        column;
-    align-items:
-        center;
-    justify-content:
-        center;
-    gap:
-        5px;
-    text-decoration:
-        none;
-    color:
-        var(--muted);
-    border-radius:
-        13px;
+    flex: 1;
+
+    max-width: 100px;
+
+    height: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    text-decoration: none;
+
+    color: var(--muted);
+
+    border-radius: 13px;
+
     transition:
         color .15s ease,
         background .15s ease,
         transform .15s ease;
 }
-.nav-item:active {
-    transform:
-        scale(.94);
+
+
+/* =========================================================
+   NAV ACTIVE
+========================================================= */
+
+.nav-item.active {
+    color: white;
+
+    background:
+        rgba(227,25,55,.13);
 }
+
+.nav-item.active .nav-icon {
+    color: var(--red);
+}
+
+
 /* =========================================================
    NAV ICON
-   SCHEDULE と完全統一
 ========================================================= */
+
 .nav-icon {
-    width:
-        25px;
-    height:
-        25px;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        center;
-    font-size:
-        18px;
-    font-weight:
-        700;
-    line-height:
-        1;
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    font-weight: 700;
 }
+
+
 /* =========================================================
    NAV LABEL
-   SCHEDULE と完全統一
 ========================================================= */
+
 .nav-label {
     font-family:
         "Barlow Condensed",
         sans-serif;
-    font-size:
-        12px;
-    font-weight:
-        700;
-    line-height:
-        1;
-    letter-spacing:
-        .8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .8px;
 }
-/* =========================================================
-   ACTIVE
-========================================================= */
-.nav-item.active {
-    color:
-        var(--white);
-    background:
-        rgba(227,25,55,.13);
-}
-.nav-item.active
-.nav-icon {
-    color:
-        var(--red);
-}
+
+
 /* =========================================================
    SMALL IPHONE
-   SCHEDULE と統一
 ========================================================= */
-@media (
-    max-width: 360px
-) {
+
+@media (max-width: 360px) {
+
     .header {
-        height:
-            76px;
+        height: 90px;
     }
+
     main {
-        padding-top:
-            76px;
+        padding-top: 90px;
+    }
+
+    .logo {
+        font-size: 43px;
+    }
+
+    .news-page {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .news-title {
+        font-size: 17px;
+    }
+
+    .news-counter {
+        min-width: 60px;
     }
 }
-/* =========================================================
-   SAFE AREA
-========================================================= */
-@supports (
-    padding:
-    env(safe-area-inset-bottom)
-) {
-    .bottom-nav {
-        padding-bottom:
-            env(safe-area-inset-bottom);
-    }
-}
+
 </style>
+
 </head>
+
 <body>
+
+
 <!-- =====================================================
      HEADER
-     SCHEDULE と同じ
 ===================================================== -->
-<header class="header"></header>
+
+<header class="header">
+
+    <div class="logo">
+        Phillies
+    </div>
+
+</header>
+
+
 <!-- =====================================================
      MAIN
 ===================================================== -->
+
 <main>
+
 <section class="news-page">
+
+
+    <!-- =================================================
+         HEADING
+    ================================================== -->
+
     <div class="news-heading">
+
         <h1>
             Phillies News
         </h1>
+
         <p>
             LATEST PHILADELPHIA PHILLIES
         </p>
+
     </div>
+
+
+    <!-- =================================================
+         STATUS CONTROL
+    ================================================== -->
+
+    <div class="news-controls">
+
+        <div class="status-select-wrap">
+
+            <select
+                id="status-filter"
+                class="status-select"
+            >
+
+                <option value="ALL">
+                    すべてのニュース
+                </option>
+
+                <option value="UNREAD">
+                    未読
+                </option>
+
+                <option value="READ">
+                    既読
+                </option>
+
+                <option value="FAVORITE">
+                    お気に入り
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="news-counter"
+            class="news-counter"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SOURCE FILTER
+    ================================================== -->
+
     <div class="news-filters">
+
         <button
             type="button"
             class="news-filter active"
@@ -539,6 +980,7 @@ main {
         >
             ALL
         </button>
+
         <button
             type="button"
             class="news-filter"
@@ -546,6 +988,7 @@ main {
         >
             MLB
         </button>
+
         <button
             type="button"
             class="news-filter"
@@ -553,6 +996,7 @@ main {
         >
             NBC
         </button>
+
         <button
             type="button"
             class="news-filter"
@@ -560,6 +1004,7 @@ main {
         >
             CBS
         </button>
+
         <button
             type="button"
             class="news-filter"
@@ -567,325 +1012,1036 @@ main {
         >
             ESPN
         </button>
+
     </div>
+
+
+    <!-- =================================================
+         NEWS LIST
+    ================================================== -->
+
     <div
         class="news-list"
         id="news-list"
     >
+
         <div class="news-message">
             Loading Phillies news...
         </div>
+
     </div>
+
+
 </section>
+
 </main>
+
+
 <!-- =====================================================
      BOTTOM NAV
-     SCHEDULE と完全統一
 ===================================================== -->
+
 <nav class="bottom-nav">
-    <!-- SCHEDULE -->
+
+
+    <!-- 1. SCHEDULE -->
+
     <a
         href="schedule.html"
         class="nav-item"
     >
+
         <div class="nav-icon">
             ▣
         </div>
+
         <div class="nav-label">
             SCHEDULE
         </div>
+
     </a>
-    <!-- SCORE -->
+
+
+    <!-- 2. SCORE -->
+
     <a
         href="score.html"
         class="nav-item"
     >
+
         <div class="nav-icon">
             ●
         </div>
+
         <div class="nav-label">
             SCORE
         </div>
+
     </a>
-    <!-- HOME -->
+
+
+    <!-- 3. HOME -->
+
     <a
         href="index.html"
         class="nav-item active"
     >
+
         <div class="nav-icon">
             ⌂
         </div>
+
         <div class="nav-label">
             HOME
         </div>
+
     </a>
-    <!-- PLAYER -->
+
+
+    <!-- 4. PLAYER -->
+
     <a
         href="player.html"
         class="nav-item"
     >
+
         <div class="nav-icon">
             ♟
         </div>
+
         <div class="nav-label">
             PLAYER
         </div>
+
     </a>
-    <!-- STATS -->
+
+
+    <!-- 5. STATS -->
+
     <a
         href="stats.html"
         class="nav-item"
     >
+
         <div class="nav-icon">
             ▥
         </div>
+
         <div class="nav-label">
             STATS
         </div>
+
     </a>
+
 </nav>
+
+
 <!-- =====================================================
-     NEWS JS
+     NEWS SCRIPT
 ===================================================== -->
+
 <script>
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
 const NEWS_DATA_URL =
     "data/news.json";
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const READ_STORAGE_KEY =
+    "phillies_reader_read";
+
+const FAVORITE_STORAGE_KEY =
+    "phillies_reader_favorites";
+
+
+/* =========================================================
+   ELEMENT
+========================================================= */
+
 const newsList =
     document.getElementById(
         "news-list"
     );
-let newsArticles =
-    [];
+
+const statusFilter =
+    document.getElementById(
+        "status-filter"
+    );
+
+const newsCounter =
+    document.getElementById(
+        "news-counter"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let newsArticles = [];
+
 let activeSource =
     "ALL";
+
+let activeStatus =
+    "ALL";
+
+
+/* =========================================================
+   STORAGE HELPERS
+========================================================= */
+
+function loadStorage(
+    key
+) {
+
+    try {
+
+        const value =
+            localStorage.getItem(
+                key
+            );
+
+        if (!value) {
+            return [];
+        }
+
+        const parsed =
+            JSON.parse(
+                value
+            );
+
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Storage load error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+function saveStorage(
+    key,
+    value
+) {
+
+    try {
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(value)
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Storage save error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   READ / FAVORITE STATE
+========================================================= */
+
+let readArticles =
+    loadStorage(
+        READ_STORAGE_KEY
+    );
+
+let favoriteArticles =
+    loadStorage(
+        FAVORITE_STORAGE_KEY
+    );
+
+
+/* =========================================================
+   ARTICLE ID
+========================================================= */
+
+function getArticleId(
+    article
+) {
+
+    const url =
+        article.url ||
+        article.link ||
+        "";
+
+    if (url) {
+        return url;
+    }
+
+    const title =
+        article.title ||
+        "";
+
+    const date =
+        article.publishedAt ||
+        article.published ||
+        article.date ||
+        "";
+
+    return (
+        title +
+        "|" +
+        date
+    );
+
+}
+
+
+/* =========================================================
+   READ CHECK
+========================================================= */
+
+function isRead(
+    article
+) {
+
+    const id =
+        getArticleId(
+            article
+        );
+
+    return readArticles.includes(
+        id
+    );
+
+}
+
+
+/* =========================================================
+   FAVORITE CHECK
+========================================================= */
+
+function isFavorite(
+    article
+) {
+
+    const id =
+        getArticleId(
+            article
+        );
+
+    return favoriteArticles.includes(
+        id
+    );
+
+}
+
+
+/* =========================================================
+   MARK READ
+========================================================= */
+
+function markAsRead(
+    article
+) {
+
+    const id =
+        getArticleId(
+            article
+        );
+
+    if (
+        !readArticles.includes(
+            id
+        )
+    ) {
+
+        readArticles.push(
+            id
+        );
+
+        saveStorage(
+            READ_STORAGE_KEY,
+            readArticles
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOGGLE FAVORITE
+========================================================= */
+
+function toggleFavorite(
+    article
+) {
+
+    const id =
+        getArticleId(
+            article
+        );
+
+    const index =
+        favoriteArticles.indexOf(
+            id
+        );
+
+    if (index === -1) {
+
+        favoriteArticles.push(
+            id
+        );
+
+    }
+
+    else {
+
+        favoriteArticles.splice(
+            index,
+            1
+        );
+
+    }
+
+    saveStorage(
+        FAVORITE_STORAGE_KEY,
+        favoriteArticles
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
 function escapeHTML(
     value
 ) {
+
     if (
         value === null ||
         value === undefined
     ) {
+
         return "";
+
     }
+
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
         );
+
 }
+
+
+/* =========================================================
+   SOURCE
+========================================================= */
+
 function normalizeSource(
     source
 ) {
+
     const value =
         String(
             source || ""
         )
         .trim()
         .toUpperCase();
+
     if (
-        value.includes("MLB")
-    ) return "MLB";
+        value.includes(
+            "MLB"
+        )
+    ) {
+
+        return "MLB";
+
+    }
+
     if (
-        value.includes("NBC")
-    ) return "NBC";
+        value.includes(
+            "NBC"
+        )
+    ) {
+
+        return "NBC";
+
+    }
+
     if (
-        value.includes("CBS")
-    ) return "CBS";
+        value.includes(
+            "CBS"
+        )
+    ) {
+
+        return "CBS";
+
+    }
+
     if (
-        value.includes("ESPN")
-    ) return "ESPN";
-    return value ||
-        "NEWS";
+        value.includes(
+            "ESPN"
+        )
+    ) {
+
+        return "ESPN";
+
+    }
+
+    return (
+        value ||
+        "NEWS"
+    );
+
 }
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
 function formatDate(
     value
 ) {
+
     if (!value) {
         return "";
     }
+
     const date =
-        new Date(value);
+        new Date(
+            value
+        );
+
     if (
         Number.isNaN(
             date.getTime()
         )
     ) {
+
         return "";
+
     }
+
     return date.toLocaleString(
         "ja-JP",
         {
-            month:
-                "numeric",
-            day:
-                "numeric",
-            hour:
-                "2-digit",
-            minute:
-                "2-digit"
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
         }
     );
+
 }
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
 function sortArticles(
     articles
 ) {
+
     return [
         ...articles
-    ].sort(
+    ]
+    .sort(
         (
             a,
             b
         ) => {
+
             const aDate =
                 new Date(
                     a.publishedAt ||
                     a.published ||
                     a.date ||
                     0
-                ).getTime();
+                )
+                .getTime();
+
             const bDate =
                 new Date(
                     b.publishedAt ||
                     b.published ||
                     b.date ||
                     0
-                ).getTime();
-            return bDate - aDate;
+                )
+                .getTime();
+
+            return (
+                bDate -
+                aDate
+            );
+
         }
     );
+
 }
+
+
+/* =========================================================
+   FILTER ARTICLES
+========================================================= */
+
+function filterArticles(
+    articles
+) {
+
+    let result =
+        sortArticles(
+            articles
+        );
+
+
+    /* SOURCE */
+
+    if (
+        activeSource !==
+        "ALL"
+    ) {
+
+        result =
+            result.filter(
+                article => {
+
+                    return (
+                        normalizeSource(
+                            article.source
+                        ) ===
+                        activeSource
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* STATUS */
+
+    if (
+        activeStatus ===
+        "UNREAD"
+    ) {
+
+        result =
+            result.filter(
+                article =>
+                    !isRead(
+                        article
+                    )
+            );
+
+    }
+
+    else if (
+        activeStatus ===
+        "READ"
+    ) {
+
+        result =
+            result.filter(
+                article =>
+                    isRead(
+                        article
+                    )
+            );
+
+    }
+
+    else if (
+        activeStatus ===
+        "FAVORITE"
+    ) {
+
+        result =
+            result.filter(
+                article =>
+                    isFavorite(
+                        article
+                    )
+            );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
 function createNewsCard(
     article
 ) {
+
     const card =
         document.createElement(
             "a"
         );
-    card.className =
-        "news-card";
-    card.href =
+
+    const articleUrl =
         article.url ||
         article.link ||
         "#";
+
+    const read =
+        isRead(
+            article
+        );
+
+    const favorite =
+        isFavorite(
+            article
+        );
+
+
+    card.className =
+        "news-card" +
+        (
+            read
+                ? " is-read"
+                : ""
+        );
+
+
+    card.href =
+        articleUrl;
+
     card.target =
         "_blank";
+
     card.rel =
         "noopener noreferrer";
+
+
     const source =
         normalizeSource(
             article.source
         );
+
     const title =
         article.title ||
         "Untitled";
+
     const description =
         article.description ||
         article.summary ||
         "";
+
     const publishedAt =
         article.publishedAt ||
         article.published ||
         article.date ||
         "";
+
+    const author =
+        article.author ||
+        "";
+
+
     card.innerHTML = `
-        <div class="news-meta">
-            <span class="news-source">
-                ${escapeHTML(source)}
-            </span>
-            <span class="news-time">
-                ${escapeHTML(
-                    formatDate(
-                        publishedAt
-                    )
-                )}
-            </span>
+
+        <div class="news-top">
+
+            <div class="news-meta">
+
+                <span class="news-source">
+                    ${escapeHTML(source)}
+                </span>
+
+                <span class="news-time">
+                    ${escapeHTML(
+                        formatDate(
+                            publishedAt
+                        )
+                    )}
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="
+                    favorite-button
+                    ${favorite ? "active" : ""}
+                "
+                aria-label="
+                    ${favorite
+                        ? "お気に入りから削除"
+                        : "お気に入りに追加"
+                    }
+                "
+            >
+                ${favorite ? "★" : "☆"}
+            </button>
+
         </div>
+
+
         <div class="news-title">
             ${escapeHTML(title)}
         </div>
+
+
         ${
             description
             ?
             `
             <div class="news-description">
-                ${escapeHTML(description)}
+                ${escapeHTML(
+                    description
+                )}
             </div>
             `
             :
             ""
         }
+
+
         <div class="news-footer">
+
             <span class="news-author">
-                ${escapeHTML(
-                    article.author || ""
-                )}
+                ${escapeHTML(author)}
             </span>
+
+            <span class="news-status">
+                ${
+                    read
+                        ? "READ"
+                        : "UNREAD"
+                }
+            </span>
+
             <span class="news-arrow">
                 ›
             </span>
+
         </div>
+
     `;
+
+
+    /* =====================================================
+       FAVORITE BUTTON
+    ===================================================== */
+
+    const favoriteButton =
+        card.querySelector(
+            ".favorite-button"
+        );
+
+
+    favoriteButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            toggleFavorite(
+                article
+            );
+
+
+            renderNews();
+
+        }
+    );
+
+
+    /* =====================================================
+       ARTICLE OPEN
+    ===================================================== */
+
+    card.addEventListener(
+        "click",
+        function() {
+
+            markAsRead(
+                article
+            );
+
+            card.classList.add(
+                "is-read"
+            );
+
+        }
+    );
+
+
     return card;
+
 }
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+function updateCounter(
+    count
+) {
+
+    newsCounter.textContent =
+        String(
+            count
+        );
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
 function renderNews() {
+
     newsList.innerHTML =
         "";
-    let articles =
-        sortArticles(
+
+
+    const articles =
+        filterArticles(
             newsArticles
         );
-    if (
-        activeSource !==
-        "ALL"
-    ) {
-        articles =
-            articles.filter(
-                article =>
-                    normalizeSource(
-                        article.source
-                    )
-                    ===
-                    activeSource
-            );
-    }
+
+
+    updateCounter(
+        articles.length
+    );
+
+
     if (
         articles.length === 0
     ) {
+
+        let message =
+            "ニュースがありません。";
+
+
+        if (
+            activeStatus ===
+            "UNREAD"
+        ) {
+
+            message =
+                "未読ニュースはありません。";
+
+        }
+
+        else if (
+            activeStatus ===
+            "READ"
+        ) {
+
+            message =
+                "既読ニュースはありません。";
+
+        }
+
+        else if (
+            activeStatus ===
+            "FAVORITE"
+        ) {
+
+            message =
+                "お気に入りはありません。";
+
+        }
+
+
         newsList.innerHTML = `
+
             <div class="news-message">
-                No Phillies news available.
+                ${message}
             </div>
+
         `;
+
         return;
+
     }
+
+
     articles.forEach(
         article => {
+
             newsList.appendChild(
                 createNewsCard(
                     article
                 )
             );
+
         }
     );
+
 }
+
+
+/* =========================================================
+   LOAD NEWS
+========================================================= */
+
 async function loadNews() {
+
     try {
+
         const response =
             await fetch(
                 NEWS_DATA_URL,
@@ -894,81 +2050,157 @@ async function loadNews() {
                         "no-store"
                 }
             );
+
+
         if (
             !response.ok
         ) {
+
             throw new Error(
                 "news.json load failed"
             );
+
         }
+
+
         const data =
             await response.json();
+
+
         if (
-            Array.isArray(data)
+            Array.isArray(
+                data
+            )
         ) {
+
             newsArticles =
                 data;
+
         }
+
         else if (
             Array.isArray(
                 data.articles
             )
         ) {
+
             newsArticles =
                 data.articles;
+
         }
+
         else {
+
             newsArticles =
                 [];
+
         }
+
+
         renderNews();
+
     }
+
     catch (
         error
     ) {
+
         console.error(
             error
         );
+
+
         newsList.innerHTML = `
+
             <div class="news-message">
                 News data could not be loaded.
             </div>
+
         `;
+
+        updateCounter(
+            0
+        );
+
     }
+
 }
+
+
+/* =========================================================
+   STATUS DROPDOWN
+========================================================= */
+
+statusFilter.addEventListener(
+    "change",
+    function() {
+
+        activeStatus =
+            this.value;
+
+        renderNews();
+
+    }
+);
+
+
+/* =========================================================
+   SOURCE FILTER
+========================================================= */
+
 document
     .querySelectorAll(
         ".news-filter"
     )
     .forEach(
         button => {
+
             button.addEventListener(
                 "click",
-                function () {
+                function() {
+
+
                     document
                         .querySelectorAll(
                             ".news-filter"
                         )
                         .forEach(
                             item => {
+
                                 item.classList
                                     .remove(
                                         "active"
                                     );
+
                             }
                         );
-                    this.classList
-                        .add(
-                            "active"
-                        );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
                     activeSource =
                         this.dataset.source;
+
+
                     renderNews();
+
                 }
             );
+
         }
     );
+
+
+/* =========================================================
+   START
+========================================================= */
+
 loadNews();
+
 </script>
+
 </body>
 </html>
