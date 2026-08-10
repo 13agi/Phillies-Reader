@@ -1,231 +1,570 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
+
 <title>PHILLIES</title>
+
+
 <style>
+
 /* ========================================
-   PHILLIES COLORS
+   PHILLIES NEXT UI
 ======================================== */
+
 :root {
-    --phillies-red: #E31837;
-    --phillies-navy: #002D72;
-    --white: #FFFFFF;
+
+    --red: #E31837;
+
+    --navy: #001B3D;
+
+    --navy-2: #002D72;
+
+    --glass: rgba(255, 255, 255, 0.06);
+
+    --stroke: rgba(255, 255, 255, 0.12);
+
+    --text: #FFFFFF;
+
 }
+
+
 /* ========================================
-   RESET
+   BASE
 ======================================== */
+
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
-html,
+
+
 body {
-    width: 100%;
-    min-height: 100%;
-}
-body {
-    background:
-        var(--phillies-navy);
-    color:
-        var(--white);
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
-    -webkit-font-smoothing:
-        antialiased;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #002D72 0%,
+            #001B3D 60%,
+            #000F24 100%
+        );
+
+    color:
+        var(--text);
+
+    overflow-x:
+        hidden;
+
 }
+
+
+/* ========================================
+   BACKGROUND STRIPES
+======================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(255,255,255,0.03) 0px,
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px,
+            transparent 12px
+        );
+
+    pointer-events:
+        none;
+
+    z-index:
+        0;
+
+}
+
+
 /* ========================================
    APP
 ======================================== */
+
 .app {
-    width: 100%;
-    min-height:
-        100vh;
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
     min-height:
         100dvh;
-    background:
-        var(--phillies-navy);
+
 }
+
+
 /* ========================================
-   HEADER
+   HEADER GLASS
 ======================================== */
+
 .header {
-    width: 100%;
-    height: 68px;
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        10;
+
+    backdrop-filter:
+        blur(18px);
+
     background:
-        var(--phillies-red);
-    display: flex;
-    align-items: center;
-    padding-top:
-        env(safe-area-inset-top);
+        rgba(0, 27, 61, 0.55);
+
+    border-bottom:
+        1px solid var(--stroke);
+
 }
+
+
 /* ========================================
    HEADER INNER
 ======================================== */
+
 .header-inner {
-    width: 100%;
-    height: 68px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
     padding:
-        0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        14px 18px;
+
 }
+
+
 /* ========================================
-   PHILLIES
+   LOGO EMBLEM
 ======================================== */
+
 .logo {
-    color:
-        var(--white);
-    text-decoration: none;
+
     font-family:
         Georgia,
-        "Times New Roman",
         serif;
-    font-size:
-        31px;
-    font-weight:
-        900;
+
     font-style:
         italic;
+
+    font-weight:
+        900;
+
+    font-size:
+        28px;
+
     letter-spacing:
-        -1.2px;
-    line-height:
-        1;
-    user-select:
+        -1px;
+
+    color:
+        var(--text);
+
+    text-decoration:
         none;
+
+    position:
+        relative;
+
+    text-shadow:
+        0 0 18px rgba(227, 24, 55, 0.6);
+
 }
-/* ========================================
-   HEADER RIGHT
-======================================== */
-.header-action {
-    width: 38px;
-    height: 38px;
-    border: 0;
-    border-radius: 50%;
+
+
+/* red glow underline */
+
+.logo::after {
+
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    bottom:
+        -6px;
+
+    width:
+        100%;
+
+    height:
+        2px;
+
     background:
-        rgba(0, 0, 0, 0.10);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--red),
+            transparent
+        );
+
+    opacity:
+        0.8;
+
 }
+
+
 /* ========================================
-   SIMPLE MENU ICON
+   MENU BUTTON
 ======================================== */
-.menu-icon {
-    width: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.menu-icon span {
-    width: 100%;
-    height: 2px;
+
+.menu {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid var(--stroke);
+
     background:
-        var(--white);
-    border-radius: 2px;
+        var(--glass);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    backdrop-filter:
+        blur(10px);
+
 }
+
+
+/* hamburger */
+
+.menu span {
+
+    width:
+        18px;
+
+    height:
+        2px;
+
+    background:
+        var(--text);
+
+    position:
+        relative;
+
+}
+
+.menu span::before,
+.menu span::after {
+
+    content: "";
+
+    position:
+        absolute;
+
+    width:
+        18px;
+
+    height:
+        2px;
+
+    background:
+        var(--text);
+
+    left:
+        0;
+
+}
+
+.menu span::before {
+
+    top:
+        -6px;
+
+}
+
+.menu span::after {
+
+    top:
+        6px;
+
+}
+
+
 /* ========================================
    MAIN
 ======================================== */
+
 main {
-    width: 100%;
-    min-height:
-        calc(100dvh - 68px);
+
+    padding:
+        18px;
+
+}
+
+
+/* ========================================
+   HERO CARD
+======================================== */
+
+.hero {
+
     background:
-        var(--phillies-navy);
+        linear-gradient(
+            135deg,
+            rgba(227, 24, 55, 0.18),
+            rgba(0, 45, 114, 0.35)
+        );
+
+    border:
+        1px solid var(--stroke);
+
+    border-radius:
+        18px;
+
+    padding:
+        18px;
+
+    backdrop-filter:
+        blur(14px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35);
+
 }
+
+
 /* ========================================
-   MOBILE CONTENT WIDTH
+   HERO TITLE
 ======================================== */
-.main-inner {
-    width: 100%;
-    max-width: 600px;
-    margin:
-        0 auto;
+
+.hero h1 {
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+    line-height:
+        1.3;
+
 }
+
+
 /* ========================================
-   SAFE AREA
+   HERO SUB
 ======================================== */
+
+.hero p {
+
+    margin-top:
+        8px;
+
+    font-size:
+        13px;
+
+    opacity:
+        0.8;
+
+}
+
+
+/* ========================================
+   NEWS CARD
+======================================== */
+
+.card {
+
+    margin-top:
+        14px;
+
+    padding:
+        14px;
+
+    border-radius:
+        16px;
+
+    background:
+        var(--glass);
+
+    border:
+        1px solid var(--stroke);
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+/* ========================================
+   CARD TITLE
+======================================== */
+
+.card h2 {
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* ========================================
+   CARD TEXT
+======================================== */
+
+.card p {
+
+    margin-top:
+        6px;
+
+    font-size:
+        12px;
+
+    opacity:
+        0.75;
+
+}
+
+
+/* ========================================
+   BOTTOM SAFE AREA
+======================================== */
+
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    body {
-        padding-bottom:
-            env(safe-area-inset-bottom);
-    }
-}
-/* ========================================
-   SMALL PHONES
-======================================== */
-@media (max-width: 375px) {
-    .header {
-        height: 64px;
-    }
-    .header-inner {
-        height: 64px;
-        padding:
-            0 16px;
-    }
-    .logo {
-        font-size:
-            28px;
-    }
+
     main {
-        min-height:
-            calc(100dvh - 64px);
+
+        padding-bottom:
+            calc(18px + env(safe-area-inset-bottom));
+
     }
+
 }
-/* ========================================
-   LARGER PHONES
-======================================== */
-@media (min-width: 430px) {
-    .header-inner {
-        padding:
-            0 22px;
-    }
-}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <div class="app">
-    <!-- ================================
-         HEADER
-    ================================= -->
+
+
     <header class="header">
+
         <div class="header-inner">
-            <a
-                href="#"
-                class="logo"
-            >
+
+
+            <a class="logo" href="#">
                 PHILLIES
             </a>
-            <button
-                class="header-action"
-                aria-label="メニュー"
-            >
-                <span class="menu-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
-            </button>
+
+
+            <div class="menu">
+                <span></span>
+            </div>
+
+
         </div>
+
     </header>
-    <!-- ================================
-         MAIN
-    ================================= -->
+
+
     <main>
-        <div class="main-inner">
-        </div>
+
+
+        <section class="hero">
+
+            <h1>
+                Philadelphia Phillies
+                <br>
+                Mobile Experience
+            </h1>
+
+            <p>
+                Breaking news · Live scores · Player updates
+            </p>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>Latest News</h2>
+
+            <p>
+                Harper leads Phillies to dominant win over Braves.
+            </p>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>Next Game</h2>
+
+            <p>
+                Phillies vs Mets — Tonight 7:05 PM
+            </p>
+
+        </section>
+
+
     </main>
+
+
 </div>
+
+
 </body>
 </html>
