@@ -90,10 +90,6 @@ body {
 }
 
 
-/* =====================================================
-   HEADER LARGE DIAGONAL
-===================================================== */
-
 .header::before {
 
     content: "";
@@ -128,10 +124,6 @@ body {
 }
 
 
-/* =====================================================
-   HEADER NAVY SHAPE
-===================================================== */
-
 .header-navy-shape {
 
     position: absolute;
@@ -147,14 +139,8 @@ body {
 
     background:
         rgba(7,21,43,0.16);
-
-    pointer-events: none;
 }
 
-
-/* =====================================================
-   HEADER LINE 1
-===================================================== */
 
 .header-line-one {
 
@@ -172,14 +158,8 @@ body {
 
     background:
         rgba(255,255,255,0.34);
-
-    pointer-events: none;
 }
 
-
-/* =====================================================
-   HEADER LINE 2
-===================================================== */
 
 .header-line-two {
 
@@ -197,14 +177,8 @@ body {
 
     background:
         rgba(255,255,255,0.18);
-
-    pointer-events: none;
 }
 
-
-/* =====================================================
-   HEADER LIGHT
-===================================================== */
 
 .header-light {
 
@@ -225,14 +199,8 @@ body {
             rgba(255,255,255,0.06) 35%,
             transparent 72%
         );
-
-    pointer-events: none;
 }
 
-
-/* =====================================================
-   HEADER BOTTOM EDGE
-===================================================== */
 
 .header::after {
 
@@ -256,8 +224,6 @@ body {
             rgba(255,255,255,0.28) 72%,
             transparent 100%
         );
-
-    pointer-events: none;
 }
 
 
@@ -275,10 +241,6 @@ main {
 }
 
 
-/* =====================================================
-   PLAYER PAGE
-===================================================== */
-
 .player-page {
 
     width: 100%;
@@ -288,17 +250,13 @@ main {
 }
 
 
-/* =====================================================
-   PAGE TITLE
-===================================================== */
-
 .player-title {
 
     font-size: 26px;
 
     font-weight: 800;
 
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 
     margin-bottom: 6px;
 }
@@ -312,7 +270,7 @@ main {
 
     font-weight: 600;
 
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 
     margin-bottom: 24px;
 }
@@ -344,29 +302,52 @@ main {
 
     width: 100%;
 
-    min-height: 82px;
+    min-height: 76px;
 
     display: flex;
 
     align-items: center;
 
     padding:
-        14px 16px;
+        12px 15px;
 
     background:
-        rgba(255,255,255,0.045);
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.025)
+        );
 
     border:
         1px solid
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,0.075);
 
-    border-radius: 16px;
+    border-radius: 15px;
 
     overflow: hidden;
 
     transition:
         transform .15s ease,
         background .15s ease;
+}
+
+
+.player-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    background:
+        var(--red);
+
+    opacity: .75;
 }
 
 
@@ -381,84 +362,88 @@ main {
 
 
 /* =====================================================
-   PLAYER NUMBER
+   NUMBER
 ===================================================== */
 
 .player-number {
 
-    width: 48px;
+    width: 47px;
+
+    flex-shrink: 0;
 
     font-size: 25px;
 
     font-weight: 800;
 
     color:
-        rgba(255,255,255,0.22);
+        rgba(255,255,255,0.25);
 
     letter-spacing: -1px;
 }
 
 
 /* =====================================================
-   PLAYER INFO
+   BAT / THROW
 ===================================================== */
 
-.player-info {
+.player-bt {
+
+    width: 55px;
+
+    flex-shrink: 0;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    color:
+        rgba(255,255,255,0.65);
+}
+
+
+/* =====================================================
+   POSITION
+===================================================== */
+
+.player-pos {
+
+    width: 42px;
+
+    flex-shrink: 0;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .4px;
+
+    color: var(--red);
+}
+
+
+/* =====================================================
+   PLAYER NAME
+===================================================== */
+
+.player-name {
 
     flex: 1;
 
     min-width: 0;
-}
-
-
-.player-name {
 
     font-size: 16px;
 
     font-weight: 800;
 
-    letter-spacing: .3px;
-
-    color: var(--white);
+    letter-spacing: .2px;
 
     white-space: nowrap;
 
     overflow: hidden;
 
     text-overflow: ellipsis;
-}
-
-
-.player-position {
-
-    margin-top: 5px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: .7px;
-
-    color: var(--muted);
-}
-
-
-/* =====================================================
-   PLAYER ARROW
-===================================================== */
-
-.player-arrow {
-
-    width: 28px;
-
-    text-align: right;
-
-    font-size: 25px;
-
-    font-weight: 300;
-
-    color:
-        rgba(255,255,255,0.35);
 }
 
 
@@ -508,10 +493,6 @@ main {
 }
 
 
-/* =====================================================
-   NAV ITEM
-===================================================== */
-
 .nav-item {
 
     flex: 1;
@@ -544,15 +525,9 @@ main {
 
 
 .nav-item:active {
-
-    transform:
-        scale(.94);
+    transform: scale(.94);
 }
 
-
-/* =====================================================
-   NAV ICON
-===================================================== */
 
 .nav-icon {
 
@@ -570,10 +545,6 @@ main {
 }
 
 
-/* =====================================================
-   NAV LABEL
-===================================================== */
-
 .nav-label {
 
     font-size: 10px;
@@ -586,10 +557,6 @@ main {
 }
 
 
-/* =====================================================
-   ACTIVE
-===================================================== */
-
 .nav-item.active {
 
     color: var(--white);
@@ -600,7 +567,6 @@ main {
 
 
 .nav-item.active .nav-icon {
-
     color: var(--red);
 }
 
@@ -622,6 +588,22 @@ main {
     .player-page {
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    .player-number {
+        width: 40px;
+    }
+
+    .player-bt {
+        width: 48px;
+    }
+
+    .player-pos {
+        width: 36px;
+    }
+
+    .player-name {
+        font-size: 15px;
     }
 
     .nav-label {
@@ -661,135 +643,132 @@ main {
 
 <main>
 
-    <section class="player-page">
+<section class="player-page">
 
-        <h1 class="player-title">
-            Players
-        </h1>
+    <h1 class="player-title">
+        Players
+    </h1>
 
-        <p class="player-subtitle">
-            PHILADELPHIA PHILLIES
-        </p>
-
-
-        <!-- =================================================
-             SAMPLE PLAYER CARDS
-        ================================================== -->
-
-        <div class="player-list">
+    <p class="player-subtitle">
+        PHILADELPHIA PHILLIES
+    </p>
 
 
-            <!-- PLAYER 01 -->
+    <!-- =================================================
+         SAMPLE PLAYERS
+    ================================================== -->
 
-            <div class="player-card">
+    <div class="player-list">
 
-                <div class="player-number">
-                    01
-                </div>
 
-                <div class="player-info">
+        <div class="player-card">
 
-                    <div class="player-name">
-                        PLAYER ONE
-                    </div>
-
-                    <div class="player-position">
-                        P • RHP
-                    </div>
-
-                </div>
-
-                <div class="player-arrow">
-                    ›
-                </div>
-
+            <div class="player-number">
+                01
             </div>
 
-
-            <!-- PLAYER 02 -->
-
-            <div class="player-card">
-
-                <div class="player-number">
-                    02
-                </div>
-
-                <div class="player-info">
-
-                    <div class="player-name">
-                        PLAYER TWO
-                    </div>
-
-                    <div class="player-position">
-                        IF • SS
-                    </div>
-
-                </div>
-
-                <div class="player-arrow">
-                    ›
-                </div>
-
+            <div class="player-bt">
+                R/R
             </div>
 
-
-            <!-- PLAYER 03 -->
-
-            <div class="player-card">
-
-                <div class="player-number">
-                    03
-                </div>
-
-                <div class="player-info">
-
-                    <div class="player-name">
-                        PLAYER THREE
-                    </div>
-
-                    <div class="player-position">
-                        OF • CF
-                    </div>
-
-                </div>
-
-                <div class="player-arrow">
-                    ›
-                </div>
-
+            <div class="player-pos">
+                SS
             </div>
 
-
-            <!-- PLAYER 04 -->
-
-            <div class="player-card">
-
-                <div class="player-number">
-                    04
-                </div>
-
-                <div class="player-info">
-
-                    <div class="player-name">
-                        PLAYER FOUR
-                    </div>
-
-                    <div class="player-position">
-                        C
-                    </div>
-
-                </div>
-
-                <div class="player-arrow">
-                    ›
-                </div>
-
+            <div class="player-name">
+                PLAYER ONE
             </div>
-
 
         </div>
 
-    </section>
+
+        <div class="player-card">
+
+            <div class="player-number">
+                02
+            </div>
+
+            <div class="player-bt">
+                L/L
+            </div>
+
+            <div class="player-pos">
+                OF
+            </div>
+
+            <div class="player-name">
+                PLAYER TWO
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <div class="player-number">
+                03
+            </div>
+
+            <div class="player-bt">
+                R/R
+            </div>
+
+            <div class="player-pos">
+                1B
+            </div>
+
+            <div class="player-name">
+                PLAYER THREE
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <div class="player-number">
+                04
+            </div>
+
+            <div class="player-bt">
+                R/L
+            </div>
+
+            <div class="player-pos">
+                RHP
+            </div>
+
+            <div class="player-name">
+                PLAYER FOUR
+            </div>
+
+        </div>
+
+
+        <div class="player-card">
+
+            <div class="player-number">
+                05
+            </div>
+
+            <div class="player-bt">
+                L/L
+            </div>
+
+            <div class="player-pos">
+                LHP
+            </div>
+
+            <div class="player-name">
+                PLAYER FIVE
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
 
 </main>
 
@@ -800,8 +779,6 @@ main {
 
 <nav class="bottom-nav">
 
-
-    <!-- SCHEDULE -->
 
     <a href="schedule.html"
        class="nav-item">
@@ -817,8 +794,6 @@ main {
     </a>
 
 
-    <!-- SCORE -->
-
     <a href="score.html"
        class="nav-item">
 
@@ -832,8 +807,6 @@ main {
 
     </a>
 
-
-    <!-- HOME -->
 
     <a href="index.html"
        class="nav-item">
@@ -849,8 +822,6 @@ main {
     </a>
 
 
-    <!-- PLAYER -->
-
     <a href="player.html"
        class="nav-item active">
 
@@ -864,8 +835,6 @@ main {
 
     </a>
 
-
-    <!-- STATS -->
 
     <a href="stats.html"
        class="nav-item">
@@ -882,7 +851,6 @@ main {
 
 
 </nav>
-
 
 </body>
 </html>
