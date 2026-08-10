@@ -139,6 +139,8 @@ body {
 
     background:
         rgba(7,21,43,0.16);
+
+    pointer-events: none;
 }
 
 
@@ -158,6 +160,8 @@ body {
 
     background:
         rgba(255,255,255,0.34);
+
+    pointer-events: none;
 }
 
 
@@ -177,6 +181,8 @@ body {
 
     background:
         rgba(255,255,255,0.18);
+
+    pointer-events: none;
 }
 
 
@@ -199,6 +205,8 @@ body {
             rgba(255,255,255,0.06) 35%,
             transparent 72%
         );
+
+    pointer-events: none;
 }
 
 
@@ -224,6 +232,8 @@ body {
             rgba(255,255,255,0.28) 72%,
             transparent 100%
         );
+
+    pointer-events: none;
 }
 
 
@@ -249,6 +259,10 @@ main {
         24px 18px 30px;
 }
 
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
 
 .player-title {
 
@@ -302,20 +316,20 @@ main {
 
     width: 100%;
 
-    min-height: 76px;
+    min-height: 78px;
 
     display: flex;
 
     align-items: center;
 
     padding:
-        12px 15px;
+        12px 15px 12px 18px;
 
     background:
         linear-gradient(
             135deg,
             rgba(255,255,255,0.055),
-            rgba(255,255,255,0.025)
+            rgba(255,255,255,0.022)
         );
 
     border:
@@ -332,6 +346,10 @@ main {
 }
 
 
+/* =====================================================
+   LEFT RED ACCENT
+===================================================== */
+
 .player-card::after {
 
     content: "";
@@ -339,17 +357,26 @@ main {
     position: absolute;
 
     top: 0;
-    right: 0;
+    left: 0;
     bottom: 0;
 
     width: 3px;
 
     background:
-        var(--red);
+        linear-gradient(
+            180deg,
+            #ef233c,
+            #e31937,
+            #b90f2e
+        );
 
-    opacity: .75;
+    opacity: .9;
 }
 
+
+/* =====================================================
+   CARD ACTIVE
+===================================================== */
 
 .player-card:active {
 
@@ -362,23 +389,76 @@ main {
 
 
 /* =====================================================
-   NUMBER
+   PLAYER NUMBER
 ===================================================== */
 
 .player-number {
 
-    width: 47px;
+    position: relative;
+
+    width: 58px;
 
     flex-shrink: 0;
 
-    font-size: 25px;
+    font-family:
+        Impact,
+        Haettenschweiler,
+        "Arial Narrow Bold",
+        sans-serif;
+
+    font-size: 31px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+
+    color:
+        rgba(255,255,255,0.30);
+
+    text-align: left;
+
+    text-shadow:
+        1px 1px 0
+        rgba(255,255,255,0.04);
+
+    transform:
+        scaleX(.88);
+
+    transform-origin: left center;
+}
+
+
+/* =====================================================
+   NUMBER RED DETAIL
+===================================================== */
+
+.player-number::before {
+
+    content: "#";
+
+    position: absolute;
+
+    left: -2px;
+    top: -8px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 9px;
 
     font-weight: 800;
 
-    color:
-        rgba(255,255,255,0.25);
+    letter-spacing: 0;
 
-    letter-spacing: -1px;
+    color:
+        rgba(227,25,55,0.75);
+
+    transform:
+        scaleX(1.12);
 }
 
 
@@ -399,7 +479,7 @@ main {
     letter-spacing: .4px;
 
     color:
-        rgba(255,255,255,0.65);
+        rgba(255,255,255,0.62);
 }
 
 
@@ -438,6 +518,8 @@ main {
     font-weight: 800;
 
     letter-spacing: .2px;
+
+    color: var(--white);
 
     white-space: nowrap;
 
@@ -493,6 +575,10 @@ main {
 }
 
 
+/* =====================================================
+   NAV ITEM
+===================================================== */
+
 .nav-item {
 
     flex: 1;
@@ -525,9 +611,15 @@ main {
 
 
 .nav-item:active {
-    transform: scale(.94);
+
+    transform:
+        scale(.94);
 }
 
+
+/* =====================================================
+   NAV ICON
+===================================================== */
 
 .nav-icon {
 
@@ -545,6 +637,10 @@ main {
 }
 
 
+/* =====================================================
+   NAV LABEL
+===================================================== */
+
 .nav-label {
 
     font-size: 10px;
@@ -557,6 +653,10 @@ main {
 }
 
 
+/* =====================================================
+   ACTIVE
+===================================================== */
+
 .nav-item.active {
 
     color: var(--white);
@@ -567,6 +667,7 @@ main {
 
 
 .nav-item.active .nav-icon {
+
     color: var(--red);
 }
 
@@ -591,15 +692,16 @@ main {
     }
 
     .player-number {
-        width: 40px;
+        width: 50px;
+        font-size: 28px;
     }
 
     .player-bt {
-        width: 48px;
+        width: 46px;
     }
 
     .player-pos {
-        width: 36px;
+        width: 35px;
     }
 
     .player-name {
@@ -731,7 +833,7 @@ main {
             </div>
 
             <div class="player-bt">
-                R/L
+                R/R
             </div>
 
             <div class="player-pos">
@@ -851,6 +953,7 @@ main {
 
 
 </nav>
+
 
 </body>
 </html>
