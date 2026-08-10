@@ -3,40 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>PHILLIES</title>
-
 <style>
-
-/* =========================
-   PHILLIES COLORS
-========================= */
-
 :root {
     --red: #E31837;
     --navy: #002D72;
     --navy-dark: #001F4F;
     --white: #FFFFFF;
 }
-
-
-/* =========================
-   BASE
-========================= */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     min-height: 100vh;
-
     background: var(--navy);
-
     color: var(--white);
-
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -44,240 +27,248 @@ body {
         Arial,
         sans-serif;
 }
-
-
 /* =========================
    HEADER
 ========================= */
-
 .header {
     width: 100%;
-
     height: 72px;
-
     background: var(--red);
 }
-
-
-/* =========================
-   HEADER INNER
-========================= */
-
 .header-inner {
     width: 100%;
-
     max-width: 1200px;
-
     height: 100%;
-
     margin: 0 auto;
-
     padding: 0 24px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 }
-
-
 /* =========================
    LOGO
 ========================= */
-
 .logo {
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
     color: white;
-
     text-decoration: none;
 }
-
-
 .logo-text {
     font-size: 24px;
-
     font-weight: 900;
-
     letter-spacing: 1px;
 }
-
-
 /* =========================
    NAV
 ========================= */
-
 .nav {
     display: flex;
-
     align-items: center;
-
     gap: 4px;
 }
-
-
 .nav a {
     color: white;
-
     text-decoration: none;
-
     font-size: 13px;
-
     font-weight: 700;
-
     padding: 10px 14px;
-
     border-radius: 6px;
 }
-
-
 .nav a:hover {
     background:
         rgba(0,0,0,0.12);
 }
-
-
 /* =========================
    MOBILE MENU
 ========================= */
-
 .menu {
     display: none;
-
     width: 42px;
-
     height: 42px;
-
     border: 0;
-
     background:
         rgba(0,0,0,0.12);
-
     border-radius: 7px;
-
     align-items: center;
-
     justify-content: center;
-
     flex-direction: column;
-
     gap: 5px;
 }
-
-
 .menu span {
     width: 20px;
-
     height: 2px;
-
     background: white;
 }
-
-
 /* =========================
-   EMPTY NAVY AREA
+   MAIN
 ========================= */
-
 main {
     min-height:
         calc(100vh - 72px);
-
     background:
         var(--navy);
+    padding:
+        30px 20px 60px;
 }
-
-
+.main-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/* =========================
+   HOME INTRO
+========================= */
+.home-intro {
+    position: relative;
+    min-height: 250px;
+    background:
+        var(--navy-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+}
+/* red accent */
+.home-intro::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+    background:
+        var(--red);
+}
+/* diagonal red shape */
+.home-intro::after {
+    content: "";
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background:
+        var(--red);
+    opacity: 0.12;
+}
+/* =========================
+   INTRO TEXT
+========================= */
+.home-intro-content {
+    position: relative;
+    z-index: 2;
+}
+.home-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color:
+        rgba(255,255,255,0.65);
+    margin-bottom: 12px;
+}
+.home-title {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+.home-description {
+    margin-top: 14px;
+    color:
+        rgba(255,255,255,0.65);
+    font-size: 13px;
+    line-height: 1.7;
+}
 /* =========================
    MOBILE
 ========================= */
-
 @media (max-width: 700px) {
-
     .header {
         height: 64px;
     }
-
     .header-inner {
         padding: 0 18px;
     }
-
     .logo-text {
         font-size: 21px;
     }
-
     .nav {
         display: none;
     }
-
     .menu {
         display: flex;
     }
-
     main {
         min-height:
             calc(100vh - 64px);
+        padding:
+            18px 12px 50px;
+    }
+    .home-intro {
+        min-height: 230px;
+        padding:
+            28px 24px;
+        border-radius: 10px;
+    }
+    .home-title {
+        font-size: 34px;
+    }
+    .home-description {
+        font-size: 12px;
     }
 }
-
 </style>
 </head>
-
-
 <body>
-
-
 <header class="header">
-
     <div class="header-inner">
-
         <a href="#" class="logo">
             <span class="logo-text">
                 PHILLIES
             </span>
         </a>
-
-
         <nav class="nav">
-
             <a href="#">
                 HOME
             </a>
-
             <a href="#">
                 NEWS
             </a>
-
             <a href="#">
                 PLAYERS
             </a>
-
             <a href="#">
                 STATS
             </a>
-
         </nav>
-
-
         <button class="menu" aria-label="menu">
-
             <span></span>
             <span></span>
             <span></span>
-
         </button>
-
     </div>
-
 </header>
-
-
-<main></main>
-
-
+<main>
+    <div class="main-inner">
+        <section class="home-intro">
+            <div class="home-intro-content">
+                <div class="home-label">
+                    PHILADELPHIA PHILLIES
+                </div>
+                <div class="home-title">
+                    PHILLIES
+                </div>
+                <div class="home-description">
+                    Philadelphia Philliesの情報を
+                    <br>
+                    ひとつの場所に。
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
 </body>
 </html>
