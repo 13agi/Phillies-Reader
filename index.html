@@ -19,6 +19,7 @@
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
+    crossorigin
 >
 <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
@@ -27,6 +28,7 @@
 <style>
 /* =========================================================
    ROOT
+   SCHEDULE と統一
 ========================================================= */
 :root {
     --navy:
@@ -38,7 +40,7 @@
     --white:
         #ffffff;
     --muted:
-        #64748b;
+        #718096;
     --line:
         rgba(255,255,255,.075);
 }
@@ -81,7 +83,7 @@ body {
 }
 /* =========================================================
    HEADER
-   既存UI
+   SCHEDULE と完全統一
 ========================================================= */
 .header {
     position:
@@ -96,93 +98,8 @@ body {
         100;
     height:
         76px;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        center;
     background:
         var(--red);
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.25);
-    overflow:
-        hidden;
-}
-/* =========================================================
-   HEADER DETAIL
-========================================================= */
-.header::before {
-    content:
-        "";
-    position:
-        absolute;
-    width:
-        160%;
-    height:
-        140px;
-    top:
-        -75px;
-    left:
-        -30%;
-    transform:
-        rotate(-7deg);
-    border-top:
-        2px solid
-        rgba(255,255,255,.12);
-    border-bottom:
-        2px solid
-        rgba(255,255,255,.08);
-    opacity:
-        .6;
-}
-/* =========================================================
-   LOGO
-========================================================= */
-.logo {
-    position:
-        relative;
-    z-index:
-        2;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        48px;
-    font-weight:
-        900;
-    font-style:
-        italic;
-    letter-spacing:
-        1px;
-    text-transform:
-        uppercase;
-    color:
-        white;
-    transform:
-        skewX(-5deg);
-    text-shadow:
-        2px 2px 0
-        rgba(0,0,0,.12),
-        0 4px 10px
-        rgba(0,0,0,.12);
-}
-.logo::after {
-    content:
-        "";
-    display:
-        block;
-    width:
-        65%;
-    height:
-        3px;
-    margin:
-        3px auto 0;
-    border-radius:
-        99px;
-    background:
-        rgba(255,255,255,.9);
 }
 /* =========================================================
    MAIN
@@ -194,12 +111,8 @@ main {
         76px;
 }
 /* =========================================================
-   =========================================================
    NEWS
-   =========================================================
-   ========================================================= */
-/* =========================================================
-   NEWS PAGE
+   ここから下は既存ニュースUI用
 ========================================================= */
 .news-page {
     width:
@@ -207,9 +120,6 @@ main {
     padding:
         21px 14px 35px;
 }
-/* =========================================================
-   NEWS HEADING
-========================================================= */
 .news-heading {
     margin-bottom:
         17px;
@@ -237,7 +147,7 @@ main {
         1.4px;
 }
 /* =========================================================
-   FILTER
+   NEWS FILTER
 ========================================================= */
 .news-filters {
     display:
@@ -279,8 +189,6 @@ main {
         9px;
     font-weight:
         800;
-    letter-spacing:
-        .5px;
 }
 .news-filter.active {
     color:
@@ -357,9 +265,6 @@ main {
     transform:
         scale(.985);
 }
-/* =========================================================
-   NEWS META
-========================================================= */
 .news-meta {
     display:
         flex;
@@ -392,9 +297,6 @@ main {
     white-space:
         nowrap;
 }
-/* =========================================================
-   NEWS TITLE
-========================================================= */
 .news-title {
     font-size:
         18px;
@@ -402,12 +304,7 @@ main {
         800;
     line-height:
         1.25;
-    letter-spacing:
-        -.2px;
 }
-/* =========================================================
-   NEWS DESCRIPTION
-========================================================= */
 .news-description {
     margin-top:
         7px;
@@ -418,9 +315,6 @@ main {
     line-height:
         1.45;
 }
-/* =========================================================
-   NEWS FOOTER
-========================================================= */
 .news-footer {
     display:
         flex;
@@ -449,12 +343,7 @@ main {
         18px;
     font-weight:
         800;
-    line-height:
-        1;
 }
-/* =========================================================
-   MESSAGE
-========================================================= */
 .news-message {
     padding:
         50px 20px;
@@ -467,8 +356,7 @@ main {
 }
 /* =========================================================
    BOTTOM NAV
-   既存UI
-   順番固定
+   SCHEDULE と完全統一
 ========================================================= */
 .bottom-nav {
     position:
@@ -480,7 +368,7 @@ main {
     bottom:
         0;
     z-index:
-        200;
+        999;
     height:
         calc(
             76px +
@@ -507,6 +395,7 @@ main {
 }
 /* =========================================================
    NAV ITEM
+   SCHEDULE と完全統一
 ========================================================= */
 .nav-item {
     flex:
@@ -536,22 +425,13 @@ main {
         background .15s ease,
         transform .15s ease;
 }
-/* =========================================================
-   NAV ACTIVE
-========================================================= */
-.nav-item.active {
-    color:
-        white;
-    background:
-        rgba(227,25,55,.13);
-}
-.nav-item.active
-.nav-icon {
-    color:
-        var(--red);
+.nav-item:active {
+    transform:
+        scale(.94);
 }
 /* =========================================================
    NAV ICON
+   SCHEDULE と完全統一
 ========================================================= */
 .nav-icon {
     width:
@@ -568,9 +448,12 @@ main {
         18px;
     font-weight:
         700;
+    line-height:
+        1;
 }
 /* =========================================================
    NAV LABEL
+   SCHEDULE と完全統一
 ========================================================= */
 .nav-label {
     font-family:
@@ -580,36 +463,51 @@ main {
         12px;
     font-weight:
         700;
+    line-height:
+        1;
     letter-spacing:
         .8px;
 }
 /* =========================================================
+   ACTIVE
+========================================================= */
+.nav-item.active {
+    color:
+        var(--white);
+    background:
+        rgba(227,25,55,.13);
+}
+.nav-item.active
+.nav-icon {
+    color:
+        var(--red);
+}
+/* =========================================================
    SMALL IPHONE
+   SCHEDULE と統一
 ========================================================= */
 @media (
     max-width: 360px
 ) {
     .header {
         height:
-            90px;
+            76px;
     }
     main {
         padding-top:
-            90px;
+            76px;
     }
-    .logo {
-        font-size:
-            43px;
-    }
-    .news-page {
-        padding-left:
-            11px;
-        padding-right:
-            11px;
-    }
-    .news-title {
-        font-size:
-            17px;
+}
+/* =========================================================
+   SAFE AREA
+========================================================= */
+@supports (
+    padding:
+    env(safe-area-inset-bottom)
+) {
+    .bottom-nav {
+        padding-bottom:
+            env(safe-area-inset-bottom);
     }
 }
 </style>
@@ -617,20 +515,14 @@ main {
 <body>
 <!-- =====================================================
      HEADER
+     SCHEDULE と同じ
 ===================================================== -->
-<header class="header">
-    <div class="logo">
-        Phillies
-    </div>
-</header>
+<header class="header"></header>
 <!-- =====================================================
      MAIN
 ===================================================== -->
 <main>
 <section class="news-page">
-    <!-- =================================================
-         HEADING
-    ================================================== -->
     <div class="news-heading">
         <h1>
             Phillies News
@@ -639,9 +531,6 @@ main {
             LATEST PHILADELPHIA PHILLIES
         </p>
     </div>
-    <!-- =================================================
-         FILTER
-    ================================================== -->
     <div class="news-filters">
         <button
             type="button"
@@ -679,9 +568,6 @@ main {
             ESPN
         </button>
     </div>
-    <!-- =================================================
-         NEWS LIST
-    ================================================== -->
     <div
         class="news-list"
         id="news-list"
@@ -694,10 +580,10 @@ main {
 </main>
 <!-- =====================================================
      BOTTOM NAV
-     順番固定
+     SCHEDULE と完全統一
 ===================================================== -->
 <nav class="bottom-nav">
-    <!-- 1. SCHEDULE -->
+    <!-- SCHEDULE -->
     <a
         href="schedule.html"
         class="nav-item"
@@ -709,7 +595,7 @@ main {
             SCHEDULE
         </div>
     </a>
-    <!-- 2. SCORE -->
+    <!-- SCORE -->
     <a
         href="score.html"
         class="nav-item"
@@ -721,7 +607,7 @@ main {
             SCORE
         </div>
     </a>
-    <!-- 3. HOME -->
+    <!-- HOME -->
     <a
         href="index.html"
         class="nav-item active"
@@ -733,7 +619,7 @@ main {
             HOME
         </div>
     </a>
-    <!-- 4. PLAYER -->
+    <!-- PLAYER -->
     <a
         href="player.html"
         class="nav-item"
@@ -745,7 +631,7 @@ main {
             PLAYER
         </div>
     </a>
-    <!-- 5. STATS -->
+    <!-- STATS -->
     <a
         href="stats.html"
         class="nav-item"
@@ -759,31 +645,19 @@ main {
     </a>
 </nav>
 <!-- =====================================================
-     NEWS SCRIPT
+     NEWS JS
 ===================================================== -->
 <script>
-/* =========================================================
-   DATA
-========================================================= */
 const NEWS_DATA_URL =
     "data/news.json";
-/* =========================================================
-   ELEMENT
-========================================================= */
 const newsList =
     document.getElementById(
         "news-list"
     );
-/* =========================================================
-   STATE
-========================================================= */
 let newsArticles =
     [];
 let activeSource =
     "ALL";
-/* =========================================================
-   ESCAPE
-========================================================= */
 function escapeHTML(
     value
 ) {
@@ -815,45 +689,30 @@ function escapeHTML(
             "&#039;"
         );
 }
-/* =========================================================
-   SOURCE
-========================================================= */
 function normalizeSource(
     source
 ) {
     const value =
         String(
-            source ||
-            ""
+            source || ""
         )
         .trim()
         .toUpperCase();
     if (
         value.includes("MLB")
-    ) {
-        return "MLB";
-    }
+    ) return "MLB";
     if (
         value.includes("NBC")
-    ) {
-        return "NBC";
-    }
+    ) return "NBC";
     if (
         value.includes("CBS")
-    ) {
-        return "CBS";
-    }
+    ) return "CBS";
     if (
         value.includes("ESPN")
-    ) {
-        return "ESPN";
-    }
+    ) return "ESPN";
     return value ||
         "NEWS";
 }
-/* =========================================================
-   DATE
-========================================================= */
 function formatDate(
     value
 ) {
@@ -861,9 +720,7 @@ function formatDate(
         return "";
     }
     const date =
-        new Date(
-            value
-        );
+        new Date(value);
     if (
         Number.isNaN(
             date.getTime()
@@ -885,16 +742,12 @@ function formatDate(
         }
     );
 }
-/* =========================================================
-   SORT
-========================================================= */
 function sortArticles(
     articles
 ) {
     return [
         ...articles
-    ]
-    .sort(
+    ].sort(
         (
             a,
             b
@@ -905,26 +758,18 @@ function sortArticles(
                     a.published ||
                     a.date ||
                     0
-                )
-                .getTime();
+                ).getTime();
             const bDate =
                 new Date(
                     b.publishedAt ||
                     b.published ||
                     b.date ||
                     0
-                )
-                .getTime();
-            return (
-                bDate -
-                aDate
-            );
+                ).getTime();
+            return bDate - aDate;
         }
     );
 }
-/* =========================================================
-   CARD
-========================================================= */
 function createNewsCard(
     article
 ) {
@@ -961,9 +806,7 @@ function createNewsCard(
     card.innerHTML = `
         <div class="news-meta">
             <span class="news-source">
-                ${escapeHTML(
-                    source
-                )}
+                ${escapeHTML(source)}
             </span>
             <span class="news-time">
                 ${escapeHTML(
@@ -974,20 +817,14 @@ function createNewsCard(
             </span>
         </div>
         <div class="news-title">
-            ${escapeHTML(
-                title
-            )}
+            ${escapeHTML(title)}
         </div>
         ${
             description
             ?
             `
-            <div
-                class="news-description"
-            >
-                ${escapeHTML(
-                    description
-                )}
+            <div class="news-description">
+                ${escapeHTML(description)}
             </div>
             `
             :
@@ -996,8 +833,7 @@ function createNewsCard(
         <div class="news-footer">
             <span class="news-author">
                 ${escapeHTML(
-                    article.author ||
-                    ""
+                    article.author || ""
                 )}
             </span>
             <span class="news-arrow">
@@ -1007,9 +843,6 @@ function createNewsCard(
     `;
     return card;
 }
-/* =========================================================
-   RENDER
-========================================================= */
 function renderNews() {
     newsList.innerHTML =
         "";
@@ -1023,26 +856,20 @@ function renderNews() {
     ) {
         articles =
             articles.filter(
-                article => {
-                    return (
-                        normalizeSource(
-                            article.source
-                        )
-                        ===
-                        activeSource
-                    );
-                }
+                article =>
+                    normalizeSource(
+                        article.source
+                    )
+                    ===
+                    activeSource
             );
     }
     if (
         articles.length === 0
     ) {
         newsList.innerHTML = `
-            <div
-                class="news-message"
-            >
-                No Phillies news
-                available.
+            <div class="news-message">
+                No Phillies news available.
             </div>
         `;
         return;
@@ -1057,9 +884,6 @@ function renderNews() {
         }
     );
 }
-/* =========================================================
-   LOAD
-========================================================= */
 async function loadNews() {
     try {
         const response =
@@ -1080,9 +904,7 @@ async function loadNews() {
         const data =
             await response.json();
         if (
-            Array.isArray(
-                data
-            )
+            Array.isArray(data)
         ) {
             newsArticles =
                 data;
@@ -1108,18 +930,12 @@ async function loadNews() {
             error
         );
         newsList.innerHTML = `
-            <div
-                class="news-message"
-            >
-                News data could not
-                be loaded.
+            <div class="news-message">
+                News data could not be loaded.
             </div>
         `;
     }
 }
-/* =========================================================
-   FILTER
-========================================================= */
 document
     .querySelectorAll(
         ".news-filter"
@@ -1152,9 +968,6 @@ document
             );
         }
     );
-/* =========================================================
-   START
-========================================================= */
 loadNews();
 </script>
 </body>
