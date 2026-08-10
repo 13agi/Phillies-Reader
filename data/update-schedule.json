@@ -5,7 +5,7 @@
     "abbreviation": "PHI"
   },
   "season": 2026,
-  "updated": "2026-08-11T05:10:33.589094+09:00",
+  "updated": "2026-08-11T08:07:50.224131+09:00",
   "count": 184,
   "games": [
     {
@@ -13687,13 +13687,13 @@
         "id": 143,
         "name": "Philadelphia Phillies",
         "abbreviation": "PHI",
-        "score": null
+        "score": 0
       },
       "opponent": {
         "id": 138,
         "name": "St. Louis Cardinals",
         "abbreviation": "STL",
-        "score": null
+        "score": 0
       },
       "result": null,
       "venue": {
@@ -13703,7 +13703,13 @@
         "state": "",
         "stateAbbrev": ""
       },
-      "inningScores": [],
+      "inningScores": [
+        {
+          "inning": 1,
+          "away": 0,
+          "home": 0
+        }
+      ],
       "philliesPitchers": []
     },
     {
