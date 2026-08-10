@@ -8,9 +8,6 @@
                viewport-fit=cover">
 <title>PLAYER | PHILLIES</title>
 <style>
-/* =====================================================
-   COLOR
-===================================================== */
 :root {
     --navy: #07152b;
     --navy-light: #0b1c38;
@@ -20,26 +17,20 @@
     --yellow: #f4c430;
     --gray: #64748b;
 }
-/* =====================================================
-   RESET
-===================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color:
-        transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 html,
 body {
     width: 100%;
     min-height: 100%;
-    background:
-        var(--navy);
+    background: var(--navy);
 }
 body {
-    color:
-        var(--white);
+    color: var(--white);
     font-family:
         Arial,
         Helvetica,
@@ -129,15 +120,14 @@ main {
     margin-bottom: 5px;
 }
 .player-subtitle {
-    color:
-        var(--muted);
+    color: var(--muted);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.3px;
     margin-bottom: 20px;
 }
 /* =====================================================
-   FILTER AREA
+   FILTER
 ===================================================== */
 .filter-area {
     width: 100%;
@@ -158,8 +148,7 @@ main {
         rgba(0,0,0,0.12);
 }
 .filter-area::before {
-    content:
-        "FILTER";
+    content: "FILTER";
     display: block;
     margin:
         0 2px 11px;
@@ -201,8 +190,7 @@ main {
     border-radius: 11px;
     background:
         rgba(7,21,43,0.82);
-    color:
-        var(--white);
+    color: var(--white);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: .45px;
@@ -230,10 +218,8 @@ main {
         no-repeat;
 }
 .filter-select option {
-    background:
-        #07152b;
-    color:
-        white;
+    background: #07152b;
+    color: white;
 }
 /* =====================================================
    POSITION GROUP
@@ -317,16 +303,13 @@ main {
     width: 4px;
 }
 .player-card.active::after {
-    background:
-        var(--red);
+    background: var(--red);
 }
 .player-card.il::after {
-    background:
-        var(--yellow);
+    background: var(--yellow);
 }
 .player-card.outside::after {
-    background:
-        var(--gray);
+    background: var(--gray);
 }
 /* =====================================================
    NUMBER
@@ -402,8 +385,7 @@ main {
     font-size: 15px;
     font-weight: 800;
     line-height: 1.25;
-    color:
-        var(--white);
+    color: var(--white);
     white-space: normal;
     overflow-wrap: anywhere;
 }
@@ -416,18 +398,15 @@ main {
 }
 .player-card.active
 .player-status {
-    color:
-        var(--red);
+    color: var(--red);
 }
 .player-card.il
 .player-status {
-    color:
-        var(--yellow);
+    color: var(--yellow);
 }
 .player-card.outside
 .player-status {
-    color:
-        #94a3b8;
+    color: #94a3b8;
 }
 /* =====================================================
    EXPAND
@@ -449,8 +428,7 @@ main {
 }
 .player-card.open
 .expand-mark {
-    color:
-        var(--red);
+    color: var(--red);
     transform:
         rotate(180deg);
 }
@@ -547,8 +525,7 @@ main {
     font-size: 14px;
     font-weight: 900;
     line-height: 1;
-    color:
-        var(--white);
+    color: var(--white);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -567,14 +544,10 @@ main {
 .message {
     padding:
         35px 20px;
-    text-align:
-        center;
-    color:
-        var(--muted);
-    font-size:
-        13px;
-    line-height:
-        1.7;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
 }
 /* =====================================================
    BOTTOM NAV
@@ -617,8 +590,7 @@ main {
     justify-content: center;
     gap: 5px;
     text-decoration: none;
-    color:
-        var(--muted);
+    color: var(--muted);
     border-radius: 13px;
 }
 .nav-item:active {
@@ -642,15 +614,13 @@ main {
         nowrap;
 }
 .nav-item.active {
-    color:
-        var(--white);
+    color: var(--white);
     background:
         rgba(227,25,55,0.13);
 }
 .nav-item.active
 .nav-icon {
-    color:
-        var(--red);
+    color: var(--red);
 }
 /* =====================================================
    SMALL IPHONE
@@ -899,7 +869,9 @@ function getPositionGroup(player) {
 ===================================================== */
 function positionOrder(player) {
     const group =
-        getPositionGroup(player);
+        getPositionGroup(
+            player
+        );
     const order = {
         P: 1,
         C: 2,
@@ -1003,8 +975,10 @@ function findPlayerStats(player) {
 }
 /* =====================================================
    BATTING STATS
+   1段目
    G / H / HR / RBI
-   PA / AVG / OBP / OPS
+   2段目
+   PA / AVG / OPS / BABIP
 ===================================================== */
 function createBattingStats(
     card,
@@ -1034,13 +1008,12 @@ function createBattingStats(
         batting.avg ??
         batting.AVG ??
         batting.battingAverage;
-    const obp =
-        batting.obp ??
-        batting.OBP ??
-        batting.onBasePercentage;
     const ops =
         batting.ops ??
         batting.OPS;
+    const babip =
+        batting.babip ??
+        batting.BABIP;
     card.innerHTML = `
         <div class="stats-header">
             <div class="stats-title">
@@ -1050,6 +1023,7 @@ function createBattingStats(
                 2026 SEASON
             </div>
         </div>
+        <!-- ROW 1 -->
         <div class="stat-grid">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1084,6 +1058,7 @@ function createBattingStats(
                 </span>
             </div>
         </div>
+        <!-- ROW 2 -->
         <div class="stat-grid second-row">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1109,17 +1084,6 @@ function createBattingStats(
             <div class="stat-box">
                 <span class="stat-value">
                     ${formatStat(
-                        obp,
-                        3
-                    )}
-                </span>
-                <span class="stat-label">
-                    OBP
-                </span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-value">
-                    ${formatStat(
                         ops,
                         3
                     )}
@@ -1128,13 +1092,31 @@ function createBattingStats(
                     OPS
                 </span>
             </div>
+            <div class="stat-box">
+                <span class="stat-value">
+                    ${formatStat(
+                        babip,
+                        3
+                    )}
+                </span>
+                <span class="stat-label">
+                    BABIP
+                </span>
+            </div>
         </div>
     `;
 }
 /* =====================================================
    PITCHING STATS
+   1段目
    G / W-L / IP / K
+   2段目
    ERA / WHIP / K% / BB%
+   K%  = K / BF × 100
+   BB% = BB / BF × 100
+   ★ JSONに保存されたK%/BB%を
+     表示値として直接使用しない
+   ★ 必ずK・BB・BFから再計算
 ===================================================== */
 function createPitchingStats(
     card,
@@ -1176,107 +1158,64 @@ function createPitchingStats(
         pitching.baseOnBalls;
     /* =========================
        BATTERS FACED
+       BFのみを使用
+       PAなどへの代替はしない
     ========================== */
     const battersFaced =
         pitching.battersFaced ??
-        pitching.BF ??
-        pitching.PA ??
-        pitching.plateAppearances ??
-        pitching.plate_appearances;
+        pitching.BF;
     /* =========================
        K%
+       K / BF × 100
     ========================== */
-    let kPercent =
-        pitching.kPercent ??
-        pitching.KPercent ??
-        pitching.KPct ??
-        pitching.KPercentage;
+    let kPercent = null;
+    const so =
+        parseFloat(
+            strikeouts
+        );
+    const bf =
+        parseFloat(
+            battersFaced
+        );
     if (
-        (
-            kPercent === null ||
-            kPercent === undefined
-        ) &&
-        strikeouts !== null &&
-        strikeouts !== undefined &&
-        battersFaced !== null &&
-        battersFaced !== undefined
+        Number.isFinite(so) &&
+        Number.isFinite(bf) &&
+        bf > 0
     ) {
-        const so =
-            parseFloat(
-                strikeouts
-            );
-        const bf =
-            parseFloat(
-                battersFaced
-            );
-        if (
-            !Number.isNaN(so) &&
-            !Number.isNaN(bf) &&
-            bf > 0
-        ) {
-            kPercent =
-                (
-                    so / bf
-                ) * 100;
-        }
+        kPercent =
+            (
+                so / bf
+            ) * 100;
     }
     /* =========================
        BB%
+       BB / BF × 100
     ========================== */
-    let bbPercent =
-        pitching.bbPercent ??
-        pitching.BBPercent ??
-        pitching.BBPct ??
-        pitching.BBPercentage;
+    let bbPercent = null;
+    const bb =
+        parseFloat(
+            walks
+        );
     if (
-        (
-            bbPercent === null ||
-            bbPercent === undefined
-        ) &&
-        walks !== null &&
-        walks !== undefined &&
-        battersFaced !== null &&
-        battersFaced !== undefined
+        Number.isFinite(bb) &&
+        Number.isFinite(bf) &&
+        bf > 0
     ) {
-        const bb =
-            parseFloat(
-                walks
-            );
-        const bf =
-            parseFloat(
-                battersFaced
-            );
-        if (
-            !Number.isNaN(bb) &&
-            !Number.isNaN(bf) &&
-            bf > 0
-        ) {
-            bbPercent =
-                (
-                    bb / bf
-                ) * 100;
-        }
+        bbPercent =
+            (
+                bb / bf
+            ) * 100;
     }
     /* =========================
        DISPLAY
     ========================== */
     const kDisplay =
-        (
-            kPercent !== null &&
-            kPercent !== undefined
-        )
-            ? Number(
-                kPercent
-            ).toFixed(1) + "%"
+        kPercent !== null
+            ? kPercent.toFixed(1) + "%"
             : "—";
     const bbDisplay =
-        (
-            bbPercent !== null &&
-            bbPercent !== undefined
-        )
-            ? Number(
-                bbPercent
-            ).toFixed(1) + "%"
+        bbPercent !== null
+            ? bbPercent.toFixed(1) + "%"
             : "—";
     /* =========================
        W-L
@@ -1305,9 +1244,7 @@ function createPitchingStats(
                 2026 SEASON
             </div>
         </div>
-        <!-- =====================
-             ROW 1
-        ====================== -->
+        <!-- ROW 1 -->
         <div class="stat-grid">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1346,9 +1283,7 @@ function createPitchingStats(
                 </span>
             </div>
         </div>
-        <!-- =====================
-             ROW 2
-        ====================== -->
+        <!-- ROW 2 -->
         <div class="stat-grid second-row">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1404,7 +1339,9 @@ function createStatsCard(
     card.className =
         "stats-card";
     const stats =
-        findPlayerStats(player);
+        findPlayerStats(
+            player
+        );
     if (!stats) {
         card.innerHTML = `
             <div class="stats-header">
@@ -1432,8 +1369,7 @@ function createStatsCard(
             card,
             stats
         );
-    }
-    else {
+    } else {
         createBattingStats(
             card,
             stats
