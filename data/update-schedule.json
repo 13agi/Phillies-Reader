@@ -5,7 +5,7 @@
     "abbreviation": "PHI"
   },
   "season": 2026,
-  "updated": "2026-08-11T01:22:53.504255+09:00",
+  "updated": "2026-08-11T05:10:33.589094+09:00",
   "count": 184,
   "games": [
     {
@@ -13680,8 +13680,8 @@
       "date": "2026-08-10",
       "gameDate": "2026-08-10T23:45:00Z",
       "status": "Preview",
-      "statusCode": "S",
-      "detailedState": "Scheduled",
+      "statusCode": "P",
+      "detailedState": "Pre-Game",
       "location": "AWAY",
       "phillies": {
         "id": 143,
