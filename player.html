@@ -8,9 +8,14 @@
                viewport-fit=cover">
 <title>PLAYER | PHILLIES</title>
 <style>
+/* =====================================================
+   ROOT
+===================================================== */
 :root {
     --navy: #07152b;
+    --navy-light: #0b1c38;
     --red: #e31937;
+    --red-dark: #bd102d;
     --white: #ffffff;
     --muted: #64748b;
     --yellow: #f4c430;
@@ -68,25 +73,27 @@ body {
         0 7px 22px
         rgba(0,0,0,0.30);
 }
+/* decorative light */
 .header::before {
     content: "";
     position: absolute;
-    top: -120px;
-    right: -55px;
-    width: 300px;
-    height: 300px;
+    top: -150px;
+    right: -65px;
+    width: 330px;
+    height: 330px;
     transform:
         rotate(27deg);
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.13),
+            rgba(255,255,255,0.14),
             rgba(255,255,255,0.015)
         );
     border-left:
         1px solid
-        rgba(255,255,255,0.16);
+        rgba(255,255,255,0.14);
 }
+/* bottom accent */
 .header::after {
     content: "";
     position: absolute;
@@ -123,49 +130,136 @@ main {
    TITLE
 ===================================================== */
 .player-title {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: .5px;
-    margin-bottom: 4px;
+    font-size:
+        27px;
+    font-weight:
+        800;
+    letter-spacing:
+        .3px;
+    line-height:
+        1.1;
+    margin-bottom:
+        5px;
 }
 .player-subtitle {
     color:
         var(--muted);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    font-size:
+        9px;
+    font-weight:
+        800;
+    letter-spacing:
+        1.3px;
+    margin-bottom:
+        20px;
 }
 /* =====================================================
-   FILTER AREA
+   FILTER CARD
 ===================================================== */
 .filter-area {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    margin-bottom: 25px;
+    width:
+        100%;
+    margin-bottom:
+        27px;
+    padding:
+        13px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.025)
+        );
+    border:
+        1px solid
+        rgba(255,255,255,0.075);
+    border-radius:
+        16px;
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.12);
+}
+/* FILTER */
+.filter-area::before {
+    content:
+        "FILTER";
+    display:
+        block;
+    margin:
+        0 2px 11px;
+    font-size:
+        9px;
+    font-weight:
+        900;
+    letter-spacing:
+        1.5px;
+    color:
+        rgba(255,255,255,0.38);
+}
+/* =====================================================
+   FILTER BLOCK
+===================================================== */
+.filter-block {
+    width:
+        100%;
+}
+.filter-block:first-child {
+    margin-bottom:
+        9px;
+}
+/* ROSTER separated */
+.roster-filter-block {
+    padding-top:
+        9px;
+    border-top:
+        1px solid
+        rgba(255,255,255,0.06);
+}
+/* =====================================================
+   FILTER LABEL
+===================================================== */
+.filter-caption {
+    margin:
+        0 0 5px 2px;
+    font-size:
+        8px;
+    font-weight:
+        900;
+    letter-spacing:
+        1px;
+    color:
+        rgba(255,255,255,0.42);
 }
 /* =====================================================
    SELECT
 ===================================================== */
 .filter-select {
-    width: 100%;
-    height: 46px;
+    width:
+        100%;
+    height:
+        45px;
     padding:
-        0 42px 0 15px;
-    border: 1px solid
-        rgba(255,255,255,0.10);
-    border-radius: 12px;
+        0 40px 0 14px;
+    border:
+        1px solid
+        rgba(255,255,255,0.085);
+    border-radius:
+        11px;
     background:
-        rgba(255,255,255,0.055);
+        rgba(7,21,43,0.82);
     color:
         var(--white);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .5px;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+    font-size:
+        11px;
+    font-weight:
+        800;
+    letter-spacing:
+        .45px;
+    outline:
+        none;
+    appearance:
+        none;
+    -webkit-appearance:
+        none;
     background-image:
         linear-gradient(
             45deg,
@@ -178,8 +272,8 @@ main {
             transparent 50%
         );
     background-position:
-        calc(100% - 19px) 19px,
-        calc(100% - 13px) 19px;
+        calc(100% - 18px) 18px,
+        calc(100% - 12px) 18px;
     background-size:
         6px 6px,
         6px 6px;
@@ -204,21 +298,30 @@ main {
         25px;
 }
 .position-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display:
+        flex;
+    align-items:
+        center;
+    gap:
+        10px;
     margin-bottom:
         9px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-size:
+        11px;
+    font-weight:
+        900;
+    letter-spacing:
+        1px;
     color:
-        rgba(255,255,255,0.70);
+        rgba(255,255,255,0.66);
 }
 .position-title::after {
-    content: "";
-    flex: 1;
-    height: 1px;
+    content:
+        "";
+    flex:
+        1;
+    height:
+        1px;
     background:
         rgba(255,255,255,0.08);
 }
@@ -226,19 +329,27 @@ main {
    PLAYER LIST
 ===================================================== */
 .player-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display:
+        flex;
+    flex-direction:
+        column;
+    gap:
+        8px;
 }
 /* =====================================================
    PLAYER CARD
 ===================================================== */
 .player-card {
-    position: relative;
-    width: 100%;
-    min-height: 84px;
-    display: flex;
-    align-items: center;
+    position:
+        relative;
+    width:
+        100%;
+    min-height:
+        84px;
+    display:
+        flex;
+    align-items:
+        center;
     padding:
         11px 13px 11px 18px;
     background:
@@ -256,15 +367,21 @@ main {
         hidden;
 }
 /* =====================================================
-   STATUS LINE
+   STATUS LEFT LINE
 ===================================================== */
 .player-card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 4px;
+    content:
+        "";
+    position:
+        absolute;
+    top:
+        0;
+    left:
+        0;
+    bottom:
+        0;
+    width:
+        4px;
 }
 /* ACTIVE */
 .player-card.active::after {
@@ -285,15 +402,19 @@ main {
    NUMBER
 ===================================================== */
 .player-number {
-    width: 56px;
-    flex-shrink: 0;
+    width:
+        55px;
+    flex-shrink:
+        0;
     font-family:
         Impact,
         Haettenschweiler,
         "Arial Narrow Bold",
         sans-serif;
-    font-size: 31px;
-    line-height: 1;
+    font-size:
+        31px;
+    line-height:
+        1;
     letter-spacing:
         -1.5px;
     color:
@@ -306,7 +427,8 @@ main {
 .player-number::before {
     content:
         "#";
-    display: inline-block;
+    display:
+        inline-block;
     margin-right:
         1px;
     font-family:
@@ -327,7 +449,7 @@ main {
 ===================================================== */
 .player-bt {
     width:
-        55px;
+        54px;
     flex-shrink:
         0;
     font-size:
@@ -337,20 +459,20 @@ main {
     letter-spacing:
         .3px;
     color:
-        rgba(255,255,255,.58);
+        rgba(255,255,255,.55);
 }
 /* =====================================================
    POSITION
 ===================================================== */
 .player-pos {
     width:
-        40px;
+        39px;
     flex-shrink:
         0;
     font-size:
         10px;
     font-weight:
-        800;
+        900;
     color:
         var(--red);
 }
@@ -358,8 +480,10 @@ main {
    PLAYER INFO
 ===================================================== */
 .player-info {
-    flex: 1;
-    min-width: 0;
+    flex:
+        1;
+    min-width:
+        0;
     display:
         flex;
     flex-direction:
@@ -370,7 +494,7 @@ main {
         4px;
 }
 /* =====================================================
-   FULL PLAYER NAME
+   FULL NAME
 ===================================================== */
 .player-name {
     width:
@@ -381,22 +505,21 @@ main {
         800;
     letter-spacing:
         .05px;
+    line-height:
+        1.25;
     color:
         var(--white);
-    /*
-       名前は省略しない
-    */
     white-space:
         normal;
     overflow:
         visible;
     text-overflow:
         clip;
-    line-height:
-        1.2;
+    overflow-wrap:
+        anywhere;
 }
 /* =====================================================
-   STATUS LABEL
+   STATUS
 ===================================================== */
 .player-status {
     width:
@@ -406,7 +529,7 @@ main {
     font-weight:
         900;
     letter-spacing:
-        .7px;
+        .8px;
     line-height:
         1;
 }
@@ -446,9 +569,12 @@ main {
 .bottom-nav {
     position:
         fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left:
+        0;
+    right:
+        0;
+    bottom:
+        0;
     z-index:
         200;
     height:
@@ -466,14 +592,14 @@ main {
     justify-content:
         space-between;
     background:
-        rgba(5,16,34,.97);
+        rgba(5,16,34,0.97);
     backdrop-filter:
         blur(18px);
     -webkit-backdrop-filter:
         blur(18px);
     border-top:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,0.08);
 }
 .nav-item {
     flex:
@@ -498,6 +624,10 @@ main {
         var(--muted);
     border-radius:
         13px;
+}
+.nav-item:active {
+    transform:
+        scale(.94);
 }
 .nav-icon {
     width:
@@ -529,7 +659,7 @@ main {
     color:
         var(--white);
     background:
-        rgba(227,25,55,.13);
+        rgba(227,25,55,0.13);
 }
 .nav-item.active
 .nav-icon {
@@ -568,7 +698,13 @@ main {
 </style>
 </head>
 <body>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 <header class="header"></header>
+<!-- =====================================================
+     MAIN
+===================================================== -->
 <main>
 <section class="player-page">
     <h1 class="player-title">
@@ -577,49 +713,63 @@ main {
     <p class="player-subtitle">
         PHILADELPHIA PHILLIES
     </p>
-    <!-- =============================================
+    <!-- =================================================
          FILTER
-    ============================================== -->
+    ================================================== -->
     <div class="filter-area">
-        <select
-            id="roster-filter"
-            class="filter-select">
-            <option value="ALL">
-                ACTIVE + 40-MAN + IL
-            </option>
-            <option value="26MAN">
-                ACTIVE
-            </option>
-            <option value="IL">
-                IL
-            </option>
-            <option value="40MAN">
-                40-MAN
-            </option>
-        </select>
-        <select
-            id="position-filter"
-            class="filter-select">
-            <option value="ALL">
-                ALL POSITIONS
-            </option>
-            <option value="P">
-                PITCHERS
-            </option>
-            <option value="C">
-                CATCHERS
-            </option>
-            <option value="IF">
-                INFIELDERS
-            </option>
-            <option value="OF">
-                OUTFIELDERS
-            </option>
-            <option value="DH">
-                DESIGNATED HITTERS
-            </option>
-        </select>
+        <!-- POSITION -->
+        <div class="filter-block">
+            <div class="filter-caption">
+                POSITION
+            </div>
+            <select
+                id="position-filter"
+                class="filter-select">
+                <option value="ALL">
+                    ALL POSITIONS
+                </option>
+                <option value="P">
+                    PITCHERS
+                </option>
+                <option value="C">
+                    CATCHERS
+                </option>
+                <option value="IF">
+                    INFIELDERS
+                </option>
+                <option value="OF">
+                    OUTFIELDERS
+                </option>
+                <option value="DH">
+                    DESIGNATED HITTERS
+                </option>
+            </select>
+        </div>
+        <!-- ROSTER -->
+        <div
+            class="filter-block roster-filter-block">
+            <div class="filter-caption">
+                ROSTER
+            </div>
+            <select
+                id="roster-filter"
+                class="filter-select">
+                <option value="ALL">
+                    ACTIVE + 40-MAN + IL
+                </option>
+                <option value="26MAN">
+                    ACTIVE
+                </option>
+                <option value="IL">
+                    IL
+                </option>
+                <option value="40MAN">
+                    40-MAN
+                </option>
+            </select>
+        </div>
     </div>
+    <!-- PLAYER DATA -->
     <div id="player-container">
         <div class="message">
             Loading players...
@@ -684,7 +834,7 @@ main {
 </nav>
 <script>
 /* =====================================================
-   GLOBAL DATA
+   DATA
 ===================================================== */
 let allPlayers = [];
 /* =====================================================
@@ -695,60 +845,80 @@ function getPositionGroup(player) {
         String(
             player.position || ""
         ).toUpperCase();
-    const name =
+    const positionName =
         String(
             player.positionName || ""
         ).toLowerCase();
-    /* 投手 */
+    /* PITCHERS */
     if (
         position === "P" ||
         position === "SP" ||
         position === "RP" ||
         position === "RHP" ||
         position === "LHP" ||
-        name.includes("pitcher")
+        positionName.includes(
+            "pitcher"
+        )
     ) {
         return "P";
     }
-    /* 捕手 */
+    /* CATCHERS */
     if (
         position === "C" ||
-        name.includes("catcher")
+        positionName.includes(
+            "catcher"
+        )
     ) {
         return "C";
     }
-    /* 内野手 */
+    /* INFIELDERS */
     if (
         [
             "1B",
             "2B",
             "3B",
             "SS"
-        ].includes(position) ||
-        name.includes("infielder") ||
-        name.includes("first baseman") ||
-        name.includes("second baseman") ||
-        name.includes("third baseman") ||
-        name.includes("shortstop")
+        ].includes(
+            position
+        ) ||
+        positionName.includes(
+            "infielder"
+        ) ||
+        positionName.includes(
+            "first baseman"
+        ) ||
+        positionName.includes(
+            "second baseman"
+        ) ||
+        positionName.includes(
+            "third baseman"
+        ) ||
+        positionName.includes(
+            "shortstop"
+        )
     ) {
         return "IF";
     }
-    /* 外野手 */
+    /* OUTFIELDERS */
     if (
         [
             "LF",
             "CF",
             "RF",
             "OF"
-        ].includes(position) ||
-        name.includes("outfielder")
+        ].includes(
+            position
+        ) ||
+        positionName.includes(
+            "outfielder"
+        )
     ) {
         return "OF";
     }
-    /* DH */
+    /* DESIGNATED HITTER */
     if (
         position === "DH" ||
-        name.includes(
+        positionName.includes(
             "designated"
         )
     ) {
@@ -793,41 +963,60 @@ function getNumber(player) {
     return number;
 }
 /* =====================================================
-   CREATE CARD
+   STATUS CLASS
 ===================================================== */
-function createCard(player) {
+function getStatusClass(player) {
     const status =
         String(
             player.rosterStatus ||
-            "40MAN"
+            ""
         ).toUpperCase();
-    let className =
-        "outside";
-    let statusText =
-        "40-MAN";
     if (
         status === "26MAN"
     ) {
-        className =
-            "active";
-        statusText =
-            "ACTIVE";
+        return "active";
     }
-    else if (
+    if (
         status === "IL"
     ) {
-        className =
-            "il";
-        statusText =
-            "IL";
+        return "il";
     }
+    return "outside";
+}
+/* =====================================================
+   STATUS TEXT
+===================================================== */
+function getStatusText(player) {
+    const status =
+        String(
+            player.rosterStatus ||
+            ""
+        ).toUpperCase();
+    if (
+        status === "26MAN"
+    ) {
+        return "ACTIVE";
+    }
+    if (
+        status === "IL"
+    ) {
+        return "IL";
+    }
+    return "40-MAN";
+}
+/* =====================================================
+   CREATE PLAYER CARD
+===================================================== */
+function createCard(player) {
     const card =
         document.createElement(
             "div"
         );
     card.className =
         "player-card " +
-        className;
+        getStatusClass(
+            player
+        );
     /* NUMBER */
     const number =
         document.createElement(
@@ -862,7 +1051,7 @@ function createCard(player) {
         );
     info.className =
         "player-info";
-    /* NAME */
+    /* FULL NAME */
     const name =
         document.createElement(
             "div"
@@ -873,19 +1062,21 @@ function createCard(player) {
         player.name ||
         "Unknown";
     /* STATUS */
-    const statusElement =
+    const status =
         document.createElement(
             "div"
         );
-    statusElement.className =
+    status.className =
         "player-status";
-    statusElement.textContent =
-        statusText;
+    status.textContent =
+        getStatusText(
+            player
+        );
     info.appendChild(
         name
     );
     info.appendChild(
-        statusElement
+        status
     );
     card.appendChild(
         number
@@ -917,9 +1108,7 @@ function renderPlayers() {
         document.getElementById(
             "position-filter"
         ).value;
-    /* ---------------------------------------------
-       FILTER
-    --------------------------------------------- */
+    /* FILTER */
     let players =
         allPlayers.filter(
             player => {
@@ -932,14 +1121,14 @@ function renderPlayers() {
                     getPositionGroup(
                         player
                     );
-                /* roster */
+                /* ROSTER */
                 if (
                     rosterFilter !== "ALL" &&
                     status !== rosterFilter
                 ) {
                     return false;
                 }
-                /* position */
+                /* POSITION */
                 if (
                     positionFilter !== "ALL" &&
                     position !== positionFilter
@@ -949,18 +1138,16 @@ function renderPlayers() {
                 return true;
             }
         );
-    /* ---------------------------------------------
-       SORT
-    --------------------------------------------- */
+    /* SORT */
     players.sort(
         (a, b) => {
-            const positionDifference =
+            const groupDifference =
                 positionOrder(a) -
                 positionOrder(b);
             if (
-                positionDifference !== 0
+                groupDifference !== 0
             ) {
-                return positionDifference;
+                return groupDifference;
             }
             return (
                 getNumber(a) -
@@ -968,25 +1155,20 @@ function renderPlayers() {
             );
         }
     );
-    /* ---------------------------------------------
-       EMPTY
-    --------------------------------------------- */
+    /* EMPTY */
     if (
         players.length === 0
     ) {
-        container.innerHTML =
-            `
+        container.innerHTML = `
             <div class="message">
                 No players found.
             </div>
-            `;
+        `;
         return;
     }
     container.innerHTML =
         "";
-    /* ---------------------------------------------
-       GROUPS
-    --------------------------------------------- */
+    /* GROUPS */
     const groups = {
         P: {
             title:
@@ -1030,14 +1212,14 @@ function renderPlayers() {
             ) {
                 groups[group]
                     .players
-                    .push(player);
+                    .push(
+                        player
+                    );
             }
         }
     );
-    /* ---------------------------------------------
-       DISPLAY ORDER
-    --------------------------------------------- */
-    const order = [
+    /* DISPLAY ORDER */
+    const displayOrder = [
         "P",
         "C",
         "IF",
@@ -1045,7 +1227,7 @@ function renderPlayers() {
         "DH",
         "OTHER"
     ];
-    order.forEach(
+    displayOrder.forEach(
         key => {
             const group =
                 groups[key];
@@ -1096,7 +1278,7 @@ function renderPlayers() {
     );
 }
 /* =====================================================
-   LOAD
+   LOAD ROSTER
 ===================================================== */
 async function loadRoster() {
     const container =
@@ -1113,7 +1295,7 @@ async function loadRoster() {
             !response.ok
         ) {
             throw new Error(
-                "Could not load roster.json"
+                "roster.json could not be loaded."
             );
         }
         const data =
@@ -1132,12 +1314,11 @@ async function loadRoster() {
         console.error(
             error
         );
-        container.innerHTML =
-            `
+        container.innerHTML = `
             <div class="message">
                 Player data could not be loaded.
             </div>
-            `;
+        `;
     }
 }
 /* =====================================================
@@ -1145,7 +1326,7 @@ async function loadRoster() {
 ===================================================== */
 document
     .getElementById(
-        "roster-filter"
+        "position-filter"
     )
     .addEventListener(
         "change",
@@ -1153,7 +1334,7 @@ document
     );
 document
     .getElementById(
-        "position-filter"
+        "roster-filter"
     )
     .addEventListener(
         "change",
