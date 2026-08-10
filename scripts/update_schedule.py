@@ -1,74 +1,287 @@
 import json
 import os
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 # =========================================================
-# 設定
+# Philadelphia Phillies
 # =========================================================
-TEAM_ID = 143  # Philadelphia Phillies
+TEAM_ID = 143
 SEASON = 2026
-SCHEDULE_URL = "https://statsapi.mlb.com/api/v1/schedule"
-GAME_FEED_URL = (
-    "https://statsapi.mlb.com/api/v1.1/game/"
-    "{game_pk}/feed/live"
+BASE_URL = "https://statsapi.mlb.com/api/v1"
+OUTPUT_FILE = "data/update-schedule.json"
+JST = timezone(
+    timedelta(hours=9)
 )
-OUTPUT_FILE = "data/schedule.json"
 # =========================================================
-# HTTP
+# API REQUEST
 # =========================================================
-def get_json(url, params=None):
+def get_json(
+    url,
+    params=None
+):
     response = requests.get(
         url,
         params=params,
-        timeout=30
+        timeout=30,
+        headers={
+            "User-Agent":
+                "Phillies-Reader/1.0"
+        }
     )
     response.raise_for_status()
     return response.json()
 # =========================================================
-# ファーストネームではなく「姓」を取得
+# SCHEDULE API
+#
+# 2026年シーズンのフィリーズ全試合
 # =========================================================
-def get_last_name(person):
-    if not person:
-        return ""
-    last_name = person.get("lastName")
-    if last_name:
-        return last_name
-    full_name = person.get("fullName", "")
-    parts = full_name.strip().split()
-    if parts:
-        return parts[-1]
-    return ""
-# =========================================================
-# フィリーズの投手継投を取得
-# =========================================================
-def get_phillies_pitching(game_pk):
-    url = GAME_FEED_URL.format(
-        game_pk=game_pk
+def get_schedule():
+    url = (
+        f"{BASE_URL}/schedule"
     )
-    data = get_json(url)
-    boxscore = (
-        data
-        .get("liveData", {})
-        .get("boxscore", {})
+    params = {
+        "sportId":
+            1,
+        "teamId":
+            TEAM_ID,
+        "season":
+            SEASON,
+        "startDate":
+            f"{SEASON}-03-01",
+        "endDate":
+            f"{SEASON}-11-01",
+        "hydrate":
+            "team,venue,linescore"
+    }
+    data = get_json(
+        url,
+        params
     )
+    return data
+# =========================================================
+# BOX SCORE API
+#
+# 終了・進行中の試合について
+# フィリーズの継投を取得する
+# =========================================================
+def get_boxscore(
+    game_pk
+):
+    url = (
+        f"{BASE_URL}/game/"
+        f"{game_pk}/boxscore"
+    )
+    try:
+        return get_json(
+            url
+        )
+    except Exception as error:
+        print(
+            "Boxscore取得失敗:",
+            game_pk,
+            error
+        )
+        return {}
+# =========================================================
+# TEAM INFO
+# =========================================================
+def get_team_info(
+    team_data
+):
+    if not team_data:
+        return {
+            "id":
+                None,
+            "name":
+                "",
+            "abbreviation":
+                ""
+        }
+    return {
+        "id":
+            team_data.get(
+                "id"
+            ),
+        "name":
+            team_data.get(
+                "name",
+                ""
+            ),
+        "abbreviation":
+            team_data.get(
+                "abbreviation",
+                ""
+            )
+    }
+# =========================================================
+# PHILLIES / OPPONENT
+# =========================================================
+def determine_matchup(
+    game
+):
+    teams = game.get(
+        "teams",
+        {}
+    )
+    home = teams.get(
+        "home",
+        {}
+    )
+    away = teams.get(
+        "away",
+        {}
+    )
+    home_team = get_team_info(
+        home.get(
+            "team",
+            {}
+        )
+    )
+    away_team = get_team_info(
+        away.get(
+            "team",
+            {}
+        )
+    )
+    if (
+        home_team["id"]
+        ==
+        TEAM_ID
+    ):
+        return {
+            "location":
+                "HOME",
+            "phillies":
+                home,
+            "opponent":
+                away,
+            "philliesTeam":
+                home_team,
+            "opponentTeam":
+                away_team
+        }
+    return {
+        "location":
+            "AWAY",
+        "phillies":
+            away,
+        "opponent":
+            home,
+        "philliesTeam":
+            away_team,
+        "opponentTeam":
+            home_team
+    }
+# =========================================================
+# RESULT
+# =========================================================
+def get_result(
+    status,
+    phillies_score,
+    opponent_score
+):
+    abstract_state = status.get(
+        "abstractGameState",
+        ""
+    )
+    if (
+        abstract_state
+        !=
+        "Final"
+    ):
+        return None
+    if (
+        phillies_score
+        is None
+        or
+        opponent_score
+        is None
+    ):
+        return None
+    if (
+        phillies_score
+        >
+        opponent_score
+    ):
+        return "W"
+    if (
+        phillies_score
+        <
+        opponent_score
+    ):
+        return "L"
+    return "T"
+# =========================================================
+# INNING SCORES
+# =========================================================
+def get_inning_scores(
+    game
+):
+    linescore = game.get(
+        "linescore",
+        {}
+    )
+    innings = linescore.get(
+        "innings",
+        []
+    )
+    result = []
+    for inning in innings:
+        away_data = inning.get(
+            "away",
+            {}
+        )
+        home_data = inning.get(
+            "home",
+            {}
+        )
+        result.append({
+            "inning":
+                inning.get(
+                    "num"
+                ),
+            "away":
+                away_data.get(
+                    "runs",
+                    0
+                ),
+            "home":
+                home_data.get(
+                    "runs",
+                    0
+                )
+        })
+    return result
+# =========================================================
+# PITCHING
+#
+# フィリーズ側だけ
+# 登板順
+# 姓だけ
+# =========================================================
+def get_phillies_pitchers(
+    game_pk,
+    location
+):
+    boxscore = get_boxscore(
+        game_pk
+    )
+    if not boxscore:
+        return []
     teams = boxscore.get(
         "teams",
         {}
     )
+    phillies_side = (
+        "home"
+        if location == "HOME"
+        else "away"
+    )
     phillies = teams.get(
-        "away",
+        phillies_side,
         {}
     )
-    # PHIがホームの場合
-    if (
-        phillies.get("team", {})
-        .get("id") != TEAM_ID
-    ):
-        phillies = teams.get(
-            "home",
-            {}
-        )
-    pitchers = phillies.get(
+    pitcher_ids = phillies.get(
         "pitchers",
         []
     )
@@ -76,192 +289,194 @@ def get_phillies_pitching(game_pk):
         "players",
         {}
     )
-    pitching = []
-    for pitcher_id in pitchers:
+    result = []
+    for pitcher_id in pitcher_ids:
+        player_key = (
+            f"ID{pitcher_id}"
+        )
         player = players.get(
-            f"ID{pitcher_id}",
+            player_key,
             {}
         )
         person = player.get(
             "person",
             {}
         )
-        last_name = get_last_name(
-            person
+        last_name = person.get(
+            "lastName",
+            ""
         )
         if not last_name:
+            full_name = person.get(
+                "fullName",
+                ""
+            )
+            if full_name:
+                parts = (
+                    full_name.split()
+                )
+                last_name = parts[-1]
+        if not last_name:
             continue
-        pitching.append({
-            "playerId":
+        result.append({
+            "id":
                 pitcher_id,
-            "lastName":
+            "name":
                 last_name
         })
-    return pitching
+    return result
 # =========================================================
-# イニング別スコア
+# VENUE
 # =========================================================
-def get_linescore(feed):
-    linescore = (
-        feed
-        .get("liveData", {})
-        .get("linescore", {})
+def get_venue(
+    game
+):
+    venue = game.get(
+        "venue",
+        {}
     )
-    innings = []
-    for inning in linescore.get(
-        "innings",
-        []
-    ):
-        number = inning.get(
-            "num"
-        )
-        away = inning.get(
-            "away",
-            {}
-        )
-        home = inning.get(
-            "home",
-            {}
-        )
-        innings.append({
-            "inning":
-                number,
-            "awayRuns":
-                away.get(
-                    "runs",
-                    0
-                ),
-            "homeRuns":
-                home.get(
-                    "runs",
-                    0
-                )
-        })
-    return innings
-# =========================================================
-# Schedule取得
-# =========================================================
-def get_schedule():
-    params = {
-        "sportId": 1,
-        "teamId":
-            TEAM_ID,
-        "season":
-            SEASON,
-        "gameTypes":
-            "R,S",
-        "hydrate":
-            "team"
+    location = venue.get(
+        "location",
+        {}
+    )
+    return {
+        "id":
+            venue.get(
+                "id"
+            ),
+        "name":
+            venue.get(
+                "name",
+                ""
+            ),
+        "city":
+            location.get(
+                "city",
+                ""
+            ),
+        "state":
+            location.get(
+                "state",
+                ""
+            ),
+        "stateAbbrev":
+            location.get(
+                "stateAbbrev",
+                ""
+            )
     }
-    data = get_json(
-        SCHEDULE_URL,
-        params
-    )
-    return data.get(
-        "dates",
-        []
-    )
 # =========================================================
-# 試合情報を変換
+# GAME CONVERSION
 # =========================================================
-def build_game(game):
-    game_pk = game.get(
-        "gamePk"
+def build_game(
+    date_data,
+    game
+):
+    matchup = determine_matchup(
+        game
     )
-    teams = game.get(
-        "teams",
-        {}
-    )
-    away = teams.get(
-        "away",
-        {}
-    )
-    home = teams.get(
-        "home",
-        {}
-    )
-    away_team = away.get(
-        "team",
-        {}
-    )
-    home_team = home.get(
-        "team",
-        {}
-    )
-    phillies_home = (
-        home_team.get("id")
-        == TEAM_ID
-    )
-    if phillies_home:
-        phillies_team = home_team
-        opponent_team = away_team
-        phillies_data = home
-        opponent_data = away
-        home_away = "HOME"
-    else:
-        phillies_team = away_team
-        opponent_team = home_team
-        phillies_data = away
-        opponent_data = home
-        home_away = "AWAY"
-    # -----------------------------------------------------
-    # スコア
-    # -----------------------------------------------------
-    phillies_score = (
-        phillies_data.get(
-            "score"
-        )
-    )
-    opponent_score = (
-        opponent_data.get(
-            "score"
-        )
-    )
-    # -----------------------------------------------------
-    # 試合状態
-    # -----------------------------------------------------
+    phillies = matchup[
+        "phillies"
+    ]
+    opponent = matchup[
+        "opponent"
+    ]
+    phillies_team = matchup[
+        "philliesTeam"
+    ]
+    opponent_team = matchup[
+        "opponentTeam"
+    ]
     status = game.get(
         "status",
         {}
     )
+    phillies_score = phillies.get(
+        "score"
+    )
+    opponent_score = opponent.get(
+        "score"
+    )
+    game_pk = game.get(
+        "gamePk"
+    )
+    location = matchup[
+        "location"
+    ]
+    abstract_state = status.get(
+        "abstractGameState",
+        ""
+    )
+    detailed_state = status.get(
+        "detailedState",
+        ""
+    )
+    result = get_result(
+        status,
+        phillies_score,
+        opponent_score
+    )
     # -----------------------------------------------------
-    # 勝敗
+    # 継投
+    #
+    # Final / Live の試合のみ取得
     # -----------------------------------------------------
-    result = None
-    if (
-        status.get(
-            "abstractGameState"
+    pitchers = []
+    if abstract_state in {
+        "Live",
+        "Final"
+    }:
+        pitchers = (
+            get_phillies_pitchers(
+                game_pk,
+                location
+            )
         )
-        == "Final"
-        and phillies_score is not None
-        and opponent_score is not None
-    ):
-        if phillies_score > opponent_score:
-            result = "W"
-        elif phillies_score < opponent_score:
-            result = "L"
-        else:
-            result = "T"
     # -----------------------------------------------------
-    # 基本情報
+    # 基本データ
     # -----------------------------------------------------
-    game_data = {
+    return {
         "gamePk":
             game_pk,
+        "date":
+            date_data.get(
+                "date",
+                ""
+            ),
         "gameDate":
             game.get(
-                "gameDate"
+                "gameDate",
+                ""
             ),
-        "officialDate":
-            game.get(
-                "officialDate"
+        "status":
+            abstract_state,
+        "statusCode":
+            status.get(
+                "statusCode",
+                ""
             ),
-        "gameType":
-            game.get(
-                "gameType"
-            ),
-        "homeAway":
-            home_away,
+        "detailedState":
+            detailed_state,
+        "location":
+            location,
+        "phillies": {
+            "id":
+                phillies_team.get(
+                    "id"
+                ),
+            "name":
+                phillies_team.get(
+                    "name",
+                    "Philadelphia Phillies"
+                ),
+            "abbreviation":
+                phillies_team.get(
+                    "abbreviation",
+                    "PHI"
+                ),
+            "score":
+                phillies_score
+        },
         "opponent": {
             "id":
                 opponent_team.get(
@@ -269,153 +484,165 @@ def build_game(game):
                 ),
             "name":
                 opponent_team.get(
-                    "name"
+                    "name",
+                    ""
                 ),
             "abbreviation":
                 opponent_team.get(
-                    "abbreviation"
-                )
-        },
-        "status": {
-            "abstract":
-                status.get(
-                    "abstractGameState"
+                    "abbreviation",
+                    ""
                 ),
-            "coded":
-                status.get(
-                    "codedGameState"
-                ),
-            "detailed":
-                status.get(
-                    "detailedState"
-                )
+            "score":
+                opponent_score
         },
-        "philliesScore":
-            phillies_score,
-        "opponentScore":
-            opponent_score,
         "result":
             result,
-        "venue": {
-            "id":
-                game.get(
-                    "venue",
-                    {}
-                ).get(
-                    "id"
-                ),
-            "name":
-                game.get(
-                    "venue",
-                    {}
-                ).get(
-                    "name"
-                )
-        },
-        "inningScores": [],
-        "philliesPitching": []
+        "venue":
+            get_venue(
+                game
+            ),
+        "inningScores":
+            get_inning_scores(
+                game
+            ),
+        "philliesPitchers":
+            pitchers
     }
-    # =====================================================
-    # 試合詳細
-    # =====================================================
-    try:
-        feed = get_json(
-            GAME_FEED_URL.format(
-                game_pk=game_pk
-            )
-        )
-        game_data[
-            "inningScores"
-        ] = get_linescore(
-            feed
-        )
-        game_data[
-            "philliesPitching"
-        ] = get_phillies_pitching(
-            game_pk
-        )
-    except Exception as e:
-        print(
-            f"詳細取得失敗 "
-            f"{game_pk}: {e}"
-        )
-    return game_data
 # =========================================================
-# メイン
+# ALL GAMES
 # =========================================================
-def main():
-    print(
-        "Fetching Phillies schedule..."
-    )
-    dates = get_schedule()
+def build_schedule(
+    schedule_data
+):
     games = []
-    for date in dates:
-        for game in date.get(
+    dates = schedule_data.get(
+        "dates",
+        []
+    )
+    for date_data in dates:
+        date_games = date_data.get(
             "games",
             []
-        ):
-            print(
-                "Processing:",
-                game.get(
-                    "gamePk"
-                )
-            )
-            games.append(
-                build_game(
+        )
+        for game in date_games:
+            try:
+                converted = build_game(
+                    date_data,
                     game
                 )
-            )
-    # 日付順
+                games.append(
+                    converted
+                )
+            except Exception as error:
+                print(
+                    "試合データ変換エラー:",
+                    game.get(
+                        "gamePk"
+                    ),
+                    error
+                )
     games.sort(
-        key=lambda x:
-            x.get(
+        key=lambda game:
+            game.get(
                 "gameDate",
                 ""
             )
+    )
+    return games
+# =========================================================
+# OUTPUT
+# =========================================================
+def save_json(
+    games
+):
+    os.makedirs(
+        "data",
+        exist_ok=True
     )
     output = {
         "team": {
             "id":
                 TEAM_ID,
             "name":
-                "Philadelphia Phillies"
+                "Philadelphia Phillies",
+            "abbreviation":
+                "PHI"
         },
         "season":
             SEASON,
-        "updatedAt":
+        "updated":
             datetime.now(
-                timezone.utc
+                JST
             ).isoformat(),
+        "count":
+            len(games),
         "games":
             games
     }
-    # ディレクトリ作成
-    os.makedirs(
-        os.path.dirname(
-            OUTPUT_FILE
-        ),
-        exist_ok=True
-    )
-    # JSON保存
     with open(
         OUTPUT_FILE,
         "w",
         encoding="utf-8"
-    ) as f:
+    ) as file:
         json.dump(
             output,
-            f,
+            file,
             ensure_ascii=False,
             indent=2
         )
+    return output
+# =========================================================
+# MAIN
+# =========================================================
+def main():
+    print("")
     print(
-        f"Saved {len(games)} games"
+        "========================================"
     )
     print(
+        "PHILLIES SCHEDULE UPDATE"
+    )
+    print(
+        "========================================"
+    )
+    print(
+        "Getting MLB Schedule API..."
+    )
+    schedule_data = get_schedule()
+    dates = schedule_data.get(
+        "dates",
+        []
+    )
+    print(
+        "Schedule dates:",
+        len(dates)
+    )
+    games = build_schedule(
+        schedule_data
+    )
+    print(
+        "Games:",
+        len(games)
+    )
+    output = save_json(
+        games
+    )
+    print("")
+    print(
+        "Saved:",
         OUTPUT_FILE
     )
+    print(
+        "Total games:",
+        output["count"]
+    )
+    print(
+        "Updated:",
+        output["updated"]
+    )
+    print("")
 # =========================================================
-# ENTRY POINT
+# START
 # =========================================================
 if __name__ == "__main__":
     main()
