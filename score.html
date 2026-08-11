@@ -1231,146 +1231,150 @@ main{
 </nav>
 <script>
 /* =========================================================
-   DUMMY GAME DATA
-   ※ 後でMLB APIのレスポンスをここへ接続する
+   PHILLIES READER
+   SCORE — MLB API DATA CONNECTION
 ========================================================= */
-const gameData = {
-    gameState: "LIVE",
-    /* PHIが打撃中ならtrue
-       守備中ならfalse */
-    isPhilliesBatting: false,
-    inning: 7,
-    half: "TOP",
-    outs: 1,
-    balls: 2,
-    strikes: 1,
-    pitcher: {
-        name: "Z. WHEELER",
-        team: "PHI"
-    },
-    batter: {
-        name: "R. ACUÑA JR.",
-        team: "ATL",
-        hand: "RHB"
-    },
-    lastPitch: {
-        speed: 96,
-        type: "4-SEAM FASTBALL"
-    },
-    runners: {
-        first: true,
-        second: false,
-        third: false
-    }
-};
+
+const SCORE_URL =
+    "./data/score.json";
+
+
 /* =========================================================
    ELEMENTS
 ========================================================= */
+
+const gameStatus =
+    document.getElementById("gameStatus");
+
+const awayScore =
+    document.getElementById("awayScore");
+
+const homeScore =
+    document.getElementById("homeScore");
+
+const gameResult =
+    document.getElementById("gameResult");
+
+const dateMain =
+    document.getElementById("dateMain");
+
 const liveMode =
     document.getElementById("liveMode");
+
 const liveInning =
     document.getElementById("liveInning");
+
 const playerRole =
     document.getElementById("playerRole");
+
 const playerName =
     document.getElementById("playerName");
+
 const playerVs =
     document.getElementById("playerVs");
+
 const balls =
     document.getElementById("balls");
+
 const strikes =
     document.getElementById("strikes");
+
 const outs =
     document.getElementById("outs");
+
 const lastPitchSpeed =
     document.getElementById("lastPitchSpeed");
+
 const lastPitchType =
     document.getElementById("lastPitchType");
+
 const baseFirst =
     document.getElementById("baseFirst");
+
 const baseSecond =
     document.getElementById("baseSecond");
+
 const baseThird =
     document.getElementById("baseThird");
+
 const pitchingDetail =
     document.getElementById("pitchingDetail");
+
 const pitchSequence =
     document.getElementById("pitchSequence");
+
+
 /* =========================================================
-   CURRENT GAME RENDER
+   SAFE VALUE
 ========================================================= */
-function renderCurrentGame(){
-    liveInning.textContent =
-        `${gameData.half} ${gameData.inning}TH`;
-    balls.textContent =
-        gameData.balls;
-    strikes.textContent =
-        gameData.strikes;
-    outs.textContent =
-        gameData.outs;
-    /* -----------------------------------------------
-       PHILLIES BATTING
-    ----------------------------------------------- */
-    if(gameData.isPhilliesBatting){
-        liveMode.textContent =
-            "CURRENT AT-BAT";
-        playerRole.textContent =
-            "PHI BATTER";
-        playerName.textContent =
-            gameData.batter.name;
-        playerVs.textContent =
-            `VS ${gameData.batter.team} PITCHER · ${gameData.batter.hand}`;
-        pitchingDetail.style.display =
-            "none";
-        pitchSequence.style.display =
-            "flex";
+
+function value(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "-";
     }
-    /* -----------------------------------------------
-       PHILLIES PITCHING
-    ----------------------------------------------- */
-    else{
-        liveMode.textContent =
-            "CURRENT PITCHING";
-        playerRole.textContent =
-            "PHI PITCHER";
-        playerName.textContent =
-            gameData.pitcher.name;
-        playerVs.textContent =
-            `VS ${gameData.batter.team} BATTER · ${gameData.batter.hand}`;
-        pitchingDetail.style.display =
-            "grid";
-        pitchSequence.style.display =
-            "none";
-        /* 直前の1球だけ */
-        lastPitchSpeed.textContent =
-            `${gameData.lastPitch.speed} MPH`;
-        lastPitchType.textContent =
-            gameData.lastPitch.type;
+
+    return value;
+}
+
+
+/* =========================================================
+   PLAYER NAME
+========================================================= */
+
+function shortName(name) {
+
+    if (!name) {
+        return "-";
     }
-    /* -----------------------------------------------
-       RUNNERS
-    ----------------------------------------------- */
-    baseFirst.classList.toggle(
-        "occupied",
-        gameData.runners.first
-    );
-    baseSecond.classList.toggle(
-        "occupied",
-        gameData.runners.second
-    );
-    baseThird.classList.toggle(
-        "occupied",
-        gameData.runners.third
+
+    const parts =
+        String(name)
+            .trim()
+            .split(/\s+/);
+
+    if (parts.length <= 1) {
+        return parts[0];
+    }
+
+    return (
+        parts[0].charAt(0) +
+        ". " +
+        parts.slice(1).join(" ")
     );
 }
+
+
 /* =========================================================
    DATE
 ========================================================= */
-let currentDate =
-    new Date("2026-08-11T12:00:00");
-const dateMain =
-    document.getElementById("dateMain");
-function formatDate(date){
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "-";
+    }
+
+    const parts =
+        dateString.split("-");
+
+    if (parts.length !== 3) {
+        return dateString;
+    }
+
+    const year =
+        Number(parts[0]);
+
+    const month =
+        Number(parts[1]);
+
+    const day =
+        Number(parts[2]);
+
     const months = [
         "JANUARY",
         "FEBRUARY",
@@ -1385,39 +1389,1609 @@ function formatDate(date){
         "NOVEMBER",
         "DECEMBER"
     ];
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-}
-function updateDate(){
-    dateMain.textContent =
-        formatDate(currentDate);
-}
-document
-    .getElementById("previousDay")
-    .addEventListener(
-        "click",
-        function(){
-            currentDate.setDate(
-                currentDate.getDate() - 1
-            );
-            updateDate();
-        }
+
+    return (
+        months[month - 1] +
+        " " +
+        day +
+        ", " +
+        year
     );
-document
-    .getElementById("nextDay")
-    .addEventListener(
-        "click",
-        function(){
-            currentDate.setDate(
-                currentDate.getDate() + 1
-            );
-            updateDate();
-        }
-    );
+}
+
+
 /* =========================================================
-   INITIALIZE
+   FETCH SCORE
 ========================================================= */
-updateDate();
-renderCurrentGame();
+
+async function loadScore() {
+
+    try {
+
+        const response =
+            await fetch(
+                SCORE_URL +
+                "?t=" +
+                Date.now(),
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+        }
+
+        const data =
+            await response.json();
+
+        renderScore(
+            data
+        );
+
+    } catch (error) {
+
+        console.error(
+            "score.json error:",
+            error
+        );
+
+        showError();
+
+    }
+}
+
+
+/* =========================================================
+   RENDER SCORE
+========================================================= */
+
+function renderScore(data) {
+
+    if (!data) {
+        showError();
+        return;
+    }
+
+    /*
+     * DATE
+     */
+
+    if (data.date) {
+
+        dateMain.textContent =
+            formatDate(
+                data.date
+            );
+    }
+
+
+    /*
+     * NO GAME
+     */
+
+    if (
+        !data.games ||
+        data.games.length === 0
+    ) {
+
+        showNoGame();
+
+        return;
+    }
+
+
+    /*
+     * 今日のPhilliesの試合
+     */
+
+    const game =
+        data.games[0];
+
+
+    renderGame(
+        game
+    );
+
+    renderInningScore(
+        game
+    );
+
+    renderBatting(
+        game
+    );
+
+    renderPitching(
+        game
+    );
+
+    renderCurrentGame(
+        game
+    );
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+function renderGame(game) {
+
+    const info =
+        game.game || {};
+
+    const phillies =
+        info.phillies || {};
+
+    const opponent =
+        info.opponent || {};
+
+    const score =
+        game.score || {};
+
+    const location =
+        info.location ||
+        game.location ||
+        "-";
+
+
+    /*
+     * PHIがAWAYなら
+     *
+     * away = PHI
+     * home = opponent
+     *
+     * PHIがHOMEなら
+     *
+     * away = opponent
+     * home = PHI
+     */
+
+    let awayTeam;
+    let homeTeam;
+    let awayRuns;
+    let homeRuns;
+
+    if (
+        location === "AWAY"
+    ) {
+
+        awayTeam =
+            phillies;
+
+        homeTeam =
+            opponent;
+
+        awayRuns =
+            score.away
+                ? score.away.runs
+                : null;
+
+        homeRuns =
+            score.home
+                ? score.home.runs
+                : null;
+
+    } else {
+
+        awayTeam =
+            opponent;
+
+        homeTeam =
+            phillies;
+
+        awayRuns =
+            score.away
+                ? score.away.runs
+                : null;
+
+        homeRuns =
+            score.home
+                ? score.home.runs
+                : null;
+    }
+
+
+    /*
+     * TEAM
+     */
+
+    const teamCodes =
+        document.querySelectorAll(
+            ".team-code"
+        );
+
+    const teamNames =
+        document.querySelectorAll(
+            ".team-name"
+        );
+
+
+    if (
+        teamCodes.length >= 2
+    ) {
+
+        teamCodes[0]
+            .textContent =
+                value(
+                    awayTeam.abbreviation
+                );
+
+        teamCodes[1]
+            .textContent =
+                value(
+                    homeTeam.abbreviation
+                );
+    }
+
+
+    if (
+        teamNames.length >= 2
+    ) {
+
+        teamNames[0]
+            .textContent =
+                value(
+                    awayTeam.name
+                );
+
+        teamNames[1]
+            .textContent =
+                value(
+                    homeTeam.name
+                );
+    }
+
+
+    /*
+     * SCORE
+     */
+
+    awayScore.textContent =
+        value(
+            awayRuns
+        );
+
+    homeScore.textContent =
+        value(
+            homeRuns
+        );
+
+
+    /*
+     * STATUS
+     */
+
+    const status =
+        info.status || {};
+
+    let statusText =
+        status.detailed ||
+        status.abstract ||
+        "-";
+
+    statusText =
+        String(
+            statusText
+        ).toUpperCase();
+
+    if (
+        statusText === "SCHEDULED"
+    ) {
+
+        gameStatus.textContent =
+            "SCHEDULED";
+
+    } else if (
+        statusText.includes(
+            "FINAL"
+        )
+    ) {
+
+        gameStatus.textContent =
+            "FINAL";
+
+    } else if (
+        statusText.includes(
+            "LIVE"
+        ) ||
+        statusText.includes(
+            "PROGRESS"
+        )
+    ) {
+
+        gameStatus.textContent =
+            "LIVE";
+
+    } else {
+
+        gameStatus.textContent =
+            statusText;
+    }
+
+
+    /*
+     * RESULT
+     */
+
+    const phiRuns =
+        location === "AWAY"
+            ? awayRuns
+            : homeRuns;
+
+    const oppRuns =
+        location === "AWAY"
+            ? homeRuns
+            : awayRuns;
+
+
+    if (
+        statusText.includes(
+            "FINAL"
+        ) &&
+        phiRuns !== null &&
+        oppRuns !== null
+    ) {
+
+        if (
+            Number(phiRuns) >
+            Number(oppRuns)
+        ) {
+
+            gameResult.textContent =
+                "PHI WIN";
+
+        } else if (
+            Number(phiRuns) <
+            Number(oppRuns)
+        ) {
+
+            gameResult.textContent =
+                "PHI LOSS";
+
+        } else {
+
+            gameResult.textContent =
+                "TIE";
+        }
+
+    } else if (
+        phiRuns !== null &&
+        oppRuns !== null
+    ) {
+
+        if (
+            Number(phiRuns) >
+            Number(oppRuns)
+        ) {
+
+            gameResult.textContent =
+                "PHI LEADS";
+
+        } else if (
+            Number(phiRuns) <
+            Number(oppRuns)
+        ) {
+
+            gameResult.textContent =
+                "PHI TRAILS";
+
+        } else {
+
+            gameResult.textContent =
+                "TIED";
+        }
+
+    } else {
+
+        gameResult.textContent =
+            "";
+    }
+
+
+    /*
+     * VENUE
+     */
+
+    const venue =
+        info.venue || {};
+
+    const venueName =
+        document.querySelector(
+            ".venue-name"
+        );
+
+    const venueLocation =
+        document.querySelector(
+            ".venue-location"
+        );
+
+    if (venueName) {
+
+        venueName.textContent =
+            value(
+                venue.name
+            );
+    }
+
+    if (venueLocation) {
+
+        const locationParts = [];
+
+        if (venue.city) {
+            locationParts.push(
+                venue.city
+            );
+        }
+
+        if (venue.state) {
+            locationParts.push(
+                venue.state
+            );
+        }
+
+        venueLocation.textContent =
+            locationParts.length
+                ? locationParts.join(
+                    ", "
+                )
+                : "-";
+    }
+}
+
+
+/* =========================================================
+   INNING SCORE
+========================================================= */
+
+function renderInningScore(game) {
+
+    const table =
+        document.querySelector(
+            ".inning-table"
+        );
+
+    if (!table) {
+        return;
+    }
+
+    const innings =
+        game.inningScores || [];
+
+    const info =
+        game.game || {};
+
+    const phillies =
+        info.phillies || {};
+
+    const opponent =
+        info.opponent || {};
+
+    const location =
+        info.location ||
+        game.location;
+
+
+    /*
+     * CURRENT TABLE
+     */
+
+    const thead =
+        table.querySelector(
+            "thead tr"
+        );
+
+    const tbody =
+        table.querySelector(
+            "tbody"
+        );
+
+
+    if (!thead || !tbody) {
+        return;
+    }
+
+
+    /*
+     * イニング数
+     */
+
+    let maxInning =
+        innings.length;
+
+    if (
+        maxInning < 9
+    ) {
+        maxInning = 9;
+    }
+
+
+    /*
+     * HEADER
+     */
+
+    let headerHTML =
+        "<th></th>";
+
+    for (
+        let i = 1;
+        i <= maxInning;
+        i++
+    ) {
+
+        headerHTML +=
+            "<th>" +
+            i +
+            "</th>";
+    }
+
+    headerHTML +=
+        "<th>R</th>" +
+        "<th>H</th>" +
+        "<th>E</th>";
+
+    thead.innerHTML =
+        headerHTML;
+
+
+    /*
+     * DATA
+     */
+
+    function getInning(
+        number,
+        side
+    ) {
+
+        const inning =
+            innings.find(
+                item =>
+                    Number(
+                        item.inning
+                    ) === number
+            );
+
+        if (!inning) {
+            return "-";
+        }
+
+        if (
+            side === "away"
+        ) {
+
+            return value(
+                inning.away
+            );
+
+        } else {
+
+            return value(
+                inning.home
+            );
+        }
+    }
+
+
+    function createRow(
+        side,
+        team,
+        scoreData
+    ) {
+
+        let html =
+            "<tr>";
+
+        html +=
+            '<td class="team-cell">' +
+            value(
+                team.abbreviation
+            ) +
+            "</td>";
+
+
+        for (
+            let i = 1;
+            i <= maxInning;
+            i++
+        ) {
+
+            html +=
+                "<td>" +
+                getInning(
+                    i,
+                    side
+                ) +
+                "</td>";
+        }
+
+
+        html +=
+            '<td class="total">' +
+            value(
+                scoreData &&
+                scoreData.runs
+            ) +
+            "</td>";
+
+        html +=
+            '<td class="total">' +
+            value(
+                scoreData &&
+                scoreData.hits
+            ) +
+            "</td>";
+
+        html +=
+            '<td class="total">' +
+            value(
+                scoreData &&
+                scoreData.errors
+            ) +
+            "</td>";
+
+        html +=
+            "</tr>";
+
+        return html;
+    }
+
+
+    /*
+     * APIのaway/homeをそのまま表示
+     */
+
+    const awayScoreData =
+        game.score &&
+        game.score.away
+            ? game.score.away
+            : {};
+
+    const homeScoreData =
+        game.score &&
+        game.score.home
+            ? game.score.home
+            : {};
+
+
+    let awayTeam;
+    let homeTeam;
+
+    if (
+        location === "AWAY"
+    ) {
+
+        awayTeam =
+            phillies;
+
+        homeTeam =
+            opponent;
+
+    } else {
+
+        awayTeam =
+            opponent;
+
+        homeTeam =
+            phillies;
+    }
+
+
+    tbody.innerHTML =
+        createRow(
+            "away",
+            awayTeam,
+            awayScoreData
+        ) +
+        createRow(
+            "home",
+            homeTeam,
+            homeScoreData
+        );
+}
+
+
+/* =========================================================
+   FIND SECTION
+========================================================= */
+
+function findScoreSection(
+    title
+) {
+
+    const sections =
+        document.querySelectorAll(
+            ".score-section"
+        );
+
+    for (
+        const section of sections
+    ) {
+
+        const heading =
+            section.querySelector(
+                ".section-title"
+            );
+
+        if (!heading) {
+            continue;
+        }
+
+        if (
+            heading.textContent
+                .trim()
+                .toUpperCase()
+                === title
+        ) {
+
+            return section;
+        }
+    }
+
+    return null;
+}
+
+
+/* =========================================================
+   PHILLIES BATTING
+========================================================= */
+
+function renderBatting(game) {
+
+    const section =
+        findScoreSection(
+            "PHILLIES BATTING"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const table =
+        section.querySelector(
+            ".stats-table"
+        );
+
+    const tbody =
+        table &&
+        table.querySelector(
+            "tbody"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const players =
+        game.philliesBatting ||
+        [];
+
+
+    /*
+     * データなし
+     */
+
+    if (
+        players.length === 0
+    ) {
+
+        tbody.innerHTML =
+            `
+            <tr>
+                <td colspan="6">-</td>
+            </tr>
+            `;
+
+        return;
+    }
+
+
+    /*
+     * 打順順に表示
+     */
+
+    tbody.innerHTML =
+        players
+            .map(
+                (player, index) => {
+
+                    const name =
+                        shortName(
+                            player.name
+                        );
+
+                    const order =
+                        player.battingOrder;
+
+
+                    /*
+                     * 打順を名前の前に付ける
+                     *
+                     * 1. T. Turner
+                     */
+
+                    let displayName =
+                        name;
+
+                    if (
+                        order !== null &&
+                        order !== undefined &&
+                        order !== "-"
+                    ) {
+
+                        displayName =
+                            order +
+                            ". " +
+                            name;
+                    }
+
+
+                    return `
+                        <tr
+                            class="${
+                                index === 0
+                                    ? "featured"
+                                    : ""
+                            }"
+                        >
+                            <td>
+                                ${value(
+                                    displayName
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    player.PA
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    player.H
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    player.HR
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    player.RBI
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    player.BB
+                                )}
+                            </td>
+                        </tr>
+                    `;
+                }
+            )
+            .join("");
+}
+
+
+/* =========================================================
+   PHILLIES PITCHING
+========================================================= */
+
+function renderPitching(game) {
+
+    const section =
+        findScoreSection(
+            "PHILLIES PITCHING"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const table =
+        section.querySelector(
+            ".stats-table"
+        );
+
+    const tbody =
+        table &&
+        table.querySelector(
+            "tbody"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const pitchers =
+        game.philliesPitching ||
+        [];
+
+
+    /*
+     * データなし
+     */
+
+    if (
+        pitchers.length === 0
+    ) {
+
+        tbody.innerHTML =
+            `
+            <tr>
+                <td colspan="6">-</td>
+            </tr>
+            `;
+
+        return;
+    }
+
+
+    /*
+     * 継投順
+     */
+
+    tbody.innerHTML =
+        pitchers
+            .map(
+                (pitcher, index) => {
+
+                    return `
+                        <tr
+                            class="${
+                                index === 0
+                                    ? "featured"
+                                    : ""
+                            }"
+                        >
+                            <td>
+                                ${value(
+                                    shortName(
+                                        pitcher.name
+                                    )
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    pitcher.IP
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    pitcher.H
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    pitcher.K
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    pitcher.HR
+                                )}
+                            </td>
+
+                            <td>
+                                ${value(
+                                    pitcher.R
+                                )}
+                            </td>
+                        </tr>
+                    `;
+                }
+            )
+            .join("");
+}
+
+
+/* =========================================================
+   CURRENT GAME
+========================================================= */
+
+function renderCurrentGame(game) {
+
+    const current =
+        game.currentGame;
+
+
+    /*
+     * CURRENT DATAがない
+     */
+
+    if (
+        !current ||
+        current.available !== true
+    ) {
+
+        liveMode.textContent =
+            "CURRENT GAME";
+
+        liveInning.textContent =
+            "-";
+
+        playerRole.textContent =
+            "-";
+
+        playerName.textContent =
+            "-";
+
+        playerVs.textContent =
+            "-";
+
+        balls.textContent =
+            "-";
+
+        strikes.textContent =
+            "-";
+
+        outs.textContent =
+            "-";
+
+        lastPitchSpeed.textContent =
+            "-";
+
+        lastPitchType.textContent =
+            "-";
+
+        baseFirst.classList.remove(
+            "occupied"
+        );
+
+        baseSecond.classList.remove(
+            "occupied"
+        );
+
+        baseThird.classList.remove(
+            "occupied"
+        );
+
+        pitchingDetail.style.display =
+            "grid";
+
+        pitchSequence.style.display =
+            "none";
+
+        return;
+    }
+
+
+    /*
+     * INNING
+     */
+
+    let half =
+        current.half ||
+        "";
+
+    half =
+        String(
+            half
+        ).toUpperCase();
+
+
+    const inning =
+        current.inning;
+
+
+    if (
+        half &&
+        inning !== null &&
+        inning !== undefined
+    ) {
+
+        liveInning.textContent =
+            half +
+            " " +
+            inning +
+            "TH";
+
+    } else {
+
+        liveInning.textContent =
+            "-";
+    }
+
+
+    /*
+     * B/S/O
+     */
+
+    balls.textContent =
+        value(
+            current.balls
+        );
+
+    strikes.textContent =
+        value(
+            current.strikes
+        );
+
+    outs.textContent =
+        value(
+            current.outs
+        );
+
+
+    /*
+     * PHILLIES ATTACKING?
+     */
+
+    const isBatting =
+        current.isPhilliesBatting;
+
+
+    /*
+     * BATTER
+     */
+
+    const batter =
+        current.batter || {};
+
+
+    /*
+     * PITCHER
+     */
+
+    const pitcher =
+        current.pitcher || {};
+
+
+    /*
+     * PHI BATTING
+     */
+
+    if (
+        isBatting === true
+    ) {
+
+        liveMode.textContent =
+            "CURRENT AT-BAT";
+
+        playerRole.textContent =
+            "PHI BATTER";
+
+        playerName.textContent =
+            shortName(
+                batter.name
+            );
+
+
+        let opponentTeam =
+            "-";
+
+        if (
+            batter.team
+        ) {
+
+            opponentTeam =
+                batter.team;
+        }
+
+
+        let hand =
+            batter.hand;
+
+        if (
+            hand === "R"
+        ) {
+
+            hand = "RHB";
+
+        } else if (
+            hand === "L"
+        ) {
+
+            hand = "LHB";
+
+        } else if (
+            hand === "S"
+        ) {
+
+            hand = "SHB";
+        }
+
+
+        playerVs.textContent =
+            "VS " +
+            opponentTeam +
+            " PITCHER · " +
+            value(
+                hand
+            );
+
+
+        /*
+         * 攻撃中はpitching detailを隠す
+         */
+
+        pitchingDetail.style.display =
+            "none";
+
+
+        /*
+         * 打席中の球履歴
+         *
+         * 今回は最後の1球だけ
+         * API側のlastPitchを使用
+         */
+
+        pitchSequence.style.display =
+            "none";
+
+
+        renderLastPitch(
+            current
+        );
+
+
+    /*
+     * PHI PITCHING
+     */
+
+    } else if (
+        isBatting === false
+    ) {
+
+        liveMode.textContent =
+            "CURRENT PITCHING";
+
+        playerRole.textContent =
+            "PHI PITCHER";
+
+        playerName.textContent =
+            shortName(
+                pitcher.name
+            );
+
+
+        let opponentTeam =
+            "-";
+
+        if (
+            batter.team
+        ) {
+
+            opponentTeam =
+                batter.team;
+        }
+
+
+        let hand =
+            batter.hand;
+
+        if (
+            hand === "R"
+        ) {
+
+            hand = "RHB";
+
+        } else if (
+            hand === "L"
+        ) {
+
+            hand = "LHB";
+
+        } else if (
+            hand === "S"
+        ) {
+
+            hand = "SHB";
+        }
+
+
+        playerVs.textContent =
+            "VS " +
+            opponentTeam +
+            " BATTER · " +
+            value(
+                hand
+            );
+
+
+        /*
+         * 守備中はCURRENT PITCHING
+         */
+
+        pitchingDetail.style.display =
+            "grid";
+
+
+        pitchSequence.style.display =
+            "none";
+
+
+        /*
+         * 直前の1球
+         */
+
+        renderLastPitch(
+            current
+        );
+
+    } else {
+
+        liveMode.textContent =
+            "CURRENT GAME";
+
+        playerRole.textContent =
+            "-";
+
+        playerName.textContent =
+            "-";
+
+        playerVs.textContent =
+            "-";
+
+        pitchingDetail.style.display =
+            "grid";
+
+        pitchSequence.style.display =
+            "none";
+    }
+
+
+    /*
+     * RUNNERS
+     */
+
+    const runners =
+        current.runners || {};
+
+
+    baseFirst.classList.toggle(
+        "occupied",
+        runners.first === true
+    );
+
+    baseSecond.classList.toggle(
+        "occupied",
+        runners.second === true
+    );
+
+    baseThird.classList.toggle(
+        "occupied",
+        runners.third === true
+    );
+}
+
+
+/* =========================================================
+   LAST PITCH
+========================================================= */
+
+function renderLastPitch(
+    current
+) {
+
+    const pitch =
+        current.lastPitch;
+
+
+    if (
+        !pitch
+    ) {
+
+        lastPitchSpeed.textContent =
+            "-";
+
+        lastPitchType.textContent =
+            "-";
+
+        return;
+    }
+
+
+    /*
+     * 球速
+     */
+
+    if (
+        pitch.speed !== null &&
+        pitch.speed !== undefined &&
+        pitch.speed !== ""
+    ) {
+
+        lastPitchSpeed.textContent =
+            pitch.speed +
+            " MPH";
+
+    } else {
+
+        lastPitchSpeed.textContent =
+            "-";
+    }
+
+
+    /*
+     * 球種
+     */
+
+    lastPitchType.textContent =
+        value(
+            pitch.type
+        );
+}
+
+
+/* =========================================================
+   NO GAME
+========================================================= */
+
+function showNoGame() {
+
+    gameStatus.textContent =
+        "NO GAME";
+
+    awayScore.textContent =
+        "-";
+
+    homeScore.textContent =
+        "-";
+
+    gameResult.textContent =
+        "";
+
+
+    const teamCodes =
+        document.querySelectorAll(
+            ".team-code"
+        );
+
+    const teamNames =
+        document.querySelectorAll(
+            ".team-name"
+        );
+
+
+    teamCodes.forEach(
+        element => {
+
+            element.textContent =
+                "-";
+        }
+    );
+
+
+    teamNames.forEach(
+        element => {
+
+            element.textContent =
+                "-";
+        }
+    );
+
+
+    liveMode.textContent =
+        "CURRENT GAME";
+
+    liveInning.textContent =
+        "-";
+
+    playerRole.textContent =
+        "-";
+
+    playerName.textContent =
+        "-";
+
+    playerVs.textContent =
+        "-";
+
+    balls.textContent =
+        "-";
+
+    strikes.textContent =
+        "-";
+
+    outs.textContent =
+        "-";
+
+    lastPitchSpeed.textContent =
+        "-";
+
+    lastPitchType.textContent =
+        "-";
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+function showError() {
+
+    gameStatus.textContent =
+        "DATA ERROR";
+
+    liveMode.textContent =
+        "CURRENT GAME";
+
+    liveInning.textContent =
+        "-";
+
+    playerRole.textContent =
+        "-";
+
+    playerName.textContent =
+        "-";
+
+    playerVs.textContent =
+        "-";
+}
+
+
+/* =========================================================
+   DATE BUTTONS
+   =========================================================
+   今回は「今日の試合だけ」を取得するため、
+   日付ボタンを押しても過去日のAPI取得はしない。
+   UIは既存のまま維持。
+========================================================= */
+
+document
+    .getElementById(
+        "previousDay"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            /*
+             * 過去日のデータは今回対象外
+             */
+            return;
+        }
+    );
+
+
+document
+    .getElementById(
+        "nextDay"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            /*
+             * 未来日のデータは今回対象外
+             */
+            return;
+        }
+    );
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+loadScore();
+
+
+/* =========================================================
+   AUTO REFRESH
+   GitHub Actions → 5分ごと
+   Browser        → 1分ごと
+========================================================= */
+
+setInterval(
+    loadScore,
+    60 * 1000
+);
+
+</script>
 </script>
 </body>
 </html>
