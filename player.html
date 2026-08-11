@@ -17,7 +17,7 @@
 
 /* =========================================================
    ROOT
-   既存UI用
+   既存UI
 ========================================================= */
 
 :root {
@@ -30,9 +30,6 @@
 
     --red:
         #e31837;
-
-    --yellow:
-        #f4c542;
 
     --white:
         #ffffff;
@@ -102,7 +99,7 @@ body {
 
 /* =========================================================
    HEADER
-   既存UI — 変更しない
+   既存UI — 変更なし
 ========================================================= */
 
 .header {
@@ -400,8 +397,7 @@ body {
 
 
 /* =========================================================
-   PLAYER
-   今回追加する部分
+   PLAYER CONTENT
 ========================================================= */
 
 main {
@@ -433,141 +429,54 @@ main {
 
 
 /* =========================================================
-   PAGE TITLE
+   PLAYER TOP
 ========================================================= */
 
-.player-heading {
+.player-top {
 
     display:
         flex;
 
     align-items:
-        baseline;
+        flex-end;
 
     justify-content:
         space-between;
-
-    margin:
-        0 4px 15px;
-
-}
-
-
-.player-heading-title {
-
-    color:
-        rgba(255,255,255,.92);
-
-    font-size:
-        11px;
-
-    line-height:
-        1;
-
-    font-weight:
-        800;
-
-    letter-spacing:
-        1.3px;
-
-}
-
-
-.player-heading-season {
-
-    color:
-        rgba(255,255,255,.23);
-
-    font-size:
-        7px;
-
-    line-height:
-        1;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        .8px;
-
-}
-
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-.player-section {
-
-    margin-bottom:
-        19px;
-
-}
-
-
-.player-section-title {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    height:
-        22px;
 
     padding:
-        0 4px;
+        0 4px 12px;
 
-    margin-bottom:
-        4px;
-
-}
-
-
-.player-section-title-left {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        7px;
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
 
 }
 
 
-.player-section-mark {
-
-    width:
-        12px;
-
-    height:
-        2px;
-
-    background:
-        var(--red);
-
-}
-
-
-.player-section.il .player-section-mark {
-
-    background:
-        var(--yellow);
-
-}
-
-
-.player-section-title-text {
+.player-title {
 
     color:
-        rgba(255,255,255,.40);
+        rgba(255,255,255,.94);
+
+    font-size:
+        21px;
+
+    line-height:
+        1;
+
+    font-weight:
+        650;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.player-meta {
+
+    color:
+        rgba(255,255,255,.25);
 
     font-size:
         7px;
@@ -584,7 +493,95 @@ main {
 }
 
 
-.player-section-count {
+/* =========================================================
+   ROSTER GROUP
+========================================================= */
+
+.roster-group {
+
+    margin-top:
+        18px;
+
+}
+
+
+.roster-label {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    height:
+        20px;
+
+    margin:
+        0 4px 6px;
+
+}
+
+
+.roster-label-left {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+.roster-label-line {
+
+    width:
+        10px;
+
+    height:
+        2px;
+
+    background:
+        var(--red);
+
+}
+
+
+.roster-group.il .roster-label-line {
+
+    background:
+        #f0c642;
+
+}
+
+
+.roster-label-name {
+
+    color:
+        rgba(255,255,255,.42);
+
+    font-size:
+        7px;
+
+    line-height:
+        1;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .9px;
+
+}
+
+
+.roster-label-count {
 
     color:
         rgba(255,255,255,.18);
@@ -605,13 +602,31 @@ main {
 
 
 /* =========================================================
+   PLAYER LIST
+========================================================= */
+
+.player-list {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        5px;
+
+}
+
+
+/* =========================================================
    PLAYER CARD
 ========================================================= */
 
 .player-card {
 
-    --accent:
-        var(--red);
+    --status:
+        #e31837;
 
     position:
         relative;
@@ -620,41 +635,43 @@ main {
         grid;
 
     grid-template-columns:
-        57px
-        43px
-        48px
+        56px
+        42px
+        46px
         minmax(0,1fr);
 
-    align-items:
-        stretch;
-
-    width:
-        100%;
-
     min-height:
-        82px;
-
-    margin-bottom:
-        5px;
+        76px;
 
     overflow:
         hidden;
+
+    background:
+        rgba(255,255,255,.025);
 
     border:
         1px solid
         rgba(255,255,255,.055);
 
     border-radius:
-        9px;
+        7px;
+
+    transition:
+        background .15s ease;
+
+}
+
+
+.player-card:active {
 
     background:
-        rgba(255,255,255,.018);
+        rgba(255,255,255,.05);
 
 }
 
 
 /* =========================================================
-   LEFT ACCENT
+   STATUS LINE
 ========================================================= */
 
 .player-card::before {
@@ -669,42 +686,34 @@ main {
         0;
 
     top:
-        10px;
+        9px;
 
     bottom:
-        10px;
+        9px;
 
     width:
         3px;
 
+    background:
+        var(--status);
+
     border-radius:
         0 2px 2px 0;
 
-    background:
-        var(--accent);
-
 }
 
-
-/* =========================================================
-   IL
-========================================================= */
 
 .player-card.il {
 
-    --accent:
-        var(--yellow);
+    --status:
+        #f0c642;
 
 }
 
 
-/* =========================================================
-   40 MAN
-========================================================= */
+.player-card.callup {
 
-.player-card.forty-man {
-
-    --accent:
+    --status:
         #718298;
 
 }
@@ -716,9 +725,6 @@ main {
 
 .player-number {
 
-    position:
-        relative;
-
     display:
         flex;
 
@@ -728,31 +734,9 @@ main {
     justify-content:
         center;
 
-}
-
-
-.player-number::after {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    right:
-        0;
-
-    top:
-        17px;
-
-    bottom:
-        17px;
-
-    width:
-        1px;
-
-    background:
-        rgba(255,255,255,.06);
+    border-right:
+        1px solid
+        rgba(255,255,255,.055);
 
 }
 
@@ -763,16 +747,16 @@ main {
         rgba(255,255,255,.92);
 
     font-size:
-        27px;
+        26px;
 
     line-height:
         1;
 
     font-weight:
-        700;
+        650;
 
     letter-spacing:
-        -1.2px;
+        -1.1px;
 
     font-variant-numeric:
         tabular-nums;
@@ -781,7 +765,7 @@ main {
 
 
 /* =========================================================
-   POS
+   POSITION
 ========================================================= */
 
 .player-position {
@@ -800,45 +784,20 @@ main {
 
 .player-position-value {
 
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    min-width:
-        27px;
-
-    height:
-        22px;
-
-    padding:
-        0 5px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius:
-        5px;
-
     color:
-        rgba(255,255,255,.58);
-
-    background:
-        rgba(255,255,255,.025);
+        rgba(255,255,255,.50);
 
     font-size:
-        8px;
+        9px;
 
     line-height:
         1;
 
     font-weight:
         800;
+
+    letter-spacing:
+        .2px;
 
 }
 
@@ -864,7 +823,7 @@ main {
 .player-bt-value {
 
     color:
-        rgba(255,255,255,.34);
+        rgba(255,255,255,.31);
 
     font-size:
         8px;
@@ -900,13 +859,13 @@ main {
         center;
 
     padding:
-        0 12px 0 3px;
+        0 13px 0 2px;
 
 }
 
 
 /* =========================================================
-   NAME
+   PLAYER NAME
 ========================================================= */
 
 .player-name {
@@ -920,35 +879,35 @@ main {
     min-width:
         0;
 
+    overflow:
+        hidden;
+
     color:
         rgba(255,255,255,.94);
 
     font-size:
-        18px;
+        17px;
 
     line-height:
-        1;
+        1.05;
 
     font-weight:
-        650;
+        600;
 
     letter-spacing:
-        -.45px;
+        -.3px;
 
     white-space:
         nowrap;
 
-    overflow:
-        hidden;
-
     text-overflow:
-        clip;
+        ellipsis;
 
 }
 
 
 /* =========================================================
-   ROSTER
+   ROSTER INFORMATION
 ========================================================= */
 
 .player-roster {
@@ -962,31 +921,8 @@ main {
     min-width:
         0;
 
-    gap:
-        6px;
-
     margin-top:
         8px;
-
-}
-
-
-.player-roster-dot {
-
-    width:
-        4px;
-
-    height:
-        4px;
-
-    flex:
-        0 0 auto;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--accent);
 
 }
 
@@ -994,7 +930,7 @@ main {
 .player-roster-status {
 
     color:
-        var(--accent);
+        var(--status);
 
     font-size:
         6px;
@@ -1006,7 +942,24 @@ main {
         800;
 
     letter-spacing:
-        .55px;
+        .65px;
+
+}
+
+
+.player-roster-divider {
+
+    width:
+        1px;
+
+    height:
+        7px;
+
+    margin:
+        0 6px;
+
+    background:
+        rgba(255,255,255,.12);
 
 }
 
@@ -1016,8 +969,11 @@ main {
     min-width:
         0;
 
+    overflow:
+        hidden;
+
     color:
-        rgba(255,255,255,.18);
+        rgba(255,255,255,.22);
 
     font-size:
         6px;
@@ -1029,16 +985,31 @@ main {
         700;
 
     letter-spacing:
-        .35px;
+        .25px;
 
     white-space:
         nowrap;
+
+    text-overflow:
+        ellipsis;
 
 }
 
 
 /* =========================================================
-   SMALL SCREEN
+   IL
+========================================================= */
+
+.player-card.il .player-roster-status {
+
+    color:
+        #f0c642;
+
+}
+
+
+/* =========================================================
+   MOBILE
 ========================================================= */
 
 @media (max-width: 390px) {
@@ -1046,7 +1017,7 @@ main {
     main {
 
         padding:
-            15px 9px 25px;
+            16px 9px 25px;
 
     }
 
@@ -1060,7 +1031,7 @@ main {
             minmax(0,1fr);
 
         min-height:
-            79px;
+            74px;
 
     }
 
@@ -1068,42 +1039,7 @@ main {
     .player-number-value {
 
         font-size:
-            25px;
-
-    }
-
-
-    .player-name {
-
-        font-size:
-            17px;
-
-    }
-
-
-    .player-info {
-
-        padding:
-            0 9px 0 2px;
-
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL
-========================================================= */
-
-@media (max-width: 340px) {
-
-    .player-card {
-
-        grid-template-columns:
-            48px
-            36px
-            40px
-            minmax(0,1fr);
+            24px;
 
     }
 
@@ -1116,7 +1052,39 @@ main {
     }
 
 
-    .player-roster-detail {
+    .player-info {
+
+        padding-right:
+            10px;
+
+    }
+
+}
+
+
+@media (max-width: 340px) {
+
+    .player-card {
+
+        grid-template-columns:
+            48px
+            35px
+            40px
+            minmax(0,1fr);
+
+    }
+
+
+    .player-name {
+
+        font-size:
+            15px;
+
+    }
+
+
+    .player-roster-detail,
+    .player-roster-divider {
 
         display:
             none;
@@ -1128,7 +1096,7 @@ main {
 
 /* =========================================================
    BOTTOM NAV
-   既存UI — 変更しない
+   既存UI — 変更なし
 ========================================================= */
 
 .bottom-nav {
@@ -1329,475 +1297,392 @@ main {
 
 <main>
 
-<section class="player-page">
+    <section class="player-page">
 
 
-    <div class="player-heading">
+        <div class="player-top">
 
-        <span class="player-heading-title">
-            PHILLIES ROSTER
-        </span>
+            <h1 class="player-title">
+                Players
+            </h1>
 
-        <span class="player-heading-season">
-            2026
-        </span>
-
-    </div>
-
-
-    <!-- ===================================================
-         ACTIVE
-    ==================================================== -->
-
-    <section class="player-section">
-
-
-        <div class="player-section-title">
-
-            <div class="player-section-title-left">
-
-                <span class="player-section-mark"></span>
-
-                <span class="player-section-title-text">
-                    ACTIVE
-                </span>
-
-            </div>
-
-            <span class="player-section-count">
-                26 PLAYERS
+            <span class="player-meta">
+                PHILLIES / 2026
             </span>
 
         </div>
 
 
-        <!-- Trea Turner -->
+        <!-- =================================================
+             ACTIVE
+        ================================================== -->
 
-        <article
-            class="player-card"
-            data-number="7"
-        >
+        <section class="roster-group">
 
-            <div class="player-number">
+            <div class="roster-label">
 
-                <span class="player-number-value">
-                    7
-                </span>
+                <div class="roster-label-left">
 
-            </div>
+                    <span class="roster-label-line"></span>
 
-
-            <div class="player-position">
-
-                <span class="player-position-value">
-                    SS
-                </span>
-
-            </div>
-
-
-            <div class="player-bt">
-
-                <span class="player-bt-value">
-                    R/R
-                </span>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <span
-                    class="player-name"
-                    data-full-name="Trea Turner"
-                >
-                    Trea Turner
-                </span>
-
-                <div class="player-roster">
-
-                    <span class="player-roster-dot"></span>
-
-                    <span class="player-roster-status">
+                    <span class="roster-label-name">
                         ACTIVE
-                    </span>
-
-                    <span class="player-roster-detail">
-                        40-MAN ROSTER
                     </span>
 
                 </div>
 
-            </div>
-
-        </article>
-
-
-        <!-- J.T. Realmuto -->
-
-        <article
-            class="player-card"
-            data-number="10"
-        >
-
-            <div class="player-number">
-
-                <span class="player-number-value">
-                    10
+                <span class="roster-label-count">
+                    26
                 </span>
 
             </div>
 
 
-            <div class="player-position">
+            <div class="player-list">
 
-                <span class="player-position-value">
-                    C
-                </span>
+
+                <article class="player-card">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            7
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            SS
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            R/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            Trea Turner
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                ACTIVE
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                40-MAN ROSTER
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="player-card">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            10
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            C
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            R/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            J.T. Realmuto
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                ACTIVE
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                40-MAN ROSTER
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="player-card">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            5
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            2B
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            L/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            Bryson Stott
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                ACTIVE
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                40-MAN ROSTER
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="player-card">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            28
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            3B
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            R/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            Alec Bohm
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                ACTIVE
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                40-MAN ROSTER
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
 
             </div>
 
+        </section>
 
-            <div class="player-bt">
 
-                <span class="player-bt-value">
-                    R/R
-                </span>
+        <!-- =================================================
+             IL
+        ================================================== -->
 
-            </div>
+        <section class="roster-group il">
 
+            <div class="roster-label">
 
-            <div class="player-info">
+                <div class="roster-label-left">
 
-                <span
-                    class="player-name"
-                    data-full-name="J.T. Realmuto"
-                >
-                    J.T. Realmuto
-                </span>
+                    <span class="roster-label-line"></span>
 
-                <div class="player-roster">
-
-                    <span class="player-roster-dot"></span>
-
-                    <span class="player-roster-status">
-                        ACTIVE
-                    </span>
-
-                    <span class="player-roster-detail">
-                        40-MAN ROSTER
-                    </span>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- Bryson Stott -->
-
-        <article
-            class="player-card"
-            data-number="5"
-        >
-
-            <div class="player-number">
-
-                <span class="player-number-value">
-                    5
-                </span>
-
-            </div>
-
-
-            <div class="player-position">
-
-                <span class="player-position-value">
-                    2B
-                </span>
-
-            </div>
-
-
-            <div class="player-bt">
-
-                <span class="player-bt-value">
-                    L/R
-                </span>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <span
-                    class="player-name"
-                    data-full-name="Bryson Stott"
-                >
-                    Bryson Stott
-                </span>
-
-                <div class="player-roster">
-
-                    <span class="player-roster-dot"></span>
-
-                    <span class="player-roster-status">
-                        ACTIVE
-                    </span>
-
-                    <span class="player-roster-detail">
-                        40-MAN ROSTER
-                    </span>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- Alec Bohm -->
-
-        <article
-            class="player-card"
-            data-number="28"
-        >
-
-            <div class="player-number">
-
-                <span class="player-number-value">
-                    28
-                </span>
-
-            </div>
-
-
-            <div class="player-position">
-
-                <span class="player-position-value">
-                    3B
-                </span>
-
-            </div>
-
-
-            <div class="player-bt">
-
-                <span class="player-bt-value">
-                    R/R
-                </span>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <span
-                    class="player-name"
-                    data-full-name="Alec Bohm"
-                >
-                    Alec Bohm
-                </span>
-
-                <div class="player-roster">
-
-                    <span class="player-roster-dot"></span>
-
-                    <span class="player-roster-status">
-                        ACTIVE
-                    </span>
-
-                    <span class="player-roster-detail">
-                        40-MAN ROSTER
-                    </span>
-
-                </div>
-
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- ===================================================
-         IL
-    ==================================================== -->
-
-    <section class="player-section il">
-
-
-        <div class="player-section-title">
-
-            <div class="player-section-title-left">
-
-                <span class="player-section-mark"></span>
-
-                <span class="player-section-title-text">
-                    INJURED LIST
-                </span>
-
-            </div>
-
-            <span class="player-section-count">
-                1 PLAYER
-            </span>
-
-        </div>
-
-
-        <article
-            class="player-card il"
-            data-number="25"
-        >
-
-            <div class="player-number">
-
-                <span class="player-number-value">
-                    25
-                </span>
-
-            </div>
-
-
-            <div class="player-position">
-
-                <span class="player-position-value">
-                    P
-                </span>
-
-            </div>
-
-
-            <div class="player-bt">
-
-                <span class="player-bt-value">
-                    L/R
-                </span>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <span
-                    class="player-name"
-                    data-full-name="Ranger Suárez"
-                >
-                    Ranger Suárez
-                </span>
-
-                <div class="player-roster">
-
-                    <span class="player-roster-dot"></span>
-
-                    <span class="player-roster-status">
-                        IL
-                    </span>
-
-                    <span class="player-roster-detail">
+                    <span class="roster-label-name">
                         INJURED LIST
                     </span>
 
                 </div>
 
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- ===================================================
-         40-MAN
-    ==================================================== -->
-
-    <section class="player-section">
-
-
-        <div class="player-section-title">
-
-            <div class="player-section-title-left">
-
-                <span class="player-section-mark"></span>
-
-                <span class="player-section-title-text">
-                    40-MAN
-                </span>
-
-            </div>
-
-            <span class="player-section-count">
-                40 PLAYERS
-            </span>
-
-        </div>
-
-
-        <article
-            class="player-card forty-man"
-            data-number="54"
-        >
-
-            <div class="player-number">
-
-                <span class="player-number-value">
-                    54
+                <span class="roster-label-count">
+                    1
                 </span>
 
             </div>
 
 
-            <div class="player-position">
+            <div class="player-list">
 
-                <span class="player-position-value">
-                    P
-                </span>
+
+                <article class="player-card il">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            25
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            P
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            L/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            Ranger Suárez
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                IL
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                INJURED LIST
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
 
             </div>
 
-
-            <div class="player-bt">
-
-                <span class="player-bt-value">
-                    R/R
-                </span>
-
-            </div>
+        </section>
 
 
-            <div class="player-info">
+        <!-- =================================================
+             40-MAN
+        ================================================== -->
 
-                <span
-                    class="player-name"
-                    data-full-name="Sample Player"
-                >
-                    Sample Player
-                </span>
+        <section class="roster-group">
 
-                <div class="player-roster">
+            <div class="roster-label">
 
-                    <span class="player-roster-dot"></span>
+                <div class="roster-label-left">
 
-                    <span class="player-roster-status">
+                    <span class="roster-label-line"></span>
+
+                    <span class="roster-label-name">
                         40-MAN
-                    </span>
-
-                    <span class="player-roster-detail">
-                        ROSTER
                     </span>
 
                 </div>
 
+                <span class="roster-label-count">
+                    40
+                </span>
+
             </div>
 
-        </article>
+
+            <div class="player-list">
+
+
+                <article class="player-card callup">
+
+                    <div class="player-number">
+                        <span class="player-number-value">
+                            54
+                        </span>
+                    </div>
+
+                    <div class="player-position">
+                        <span class="player-position-value">
+                            P
+                        </span>
+                    </div>
+
+                    <div class="player-bt">
+                        <span class="player-bt-value">
+                            R/R
+                        </span>
+                    </div>
+
+                    <div class="player-info">
+
+                        <span class="player-name">
+                            Sample Player
+                        </span>
+
+                        <div class="player-roster">
+
+                            <span class="player-roster-status">
+                                40-MAN
+                            </span>
+
+                            <span class="player-roster-divider"></span>
+
+                            <span class="player-roster-detail">
+                                ROSTER
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
 
     </section>
-
-
-</section>
 
 </main>
 
