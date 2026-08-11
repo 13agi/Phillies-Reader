@@ -1,9 +1,9 @@
-name: Update Phillies Score
+name: Update Score
 on:
   schedule:
-    # 5分ごと
+    # 5分ごとにScoreを更新
     - cron: "*/5 * * * *"
-  # GitHub Actions画面から手動実行可能
+  # GitHub Actionsから手動実行可能
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,49 +11,108 @@ jobs:
   update-score:
     runs-on: ubuntu-latest
     steps:
-      # =====================================================
-      # CHECKOUT
-      # =====================================================
+      # ==========================================
+      # Repository
+      # ==========================================
       - name: Checkout repository
         uses: actions/checkout@v4
-      # =====================================================
-      # PYTHON
-      # =====================================================
+        with:
+          fetch-depth: 0
+      # ==========================================
+      # Python
+      # ==========================================
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
-      # =====================================================
-      # DEPENDENCIES
-      # =====================================================
+          python-version: "3.12"
+      # ==========================================
+      # Dependencies
+      # ==========================================
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
-      # =====================================================
-      # UPDATE SCORE
-      # =====================================================
-      - name: Update score data
+      # ==========================================
+      # Update score.json
+      # ==========================================
+      - name: Update Score JSON
         run: |
           python scripts/update_score.py
-      # =====================================================
-      # CHECK RESULT
-      # =====================================================
-      - name: Show generated score.json
+      # ==========================================
+      # Verify score.json
+      # ==========================================
+      - name: Verify score.json
         run: |
-          echo "===== data/score.json ====="
-          cat data/score.json
-      # =====================================================
-      # COMMIT
-      # =====================================================
-      - name: Commit score data
+          python - <<'PY'
+          import json
+          import sys
+          path = "data/score.json"
+          try:
+              with open(path, "r", encoding="utf-8") as f:
+                  data = json.load(f)
+          except Exception as e:
+              print("ERROR: score.json could not be loaded")
+              print(e)
+              sys.exit(1)
+          print("score.json loaded successfully")
+          print("date:", data.get("date"))
+          print("updated:", data.get("updated"))
+          print("gameCount:", data.get("gameCount"))
+          games = data.get("games", [])
+          if not games:
+              print("No game data.")
+              sys.exit(0)
+          game = games[0]
+          game_info = game.get("game", {})
+          print("gamePk:", game_info.get("gamePk"))
+          status = game_info.get("status", {})
+          print("status:", status.get("abstract"))
+          print("detailed:", status.get("detailed"))
+          inning_scores = game.get(
+              "inningScores",
+              []
+          )
+          batting = game.get(
+              "philliesBatting",
+              []
+          )
+          pitching = game.get(
+              "philliesPitching",
+              []
+          )
+          print("inningScores:", len(inning_scores))
+          print("batters:", len(batting))
+          print("pitchers:", len(pitching))
+          # イニングデータが存在する場合は内容も確認
+          if inning_scores:
+              print("First inning:", inning_scores[0])
+              print("Last inning:", inning_scores[-1])
+          else:
+              print("WARNING: inningScores is empty")
+          # 打順確認
+          if batting:
+              print("First batter:", batting[0].get("name"))
+              print("Batting order count:", len(batting))
+          else:
+              print("WARNING: philliesBatting is empty")
+          # 投手確認
+          if pitching:
+              print("First pitcher:", pitching[0].get("name"))
+              print("Pitcher count:", len(pitching))
+          else:
+              print("WARNING: philliesPitching is empty")
+          PY
+      # ==========================================
+      # Commit & Push
+      # ==========================================
+      - name: Commit updated score.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/score.json
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No score changes."
           else
-            git commit -m "Update Phillies score data"
+            git commit -m "Update score data"
             git push
           fi
