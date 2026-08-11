@@ -25,9 +25,9 @@ def get_json(url, params=None):
     response.raise_for_status()
     return response.json()
 # =========================================================
-# TEAM ROSTER
+# MLB ROSTER API
 # =========================================================
-def get_team_roster(roster_type):
+def get_roster(roster_type):
     url = (
         f"{BASE_URL}/teams/"
         f"{TEAM_ID}/roster"
@@ -46,37 +46,20 @@ def get_team_roster(roster_type):
         []
     )
 # =========================================================
-# PLAYER DETAILS
-# =========================================================
-def get_player(player_id):
-    url = (
-        f"{BASE_URL}/people/"
-        f"{player_id}"
-    )
-    params = {
-        "hydrate": "currentTeam,transactions"
-    }
-    data = get_json(
-        url,
-        params
-    )
-    people = data.get(
-        "people",
-        []
-    )
-    if not people:
-        return None
-    return people[0]
-# =========================================================
-# ROSTER MAP
+# MAP
 # =========================================================
 def make_map(roster):
     result = {}
     for entry in roster:
-        person = (
-            entry.get("person")
-            or {}
+        person = entry.get(
+            "person",
+            {}
         )
+        if not isinstance(
+            person,
+            dict
+        ):
+            continue
         player_id = person.get(
             "id"
         )
@@ -84,257 +67,196 @@ def make_map(roster):
             result[player_id] = entry
     return result
 # =========================================================
-# VALUE
+# TEXT NORMALIZATION
 # =========================================================
-def safe_dict(value):
-    if isinstance(value, dict):
-        return value
-    return {}
+def normalized(value):
+    if value is None:
+        return ""
+    return str(
+        value
+    ).strip().upper()
 # =========================================================
 # IL DETECTION
 #
-# IMPORTANT:
+# MLB APIのROSTER ENTRYを使用する。
 #
-# fullSeasonをILとはみなさない。
+# fullRosterには負傷者を含むため、
+# そのentryのstatus / designation等を確認する。
 #
-# MLB APIのRoster Entry / status / designation
-# と選手のtransaction情報を確認する。
+# 文字列を推測して選手を新規作成することはしない。
 # =========================================================
-def is_il_from_roster(entry):
+def roster_entry_is_il(entry):
     if not entry:
         return False
-    status = safe_dict(
-        entry.get("status")
-    )
-    designation = safe_dict(
-        entry.get("designation")
-    )
-    values = [
-        str(
-            entry.get(
-                "status",
-                ""
-            )
-        ).upper(),
-        str(
-            entry.get(
-                "designation",
-                ""
-            )
-        ).upper(),
-        str(
-            status.get(
-                "code",
-                ""
-            )
-        ).upper(),
-        str(
-            status.get(
-                "description",
-                ""
-            )
-        ).upper(),
-        str(
-            designation.get(
-                "code",
-                ""
-            )
-        ).upper(),
-        str(
-            designation.get(
-                "description",
-                ""
-            )
-        ).upper()
+    # -----------------------------------------------------
+    # 直接的なフィールド
+    # -----------------------------------------------------
+    candidates = [
+        entry.get(
+            "status"
+        ),
+        entry.get(
+            "designation"
+        ),
+        entry.get(
+            "rosterType"
+        )
     ]
-    for value in values:
-        if (
-            "INJURED LIST"
-            in value
-            or
-            "INJURED_LIST"
-            in value
-            or
-            value in {
-                "IL",
-                "10-DAY IL",
-                "15-DAY IL",
-                "60-DAY IL",
-                "7-DAY IL"
-            }
+    # -----------------------------------------------------
+    # status / designationがオブジェクトの場合
+    # -----------------------------------------------------
+    for key in (
+        "status",
+        "designation"
+    ):
+        value = entry.get(
+            key
+        )
+        if isinstance(
+            value,
+            dict
         ):
+            candidates.extend([
+                value.get(
+                    "code"
+                ),
+                value.get(
+                    "description"
+                ),
+                value.get(
+                    "name"
+                )
+            ])
+    # -----------------------------------------------------
+    # 判定
+    # -----------------------------------------------------
+    for value in candidates:
+        text = normalized(
+            value
+        )
+        if not text:
+            continue
+        # 代表的なMLB IL表記
+        if text == "IL":
+            return True
+        if "INJURED LIST" in text:
+            return True
+        if "INJURED" in text:
+            return True
+        if "DISABLED LIST" in text:
             return True
     return False
 # =========================================================
-# TRANSACTION IL DETECTION
-#
-# 最新のMLB API transaction情報から
-# 現在ILに置かれていることを確認する。
+# STATUS
 # =========================================================
-def is_il_from_transactions(
-    person
-):
-    transactions = (
-        person.get(
-            "transactions",
-            []
-        )
-        if person
-        else []
-    )
-    if not transactions:
-        return False
-    current_il = False
-    for transaction in transactions:
-        description = str(
-            transaction.get(
-                "description",
-                ""
-            )
-        ).lower()
-        effective_date = (
-            transaction.get(
-                "effectiveDate"
-            )
-            or
-            transaction.get(
-                "date"
-            )
-        )
-        if not effective_date:
-            continue
-        # IL登録
-        if (
-            "placed"
-            in description
-            and
-            (
-                "injured list"
-                in description
-                or
-                "injured" in description
-            )
-        ):
-            current_il = True
-        # IL解除
-        elif (
-            (
-                "activated"
-                in description
-            )
-            or
-            (
-                "reinstated"
-                in description
-            )
-            or
-            (
-                "returned from"
-                in description
-            )
-        ) and (
-            "injured"
-            in description
-            or
-            "injured list"
-            in description
-        ):
-            current_il = False
-    return current_il
-# =========================================================
-# DETERMINE STATUS
-# =========================================================
-def determine_status(
+def determine_roster_status(
     player_id,
     active_map,
-    roster_40_map,
-    person
+    full_map,
+    forty_map
 ):
     # -----------------------------------------------------
-    # ACTIVE
+    # MLB API active roster
     # -----------------------------------------------------
     if player_id in active_map:
         return "26MAN"
     # -----------------------------------------------------
-    # IL
+    # MLB API full roster
+    #
+    # ActiveではないがFullRosterに存在する選手について
+    # APIのRoster Entryを確認。
     # -----------------------------------------------------
-    roster_entry = (
-        roster_40_map.get(
-            player_id
-        )
+    full_entry = full_map.get(
+        player_id
     )
-    if is_il_from_roster(
-        roster_entry
-    ):
-        return "IL"
-    if is_il_from_transactions(
-        person
+    if roster_entry_is_il(
+        full_entry
     ):
         return "IL"
     # -----------------------------------------------------
-    # 40-MAN
+    # 40MAN
     # -----------------------------------------------------
-    if player_id in roster_40_map:
+    if player_id in forty_map:
         return "40MAN"
+    # -----------------------------------------------------
+    # 判定不能
+    # -----------------------------------------------------
     return None
 # =========================================================
-# BUILD PLAYER
+# PLAYER
 # =========================================================
 def build_player(
-    entry,
+    forty_entry,
     active_map,
-    roster_40_map
+    full_map,
+    forty_map
 ):
-    person_basic = (
-        entry.get(
-            "person"
-        )
-        or {}
+    person = forty_entry.get(
+        "person",
+        {}
     )
-    player_id = (
-        person_basic.get(
-            "id"
-        )
+    if not isinstance(
+        person,
+        dict
+    ):
+        return None
+    player_id = person.get(
+        "id"
     )
     if not player_id:
         return None
     # -----------------------------------------------------
-    # PLAYER DETAIL
+    # FULL ROSTER ENTRY
     # -----------------------------------------------------
-    person = get_player(
-        player_id
+    full_entry = full_map.get(
+        player_id,
+        {}
     )
-    if not person:
-        print(
-            "Skipping player without API data:",
-            player_id
-        )
-        return None
+    # -----------------------------------------------------
+    # ACTIVE ENTRY
+    # -----------------------------------------------------
+    active_entry = active_map.get(
+        player_id,
+        {}
+    )
     # -----------------------------------------------------
     # STATUS
     # -----------------------------------------------------
-    roster_status = determine_status(
-        player_id,
-        active_map,
-        roster_40_map,
-        person
+    roster_status = (
+        determine_roster_status(
+            player_id,
+            active_map,
+            full_map,
+            forty_map
+        )
     )
-    # 判定不能なら登録しない
+    # 判定不能な選手は登録しない
     if roster_status is None:
         print(
-            "Skipping player with unknown roster status:",
+            "Skipping unknown roster status:",
             player_id,
-            person.get("fullName")
+            person.get(
+                "fullName"
+            )
         )
         return None
     # -----------------------------------------------------
     # POSITION
     # -----------------------------------------------------
     position = (
-        entry.get(
+        active_entry.get(
             "position"
         )
-        or {}
+        or
+        full_entry.get(
+            "position"
+        )
+        or
+        forty_entry.get(
+            "position"
+        )
+        or
+        {}
     )
     # -----------------------------------------------------
     # BAT / PITCH
@@ -343,13 +265,15 @@ def build_player(
         person.get(
             "batSide"
         )
-        or {}
+        or
+        {}
     )
     pitch_hand = (
         person.get(
             "pitchHand"
         )
-        or {}
+        or
+        {}
     )
     # -----------------------------------------------------
     # CURRENT TEAM
@@ -358,7 +282,8 @@ def build_player(
         person.get(
             "currentTeam"
         )
-        or {}
+        or
+        {}
     )
     # -----------------------------------------------------
     # RETURN
@@ -379,8 +304,18 @@ def build_player(
                 "lastName"
             ),
         "number":
-            entry.get(
-                "jerseyNumber"
+            (
+                active_entry.get(
+                    "jerseyNumber"
+                )
+                or
+                full_entry.get(
+                    "jerseyNumber"
+                )
+                or
+                forty_entry.get(
+                    "jerseyNumber"
+                )
             ),
         "position":
             position.get(
@@ -403,14 +338,20 @@ def build_player(
             pitch_hand.get(
                 "code"
             ),
+        # -------------------------------------------------
+        # FINAL ROSTER STATUS
+        # -------------------------------------------------
         "rosterStatus":
             roster_status,
         "fortyMan":
-            player_id in roster_40_map,
+            player_id in forty_map,
         "activeRoster":
             player_id in active_map,
         "il":
             roster_status == "IL",
+        # -------------------------------------------------
+        # TEAM
+        # -------------------------------------------------
         "currentTeam":
             {
                 "id":
@@ -422,6 +363,9 @@ def build_player(
                         "name"
                     )
             },
+        # -------------------------------------------------
+        # BASIC MLB INFORMATION
+        # -------------------------------------------------
         "birthDate":
             person.get(
                 "birthDate"
@@ -468,29 +412,29 @@ def main():
         SEASON
     )
     print("")
-    # -----------------------------------------------------
+    # =====================================================
     # 40-MAN
-    # -----------------------------------------------------
+    # =====================================================
     print(
         "Fetching 40-man roster..."
     )
-    roster_40 = get_team_roster(
+    roster_40 = get_roster(
         "40Man"
     )
-    roster_40_map = make_map(
+    forty_map = make_map(
         roster_40
     )
     print(
         "40-man:",
-        len(roster_40_map)
+        len(forty_map)
     )
-    # -----------------------------------------------------
+    # =====================================================
     # ACTIVE
-    # -----------------------------------------------------
+    # =====================================================
     print(
         "Fetching active roster..."
     )
-    active_roster = get_team_roster(
+    active_roster = get_roster(
         "active"
     )
     active_map = make_map(
@@ -500,45 +444,65 @@ def main():
         "Active:",
         len(active_map)
     )
-    # -----------------------------------------------------
+    # =====================================================
+    # FULL ROSTER
+    # =====================================================
+    print(
+        "Fetching full roster..."
+    )
+    full_roster = get_roster(
+        "fullRoster"
+    )
+    full_map = make_map(
+        full_roster
+    )
+    print(
+        "Full roster:",
+        len(full_map)
+    )
+    # =====================================================
     # BUILD
-    # -----------------------------------------------------
+    #
+    # 40-manを母集団とする。
+    # MLB APIに存在しない選手は作らない。
+    # =====================================================
     players = []
     for entry in roster_40:
         player = build_player(
             entry,
             active_map,
-            roster_40_map
+            full_map,
+            forty_map
         )
         if player:
             players.append(
                 player
             )
-    # -----------------------------------------------------
+    # =====================================================
     # SORT
-    # -----------------------------------------------------
+    # =====================================================
     status_order = {
         "26MAN": 0,
         "IL": 1,
         "40MAN": 2
     }
     players.sort(
-        key=lambda p: (
+        key=lambda player: (
             status_order.get(
-                p.get(
+                player.get(
                     "rosterStatus"
                 ),
                 99
             ),
-            p.get(
+            player.get(
                 "name"
             )
             or ""
         )
     )
-    # -----------------------------------------------------
+    # =====================================================
     # OUTPUT
-    # -----------------------------------------------------
+    # =====================================================
     output = {
         "team": {
             "id":
@@ -559,9 +523,9 @@ def main():
         "players":
             players
     }
-    # -----------------------------------------------------
+    # =====================================================
     # SAVE
-    # -----------------------------------------------------
+    # =====================================================
     os.makedirs(
         "data",
         exist_ok=True
@@ -577,9 +541,9 @@ def main():
             ensure_ascii=False,
             indent=2
         )
-    # -----------------------------------------------------
+    # =====================================================
     # SUMMARY
-    # -----------------------------------------------------
+    # =====================================================
     counts = {
         "26MAN": 0,
         "IL": 0,
