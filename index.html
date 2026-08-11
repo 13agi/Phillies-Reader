@@ -3,48 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Phillies</title>
-
 <style>
-
+/* ==================================================
+   COLOR
+================================================== */
 :root {
     --navy: #06172d;
-    --navy-light: #0a203b;
-
+    --navy-2: #081d36;
     --red: #e31837;
-    --red-dark: #b80f2c;
-    --red-deep: #8f0921;
-
+    --red-dark: #b90f2d;
+    --red-deep: #920b24;
     --white: #ffffff;
+    --muted: #718298;
 }
-
-
-/* =========================
+/* ==================================================
    RESET
-========================= */
-
+================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 html,
 body {
     width: 100%;
     min-height: 100%;
-
     background: var(--navy);
 }
-
 body {
     min-height: 100vh;
-
     padding-bottom: 76px;
-
-    color: #fff;
-
+    color: var(--white);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -52,448 +42,440 @@ body {
         Arial,
         sans-serif;
 }
-
-
 /* ==================================================
    HEADER
 ================================================== */
-
 .header {
-
     position: sticky;
-
     top: 0;
-
     z-index: 1000;
-
     height: 82px;
-
     overflow: hidden;
-
     background:
         linear-gradient(
-            160deg,
+            115deg,
             var(--red-deep) 0%,
-            var(--red-dark) 28%,
-            var(--red) 58%,
-            var(--red-dark) 100%
+            var(--red-dark) 22%,
+            var(--red) 50%,
+            #d41432 72%,
+            #a80d28 100%
         );
-
     box-shadow:
-        0 8px 28px rgba(0, 0, 0, .38);
+        0 8px 28px rgba(0,0,0,.38);
 }
-
-
-/*
-    大きな赤い面
-    ヘッダー全体に奥行きを作る
-*/
-
-.header-shape-one {
-
+/* --------------------------------------------------
+   大きな斜めの光
+-------------------------------------------------- */
+.header::before {
+    content: "";
     position: absolute;
-
-    width: 75%;
-    height: 180%;
-
-    left: -20%;
-    top: -40%;
-
+    left: -25%;
+    top: -100%;
+    width: 95%;
+    height: 250%;
     transform:
-        skewX(-22deg);
-
-    background:
-        rgba(255,255,255,.055);
-}
-
-
-/*
-    深い赤の面
-*/
-
-.header-shape-two {
-
-    position: absolute;
-
-    width: 42%;
-    height: 180%;
-
-    right: -8%;
-    top: -35%;
-
-    transform:
-        skewX(-22deg);
-
-    background:
-        rgba(95, 0, 20, .18);
-}
-
-
-/*
-    上部の微細な光
-*/
-
-.header-light {
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    top: 0;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.3);
-}
-
-
-/*
-    下部の境界
-*/
-
-.header-edge {
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 2px;
-
+        rotate(17deg);
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.35),
-            rgba(255,255,255,.22),
-            rgba(0,0,0,.35)
+            transparent 0%,
+            rgba(255,255,255,.025) 30%,
+            rgba(255,255,255,.11) 50%,
+            rgba(255,255,255,.025) 70%,
+            transparent 100%
+        );
+    pointer-events: none;
+}
+/* --------------------------------------------------
+   右側の深い赤
+-------------------------------------------------- */
+.header .red-depth {
+    position: absolute;
+    right: -12%;
+    top: -60%;
+    width: 48%;
+    height: 220%;
+    transform:
+        skewX(-19deg);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(80,0,20,.02),
+            rgba(70,0,18,.18)
         );
 }
-
-
-/*
-    ヘッダー中央の抽象形状
-
-    文字・ロゴではなく、
-    「形」だけで存在感を出す
-*/
-
-.header-emblem {
-
+/* --------------------------------------------------
+   上部エッジ
+-------------------------------------------------- */
+.header .top-edge {
     position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 74px;
-    height: 74px;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg);
-
-    border:
-        1px solid rgba(255,255,255,.16);
-
-    background:
-        rgba(255,255,255,.025);
-
-    box-shadow:
-        inset 0 0 0 8px rgba(255,255,255,.018);
-}
-
-
-/*
-    中央形状の内側
-*/
-
-.header-emblem::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 42px;
-    height: 42px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border:
-        1px solid rgba(255,255,255,.18);
-}
-
-
-/*
-    中央の細いライン
-*/
-
-.header-emblem::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 64px;
+    left: 0;
+    right: 0;
+    top: 0;
     height: 1px;
-
-    transform:
-        translate(-50%, -50%);
-
     background:
-        rgba(255,255,255,.2);
+        rgba(255,255,255,.3);
 }
-
-
+/* --------------------------------------------------
+   下部エッジ
+-------------------------------------------------- */
+.header .bottom-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--navy),
+            rgba(255,255,255,.35) 50%,
+            var(--navy)
+        );
+    opacity: .8;
+}
+/* --------------------------------------------------
+   文字なしの抽象アクセント
+-------------------------------------------------- */
+.header .accent {
+    position: absolute;
+    left: 22px;
+    bottom: 16px;
+    width: 52px;
+    height: 5px;
+    transform:
+        skewX(-25deg);
+    background:
+        rgba(255,255,255,.82);
+    border-radius:
+        999px;
+    box-shadow:
+        0 0 12px rgba(255,255,255,.15);
+}
+.header .accent::after {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 9px;
+    width: 30px;
+    height: 2px;
+    background:
+        rgba(255,255,255,.35);
+    border-radius:
+        999px;
+}
 /* ==================================================
-   MAIN
-   今は空
+   EMPTY MAIN
 ================================================== */
-
 main {
     min-height:
         calc(100vh - 158px);
 }
-
-
 /* ==================================================
    BOTTOM NAV
-   ここは指定どおり維持
 ================================================== */
-
 .bottom-nav {
-
     position: fixed;
-
     left: 0;
     right: 0;
     bottom: 0;
-
     z-index: 2000;
-
     height: 76px;
-
     background:
-        rgba(7, 26, 51, .98);
-
+        rgba(6,23,45,.98);
     border-top:
         1px solid rgba(255,255,255,.08);
-
     box-shadow:
-        0 -8px 25px rgba(0,0,0,.28);
+        0 -8px 25px rgba(0,0,0,.3);
+    backdrop-filter:
+        blur(14px);
 }
-
-
 .bottom-inner {
-
     width: 100%;
-
     max-width: 760px;
-
     height: 100%;
-
     margin: 0 auto;
-
     display: grid;
-
     grid-template-columns:
         repeat(5, 1fr);
 }
-
-
 .nav-item {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 5px;
-
-    color: #718298;
-
+    color:
+        var(--muted);
     text-decoration: none;
-
     font-size: 8px;
-
     font-weight: 900;
-
-    letter-spacing: .5px;
+    letter-spacing:
+        .55px;
 }
-
-
+/* ==================================================
+   SVG ICON
+================================================== */
 .nav-icon {
-
-    width: 30px;
-    height: 30px;
-
+    width: 29px;
+    height: 29px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    border-radius: 10px;
-
-    font-size: 16px;
+    border-radius:
+        9px;
 }
-
-
-/* HOMEだけ180度 */
-
-.nav-item.home .nav-icon {
-
-    transform:
-        rotate(180deg);
+.nav-icon svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
-
-
+/* ==================================================
+   ACTIVE
+================================================== */
 .nav-item.active {
-
     color:
         var(--red);
 }
-
-
 .nav-item.active .nav-icon {
-
     background:
-        rgba(227,24,55,.14);
+        rgba(227,24,55,.13);
 }
-
-
+/* ==================================================
+   HOME ICON 180°
+================================================== */
+.nav-item.home .nav-icon {
+    transform:
+        rotate(180deg);
+}
+/* ==================================================
+   MOBILE
+================================================== */
+@media (max-width: 380px) {
+    .header {
+        height: 76px;
+    }
+    .nav-item {
+        font-size: 7px;
+    }
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
 </style>
 </head>
-
-
 <body>
-
-
 <!-- ==================================================
      HEADER
 ================================================== -->
-
 <header class="header">
-
-    <div class="header-shape-one"></div>
-
-    <div class="header-shape-two"></div>
-
-    <div class="header-light"></div>
-
-    <div class="header-emblem"></div>
-
-    <div class="header-edge"></div>
-
+    <div class="red-depth"></div>
+    <div class="top-edge"></div>
+    <div class="accent"></div>
+    <div class="bottom-edge"></div>
 </header>
-
-
-
 <!-- ==================================================
      EMPTY HOME
 ================================================== -->
-
 <main></main>
-
-
-
 <!-- ==================================================
      BOTTOM NAV
 ================================================== -->
-
 <nav class="bottom-nav">
-
     <div class="bottom-inner">
-
-
+        <!-- SCHEDULE -->
         <a
             href="schedule.html"
             class="nav-item"
         >
-
             <div class="nav-icon">
-                ▤
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <rect
+                        x="3"
+                        y="5"
+                        width="18"
+                        height="16"
+                        rx="2"
+                    />
+                    <line
+                        x1="7"
+                        y1="3"
+                        x2="7"
+                        y2="7"
+                    />
+                    <line
+                        x1="17"
+                        y1="3"
+                        x2="17"
+                        y2="7"
+                    />
+                    <line
+                        x1="3"
+                        y1="10"
+                        x2="21"
+                        y2="10"
+                    />
+                    <line
+                        x1="8"
+                        y1="14"
+                        x2="11"
+                        y2="14"
+                    />
+                    <line
+                        x1="13"
+                        y1="14"
+                        x2="16"
+                        y2="14"
+                    />
+                </svg>
             </div>
-
             SCHEDULE
-
         </a>
-
-
-
+        <!-- SCORE -->
         <a
             href="score.html"
             class="nav-item"
         >
-
             <div class="nav-icon">
-                ◎
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <rect
+                        x="3"
+                        y="4"
+                        width="18"
+                        height="16"
+                        rx="2"
+                    />
+                    <line
+                        x1="8"
+                        y1="4"
+                        x2="8"
+                        y2="20"
+                    />
+                    <line
+                        x1="16"
+                        y1="4"
+                        x2="16"
+                        y2="20"
+                    />
+                    <line
+                        x1="3"
+                        y1="12"
+                        x2="21"
+                        y2="12"
+                    />
+                </svg>
             </div>
-
             SCORE
-
         </a>
-
-
-
+        <!-- HOME -->
         <a
             href="index.html"
             class="nav-item active home"
         >
-
             <div class="nav-icon">
-                ⌂
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M3 11.5
+                           L12 4
+                           L21 11.5"
+                    />
+                    <path
+                        d="M5.5 10.5
+                           V20
+                           H18.5
+                           V10.5"
+                    />
+                    <path
+                        d="M9.5 20
+                           V14
+                           H14.5
+                           V20"
+                    />
+                </svg>
             </div>
-
             HOME
-
         </a>
-
-
-
+        <!-- PLAYER -->
         <a
             href="player.html"
             class="nav-item"
         >
-
             <div class="nav-icon">
-                ◉
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <circle
+                        cx="12"
+                        cy="8"
+                        r="3.5"
+                    />
+                    <path
+                        d="M5 20
+                           C5.7 15.8
+                           8.1 14
+                           12 14
+                           C15.9 14
+                           18.3 15.8
+                           19 20"
+                    />
+                </svg>
             </div>
-
             PLAYER
-
         </a>
-
-
-
+        <!-- STATS -->
         <a
             href="stats.html"
             class="nav-item"
         >
-
             <div class="nav-icon">
-                ▥
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <line
+                        x1="4"
+                        y1="20"
+                        x2="4"
+                        y2="14"
+                    />
+                    <line
+                        x1="10"
+                        y1="20"
+                        x2="10"
+                        y2="9"
+                    />
+                    <line
+                        x1="16"
+                        y1="20"
+                        x2="16"
+                        y2="5"
+                    />
+                    <line
+                        x1="22"
+                        y1="20"
+                        x2="22"
+                        y2="11"
+                    />
+                </svg>
             </div>
-
             STATS
-
         </a>
-
-
     </div>
-
 </nav>
-
-
 </body>
 </html>
