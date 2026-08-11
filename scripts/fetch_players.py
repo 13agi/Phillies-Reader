@@ -1,28 +1,14 @@
 import json
 import os
-import time
 from datetime import datetime, timezone
 import requests
 # =========================================================
-# SETTINGS
+# 設定
 # =========================================================
 BASE_URL = "https://statsapi.mlb.com/api/v1"
 TEAM_ID = 143
 SEASON = 2026
 OUTPUT_FILE = "data/players.json"
-REQUEST_DELAY = 0.10
-POSITION_CODES = {
-    "P",
-    "C",
-    "1B",
-    "2B",
-    "3B",
-    "SS",
-    "LF",
-    "CF",
-    "RF",
-    "DH",
-}
 # =========================================================
 # HTTP
 # =========================================================
@@ -39,13 +25,13 @@ def get_json(url, params=None):
     response.raise_for_status()
     return response.json()
 # =========================================================
-# ROSTER
+# ROSTER取得
 # =========================================================
 def get_roster(roster_type):
     url = f"{BASE_URL}/teams/{TEAM_ID}/roster"
     params = {
         "rosterType": roster_type,
-        "season": SEASON,
+        "season": SEASON
     }
     data = get_json(
         url,
@@ -56,9 +42,9 @@ def get_roster(roster_type):
         []
     )
 # =========================================================
-# PLAYER PROFILE
+# 選手プロフィール
 # =========================================================
-def get_player(player_id):
+def get_person(player_id):
     url = (
         f"{BASE_URL}/people/"
         f"{player_id}"
@@ -72,166 +58,57 @@ def get_player(player_id):
         return {}
     return people[0]
 # =========================================================
-# PLAYER STATS
+# ポジション
 # =========================================================
-def get_player_stats(
-    player_id,
-    group,
-    stat_type
-):
-    url = (
-        f"{BASE_URL}/people/"
-        f"{player_id}/stats"
-    )
-    params = {
-        "stats": stat_type,
-        "group": group,
-        "season": SEASON,
-    }
-    data = get_json(
-        url,
-        params
-    )
-    result = {}
-    for stats_block in data.get(
-        "stats",
-        []
-    ):
-        for split in stats_block.get(
-            "splits",
-            []
-        ):
-            stat = split.get(
-                "stat",
-                {}
-            )
-            if stat:
-                result.update(
-                    stat
-                )
-    return result
-# =========================================================
-# ALL STAT TYPES
-# =========================================================
-STAT_TYPES = [
-    "season",
-    "seasonAdvanced",
-    "sabermetrics",
-    "expectedStatistics",
-]
-def collect_stats(
-    player_id,
-    group
-):
-    result = {}
-    for stat_type in STAT_TYPES:
-        try:
-            stats = get_player_stats(
-                player_id,
-                group,
-                stat_type
-            )
-            result[stat_type] = stats
-        except Exception as error:
-            print(
-                f"    {group} "
-                f"{stat_type} error: "
-                f"{error}"
-            )
-            result[stat_type] = {}
-        time.sleep(
-            REQUEST_DELAY
-        )
-    return result
-# =========================================================
-# POSITION
-# =========================================================
-def get_position(
-    roster_item,
-    person
-):
-    position = roster_item.get(
+VALID_POSITIONS = {
+    "P",
+    "C",
+    "1B",
+    "2B",
+    "3B",
+    "SS",
+    "LF",
+    "CF",
+    "RF",
+    "DH"
+}
+def get_position(roster_item, person):
+    roster_position = roster_item.get(
         "position",
         {}
     )
-    abbreviation = position.get(
-        "abbreviation",
-        ""
+    abbreviation = roster_position.get(
+        "abbreviation"
     )
-    if abbreviation in POSITION_CODES:
-        return abbreviation
+    if abbreviation in VALID_POSITIONS:
+        return {
+            "code": abbreviation,
+            "name": roster_position.get(
+                "name"
+            )
+        }
     primary_position = person.get(
         "primaryPosition",
         {}
     )
     abbreviation = primary_position.get(
-        "abbreviation",
-        ""
+        "abbreviation"
     )
-    if abbreviation in POSITION_CODES:
-        return abbreviation
-    return ""
+    if abbreviation in VALID_POSITIONS:
+        return {
+            "code": abbreviation,
+            "name": primary_position.get(
+                "name"
+            )
+        }
+    return {
+        "code": None,
+        "name": None
+    }
 # =========================================================
-# ROSTER MAP
+# B/T
 # =========================================================
-def create_roster_map(
-    active_roster,
-    forty_man_roster
-):
-    roster_map = {}
-    # -----------------------------------------------------
-    # 40-MAN
-    # -----------------------------------------------------
-    for item in forty_man_roster:
-        person = item.get(
-            "person",
-            {}
-        )
-        player_id = person.get(
-            "id"
-        )
-        if player_id:
-            roster_map[player_id] = {
-                "status": "40-MAN",
-                "item": item,
-            }
-    # -----------------------------------------------------
-    # ACTIVE
-    # -----------------------------------------------------
-    for item in active_roster:
-        person = item.get(
-            "person",
-            {}
-        )
-        player_id = person.get(
-            "id"
-        )
-        if player_id:
-            roster_map[player_id] = {
-                "status": "ACTIVE",
-                "item": item,
-            }
-    return roster_map
-# =========================================================
-# PLAYER
-# =========================================================
-def build_player(
-    player_id,
-    person,
-    roster_entry
-):
-    roster_item = roster_entry.get(
-        "item",
-        {}
-    )
-    roster_status = roster_entry.get(
-        "status",
-        "UNKNOWN"
-    )
-    position = get_position(
-        roster_item,
-        person
-    )
+def get_bt(person):
     bat_side = (
         person
         .get(
@@ -239,8 +116,7 @@ def build_player(
             {}
         )
         .get(
-            "code",
-            ""
+            "code"
         )
     )
     pitch_hand = (
@@ -250,202 +126,211 @@ def build_player(
             {}
         )
         .get(
-            "code",
-            ""
+            "code"
         )
     )
+    if bat_side and pitch_hand:
+        return {
+            "bat": bat_side,
+            "throw": pitch_hand,
+            "display": (
+                f"{bat_side}/{pitch_hand}"
+            )
+        }
+    return {
+        "bat": None,
+        "throw": None,
+        "display": None
+    }
+# =========================================================
+# 選手データ生成
+# =========================================================
+def build_player(
+    roster_item,
+    roster_status
+):
+    person = roster_item.get(
+        "person",
+        {}
+    )
+    player_id = person.get(
+        "id"
+    )
     # -----------------------------------------------------
-    # BASE
+    # プロフィール
     # -----------------------------------------------------
+    if player_id:
+        profile = get_person(
+            player_id
+        )
+    else:
+        profile = {}
+    # rosterのpersonを優先し、
+    # profileに不足があれば補完
+    if not profile:
+        profile = person
+    position = get_position(
+        roster_item,
+        profile
+    )
+    bt = get_bt(
+        profile
+    )
     player = {
         "id": player_id,
-        "name": person.get(
-            "fullName",
-            ""
+        "name": profile.get(
+            "fullName"
         ),
-        "firstName": person.get(
-            "firstName",
-            ""
+        "firstName": profile.get(
+            "firstName"
         ),
-        "lastName": person.get(
-            "lastName",
-            ""
+        "lastName": profile.get(
+            "lastName"
         ),
         "jerseyNumber":
             roster_item.get(
                 "jerseyNumber"
             ),
-        "bt": (
-            f"{bat_side}/{pitch_hand}"
-            if bat_side and pitch_hand
-            else None
-        ),
-        "batSide": (
-            bat_side
-            if bat_side
-            else None
-        ),
-        "pitchHand": (
-            pitch_hand
-            if pitch_hand
-            else None
-        ),
-        "position": (
-            position
-            if position
-            else None
-        ),
-        "positionName":
-            roster_item
-            .get(
-                "position",
-                {}
-            )
-            .get(
-                "name"
-            ),
+        "bt": bt,
+        "position": position,
         "rosterStatus":
-            roster_status,
+            roster_status
     }
-    # -----------------------------------------------------
-    # PITCHER
-    # -----------------------------------------------------
-    if position == "P":
-        print(
-            f"    Type: PITCHER"
-        )
-        stats = collect_stats(
-            player_id,
-            "pitching"
-        )
-        player[
-            "pitching"
-        ] = stats
-        # 野手成績は作らない
-        player[
-            "hitting"
-        ] = None
-    # -----------------------------------------------------
-    # HITTER
-    # -----------------------------------------------------
-    else:
-        print(
-            f"    Type: HITTER"
-        )
-        stats = collect_stats(
-            player_id,
-            "hitting"
-        )
-        player[
-            "hitting"
-        ] = stats
-        # 投手成績は作らない
-        player[
-            "pitching"
-        ] = None
-    # -----------------------------------------------------
-    # 更新時刻
-    # -----------------------------------------------------
-    player[
-        "updatedAt"
-    ] = datetime.now(
-        timezone.utc
-    ).isoformat()
     return player
 # =========================================================
-# MAIN
+# ロスター統合
 # =========================================================
 def main():
     print(
-        "======================================"
+        "===================================="
     )
     print(
-        "Phillies Player Data"
+        "Phillies Roster Collector"
     )
     print(
         f"Season: {SEASON}"
     )
     print(
-        "======================================"
-    )
-    # -----------------------------------------------------
-    # ACTIVE
-    # -----------------------------------------------------
-    print(
-        "\nFetching ACTIVE roster..."
-    )
-    active_roster = get_roster(
-        "active"
-    )
-    print(
-        f"ACTIVE: "
-        f"{len(active_roster)}"
+        "===================================="
     )
     # -----------------------------------------------------
     # 40-MAN
     # -----------------------------------------------------
     print(
-        "\nFetching 40-MAN roster..."
+        "\n40-MAN roster..."
     )
-    forty_man_roster = get_roster(
+    roster_40 = get_roster(
         "40Man"
     )
     print(
-        f"40-MAN: "
-        f"{len(forty_man_roster)}"
+        f"40-MAN: {len(roster_40)}"
     )
     # -----------------------------------------------------
-    # ROSTER MAP
+    # ACTIVE
     # -----------------------------------------------------
-    roster_map = create_roster_map(
-        active_roster,
-        forty_man_roster
+    print(
+        "\nACTIVE roster..."
     )
-    # -----------------------------------------------------
-    # ALL PLAYER IDS
-    # -----------------------------------------------------
-    player_ids = sorted(
-        roster_map.keys()
+    roster_active = get_roster(
+        "active"
     )
     print(
-        f"\nPlayers: "
-        f"{len(player_ids)}"
+        f"ACTIVE: {len(roster_active)}"
     )
-    players = []
     # -----------------------------------------------------
-    # PROCESS
+    # FULL ROSTER
     # -----------------------------------------------------
-    for index, player_id in enumerate(
-        player_ids,
+    print(
+        "\nFULL roster..."
+    )
+    roster_full = get_roster(
+        "fullRoster"
+    )
+    print(
+        f"FULL: {len(roster_full)}"
+    )
+    # -----------------------------------------------------
+    # 選手を統合
+    # -----------------------------------------------------
+    players = {}
+    # -----------------------------------------------------
+    # FULL
+    # -----------------------------------------------------
+    for item in roster_full:
+        person = item.get(
+            "person",
+            {}
+        )
+        player_id = person.get(
+            "id"
+        )
+        if not player_id:
+            continue
+        players[player_id] = {
+            "item": item,
+            "status": "40-MAN"
+        }
+    # -----------------------------------------------------
+    # 40-MAN
+    # -----------------------------------------------------
+    for item in roster_40:
+        person = item.get(
+            "person",
+            {}
+        )
+        player_id = person.get(
+            "id"
+        )
+        if not player_id:
+            continue
+        players[player_id] = {
+            "item": item,
+            "status": "40-MAN"
+        }
+    # -----------------------------------------------------
+    # ACTIVE
+    # -----------------------------------------------------
+    for item in roster_active:
+        person = item.get(
+            "person",
+            {}
+        )
+        player_id = person.get(
+            "id"
+        )
+        if not player_id:
+            continue
+        players[player_id] = {
+            "item": item,
+            "status": "ACTIVE"
+        }
+    # -----------------------------------------------------
+    # PLAYER BUILD
+    # -----------------------------------------------------
+    result = []
+    total = len(players)
+    for index, (
+        player_id,
+        entry
+    ) in enumerate(
+        players.items(),
         start=1
     ):
         print(
-            f"\n[{index}/{len(player_ids)}] "
-            f"Player ID: {player_id}"
+            f"[{index}/{total}] "
+            f"{player_id}"
         )
         try:
-            person = get_player(
-                player_id
-            )
-            if not person:
-                print(
-                    "  Profile unavailable"
-                )
-                continue
-            roster_entry = roster_map[
-                player_id
-            ]
             player = build_player(
-                player_id,
-                person,
-                roster_entry
+                entry["item"],
+                entry["status"]
             )
-            players.append(
+            result.append(
                 player
             )
         except Exception as error:
             print(
-                f"  ERROR: {error}"
+                f"ERROR: {error}"
             )
     # -----------------------------------------------------
     # SORT
@@ -453,72 +338,47 @@ def main():
     status_order = {
         "ACTIVE": 0,
         "IL": 1,
-        "40-MAN": 2,
-        "UNKNOWN": 3,
+        "40-MAN": 2
     }
-    players.sort(
-        key=lambda p: (
+    result.sort(
+        key=lambda player: (
             status_order.get(
-                p.get(
-                    "rosterStatus",
-                    "UNKNOWN"
+                player.get(
+                    "rosterStatus"
                 ),
                 99
             ),
-            p.get(
-                "position"
-            ) or "",
-            p.get(
+            player.get(
                 "name"
-            ) or "",
+            ) or ""
         )
     )
     # -----------------------------------------------------
     # COUNTS
     # -----------------------------------------------------
     counts = {
-        "players":
-            len(players),
-        "active":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "rosterStatus"
-                ) == "ACTIVE"
-            ),
-        "il":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "rosterStatus"
-                ) == "IL"
-            ),
-        "fortyMan":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "rosterStatus"
-                ) == "40-MAN"
-            ),
-        "hitters":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "position"
-                ) != "P"
-            ),
-        "pitchers":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "position"
-                ) == "P"
-            ),
+        "players": len(result),
+        "active": sum(
+            1
+            for p in result
+            if p.get(
+                "rosterStatus"
+            ) == "ACTIVE"
+        ),
+        "il": sum(
+            1
+            for p in result
+            if p.get(
+                "rosterStatus"
+            ) == "IL"
+        ),
+        "fortyMan": sum(
+            1
+            for p in result
+            if p.get(
+                "rosterStatus"
+            ) == "40-MAN"
+        )
     }
     # -----------------------------------------------------
     # OUTPUT
@@ -529,7 +389,7 @@ def main():
             "name":
                 "Philadelphia Phillies",
             "abbreviation":
-                "PHI",
+                "PHI"
         },
         "season":
             SEASON,
@@ -540,7 +400,7 @@ def main():
         "counts":
             counts,
         "players":
-            players,
+            result
     }
     # -----------------------------------------------------
     # SAVE
@@ -561,19 +421,13 @@ def main():
             indent=2
         )
     print(
-        "\n======================================"
+        "\n===================================="
     )
     print(
-        f"Saved: {OUTPUT_FILE}"
+        "Roster update completed"
     )
     print(
-        f"Players: {len(players)}"
-    )
-    print(
-        f"Hitters: {counts['hitters']}"
-    )
-    print(
-        f"Pitchers: {counts['pitchers']}"
+        f"Players: {len(result)}"
     )
     print(
         f"Active: {counts['active']}"
@@ -585,7 +439,7 @@ def main():
         f"40-Man: {counts['fortyMan']}"
     )
     print(
-        "======================================"
+        "===================================="
     )
 if __name__ == "__main__":
     main()
