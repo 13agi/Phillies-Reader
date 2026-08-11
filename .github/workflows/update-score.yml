@@ -1,9 +1,7 @@
-name: Update Score
+name: Update Phillies Score
 on:
   schedule:
-    # 5分ごとにScoreを更新
     - cron: "*/5 * * * *"
-  # GitHub Actionsから手動実行可能
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,108 +9,227 @@ jobs:
   update-score:
     runs-on: ubuntu-latest
     steps:
-      # ==========================================
-      # Repository
-      # ==========================================
+      # =====================================================
+      # CHECKOUT
+      # =====================================================
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      # ==========================================
-      # Python
-      # ==========================================
+      # =====================================================
+      # PYTHON
+      # =====================================================
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      # ==========================================
-      # Dependencies
-      # ==========================================
+      # =====================================================
+      # DEPENDENCIES
+      # =====================================================
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
-      # ==========================================
-      # Update score.json
-      # ==========================================
-      - name: Update Score JSON
+      # =====================================================
+      # RUN SCORE UPDATE
+      # =====================================================
+      - name: Update score data
         run: |
-          python scripts/update_score.py
-      # ==========================================
-      # Verify score.json
-      # ==========================================
-      - name: Verify score.json
+          python -u scripts/update_score.py
+      # =====================================================
+      # VALIDATE JSON
+      # =====================================================
+      - name: Validate score.json
         run: |
           python - <<'PY'
           import json
           import sys
           path = "data/score.json"
+          print("Checking:", path)
           try:
               with open(path, "r", encoding="utf-8") as f:
                   data = json.load(f)
           except Exception as e:
-              print("ERROR: score.json could not be loaded")
-              print(e)
+              print("ERROR: score.json is invalid")
+              print(repr(e))
               sys.exit(1)
-          print("score.json loaded successfully")
+          required = [
+              "team",
+              "season",
+              "date",
+              "updated",
+              "gameCount",
+              "games"
+          ]
+          for key in required:
+              if key not in data:
+                  print(f"ERROR: missing key: {key}")
+                  sys.exit(1)
+          print("JSON structure: OK")
+          print("gameCount:", data["gameCount"])
+          if data["games"]:
+              game = data["games"][0]
+              required_game = [
+                  "game",
+                  "location",
+                  "score",
+                  "inningScores",
+                  "philliesBatting",
+                  "philliesPitching",
+                  "currentGame"
+              ]
+              for key in required_game:
+                  if key not in game:
+                      print(
+                          f"ERROR: missing game key: {key}"
+                      )
+                      sys.exit(1)
+              info = game["game"]
+              print(
+                  "gamePk:",
+                  info.get("gamePk")
+              )
+              print(
+                  "status:",
+                  info.get(
+                      "status",
+                      {}
+                  ).get(
+                      "abstract"
+                  )
+              )
+              print(
+                  "inningScores:",
+                  len(
+                      game["inningScores"]
+                  )
+              )
+              print(
+                  "batters:",
+                  len(
+                      game["philliesBatting"]
+                  )
+              )
+              print(
+                  "pitchers:",
+                  len(
+                      game["philliesPitching"]
+                  )
+              )
+              print(
+                  "currentGame.available:",
+                  game["currentGame"].get(
+                      "available"
+                  )
+              )
+          else:
+              print("No Phillies game found.")
+          print("Validation: OK")
+          PY
+      # =====================================================
+      # SHOW RESULT
+      # =====================================================
+      - name: Show score summary
+        run: |
+          python - <<'PY'
+          import json
+          with open(
+              "data/score.json",
+              "r",
+              encoding="utf-8"
+          ) as f:
+              data = json.load(f)
+          print("")
+          print("========================================")
+          print("SCORE JSON SUMMARY")
+          print("========================================")
           print("date:", data.get("date"))
           print("updated:", data.get("updated"))
           print("gameCount:", data.get("gameCount"))
-          games = data.get("games", [])
-          if not games:
-              print("No game data.")
-              sys.exit(0)
-          game = games[0]
-          game_info = game.get("game", {})
-          print("gamePk:", game_info.get("gamePk"))
-          status = game_info.get("status", {})
-          print("status:", status.get("abstract"))
-          print("detailed:", status.get("detailed"))
-          inning_scores = game.get(
-              "inningScores",
-              []
-          )
-          batting = game.get(
-              "philliesBatting",
-              []
-          )
-          pitching = game.get(
-              "philliesPitching",
-              []
-          )
-          print("inningScores:", len(inning_scores))
-          print("batters:", len(batting))
-          print("pitchers:", len(pitching))
-          # イニングデータが存在する場合は内容も確認
-          if inning_scores:
-              print("First inning:", inning_scores[0])
-              print("Last inning:", inning_scores[-1])
-          else:
-              print("WARNING: inningScores is empty")
-          # 打順確認
-          if batting:
-              print("First batter:", batting[0].get("name"))
-              print("Batting order count:", len(batting))
-          else:
-              print("WARNING: philliesBatting is empty")
-          # 投手確認
-          if pitching:
-              print("First pitcher:", pitching[0].get("name"))
-              print("Pitcher count:", len(pitching))
-          else:
-              print("WARNING: philliesPitching is empty")
+          for game in data.get("games", []):
+              info = game.get("game", {})
+              print("")
+              print("gamePk:", info.get("gamePk"))
+              print(
+                  "status:",
+                  info.get(
+                      "status",
+                      {}
+                  ).get(
+                      "abstract"
+                  )
+              )
+              print(
+                  "away:",
+                  info.get(
+                      "away",
+                      {}
+                  ).get(
+                      "name"
+                  ),
+                  info.get(
+                      "away",
+                      {}
+                  ).get(
+                      "score"
+                  )
+              )
+              print(
+                  "home:",
+                  info.get(
+                      "home",
+                      {}
+                  ).get(
+                      "name"
+                  ),
+                  info.get(
+                      "home",
+                      {}
+                  ).get(
+                      "score"
+                  )
+              )
+              print(
+                  "innings:",
+                  len(
+                      game.get(
+                          "inningScores",
+                          []
+                      )
+                  )
+              )
+              print(
+                  "batters:",
+                  len(
+                      game.get(
+                          "philliesBatting",
+                          []
+                      )
+                  )
+              )
+              print(
+                  "pitchers:",
+                  len(
+                      game.get(
+                          "philliesPitching",
+                          []
+                      )
+                  )
+              )
+          print("")
+          print("========================================")
           PY
-      # ==========================================
-      # Commit & Push
-      # ==========================================
-      - name: Commit updated score.json
+      # =====================================================
+      # COMMIT
+      # =====================================================
+      - name: Commit score data
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/score.json
           if git diff --cached --quiet; then
-            echo "No score changes."
+            echo "No changes to commit."
           else
-            git commit -m "Update score data"
+            git commit \
+              -m "Update Phillies score data"
             git push
           fi
