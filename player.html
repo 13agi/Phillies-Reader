@@ -13,6 +13,7 @@
     --red-deep: #970a24;
     --white: #ffffff;
     --gray: #718298;
+    --gray-light: #aab6c5;
 }
 * {
     box-sizing: border-box;
@@ -185,12 +186,162 @@ body {
     opacity: .75;
 }
 /* =========================================================
-   EMPTY PLAYER
+   PLAYER AREA
 ========================================================= */
 main {
     width: 100%;
     min-height:
         calc(100vh - 162px);
+    padding:
+        20px 14px 28px;
+}
+.player-list {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+}
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+.player-card {
+    position: relative;
+    width: 100%;
+    min-height: 92px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 62px 1fr auto;
+    align-items: center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+    border:
+        1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    box-shadow:
+        0 7px 20px rgba(0,0,0,.18);
+}
+.player-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--red);
+}
+.player-card.il::before {
+    background: #718298;
+}
+.player-card.minors::before {
+    background: #aab6c5;
+}
+/* =========================================================
+   NUMBER
+========================================================= */
+.player-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,.92);
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+/* =========================================================
+   PLAYER INFORMATION
+========================================================= */
+.player-main {
+    min-width: 0;
+    padding: 15px 8px;
+}
+.player-name {
+    overflow: hidden;
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 850;
+    line-height: 1.15;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.player-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: var(--gray-light);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+.player-position {
+    min-width: 30px;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 900;
+}
+.player-bt {
+    color: var(--gray-light);
+}
+.player-divider {
+    width: 1px;
+    height: 11px;
+    background:
+        rgba(255,255,255,.16);
+}
+/* =========================================================
+   STATUS
+========================================================= */
+.player-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 78px;
+    padding: 0 10px;
+}
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 67px;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .55px;
+    white-space: nowrap;
+}
+.status-active {
+    color: #ffffff;
+    background:
+        rgba(227,24,55,.20);
+    border:
+        1px solid rgba(227,24,55,.45);
+}
+.status-il {
+    color: #d8e0ea;
+    background:
+        rgba(113,130,152,.18);
+    border:
+        1px solid rgba(113,130,152,.35);
+}
+.status-minors {
+    color: #bfc9d5;
+    background:
+        rgba(170,182,197,.10);
+    border:
+        1px solid rgba(170,182,197,.20);
+}
+/* =========================================================
+   UNKNOWN
+========================================================= */
+.player-card.unknown {
+    opacity: .78;
 }
 /* =========================================================
    BOTTOM NAV
@@ -271,6 +422,32 @@ main {
     .header {
         height: 78px;
     }
+    main {
+        padding:
+            16px 10px 24px;
+    }
+    .player-card {
+        min-height: 86px;
+        grid-template-columns:
+            53px 1fr auto;
+    }
+    .player-number {
+        font-size: 24px;
+    }
+    .player-name {
+        font-size: 15px;
+    }
+    .player-meta {
+        font-size: 9px;
+    }
+    .player-status {
+        min-width: 70px;
+        padding: 0 6px;
+    }
+    .status-badge {
+        min-width: 61px;
+        font-size: 7px;
+    }
     .nav-item {
         font-size: 7px;
     }
@@ -300,7 +477,110 @@ main {
 <!-- =========================================================
      PLAYER
 ========================================================= -->
-<main></main>
+<main>
+    <section class="player-list">
+        <!-- PLAYER 1 -->
+        <article class="player-card">
+            <div class="player-number">
+                7
+            </div>
+            <div class="player-main">
+                <div class="player-name">
+                    Trea Turner
+                </div>
+                <div class="player-meta">
+                    <span class="player-position">
+                        SS
+                    </span>
+                    <span class="player-divider"></span>
+                    <span class="player-bt">
+                        R/R
+                    </span>
+                </div>
+            </div>
+            <div class="player-status">
+                <span class="status-badge status-active">
+                    ACTIVE
+                </span>
+            </div>
+        </article>
+        <!-- PLAYER 2 -->
+        <article class="player-card">
+            <div class="player-number">
+                10
+            </div>
+            <div class="player-main">
+                <div class="player-name">
+                    J.T. Realmuto
+                </div>
+                <div class="player-meta">
+                    <span class="player-position">
+                        C
+                    </span>
+                    <span class="player-divider"></span>
+                    <span class="player-bt">
+                        R/R
+                    </span>
+                </div>
+            </div>
+            <div class="player-status">
+                <span class="status-badge status-active">
+                    ACTIVE
+                </span>
+            </div>
+        </article>
+        <!-- PLAYER 3 -->
+        <article class="player-card">
+            <div class="player-number">
+                28
+            </div>
+            <div class="player-main">
+                <div class="player-name">
+                    Alec Bohm
+                </div>
+                <div class="player-meta">
+                    <span class="player-position">
+                        3B
+                    </span>
+                    <span class="player-divider"></span>
+                    <span class="player-bt">
+                        R/R
+                    </span>
+                </div>
+            </div>
+            <div class="player-status">
+                <span class="status-badge status-il">
+                    IL
+                </span>
+            </div>
+        </article>
+        <!-- PLAYER 4 -->
+        <article class="player-card minors">
+            <div class="player-number">
+                54
+            </div>
+            <div class="player-main">
+                <div class="player-name">
+                    Sample Player
+                </div>
+                <div class="player-meta">
+                    <span class="player-position">
+                        P
+                    </span>
+                    <span class="player-divider"></span>
+                    <span class="player-bt">
+                        L/R
+                    </span>
+                </div>
+            </div>
+            <div class="player-status">
+                <span class="status-badge status-minors">
+                    40-MAN
+                </span>
+            </div>
+        </article>
+    </section>
+</main>
 <!-- =========================================================
      BOTTOM NAV
 ========================================================= -->
@@ -420,7 +700,7 @@ main {
             </div>
             HOME
         </a>
-        <!-- PLAYER : ACTIVE -->
+        <!-- PLAYER -->
         <a
             href="player.html"
             class="nav-item active"
