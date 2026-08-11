@@ -1,8 +1,3 @@
-<!-- player.html
-     サンプル版
-     既存のHEADER / BOTTOM NAVは固定。
-     PLAYER CARD UIのみ新規デザイン。
--->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,11 +10,11 @@
     --navy-deep: #031020;
     --red: #e31837;
     --red-dark: #c20f30;
+    --red-deep: #970a24;
     --white: #ffffff;
     --gray: #718298;
     --gray-light: #aab6c5;
     --yellow: #f5c542;
-    --yellow-dark: #dca900;
 }
 * {
     box-sizing: border-box;
@@ -45,7 +40,7 @@ body {
 }
 /* =========================================================
    HEADER
-   既存UI固定
+   既存UIをそのまま維持
 ========================================================= */
 .header {
     position: sticky;
@@ -82,6 +77,7 @@ body {
             rgba(255,255,255,.035),
             rgba(255,255,255,.01)
         );
+    opacity: .8;
 }
 .header-field::before {
     content: "";
@@ -156,6 +152,21 @@ body {
             transparent
         );
 }
+.header-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--navy-deep),
+            rgba(255,255,255,.28) 50%,
+            var(--navy-deep)
+        );
+    opacity: .85;
+}
 .header-base {
     position: absolute;
     left: 50%;
@@ -174,23 +185,10 @@ body {
             50% 100%,
             0 62%
         );
-}
-.header-edge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4px;
-    background:
-        linear-gradient(
-            90deg,
-            var(--navy-deep),
-            rgba(255,255,255,.28) 50%,
-            var(--navy-deep)
-        );
+    opacity: .75;
 }
 /* =========================================================
-   PLAYER AREA
+   PLAYER
 ========================================================= */
 main {
     width: 100%;
@@ -201,8 +199,30 @@ main {
 }
 .player-list {
     width: 100%;
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
+}
+/* =========================================================
+   TITLE
+========================================================= */
+.player-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin:
+        2px 3px 14px;
+}
+.player-heading-main {
+    color: rgba(255,255,255,.94);
+    font-size: 11px;
+    font-weight: 950;
+    letter-spacing: 1.6px;
+}
+.player-heading-sub {
+    color: rgba(255,255,255,.30);
+    font-size: 7px;
+    font-weight: 850;
+    letter-spacing: 1px;
 }
 /* =========================================================
    PLAYER CARD
@@ -211,35 +231,30 @@ main {
     position: relative;
     display: grid;
     grid-template-columns:
-        68px minmax(0, 1fr) auto;
+        84px minmax(0,1fr) 82px;
     min-height: 104px;
-    margin-bottom: 11px;
+    margin-bottom: 10px;
     overflow: hidden;
     background:
         linear-gradient(
-            145deg,
-            rgba(18,39,67,.98),
-            rgba(6,23,45,.98)
+            135deg,
+            rgba(18,40,68,.98),
+            rgba(7,24,46,.98)
         );
     border:
         1px solid rgba(255,255,255,.075);
     border-radius: 17px;
     box-shadow:
-        0 10px 28px rgba(0,0,0,.26);
+        0 9px 25px rgba(0,0,0,.25);
     transition:
-        transform .18s ease,
-        border-color .18s ease,
-        box-shadow .18s ease;
-    -webkit-tap-highlight-color:
-        transparent;
+        transform .15s ease,
+        border-color .15s ease;
 }
 .player-card:active {
     transform:
         scale(.985);
 }
-/* =========================================================
-   CARD ACCENT
-========================================================= */
+/* 左端のステータスライン */
 .player-card::before {
     content: "";
     position: absolute;
@@ -249,6 +264,7 @@ main {
     width: 4px;
     background:
         var(--red);
+    z-index: 5;
 }
 .player-card.il::before {
     background:
@@ -258,78 +274,71 @@ main {
     background:
         #66778c;
 }
-.player-card.unknown::before {
-    background:
-        #45566b;
-}
-/* subtle diagonal field */
+/* 背景に薄く背番号 */
 .player-card::after {
-    content: "";
+    content: attr(data-number);
     position: absolute;
-    right: -55px;
-    top: -75px;
-    width: 190px;
-    height: 190px;
-    border:
-        1px solid rgba(255,255,255,.035);
-    transform:
-        rotate(45deg);
+    right: 70px;
+    bottom: -30px;
+    color:
+        rgba(255,255,255,.018);
+    font-size: 145px;
+    line-height: 1;
+    font-weight: 950;
+    letter-spacing:
+        -10px;
     pointer-events: none;
+    z-index: 0;
 }
 /* =========================================================
    NUMBER
 ========================================================= */
-.player-number-area {
+.player-number {
     position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 0;
-}
-.player-number-area::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 18px;
-    bottom: 18px;
-    width: 1px;
-    background:
-        linear-gradient(
-            180deg,
-            transparent,
-            rgba(255,255,255,.08),
-            transparent
-        );
-}
-.player-number {
-    position: relative;
-    z-index: 2;
     color:
-        rgba(255,255,255,.94);
-    font-size: 31px;
+        rgba(255,255,255,.96);
+    font-size: 42px;
     line-height: 1;
     font-weight: 950;
     letter-spacing:
-        -1.8px;
+        -3px;
+    font-variant-numeric:
+        tabular-nums;
+}
+.player-number::before {
+    content: "#";
+    margin-right: 2px;
+    color:
+        rgba(255,255,255,.32);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0;
+    align-self: flex-start;
+    margin-top: 30px;
 }
 /* =========================================================
-   MAIN INFORMATION
+   MAIN INFO
 ========================================================= */
-.player-main {
+.player-info {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding:
-        15px 13px;
+        14px 8px;
 }
 .player-label {
     margin-bottom: 5px;
     color:
-        rgba(255,255,255,.38);
-    font-size: 7px;
+        rgba(255,255,255,.30);
+    font-size: 6px;
     font-weight: 900;
     letter-spacing:
         1.5px;
@@ -339,38 +348,39 @@ main {
     color:
         var(--white);
     font-size: 18px;
-    line-height: 1.12;
+    line-height: 1.15;
     font-weight: 900;
     letter-spacing:
-        -.3px;
+        -.25px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 .player-meta {
     display: flex;
     align-items: center;
-    gap: 9px;
     margin-top: 10px;
+    min-width: 0;
+    color:
+        var(--gray-light);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing:
+        .55px;
 }
 .player-position {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 31px;
-    height: 21px;
-    padding:
-        0 7px;
-    border-radius: 6px;
     color:
-        rgba(255,255,255,.92);
-    background:
-        rgba(255,255,255,.07);
-    border:
-        1px solid rgba(255,255,255,.08);
-    font-size: 9px;
+        rgba(255,255,255,.88);
+    font-size: 10px;
     font-weight: 950;
-    letter-spacing:
-        .4px;
+}
+.meta-dot {
+    width: 3px;
+    height: 3px;
+    margin:
+        0 8px;
+    border-radius: 50%;
+    background:
+        rgba(255,255,255,.30);
 }
 .player-bt {
     color:
@@ -378,33 +388,25 @@ main {
     font-size: 9px;
     font-weight: 850;
     letter-spacing:
-        .7px;
-}
-.player-divider {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background:
-        rgba(255,255,255,.25);
+        .5px;
 }
 /* =========================================================
-   STATUS AREA
+   STATUS
 ========================================================= */
 .player-status {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 86px;
     padding:
-        0 10px;
+        0 8px;
 }
-.status-wrapper {
+.status-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 .status-dot {
     width: 5px;
@@ -413,14 +415,14 @@ main {
     background:
         var(--red);
     box-shadow:
-        0 0 10px
+        0 0 9px
         rgba(227,24,55,.65);
 }
 .player-card.il .status-dot {
     background:
         var(--yellow);
     box-shadow:
-        0 0 10px
+        0 0 9px
         rgba(245,197,66,.55);
 }
 .player-card.minors .status-dot {
@@ -429,28 +431,28 @@ main {
     box-shadow:
         none;
 }
-.status-badge {
-    display: inline-flex;
+.status {
+    min-width: 65px;
+    height: 23px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 67px;
-    height: 23px;
     padding:
-        0 8px;
+        0 7px;
     border-radius: 7px;
-    font-size: 7px;
+    font-size: 6.5px;
     font-weight: 950;
     letter-spacing:
-        .8px;
+        .75px;
     white-space: nowrap;
 }
 .status-active {
     color:
-        #ff6b82;
+        #ff6680;
     background:
         rgba(227,24,55,.10);
     border:
-        1px solid rgba(227,24,55,.27);
+        1px solid rgba(227,24,55,.28);
 }
 .status-il {
     color:
@@ -458,59 +460,19 @@ main {
     background:
         rgba(245,197,66,.09);
     border:
-        1px solid rgba(245,197,66,.28);
+        1px solid rgba(245,197,66,.30);
 }
-.status-minors {
+.status-40 {
     color:
-        #9cabbc;
+        #9aa9ba;
     background:
         rgba(113,130,152,.09);
     border:
         1px solid rgba(113,130,152,.22);
 }
 /* =========================================================
-   UNKNOWN
-========================================================= */
-.player-card.unknown {
-    opacity: .72;
-}
-.player-card.unknown .status-badge {
-    color:
-        #8493a4;
-    border-color:
-        rgba(132,147,164,.20);
-    background:
-        rgba(132,147,164,.06);
-}
-/* =========================================================
-   SECTION LABEL
-========================================================= */
-.player-section-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin:
-        4px 3px 13px;
-}
-.player-section-title span:first-child {
-    color:
-        rgba(255,255,255,.72);
-    font-size: 9px;
-    font-weight: 950;
-    letter-spacing:
-        1.5px;
-}
-.player-section-title span:last-child {
-    color:
-        rgba(255,255,255,.27);
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing:
-        .7px;
-}
-/* =========================================================
    BOTTOM NAV
-   既存UI固定
+   既存UIをそのまま維持
 ========================================================= */
 .bottom-nav {
     position: fixed;
@@ -548,8 +510,7 @@ main {
     text-decoration: none;
     font-size: 8px;
     font-weight: 800;
-    letter-spacing:
-        .65px;
+    letter-spacing: .65px;
     -webkit-tap-highlight-color:
         transparent;
 }
@@ -592,28 +553,35 @@ main {
     }
     .player-card {
         grid-template-columns:
-            57px minmax(0, 1fr) auto;
-        min-height: 98px;
+            70px minmax(0,1fr) 73px;
+        min-height: 96px;
         border-radius: 15px;
     }
     .player-number {
-        font-size: 27px;
+        font-size: 36px;
     }
-    .player-main {
+    .player-number::before {
+        font-size: 10px;
+        margin-top: 27px;
+    }
+    .player-info {
         padding:
-            14px 10px;
+            13px 5px;
     }
     .player-name {
-        font-size: 16px;
+        font-size: 15px;
+    }
+    .player-meta {
+        margin-top: 8px;
     }
     .player-status {
-        min-width: 74px;
         padding:
-            0 6px;
+            0 5px;
     }
-    .status-badge {
-        min-width: 61px;
-        font-size: 6.5px;
+    .status {
+        min-width: 59px;
+        height: 22px;
+        font-size: 6px;
     }
     .nav-item {
         font-size: 7px;
@@ -631,7 +599,7 @@ main {
 </head>
 <body>
 <!-- =========================================================
-     EXISTING HEADER
+     HEADER
 ========================================================= -->
 <header class="header">
     <div class="header-field"></div>
@@ -642,22 +610,29 @@ main {
     <div class="header-edge"></div>
 </header>
 <!-- =========================================================
-     PLAYER CONTENT
+     PLAYER
 ========================================================= -->
 <main>
     <section class="player-list">
-        <div class="player-section-title">
-            <span>PHILLIES ROSTER</span>
-            <span>40-MAN ROSTER</span>
+        <div class="player-heading">
+            <span class="player-heading-main">
+                PHILLIES ROSTER
+            </span>
+            <span class="player-heading-sub">
+                SAMPLE
+            </span>
         </div>
-        <!-- ACTIVE -->
-        <article class="player-card">
-            <div class="player-number-area">
-                <div class="player-number">
-                    7
-                </div>
+        <!-- =================================================
+             ACTIVE
+        ================================================== -->
+        <article
+            class="player-card"
+            data-number="07"
+        >
+            <div class="player-number">
+                07
             </div>
-            <div class="player-main">
+            <div class="player-info">
                 <div class="player-label">
                     PLAYER
                 </div>
@@ -668,29 +643,32 @@ main {
                     <span class="player-position">
                         SS
                     </span>
-                    <span class="player-divider"></span>
+                    <span class="meta-dot"></span>
                     <span class="player-bt">
-                        B/R&nbsp;&nbsp; T/R
+                        B/T R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-wrapper">
+                <div class="status-inner">
                     <span class="status-dot"></span>
-                    <span class="status-badge status-active">
+                    <span class="status status-active">
                         ACTIVE
                     </span>
                 </div>
             </div>
         </article>
-        <!-- ACTIVE -->
-        <article class="player-card">
-            <div class="player-number-area">
-                <div class="player-number">
-                    10
-                </div>
+        <!-- =================================================
+             ACTIVE
+        ================================================== -->
+        <article
+            class="player-card"
+            data-number="10"
+        >
+            <div class="player-number">
+                10
             </div>
-            <div class="player-main">
+            <div class="player-info">
                 <div class="player-label">
                     PLAYER
                 </div>
@@ -701,29 +679,33 @@ main {
                     <span class="player-position">
                         C
                     </span>
-                    <span class="player-divider"></span>
+                    <span class="meta-dot"></span>
                     <span class="player-bt">
-                        B/R&nbsp;&nbsp; T/R
+                        B/T R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-wrapper">
+                <div class="status-inner">
                     <span class="status-dot"></span>
-                    <span class="status-badge status-active">
+                    <span class="status status-active">
                         ACTIVE
                     </span>
                 </div>
             </div>
         </article>
-        <!-- IL -->
-        <article class="player-card il">
-            <div class="player-number-area">
-                <div class="player-number">
-                    28
-                </div>
+        <!-- =================================================
+             IL
+             黄色アクセント
+        ================================================== -->
+        <article
+            class="player-card il"
+            data-number="28"
+        >
+            <div class="player-number">
+                28
             </div>
-            <div class="player-main">
+            <div class="player-info">
                 <div class="player-label">
                     PLAYER
                 </div>
@@ -734,29 +716,32 @@ main {
                     <span class="player-position">
                         3B
                     </span>
-                    <span class="player-divider"></span>
+                    <span class="meta-dot"></span>
                     <span class="player-bt">
-                        B/R&nbsp;&nbsp; T/R
+                        B/T R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-wrapper">
+                <div class="status-inner">
                     <span class="status-dot"></span>
-                    <span class="status-badge status-il">
+                    <span class="status status-il">
                         IL
                     </span>
                 </div>
             </div>
         </article>
-        <!-- 40-MAN / MINORS -->
-        <article class="player-card minors">
-            <div class="player-number-area">
-                <div class="player-number">
-                    54
-                </div>
+        <!-- =================================================
+             40-MAN
+        ================================================== -->
+        <article
+            class="player-card minors"
+            data-number="54"
+        >
+            <div class="player-number">
+                54
             </div>
-            <div class="player-main">
+            <div class="player-info">
                 <div class="player-label">
                     PLAYER
                 </div>
@@ -767,16 +752,16 @@ main {
                     <span class="player-position">
                         P
                     </span>
-                    <span class="player-divider"></span>
+                    <span class="meta-dot"></span>
                     <span class="player-bt">
-                        B/L&nbsp;&nbsp; T/R
+                        B/T L/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-wrapper">
+                <div class="status-inner">
                     <span class="status-dot"></span>
-                    <span class="status-badge status-minors">
+                    <span class="status status-40">
                         40-MAN
                     </span>
                 </div>
@@ -785,16 +770,20 @@ main {
     </section>
 </main>
 <!-- =========================================================
-     EXISTING BOTTOM NAV
+     BOTTOM NAV
 ========================================================= -->
 <nav class="bottom-nav">
     <div class="bottom-inner">
+        <!-- SCHEDULE -->
         <a
             href="schedule.html"
             class="nav-item"
         >
             <div class="nav-icon">
-                <svg viewBox="0 0 24 24">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
                     <rect
                         x="3.5"
                         y="5"
@@ -820,16 +809,32 @@ main {
                         x2="20.5"
                         y2="10"
                     />
+                    <line
+                        x1="8"
+                        y1="14"
+                        x2="10"
+                        y2="14"
+                    />
+                    <line
+                        x1="13"
+                        y1="14"
+                        x2="15"
+                        y2="14"
+                    />
                 </svg>
             </div>
             SCHEDULE
         </a>
+        <!-- SCORE -->
         <a
             href="score.html"
             class="nav-item"
         >
             <div class="nav-icon">
-                <svg viewBox="0 0 24 24">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
                     <rect
                         x="3.5"
                         y="4"
@@ -859,12 +864,16 @@ main {
             </div>
             SCORE
         </a>
+        <!-- HOME -->
         <a
             href="index.html"
             class="nav-item"
         >
             <div class="nav-icon">
-                <svg viewBox="0 0 24 24">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
                     <path
                         d="
                             M4 4
@@ -879,12 +888,16 @@ main {
             </div>
             HOME
         </a>
+        <!-- PLAYER -->
         <a
             href="player.html"
             class="nav-item active"
         >
             <div class="nav-icon">
-                <svg viewBox="0 0 24 24">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
                     <circle
                         cx="12"
                         cy="8"
@@ -905,12 +918,16 @@ main {
             </div>
             PLAYER
         </a>
+        <!-- STATS -->
         <a
             href="stats.html"
             class="nav-item"
         >
             <div class="nav-icon">
-                <svg viewBox="0 0 24 24">
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
                     <line
                         x1="4"
                         y1="20"
