@@ -5,33 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Player | Phillies</title>
 <style>
-:root {
-    --navy: #06172d;
-    --navy-deep: #031020;
-    --panel: #0a1d34;
-    --panel-2: #0d2540;
-    --red: #e31837;
-    --yellow: #f4c542;
-    --white: #ffffff;
-    --muted: #718298;
-    --line: rgba(255,255,255,.075);
+:root{
+    --navy:#06172d;
+    --navy2:#091d35;
+    --red:#e31837;
+    --yellow:#f3c548;
+    --white:#f7f9fc;
+    --muted:#718198;
+    --dim:#394b62;
+    --line:rgba(255,255,255,.075);
 }
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background: var(--navy);
+html,body{
+    min-height:100%;
+    background:var(--navy);
 }
-body {
-    min-height: 100vh;
-    padding-bottom: 78px;
-    color: var(--white);
+body{
+    color:var(--white);
+    padding-bottom:78px;
     font-family:
+        Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
@@ -39,15 +36,14 @@ body {
         sans-serif;
 }
 /* =========================================================
-   HEADER
-   EXISTING UI — DO NOT CHANGE
+   EXISTING HEADER
 ========================================================= */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    height: 84px;
-    overflow: hidden;
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    height:84px;
+    overflow:hidden;
     background:
         linear-gradient(
             135deg,
@@ -60,46 +56,41 @@ body {
     box-shadow:
         0 9px 32px rgba(0,0,0,.42);
 }
-.header-field {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 250px;
-    height: 250px;
+.header-field{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:250px;
+    height:250px;
     transform:
-        translate(-50%, -50%)
+        translate(-50%,-50%)
         rotate(45deg);
-    border:
-        1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.10);
     background:
         linear-gradient(
             135deg,
             rgba(255,255,255,.035),
             rgba(255,255,255,.01)
         );
-    opacity: .8;
 }
-.header-field::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 175px;
-    height: 175px;
-    transform:
-        translate(-50%, -50%);
-    border:
-        1px solid rgba(255,255,255,.09);
+.header-field::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:175px;
+    height:175px;
+    transform:translate(-50%,-50%);
+    border:1px solid rgba(255,255,255,.09);
 }
-.header-field::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -30px;
-    width: 1px;
-    height: 310px;
-    transform:
-        translateX(-50%);
+.header-field::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:-30px;
+    width:1px;
+    height:310px;
+    transform:translateX(-50%);
     background:
         linear-gradient(
             180deg,
@@ -108,14 +99,13 @@ body {
             transparent
         );
 }
-.header-left {
-    position: absolute;
-    left: -14%;
-    top: -60%;
-    width: 47%;
-    height: 220%;
-    transform:
-        skewX(-22deg);
+.header-left{
+    position:absolute;
+    left:-14%;
+    top:-60%;
+    width:47%;
+    height:220%;
+    transform:skewX(-22deg);
     background:
         linear-gradient(
             90deg,
@@ -123,14 +113,13 @@ body {
             rgba(80,0,18,.025)
         );
 }
-.header-right {
-    position: absolute;
-    right: -13%;
-    top: -60%;
-    width: 47%;
-    height: 220%;
-    transform:
-        skewX(-22deg);
+.header-right{
+    position:absolute;
+    right:-13%;
+    top:-60%;
+    width:47%;
+    height:220%;
+    transform:skewX(-22deg);
     background:
         linear-gradient(
             90deg,
@@ -138,12 +127,12 @@ body {
             rgba(90,0,20,.20)
         );
 }
-.header-highlight {
-    position: absolute;
-    left: -10%;
-    top: 0;
-    width: 120%;
-    height: 1px;
+.header-highlight{
+    position:absolute;
+    left:-10%;
+    top:0;
+    width:120%;
+    height:1px;
     background:
         linear-gradient(
             90deg,
@@ -152,31 +141,28 @@ body {
             transparent
         );
 }
-.header-edge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4px;
+.header-edge{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:4px;
     background:
         linear-gradient(
             90deg,
-            var(--navy-deep),
+            var(--navy),
             rgba(255,255,255,.28) 50%,
-            var(--navy-deep)
+            var(--navy)
         );
-    opacity: .85;
 }
-.header-base {
-    position: absolute;
-    left: 50%;
-    bottom: 9px;
-    width: 24px;
-    height: 20px;
-    transform:
-        translateX(-50%);
-    border:
-        1px solid rgba(255,255,255,.22);
+.header-base{
+    position:absolute;
+    left:50%;
+    bottom:9px;
+    width:24px;
+    height:20px;
+    transform:translateX(-50%);
+    border:1px solid rgba(255,255,255,.22);
     clip-path:
         polygon(
             0 0,
@@ -185,350 +171,277 @@ body {
             50% 100%,
             0 62%
         );
-    opacity: .75;
 }
 /* =========================================================
-   PLAYER PAGE
+   PLAYER AREA
 ========================================================= */
-main {
-    width: 100%;
-    min-height:
-        calc(100vh - 162px);
-    padding:
-        18px 12px 28px;
+main{
+    width:100%;
+    min-height:calc(100vh - 162px);
+    padding:20px 12px 30px;
 }
-.roster-board {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
+.roster{
+    width:100%;
+    max-width:720px;
+    margin:auto;
 }
 /* =========================================================
-   TITLE
+   PAGE TITLE
 ========================================================= */
-.roster-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+.page-title{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
     margin:
-        0 4px 15px;
+        0 4px 18px;
 }
-.roster-heading-left {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+.page-title-main{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
 }
-.roster-heading-title {
-    font-size: 11px;
-    font-weight: 950;
-    letter-spacing: 1.7px;
+.page-title h1{
+    font-size:13px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:2px;
 }
-.roster-heading-season {
-    color:
-        rgba(255,255,255,.28);
-    font-size: 7px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
-.roster-heading-count {
-    color:
-        rgba(255,255,255,.25);
-    font-size: 7px;
-    font-weight: 900;
-    letter-spacing: .8px;
+.page-title span{
+    color:rgba(255,255,255,.28);
+    font-size:7px;
+    font-weight:800;
+    letter-spacing:1.2px;
 }
 /* =========================================================
    PLAYER CARD
 ========================================================= */
-.player-card {
-    --status: var(--red);
-    position: relative;
-    width: 100%;
-    height: 116px;
-    margin-bottom: 11px;
-    overflow: hidden;
+.player{
+    --accent:var(--red);
+    position:relative;
+    display:grid;
+    grid-template-columns:76px minmax(0,1fr);
+    width:100%;
+    min-height:126px;
+    margin-bottom:12px;
+    overflow:hidden;
     border:
-        1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
+        1px solid rgba(255,255,255,.075);
+    border-radius:16px;
     background:
         linear-gradient(
-            135deg,
-            var(--panel-2) 0%,
-            var(--panel) 54%,
-            #07192e 100%
+            115deg,
+            #0b213b 0%,
+            #091c34 55%,
+            #07172b 100%
         );
     box-shadow:
-        0 12px 30px rgba(0,0,0,.25);
-    cursor: pointer;
+        0 12px 30px rgba(0,0,0,.28);
     transition:
         transform .18s ease,
-        border-color .18s ease,
-        box-shadow .18s ease;
+        border-color .18s ease;
 }
-/* 状態ライン */
-.player-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
+.player.il{
+    --accent:var(--yellow);
+}
+.player:active{
+    transform:scale(.985);
+}
+/* =========================================================
+   LEFT NUMBER PANEL
+========================================================= */
+.player-number{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:0;
+    border-right:
+        1px solid rgba(255,255,255,.065);
     background:
-        var(--status);
-    z-index: 5;
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.008)
+        );
 }
-/* 大きな背番号の背景 */
-.player-card::after {
-    content: attr(data-number);
-    position: absolute;
-    right: -4px;
-    top: -25px;
-    color:
-        rgba(255,255,255,.025);
-    font-size: 138px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing: -9px;
-    pointer-events: none;
-    user-select: none;
+.player-number::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:14px;
+    bottom:14px;
+    width:3px;
+    background:var(--accent);
 }
-/* タップ */
-.player-card:active {
-    transform:
-        scale(.985);
+.player-number::after{
+    content:"";
+    position:absolute;
+    width:48px;
+    height:48px;
+    border:
+        1px solid rgba(255,255,255,.035);
+    border-radius:50%;
 }
-@media (hover: hover) {
-    .player-card:hover {
-        transform:
-            translateY(-2px);
-        border-color:
-            rgba(255,255,255,.14);
-        box-shadow:
-            0 16px 36px rgba(0,0,0,.32);
-    }
-}
-/* =========================================================
-   STATUS
-========================================================= */
-.player-card.il {
-    --status: var(--yellow);
-}
-.player-card.forty-man {
-    --status: #8291a3;
-}
-.player-card.unknown {
-    --status: #65778d;
-}
-/* =========================================================
-   CARD CONTENT
-========================================================= */
-.player-card-inner {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding:
-        14px 17px 13px 20px;
-}
-/* =========================================================
-   TOP META
-========================================================= */
-.player-meta {
-    display: grid;
-    grid-template-columns:
-        58px
-        48px
-        55px
-        minmax(0, 1fr);
-    align-items: center;
-    height: 30px;
-    color:
-        rgba(255,255,255,.35);
-}
-.meta-item {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-.meta-label {
-    color:
-        rgba(255,255,255,.25);
-    font-size: 5.5px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing: .8px;
-}
-.meta-value {
-    color:
-        rgba(255,255,255,.92);
-    font-size: 12px;
-    line-height: 1;
-    font-weight: 950;
-}
-.number-value {
-    font-size: 17px;
-    letter-spacing:
-        -.7px;
+.number{
+    position:relative;
+    z-index:2;
+    color:#fff;
+    font-family:
+        "Arial Narrow",
+        "Roboto Condensed",
+        Impact,
+        sans-serif;
+    font-size:39px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-2px;
     font-variant-numeric:
         tabular-nums;
 }
-.position-value {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    min-width: 25px;
-    height: 18px;
+/* =========================================================
+   MAIN PLAYER INFORMATION
+========================================================= */
+.player-main{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
     padding:
-        0 6px;
+        15px 17px 13px 16px;
+}
+/* TOP LINE */
+.player-top{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-height:18px;
+}
+.position{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:28px;
+    height:19px;
+    padding:0 7px;
     border:
-        1px solid rgba(255,255,255,.10);
-    border-radius: 5px;
+        1px solid rgba(255,255,255,.12);
+    border-radius:5px;
     background:
         rgba(255,255,255,.055);
-    font-size: 9px;
-}
-.bt-value {
-    font-size: 10px;
-    letter-spacing:
-        .4px;
-}
-/* =========================================================
-   PLAYER NAME
-========================================================= */
-.player-name-area {
-    display: flex;
-    align-items: center;
-    min-width: 0;
-    flex: 1;
-    margin-top: 5px;
-}
-.player-name {
-    display: block;
-    min-width: 0;
-    width: 100%;
     color:
-        #ffffff;
-    font-size: 20px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing:
-        -.65px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: clip;
-    transform-origin:
-        left center;
+        rgba(255,255,255,.92);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.7px;
 }
-/* =========================================================
-   DIVIDER
-========================================================= */
-.player-divider {
-    width: 100%;
-    height: 1px;
-    margin-top: 9px;
-    background:
-        linear-gradient(
-            90deg,
-            var(--status),
-            rgba(255,255,255,.08) 36%,
-            transparent 100%
-        );
-    opacity: .75;
-}
-/* =========================================================
-   ROSTER STATUS
-========================================================= */
-.player-roster-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 21px;
-    margin-top: 5px;
-}
-.roster-status {
-    display: flex;
-    align-items: center;
-    min-width: 0;
+.batthrow{
     color:
-        var(--status);
-    font-size: 8px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing:
-        .8px;
+        rgba(255,255,255,.46);
+    font-family:
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
 }
-.roster-dot {
-    width: 5px;
-    height: 5px;
-    margin-right: 7px;
-    flex: 0 0 auto;
-    border-radius: 50%;
+.meta-divider{
+    width:1px;
+    height:11px;
     background:
-        var(--status);
+        rgba(255,255,255,.12);
+}
+/* =========================================================
+   NAME
+========================================================= */
+.name-wrap{
+    min-width:0;
+    display:flex;
+    align-items:flex-end;
+    flex:1;
+    padding-top:7px;
+}
+.name{
+    min-width:0;
+    max-width:100%;
+    color:#fff;
+    font-family:
+        "Arial Narrow",
+        "Roboto Condensed",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+    font-size:clamp(20px,6vw,28px);
+    line-height:.92;
+    font-weight:900;
+    letter-spacing:-.8px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+/* =========================================================
+   BOTTOM STATUS
+========================================================= */
+.status-area{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding-top:10px;
+    border-top:
+        1px solid rgba(255,255,255,.065);
+}
+.status{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--accent);
+    font-size:7px;
+    line-height:1;
+    font-weight:950;
+    letter-spacing:1.1px;
+}
+.status-dot{
+    width:5px;
+    height:5px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:var(--accent);
     box-shadow:
-        0 0 10px
-        color-mix(
-            in srgb,
-            var(--status) 55%,
-            transparent
-        );
+        0 0 9px
+        var(--accent);
 }
-.roster-detail {
+.roster-info{
     color:
-        rgba(255,255,255,.22);
-    font-size: 6px;
-    font-weight: 850;
-    letter-spacing:
-        .55px;
-    white-space: nowrap;
+        rgba(255,255,255,.27);
+    font-size:6.5px;
+    font-weight:850;
+    letter-spacing:.8px;
+    white-space:nowrap;
 }
 /* =========================================================
-   MOBILE
+   SMALL SECONDARY ACCENT
 ========================================================= */
-@media (max-width: 380px) {
-    .header {
-        height: 78px;
-    }
-    main {
-        padding:
-            14px 9px 25px;
-    }
-    .player-card {
-        height: 113px;
-        border-radius: 16px;
-    }
-    .player-card-inner {
-        padding:
-            13px 13px 12px 17px;
-    }
-    .player-meta {
-        grid-template-columns:
-            50px
-            42px
-            50px
-            minmax(0, 1fr);
-    }
-    .player-name {
-        font-size: 18px;
-    }
-    .roster-detail {
-        font-size: 5.5px;
-    }
+.player-main::after{
+    content:"";
+    position:absolute;
+    right:16px;
+    top:14px;
+    width:18px;
+    height:1px;
+    background:
+        var(--accent);
+    opacity:.65;
 }
 /* =========================================================
    BOTTOM NAV
-   EXISTING UI — DO NOT CHANGE
 ========================================================= */
-.bottom-nav {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2000;
-    height: 78px;
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:2000;
+    height:78px;
     background:
         rgba(5,20,39,.98);
     border-top:
@@ -538,55 +451,82 @@ main {
     backdrop-filter:
         blur(16px);
 }
-.bottom-inner {
-    width: 100%;
-    max-width: 760px;
-    height: 100%;
-    margin: 0 auto;
-    display: grid;
+.bottom-inner{
+    width:100%;
+    max-width:760px;
+    height:100%;
+    margin:auto;
+    display:grid;
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5,1fr);
 }
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
     color:
-        var(--gray);
-    text-decoration: none;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: .65px;
+        rgba(255,255,255,.38);
+    text-decoration:none;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.65px;
     -webkit-tap-highlight-color:
         transparent;
 }
-.nav-icon {
-    width: 31px;
-    height: 31px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+.nav-icon{
+    width:31px;
+    height:31px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
 }
-.nav-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: none;
-    stroke:
-        currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+.nav-icon svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
 }
-.nav-item.active {
-    color:
-        var(--red);
+.nav-item.active{
+    color:var(--red);
 }
-.nav-item.active .nav-icon {
+.nav-item.active .nav-icon{
     background:
         rgba(227,24,55,.14);
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media(max-width:380px){
+    main{
+        padding:
+            16px 9px 26px;
+    }
+    .player{
+        grid-template-columns:68px minmax(0,1fr);
+        min-height:119px;
+        border-radius:15px;
+    }
+    .player-main{
+        padding:
+            14px 13px 12px 14px;
+    }
+    .number{
+        font-size:35px;
+    }
+    .name{
+        font-size:
+            clamp(
+                18px,
+                6vw,
+                24px
+            );
+    }
 }
 </style>
 </head>
@@ -600,239 +540,126 @@ main {
     <div class="header-edge"></div>
 </header>
 <main>
-<section class="roster-board">
-    <div class="roster-heading">
-        <div class="roster-heading-left">
-            <span class="roster-heading-title">
-                PHILLIES ROSTER
-            </span>
-            <span class="roster-heading-season">
-                2026
-            </span>
+<section class="roster">
+    <div class="page-title">
+        <div class="page-title-main">
+            <h1>ROSTER</h1>
+            <span>2026 PHILLIES</span>
         </div>
-        <span class="roster-heading-count">
-            4 PLAYERS
-        </span>
+        <span>4 PLAYERS</span>
     </div>
-    <!-- =====================================================
-         PLAYER 1
-    ====================================================== -->
     <article
-        class="player-card"
-        data-number="7"
+        class="player"
+        data-status="ACTIVE"
     >
-        <div class="player-card-inner">
-            <div class="player-meta">
-                <div class="meta-item">
-                    <span class="meta-label">
-                        NUMBER
-                    </span>
-                    <span class="meta-value number-value">
-                        7
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        POS
-                    </span>
-                    <span class="meta-value position-value">
-                        SS
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        B/T
-                    </span>
-                    <span class="meta-value bt-value">
-                        R/R
-                    </span>
-                </div>
+        <div class="player-number">
+            <span class="number">7</span>
+        </div>
+        <div class="player-main">
+            <div class="player-top">
+                <span class="position">SS</span>
+                <span class="meta-divider"></span>
+                <span class="batthrow">R/R</span>
             </div>
-            <div class="player-name-area">
-                <span
-                    class="player-name"
-                    data-name="Trea Turner"
-                >
+            <div class="name-wrap">
+                <span class="name">
                     TREA TURNER
                 </span>
             </div>
-            <div class="player-divider"></div>
-            <div class="player-roster-row">
-                <div class="roster-status">
-                    <span class="roster-dot"></span>
-                    <span>
-                        ACTIVE
-                    </span>
-                </div>
-                <span class="roster-detail">
+            <div class="status-area">
+                <span class="status">
+                    <span class="status-dot"></span>
+                    ACTIVE
+                </span>
+                <span class="roster-info">
                     40-MAN ROSTER
                 </span>
             </div>
         </div>
     </article>
-    <!-- =====================================================
-         PLAYER 2
-    ====================================================== -->
     <article
-        class="player-card"
-        data-number="10"
+        class="player"
+        data-status="ACTIVE"
     >
-        <div class="player-card-inner">
-            <div class="player-meta">
-                <div class="meta-item">
-                    <span class="meta-label">
-                        NUMBER
-                    </span>
-                    <span class="meta-value number-value">
-                        10
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        POS
-                    </span>
-                    <span class="meta-value position-value">
-                        C
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        B/T
-                    </span>
-                    <span class="meta-value bt-value">
-                        R/R
-                    </span>
-                </div>
+        <div class="player-number">
+            <span class="number">10</span>
+        </div>
+        <div class="player-main">
+            <div class="player-top">
+                <span class="position">C</span>
+                <span class="meta-divider"></span>
+                <span class="batthrow">R/R</span>
             </div>
-            <div class="player-name-area">
-                <span
-                    class="player-name"
-                    data-name="J.T. Realmuto"
-                >
+            <div class="name-wrap">
+                <span class="name">
                     J.T. REALMUTO
                 </span>
             </div>
-            <div class="player-divider"></div>
-            <div class="player-roster-row">
-                <div class="roster-status">
-                    <span class="roster-dot"></span>
-                    <span>
-                        ACTIVE
-                    </span>
-                </div>
-                <span class="roster-detail">
+            <div class="status-area">
+                <span class="status">
+                    <span class="status-dot"></span>
+                    ACTIVE
+                </span>
+                <span class="roster-info">
                     40-MAN ROSTER
                 </span>
             </div>
         </div>
     </article>
-    <!-- =====================================================
-         PLAYER 3 — IL
-    ====================================================== -->
     <article
-        class="player-card il"
-        data-number="28"
+        class="player il"
+        data-status="IL"
     >
-        <div class="player-card-inner">
-            <div class="player-meta">
-                <div class="meta-item">
-                    <span class="meta-label">
-                        NUMBER
-                    </span>
-                    <span class="meta-value number-value">
-                        28
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        POS
-                    </span>
-                    <span class="meta-value position-value">
-                        3B
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        B/T
-                    </span>
-                    <span class="meta-value bt-value">
-                        R/R
-                    </span>
-                </div>
+        <div class="player-number">
+            <span class="number">28</span>
+        </div>
+        <div class="player-main">
+            <div class="player-top">
+                <span class="position">3B</span>
+                <span class="meta-divider"></span>
+                <span class="batthrow">R/R</span>
             </div>
-            <div class="player-name-area">
-                <span
-                    class="player-name"
-                    data-name="Alec Bohm"
-                >
+            <div class="name-wrap">
+                <span class="name">
                     ALEC BOHM
                 </span>
             </div>
-            <div class="player-divider"></div>
-            <div class="player-roster-row">
-                <div class="roster-status">
-                    <span class="roster-dot"></span>
-                    <span>
-                        IL
-                    </span>
-                </div>
-                <span class="roster-detail">
+            <div class="status-area">
+                <span class="status">
+                    <span class="status-dot"></span>
+                    IL
+                </span>
+                <span class="roster-info">
                     INJURED LIST
                 </span>
             </div>
         </div>
     </article>
-    <!-- =====================================================
-         PLAYER 4 — 40 MAN
-    ====================================================== -->
     <article
-        class="player-card forty-man"
-        data-number="54"
+        class="player"
+        data-status="40-MAN"
+        style="--accent:#8291a3;"
     >
-        <div class="player-card-inner">
-            <div class="player-meta">
-                <div class="meta-item">
-                    <span class="meta-label">
-                        NUMBER
-                    </span>
-                    <span class="meta-value number-value">
-                        54
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        POS
-                    </span>
-                    <span class="meta-value position-value">
-                        P
-                    </span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">
-                        B/T
-                    </span>
-                    <span class="meta-value bt-value">
-                        L/R
-                    </span>
-                </div>
+        <div class="player-number">
+            <span class="number">54</span>
+        </div>
+        <div class="player-main">
+            <div class="player-top">
+                <span class="position">P</span>
+                <span class="meta-divider"></span>
+                <span class="batthrow">L/R</span>
             </div>
-            <div class="player-name-area">
-                <span
-                    class="player-name"
-                    data-name="Sample Player"
-                >
+            <div class="name-wrap">
+                <span class="name">
                     SAMPLE PLAYER
                 </span>
             </div>
-            <div class="player-divider"></div>
-            <div class="player-roster-row">
-                <div class="roster-status">
-                    <span class="roster-dot"></span>
-                    <span>
-                        40-MAN
-                    </span>
-                </div>
-                <span class="roster-detail">
+            <div class="status-area">
+                <span class="status">
+                    <span class="status-dot"></span>
+                    40-MAN
+                </span>
+                <span class="roster-info">
                     40-MAN ROSTER
                 </span>
             </div>
@@ -842,167 +669,52 @@ main {
 </main>
 <nav class="bottom-nav">
     <div class="bottom-inner">
-        <a
-            href="schedule.html"
-            class="nav-item"
-        >
+        <a href="schedule.html" class="nav-item">
             <div class="nav-icon">
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <rect
-                        x="3.5"
-                        y="5"
-                        width="17"
-                        height="16"
-                        rx="2"
-                    />
-                    <line
-                        x1="7.5"
-                        y1="3"
-                        x2="7.5"
-                        y2="7"
-                    />
-                    <line
-                        x1="16.5"
-                        y1="3"
-                        x2="16.5"
-                        y2="7"
-                    />
-                    <line
-                        x1="3.5"
-                        y1="10"
-                        x2="20.5"
-                        y2="10"
-                    />
+                <svg viewBox="0 0 24 24">
+                    <rect x="3.5" y="5" width="17" height="16" rx="2"/>
+                    <line x1="7.5" y1="3" x2="7.5" y2="7"/>
+                    <line x1="16.5" y1="3" x2="16.5" y2="7"/>
+                    <line x1="3.5" y1="10" x2="20.5" y2="10"/>
                 </svg>
             </div>
             SCHEDULE
         </a>
-        <a
-            href="score.html"
-            class="nav-item"
-        >
+        <a href="score.html" class="nav-item">
             <div class="nav-icon">
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <rect
-                        x="3.5"
-                        y="4"
-                        width="17"
-                        height="16"
-                        rx="2"
-                    />
-                    <line
-                        x1="8"
-                        y1="4"
-                        x2="8"
-                        y2="20"
-                    />
-                    <line
-                        x1="16"
-                        y1="4"
-                        x2="16"
-                        y2="20"
-                    />
-                    <line
-                        x1="3.5"
-                        y1="12"
-                        x2="20.5"
-                        y2="12"
-                    />
+                <svg viewBox="0 0 24 24">
+                    <rect x="3.5" y="4" width="17" height="16" rx="2"/>
+                    <line x1="8" y1="4" x2="8" y2="20"/>
+                    <line x1="16" y1="4" x2="16" y2="20"/>
+                    <line x1="3.5" y1="12" x2="20.5" y2="12"/>
                 </svg>
             </div>
             SCORE
         </a>
-        <a
-            href="index.html"
-            class="nav-item"
-        >
+        <a href="index.html" class="nav-item">
             <div class="nav-icon">
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="
-                            M4 4
-                            H20
-                            V13
-                            L12 21
-                            L4 13
-                            Z
-                        "
-                    />
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 4H20V13L12 21L4 13Z"/>
                 </svg>
             </div>
             HOME
         </a>
-        <a
-            href="player.html"
-            class="nav-item active"
-        >
+        <a href="player.html" class="nav-item active">
             <div class="nav-icon">
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <circle
-                        cx="12"
-                        cy="8"
-                        r="3.4"
-                    />
-                    <path
-                        d="
-                            M5 20
-                            C5.7 16
-                            8.1 14
-                            12 14
-                            C15.9 14
-                            18.3 16
-                            19 20
-                        "
-                    />
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="3.4"/>
+                    <path d="M5 20C5.7 16 8.1 14 12 14C15.9 14 18.3 16 19 20"/>
                 </svg>
             </div>
             PLAYER
         </a>
-        <a
-            href="stats.html"
-            class="nav-item"
-        >
+        <a href="stats.html" class="nav-item">
             <div class="nav-icon">
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <line
-                        x1="4"
-                        y1="20"
-                        x2="4"
-                        y2="14"
-                    />
-                    <line
-                        x1="10"
-                        y1="20"
-                        x2="10"
-                        y2="9"
-                    />
-                    <line
-                        x1="16"
-                        y1="20"
-                        x2="16"
-                        y2="5"
-                    />
-                    <line
-                        x1="22"
-                        y1="20"
-                        x2="22"
-                        y2="11"
-                    />
+                <svg viewBox="0 0 24 24">
+                    <line x1="4" y1="20" x2="4" y2="14"/>
+                    <line x1="10" y1="20" x2="10" y2="9"/>
+                    <line x1="16" y1="20" x2="16" y2="5"/>
+                    <line x1="22" y1="20" x2="22" y2="11"/>
                 </svg>
             </div>
             STATS
@@ -1011,84 +723,100 @@ main {
 </nav>
 <script>
 /*
-=========================================================
-PLAYER NAME FIT
-=========================================================
-カードサイズは変更せず、名前だけを利用可能幅へ
-自動的に収める。
-=========================================================
-*/
-function fitPlayerNames() {
-    document
-        .querySelectorAll(".player-card")
-        .forEach(card => {
-            const area =
-                card.querySelector(
-                    ".player-name-area"
-                );
-            const name =
-                card.querySelector(
-                    ".player-name"
-                );
-            if (!area || !name) {
-                return;
-            }
-            name.style.fontSize = "20px";
-            const available =
-                area.clientWidth;
-            let size = 20;
-            while (
-                name.scrollWidth > available &&
-                size > 13
-            ) {
-                size -= .5;
-                name.style.fontSize =
-                    size + "px";
-            }
-        });
+ * 表示用背番号の正規化
+ * "07" → "7"
+ * null → "—"
+ */
+function normalizeNumber(value){
+    if(
+        value === null ||
+        value === undefined ||
+        value === ""
+    ){
+        return "—";
+    }
+    const number =
+        Number.parseInt(
+            String(value),
+            10
+        );
+    return Number.isNaN(number)
+        ? "—"
+        : String(number);
 }
 /*
-=========================================================
-CARD TAP
-=========================================================
-将来的に player detail へ接続できるよう、
-カード自体をクリック可能な構造にしておく。
-=========================================================
-*/
-document
-    .querySelectorAll(".player-card")
-    .forEach(card => {
-        card.addEventListener(
-            "click",
-            () => {
-                /*
-                 * 今はサンプル段階なので遷移なし。
-                 *
-                 * MLB API接続後、
-                 * playerIdを使って
-                 * player-detail.html?id=...
-                 * へ接続可能。
-                 */
-            }
-        );
-    });
-window.addEventListener(
-    "DOMContentLoaded",
-    fitPlayerNames
-);
-window.addEventListener(
-    "resize",
-    fitPlayerNames
-);
-window.addEventListener(
-    "orientationchange",
-    () => {
-        setTimeout(
-            fitPlayerNames,
-            120
-        );
+ * 将来のMLB API接続用
+ *
+ * player.number
+ * player.position
+ * player.bats
+ * player.throws
+ * player.fullName
+ * player.status
+ * player.roster
+ */
+function createPlayerCard(player){
+    const article =
+        document.createElement("article");
+    article.className =
+        "player";
+    if(player.status === "IL"){
+        article.classList.add("il");
     }
-);
+    const number =
+        normalizeNumber(
+            player.number
+        );
+    const position =
+        player.position ?? "—";
+    const bats =
+        player.bats ?? null;
+    const throws =
+        player.throws ?? null;
+    const bt =
+        bats && throws
+            ? `${bats}/${throws}`
+            : "—";
+    const name =
+        player.fullName ?? "—";
+    const status =
+        player.status ?? "—";
+    const roster =
+        player.roster ?? "—";
+    article.innerHTML = `
+        <div class="player-number">
+            <span class="number">
+                ${number}
+            </span>
+        </div>
+        <div class="player-main">
+            <div class="player-top">
+                <span class="position">
+                    ${position}
+                </span>
+                <span class="meta-divider"></span>
+                <span class="batthrow">
+                    ${bt}
+                </span>
+            </div>
+            <div class="name-wrap">
+                <span class="name">
+                    ${String(name).toUpperCase()}
+                </span>
+            </div>
+            <div class="status-area">
+                <span class="status">
+                    <span class="status-dot"></span>
+                    ${status}
+                </span>
+                <span class="roster-info">
+                    ${roster}
+                </span>
+            </div>
+        </div>
+    `;
+    return article;
+}
 </script>
 </body>
 </html>
