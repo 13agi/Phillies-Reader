@@ -6,7 +6,7 @@
   },
   "season": 2026,
   "date": "2026-08-11",
-  "updated": "2026-08-11T11:59:36.259302+09:00",
+  "updated": "2026-08-11T12:54:05.817615+09:00",
   "gameCount": 1,
   "games": [
     {
@@ -15,8 +15,8 @@
         "gameDate": "2026-08-10T23:45:00Z",
         "status": {
           "abstract": "Final",
-          "detailed": "Game Over",
-          "code": "O"
+          "detailed": "Final",
+          "code": "F"
         },
         "home": {
           "id": 138,
@@ -51,7 +51,89 @@
           "errors": null
         }
       },
-      "inningScores": [],
+      "inningScores": [
+        {
+          "inning": 1,
+          "away": 0,
+          "home": 0,
+          "awayHits": 0,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 2,
+          "away": 2,
+          "home": 0,
+          "awayHits": 2,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 1
+        },
+        {
+          "inning": 3,
+          "away": 0,
+          "home": 0,
+          "awayHits": 0,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 4,
+          "away": 0,
+          "home": 0,
+          "awayHits": 0,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 5,
+          "away": 1,
+          "home": 0,
+          "awayHits": 2,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 1
+        },
+        {
+          "inning": 6,
+          "away": 0,
+          "home": 2,
+          "awayHits": 0,
+          "homeHits": 3,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 7,
+          "away": 1,
+          "home": 0,
+          "awayHits": 1,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 8,
+          "away": 2,
+          "home": 3,
+          "awayHits": 2,
+          "homeHits": 5,
+          "awayErrors": 0,
+          "homeErrors": 0
+        },
+        {
+          "inning": 9,
+          "away": 0,
+          "home": 0,
+          "awayHits": 1,
+          "homeHits": 0,
+          "awayErrors": 0,
+          "homeErrors": 0
+        }
+      ],
       "philliesBatting": [
         {
           "sequence": 1,
