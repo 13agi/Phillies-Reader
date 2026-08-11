@@ -1,39 +1,78 @@
 import json
 import os
+import re
 import time
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 # =========================================================
+# PHILLIES READER
+# update_news.py
+#
+# MLB.com Phillies News
+#
+# 取得項目
+#   1. 記事タイトル
+#   2. 公開日時
+#   3. 公開元
+#   4. 記事URL
+#   5. 日本語訳タイトル
+#
+# 取得期間
+#   実行時点から過去7日間
+#
+# 公開日時を取得できない記事
+#   保存しない
+#
+# 7日より古い記事
+#   news.jsonから削除
+#
+# =========================================================
+# =========================================================
 # SETTINGS
 # =========================================================
 BASE_URL = "https://www.mlb.com"
-NEWS_URL = "https://www.mlb.com/phillies/news"
-OUTPUT_FILE = "data/news.json"
-DAYS = 7
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+NEWS_URL = (
+    "https://www.mlb.com/phillies/news"
 )
+OUTPUT_FILE = (
+    "data/news.json"
+)
+KEEP_DAYS = 7
+REQUEST_TIMEOUT = 30
+SLEEP_SECONDS = 0.25
+TRANSLATE_SLEEP_SECONDS = 0.35
+# =========================================================
+# HTTP HEADERS
+# =========================================================
 HEADERS = {
-    "User-Agent": USER_AGENT,
+    "User-Agent": (
+        "Mozilla/5.0 "
+        "(Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 "
+        "(KHTML, like Gecko) "
+        "Chrome/131.0.0.0 "
+        "Safari/537.36"
+    ),
     "Accept": (
         "text/html,application/xhtml+xml,"
-        "application/xml;q=0.9,image/avif,"
-        "image/webp,*/*;q=0.8"
+        "application/xml;q=0.9,"
+        "image/avif,image/webp,"
+        "*/*;q=0.8"
     ),
-    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Language": (
+        "en-US,en;q=0.9"
+    ),
 }
 # =========================================================
-# HTTP
+# HTTP GET
 # =========================================================
 def get_html(url):
     response = requests.get(
         url,
         headers=HEADERS,
-        timeout=30
+        timeout=REQUEST_TIMEOUT,
     )
     response.raise_for_status()
     return response.text
@@ -45,7 +84,7 @@ def normalize_url(url):
         return ""
     url = urljoin(
         BASE_URL,
-        url
+        url,
     )
     url = url.split("?")[0]
     url = url.split("#")[0]
@@ -56,49 +95,58 @@ def normalize_url(url):
 def is_phillies_article(url):
     if not url:
         return False
-    if not url.startswith(BASE_URL):
+    if not url.startswith(
+        BASE_URL
+    ):
         return False
     if "/phillies/news/" not in url:
         return False
-    excluded = (
+    excluded_paths = (
         "/video/",
         "/gallery/",
         "/photos/",
     )
-    for value in excluded:
-        if value in url:
+    for path in excluded_paths:
+        if path in url:
             return False
     return True
 # =========================================================
 # COLLECT ARTICLE URLS
 # =========================================================
 def collect_article_urls():
-    print("MLB.com Phillies News を取得しています...")
+    print(
+        "MLB.com Phillies News を取得中..."
+    )
     html = get_html(
         NEWS_URL
     )
     soup = BeautifulSoup(
         html,
-        "html.parser"
+        "html.parser",
     )
     urls = set()
     for link in soup.find_all(
         "a",
-        href=True
+        href=True,
     ):
-        url = normalize_url(
-            link.get("href")
+        href = link.get(
+            "href"
         )
-        if is_phillies_article(url):
+        url = normalize_url(
+            href
+        )
+        if is_phillies_article(
+            url
+        ):
             urls.add(url)
     return sorted(urls)
 # =========================================================
 # JSON-LD
 # =========================================================
-def get_jsonld(soup):
+def iter_jsonld(soup):
     scripts = soup.find_all(
         "script",
-        type="application/ld+json"
+        type="application/ld+json",
     )
     for script in scripts:
         text = (
@@ -115,42 +163,55 @@ def get_jsonld(soup):
             continue
         if isinstance(
             data,
-            dict
+            dict,
         ):
             yield data
+            graph = data.get(
+                "@graph"
+            )
+            if isinstance(
+                graph,
+                list,
+            ):
+                for item in graph:
+                    if isinstance(
+                        item,
+                        dict,
+                    ):
+                        yield item
         elif isinstance(
             data,
-            list
+            list,
         ):
             for item in data:
                 if isinstance(
                     item,
-                    dict
-                ):
-                    yield item
-        elif isinstance(
-            data,
-            dict
-        ) and "@graph" in data:
-            for item in data["@graph"]:
-                if isinstance(
-                    item,
-                    dict
+                    dict,
                 ):
                     yield item
 # =========================================================
-# DATETIME NORMALIZE
+# DATETIME PARSER
 # =========================================================
-def normalize_datetime(value):
+def parse_datetime(value):
     if not value:
-        return ""
-    value = str(value).strip()
+        return None
+    value = str(
+        value
+    ).strip()
+    if not value:
+        return None
+    # ISO 8601
     try:
-        dt = datetime.fromisoformat(
-            value.replace(
-                "Z",
-                "+00:00"
+        normalized = value
+        if normalized.endswith(
+            "Z"
+        ):
+            normalized = (
+                normalized[:-1]
+                + "+00:00"
             )
+        dt = datetime.fromisoformat(
+            normalized
         )
         if dt.tzinfo is None:
             dt = dt.replace(
@@ -158,28 +219,66 @@ def normalize_datetime(value):
             )
         return dt.astimezone(
             timezone.utc
-        ).isoformat()
+        )
     except Exception:
         pass
-    return value
+    # RFC 3339等に対応
+    formats = (
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%dT%H:%M:%S.%f%z",
+        "%Y-%m-%d %H:%M:%S%z",
+        "%Y-%m-%d",
+    )
+    for fmt in formats:
+        try:
+            dt = datetime.strptime(
+                value,
+                fmt,
+            )
+            if dt.tzinfo is None:
+                dt = dt.replace(
+                    tzinfo=timezone.utc
+                )
+            return dt.astimezone(
+                timezone.utc
+            )
+        except Exception:
+            continue
+    return None
 # =========================================================
-# ARTICLE PUBLISHED DATE
+# DATETIME NORMALIZE
+# =========================================================
+def normalize_datetime(value):
+    dt = parse_datetime(
+        value
+    )
+    if not dt:
+        return ""
+    return dt.isoformat()
+# =========================================================
+# EXTRACT PUBLISHED DATETIME
 # =========================================================
 def extract_published_at(
     soup,
-    html
+    html,
 ):
     # -----------------------------------------------------
     # 1. JSON-LD datePublished
     # -----------------------------------------------------
-    for data in get_jsonld(soup):
-        date = data.get(
+    for data in iter_jsonld(
+        soup
+    ):
+        value = data.get(
             "datePublished"
         )
-        if date:
-            return normalize_datetime(
-                date
+        if value:
+            normalized = (
+                normalize_datetime(
+                    value
+                )
             )
+            if normalized:
+                return normalized
     # -----------------------------------------------------
     # 2. article:published_time
     # -----------------------------------------------------
@@ -188,18 +287,49 @@ def extract_published_at(
         attrs={
             "property":
                 "article:published_time"
-        }
+        },
     )
     if meta:
         value = meta.get(
             "content"
         )
-        if value:
-            return normalize_datetime(
+        normalized = (
+            normalize_datetime(
                 value
             )
+        )
+        if normalized:
+            return normalized
     # -----------------------------------------------------
-    # 3. <time datetime="">
+    # 3. meta[name=publishdate]
+    # -----------------------------------------------------
+    meta_names = (
+        "publishdate",
+        "published",
+        "published_date",
+        "date",
+        "datepublished",
+    )
+    for name in meta_names:
+        meta = soup.find(
+            "meta",
+            attrs={
+                "name": name
+            },
+        )
+        if meta:
+            value = meta.get(
+                "content"
+            )
+            normalized = (
+                normalize_datetime(
+                    value
+                )
+            )
+            if normalized:
+                return normalized
+    # -----------------------------------------------------
+    # 4. time[datetime]
     # -----------------------------------------------------
     for tag in soup.find_all(
         "time"
@@ -207,43 +337,65 @@ def extract_published_at(
         value = tag.get(
             "datetime"
         )
-        if value:
-            return normalize_datetime(
+        normalized = (
+            normalize_datetime(
                 value
             )
+        )
+        if normalized:
+            return normalized
     # -----------------------------------------------------
-    # 4. HTML内のdatePublished
+    # 5. HTML内 datePublished
     # -----------------------------------------------------
-    patterns = [
+    patterns = (
         r'"datePublished"\s*:\s*"([^"]+)"',
         r'"publishedTime"\s*:\s*"([^"]+)"',
         r'"publishDate"\s*:\s*"([^"]+)"',
-    ]
+        r'"published_at"\s*:\s*"([^"]+)"',
+    )
     for pattern in patterns:
         match = re.search(
             pattern,
-            html
+            html,
+            re.IGNORECASE,
         )
         if match:
-            return normalize_datetime(
-                match.group(1)
+            normalized = (
+                normalize_datetime(
+                    match.group(1)
+                )
             )
+            if normalized:
+                return normalized
     return ""
 # =========================================================
-# ARTICLE TITLE
+# EXTRACT TITLE
 # =========================================================
-def extract_title(
-    soup
-):
+def extract_title(soup):
     # -----------------------------------------------------
-    # OG TITLE
+    # 1. JSON-LD headline
+    # -----------------------------------------------------
+    for data in iter_jsonld(
+        soup
+    ):
+        headline = data.get(
+            "headline"
+        )
+        if isinstance(
+            headline,
+            str,
+        ):
+            headline = headline.strip()
+            if headline:
+                return headline
+    # -----------------------------------------------------
+    # 2. og:title
     # -----------------------------------------------------
     meta = soup.find(
         "meta",
         attrs={
-            "property":
-                "og:title"
-        }
+            "property": "og:title"
+        },
     )
     if meta:
         title = meta.get(
@@ -252,29 +404,33 @@ def extract_title(
         if title:
             return title.strip()
     # -----------------------------------------------------
-    # JSON-LD
+    # 3. twitter:title
     # -----------------------------------------------------
-    for data in get_jsonld(soup):
-        title = data.get(
-            "headline"
+    meta = soup.find(
+        "meta",
+        attrs={
+            "name": "twitter:title"
+        },
+    )
+    if meta:
+        title = meta.get(
+            "content"
         )
         if title:
-            return str(
-                title
-            ).strip()
+            return title.strip()
     # -----------------------------------------------------
-    # HTML TITLE
+    # 4. HTML title
     # -----------------------------------------------------
     if soup.title:
         title = soup.title.get_text(
             " ",
-            strip=True
+            strip=True,
         )
         if title:
             return title
     return ""
 # =========================================================
-# ARTICLE
+# GET ARTICLE
 # =========================================================
 def get_article(url):
     try:
@@ -284,47 +440,55 @@ def get_article(url):
     except Exception as error:
         print(
             "記事取得失敗:",
-            url
+            url,
         )
         print(
-            error
+            "ERROR:",
+            error,
         )
         return None
     soup = BeautifulSoup(
         html,
-        "html.parser"
+        "html.parser",
     )
     title = extract_title(
         soup
     )
-    published_at = extract_published_at(
-        soup,
-        html
+    published_at = (
+        extract_published_at(
+            soup,
+            html,
+        )
     )
     # -----------------------------------------------------
     # 公開日時がない記事は保存しない
     # -----------------------------------------------------
     if not published_at:
         print(
-            "公開日時を取得できないため除外:",
-            url
+            "公開日時なし → 除外:",
+            url,
         )
         return None
+    # -----------------------------------------------------
+    # タイトルがない記事も保存しない
+    # -----------------------------------------------------
     if not title:
         print(
-            "タイトルを取得できないため除外:",
-            url
+            "タイトルなし → 除外:",
+            url,
         )
         return None
     return {
         "title": title,
         "published_at": published_at,
         "source": "MLB.com",
-        "url": normalize_url(url),
-        "title_ja": ""
+        "url": normalize_url(
+            url
+        ),
+        "title_ja": "",
     }
 # =========================================================
-# LOAD EXISTING
+# LOAD NEWS.JSON
 # =========================================================
 def load_existing():
     if not os.path.exists(
@@ -335,44 +499,148 @@ def load_existing():
         with open(
             OUTPUT_FILE,
             "r",
-            encoding="utf-8"
+            encoding="utf-8",
         ) as file:
             data = json.load(
                 file
             )
         if isinstance(
             data,
-            list
+            list,
         ):
             return data
+        # もし {"articles": [...]} 型だった場合
+        if isinstance(
+            data,
+            dict,
+        ):
+            articles = data.get(
+                "articles"
+            )
+            if isinstance(
+                articles,
+                list,
+            ):
+                return articles
     except Exception as error:
         print(
-            "既存news.jsonの読み込み失敗:",
-            error
+            "news.json読み込み失敗:",
+            error,
         )
     return []
 # =========================================================
-# PARSE DATETIME
+# MERGE ARTICLES
 # =========================================================
-def parse_datetime(value):
-    if not value:
-        return None
-    try:
-        dt = datetime.fromisoformat(
-            str(value).replace(
-                "Z",
-                "+00:00"
+def merge_articles(
+    existing,
+    fetched,
+):
+    articles = {}
+    # -----------------------------------------------------
+    # Existing
+    # -----------------------------------------------------
+    for article in existing:
+        if not isinstance(
+            article,
+            dict,
+        ):
+            continue
+        url = normalize_url(
+            article.get(
+                "url"
             )
         )
-        if dt.tzinfo is None:
-            dt = dt.replace(
-                tzinfo=timezone.utc
-            )
-        return dt.astimezone(
-            timezone.utc
+        if not url:
+            continue
+        title = article.get(
+            "title",
+            "",
         )
-    except Exception:
-        return None
+        published_at = (
+            article.get(
+                "published_at",
+                "",
+            )
+        )
+        title_ja = article.get(
+            "title_ja",
+            "",
+        )
+        articles[url] = {
+            "title": title,
+            "published_at":
+                published_at,
+            "source": "MLB.com",
+            "url": url,
+            "title_ja": title_ja,
+        }
+    # -----------------------------------------------------
+    # Fetched
+    # -----------------------------------------------------
+    for article in fetched:
+        if not isinstance(
+            article,
+            dict,
+        ):
+            continue
+        url = normalize_url(
+            article.get(
+                "url"
+            )
+        )
+        if not url:
+            continue
+        if url in articles:
+            # 既存の日本語訳は保持
+            old_translation = (
+                articles[url].get(
+                    "title_ja",
+                    "",
+                )
+            )
+            articles[url] = {
+                "title":
+                    article.get(
+                        "title",
+                        "",
+                    ),
+                "published_at":
+                    article.get(
+                        "published_at",
+                        "",
+                    ),
+                "source":
+                    "MLB.com",
+                "url":
+                    url,
+                "title_ja":
+                    old_translation,
+            }
+        else:
+            articles[url] = {
+                "title":
+                    article.get(
+                        "title",
+                        "",
+                    ),
+                "published_at":
+                    article.get(
+                        "published_at",
+                        "",
+                    ),
+                "source":
+                    "MLB.com",
+                "url":
+                    url,
+                "title_ja":
+                    article.get(
+                        "title_ja",
+                        "",
+                    ),
+            }
+    return list(
+        articles.values()
+    )
 # =========================================================
 # FILTER LAST 7 DAYS
 # =========================================================
@@ -383,9 +651,9 @@ def filter_last_7_days(
         timezone.utc
     )
     cutoff = (
-        now -
-        timedelta(
-            days=DAYS
+        now
+        - timedelta(
+            days=KEEP_DAYS
         )
     )
     result = []
@@ -395,90 +663,19 @@ def filter_last_7_days(
                 "published_at"
             )
         )
+        # 日時がない記事は除外
         if not published:
             continue
-        if (
-            cutoff
-            <= published
-            <= now
-        ):
-            result.append(
-                article
-            )
+        # 未来の日付も除外
+        if published > now:
+            continue
+        # 7日より古い記事を除外
+        if published < cutoff:
+            continue
+        result.append(
+            article
+        )
     return result
-# =========================================================
-# MERGE
-# =========================================================
-def merge_articles(
-    existing,
-    fetched
-):
-    articles = {}
-    # -----------------------------------------------------
-    # Existing
-    # -----------------------------------------------------
-    for article in existing:
-        url = normalize_url(
-            article.get(
-                "url"
-            )
-        )
-        if not url:
-            continue
-        articles[url] = {
-            "title":
-                article.get(
-                    "title",
-                    ""
-                ),
-            "published_at":
-                article.get(
-                    "published_at",
-                    ""
-                ),
-            "source":
-                "MLB.com",
-            "url":
-                url,
-            "title_ja":
-                article.get(
-                    "title_ja",
-                    ""
-                )
-        }
-    # -----------------------------------------------------
-    # New
-    # -----------------------------------------------------
-    for article in fetched:
-        url = normalize_url(
-            article.get(
-                "url"
-            )
-        )
-        if not url:
-            continue
-        if url in articles:
-            if article.get(
-                "title"
-            ):
-                articles[url][
-                    "title"
-                ] = article[
-                    "title"
-                ]
-            if article.get(
-                "published_at"
-            ):
-                articles[url][
-                    "published_at"
-                ] = article[
-                    "published_at"
-                ]
-        else:
-            articles[url] = article
-    return list(
-        articles.values()
-    )
 # =========================================================
 # TRANSLATE TITLE
 # =========================================================
@@ -501,80 +698,111 @@ def translate_title(
             endpoint,
             params=params,
             headers=HEADERS,
-            timeout=30
+            timeout=REQUEST_TIMEOUT,
         )
         response.raise_for_status()
         data = response.json()
-        translated = ""
         if (
-            isinstance(data, list)
-            and len(data) > 0
-            and isinstance(
+            not isinstance(
+                data,
+                list,
+            )
+            or len(data) == 0
+            or not isinstance(
                 data[0],
-                list
+                list,
             )
         ):
-            for part in data[0]:
-                if (
-                    isinstance(
-                        part,
-                        list
-                    )
-                    and len(part) > 0
-                    and part[0]
-                ):
-                    translated += str(
-                        part[0]
-                    )
+            return ""
+        translated = ""
+        for item in data[0]:
+            if (
+                isinstance(
+                    item,
+                    list,
+                )
+                and len(item) > 0
+                and item[0]
+            ):
+                translated += str(
+                    item[0]
+                )
         return translated.strip()
     except Exception as error:
         print(
-            "日本語翻訳失敗:",
-            error
+            "翻訳失敗:",
+            error,
         )
         return ""
 # =========================================================
-# TRANSLATE NEW TITLES
+# TRANSLATE TITLES
 # =========================================================
-def translate_new_titles(
+def translate_titles(
     articles
 ):
     targets = []
     for article in articles:
-        if (
-            article.get(
-                "title"
-            )
-            and not article.get(
-                "title_ja"
-            )
-        ):
+        title = article.get(
+            "title",
+            "",
+        )
+        title_ja = article.get(
+            "title_ja",
+            "",
+        )
+        if title and not title_ja:
             targets.append(
                 article
             )
     print(
         "日本語訳対象:",
         len(targets),
-        "件"
+        "件",
     )
     for index, article in enumerate(
         targets,
-        start=1
+        start=1,
     ):
         print(
-            f"翻訳 {index}/{len(targets)}:",
+            f"日本語訳 {index}/{len(targets)}"
+        )
+        print(
             article["title"]
         )
-        translated = translate_title(
-            article["title"]
+        translated = (
+            translate_title(
+                article["title"]
+            )
         )
         if translated:
             article[
                 "title_ja"
             ] = translated
         time.sleep(
-            0.3
+            TRANSLATE_SLEEP_SECONDS
         )
+    return articles
+# =========================================================
+# SORT
+# =========================================================
+def sort_articles(
+    articles
+):
+    def sort_key(article):
+        dt = parse_datetime(
+            article.get(
+                "published_at"
+            )
+        )
+        if dt:
+            return dt
+        return datetime.min.replace(
+            tzinfo=timezone.utc
+        )
+    articles.sort(
+        key=sort_key,
+        reverse=True,
+    )
     return articles
 # =========================================================
 # SAVE
@@ -582,66 +810,78 @@ def translate_new_titles(
 def save_articles(
     articles
 ):
-    os.makedirs(
-        os.path.dirname(
-            OUTPUT_FILE
-        ),
-        exist_ok=True
+    directory = os.path.dirname(
+        OUTPUT_FILE
     )
+    if directory:
+        os.makedirs(
+            directory,
+            exist_ok=True,
+        )
     with open(
         OUTPUT_FILE,
         "w",
-        encoding="utf-8"
+        encoding="utf-8",
     ) as file:
         json.dump(
             articles,
             file,
             ensure_ascii=False,
-            indent=2
+            indent=2,
         )
+    print(
+        "保存完了:",
+        OUTPUT_FILE,
+    )
 # =========================================================
 # MAIN
 # =========================================================
 def main():
+    print()
     print(
         "========================================"
     )
     print(
-        "PHILLIES READER NEWS UPDATE"
+        "PHILLIES READER"
     )
     print(
-        "対象期間：過去7日間"
+        "MLB.com NEWS UPDATE"
     )
     print(
         "========================================"
+    )
+    print(
+        "取得期間: 過去7日間"
     )
     # -----------------------------------------------------
-    # 1. MLB.comから記事URL取得
+    # 1. URL収集
     # -----------------------------------------------------
     try:
         urls = collect_article_urls()
     except Exception as error:
+        print()
         print(
-            "ニュース一覧取得失敗:"
+            "MLB.comニュース一覧の取得に失敗しました。"
         )
         print(
             error
         )
         return
+    print()
     print(
         "記事URL候補:",
-        len(urls)
+        len(urls),
     )
     # -----------------------------------------------------
-    # 2. 記事情報取得
+    # 2. 記事取得
     # -----------------------------------------------------
     fetched = []
     for index, url in enumerate(
         urls,
-        start=1
+        start=1,
     ):
         print(
-            f"記事取得 {index}/{len(urls)}"
+            f"[{index}/{len(urls)}] {url}"
         )
         article = get_article(
             url
@@ -651,59 +891,68 @@ def main():
                 article
             )
         time.sleep(
-            0.25
+            SLEEP_SECONDS
         )
+    print()
     print(
-        "記事取得成功:",
-        len(fetched)
+        "取得成功:",
+        len(fetched),
+        "件",
     )
     # -----------------------------------------------------
-    # 3. Existing
+    # 3. 既存データ
     # -----------------------------------------------------
     existing = load_existing()
+    print(
+        "既存記事:",
+        len(existing),
+        "件",
+    )
     # -----------------------------------------------------
-    # 4. Merge
+    # 4. 統合
     # -----------------------------------------------------
     merged = merge_articles(
         existing,
-        fetched
+        fetched,
+    )
+    print(
+        "統合後:",
+        len(merged),
+        "件",
     )
     # -----------------------------------------------------
-    # 5. 7日以内だけ残す
+    # 5. 過去7日間に限定
     # -----------------------------------------------------
     articles = filter_last_7_days(
         merged
     )
     print(
         "過去7日以内:",
-        len(articles)
+        len(articles),
+        "件",
     )
     # -----------------------------------------------------
     # 6. 日本語タイトル
     # -----------------------------------------------------
-    articles = translate_new_titles(
+    articles = translate_titles(
         articles
     )
     # -----------------------------------------------------
     # 7. 新しい順
     # -----------------------------------------------------
-    articles.sort(
-        key=lambda article:
-            parse_datetime(
-                article.get(
-                    "published_at"
-                )
-            ) or datetime.min.replace(
-                tzinfo=timezone.utc
-            ),
-        reverse=True
+    articles = sort_articles(
+        articles
     )
     # -----------------------------------------------------
-    # 8. Save
+    # 8. 保存
     # -----------------------------------------------------
     save_articles(
         articles
     )
+    # -----------------------------------------------------
+    # 9. 完了
+    # -----------------------------------------------------
+    print()
     print(
         "========================================"
     )
@@ -711,12 +960,7 @@ def main():
         "UPDATE COMPLETE"
     )
     print(
-        "記事数:",
-        len(articles)
-    )
-    print(
-        "保存:",
-        OUTPUT_FILE
+        f"最終記事数: {len(articles)}"
     )
     print(
         "========================================"
