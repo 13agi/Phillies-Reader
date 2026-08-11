@@ -1,74 +1,107 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
+
 <title>Score | Phillies Reader</title>
+
 <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
 >
+
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin
 >
+
 <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&display=swap"
     rel="stylesheet"
 >
+
 <style>
+
 /* =========================================================
    ROOT
 ========================================================= */
+
 :root {
     --navy: #07152b;
-    --navy-2: #0b1c38;
+    --navy-2: #0b1d38;
+    --navy-3: #102542;
+
     --red: #e31937;
+    --red-dark: #b90f2e;
+
     --white: #ffffff;
-    --muted: #64748b;
+    --text: rgba(255,255,255,.82);
+    --muted: #718096;
+
     --line: rgba(255,255,255,.075);
+    --line-strong: rgba(255,255,255,.12);
 }
+
+
 /* =========================================================
    RESET
 ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
     -webkit-tap-highlight-color: transparent;
 }
+
 html,
 body {
     width: 100%;
     min-height: 100%;
+
     background: var(--navy);
 }
+
 body {
     color: var(--white);
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
+
     padding-bottom:
-        calc(76px + env(safe-area-inset-bottom));
+        calc(82px + env(safe-area-inset-bottom));
 }
+
+
 /* =========================================================
    HEADER
 ========================================================= */
+
 .header {
     position: fixed;
+
     top: 0;
     left: 0;
     right: 0;
+
     z-index: 100;
+
     height: 72px;
+
     overflow: hidden;
+
     background:
         linear-gradient(
             115deg,
@@ -77,34 +110,46 @@ body {
             #ef233c 65%,
             #c8102e 100%
         );
+
     box-shadow:
         0 7px 22px rgba(0,0,0,.30);
 }
+
 .header::before {
     content: "";
+
     position: absolute;
+
     top: -120px;
     right: -55px;
+
     width: 300px;
     height: 300px;
+
     transform: rotate(27deg);
+
     background:
         linear-gradient(
             135deg,
             rgba(255,255,255,.13),
             rgba(255,255,255,.015)
         );
+
     border-left:
         1px solid rgba(255,255,255,.16);
-    pointer-events: none;
 }
+
 .header::after {
     content: "";
+
     position: absolute;
+
     left: 0;
     right: 0;
     bottom: 0;
+
     height: 4px;
+
     background:
         linear-gradient(
             90deg,
@@ -114,344 +159,471 @@ body {
             rgba(255,255,255,.28) 72%,
             transparent 100%
         );
-    pointer-events: none;
 }
-.header-navy-shape {
+
+.header-shape {
     position: absolute;
+
     top: -20px;
     left: 43%;
+
     width: 130px;
     height: 130px;
+
     transform: rotate(25deg);
+
     background:
         rgba(7,21,43,.16);
-    pointer-events: none;
 }
-.header-line-one {
+
+.header-line {
     position: absolute;
+
     left: -20px;
     bottom: 14px;
+
     width: 55%;
     height: 2px;
+
     transform: skewX(-35deg);
+
     background:
         rgba(255,255,255,.34);
-    pointer-events: none;
 }
-.header-line-two {
-    position: absolute;
-    left: 4%;
-    bottom: 8px;
-    width: 35%;
-    height: 1px;
-    transform: skewX(-35deg);
-    background:
-        rgba(255,255,255,.18);
-    pointer-events: none;
-}
-.header-light {
-    position: absolute;
-    top: -85px;
-    right: 20px;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.18) 0%,
-            rgba(255,255,255,.06) 35%,
-            transparent 72%
-        );
-    pointer-events: none;
-}
+
+
 /* =========================================================
    MAIN
 ========================================================= */
+
 main {
     min-height: 100vh;
+
     padding-top: 72px;
 }
+
 .page {
     width: 100%;
-    padding: 21px 14px 35px;
+
+    padding:
+        21px 14px 35px;
 }
+
+
 /* =========================================================
-   PAGE HEADING
+   PAGE TITLE
 ========================================================= */
+
 .page-heading {
     margin-bottom: 17px;
 }
+
 .page-heading h1 {
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 31px;
-    font-weight: 800;
+    font-weight: 900;
+
     line-height: .95;
-    letter-spacing: -.5px;
+
+    letter-spacing: -.4px;
 }
+
 .page-heading p {
     margin-top: 6px;
+
     color: var(--muted);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
 }
+
+
 /* =========================================================
    DATE SELECTOR
 ========================================================= */
+
 .date-selector {
     width: 100%;
     height: 59px;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
     padding: 0 7px;
-    margin-bottom: 19px;
+
+    margin-bottom: 18px;
+
     border:
         1px solid var(--line);
+
     border-radius: 15px;
+
     background:
         rgba(255,255,255,.035);
 }
+
 .date-button {
     width: 43px;
     height: 43px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    flex-shrink: 0;
+
     border: 0;
     border-radius: 11px;
+
     background:
         rgba(255,255,255,.035);
+
     color:
-        rgba(255,255,255,.70);
-    font-size: 25px;
+        rgba(255,255,255,.72);
+
+    font-size: 26px;
+
+    line-height: 1;
 }
+
 .date-center {
     flex: 1;
+
     text-align: center;
 }
+
 .date-main {
     display: block;
+
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 20px;
     font-weight: 800;
-    letter-spacing: .8px;
+
+    letter-spacing: .7px;
 }
+
 .date-sub {
     display: block;
+
     margin-top: 2px;
+
     color: var(--muted);
+
     font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
 }
+
+
 /* =========================================================
    GAME CARD
 ========================================================= */
+
 .game-card {
     position: relative;
-    overflow: hidden;
+
     width: 100%;
-    margin-bottom: 19px;
+
+    overflow: hidden;
+
+    margin-bottom: 20px;
+
     border:
         1px solid var(--line);
-    border-radius: 16px;
+
+    border-radius: 17px;
+
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
             rgba(255,255,255,.018)
         );
+
     box-shadow:
-        0 8px 24px rgba(0,0,0,.12);
+        0 9px 26px rgba(0,0,0,.15);
 }
+
 .game-card::before {
     content: "";
+
     position: absolute;
+
     left: 0;
     top: 0;
     bottom: 0;
+
     width: 4px;
+
     background:
         var(--red);
 }
+
+
 /* =========================================================
-   GAME TOP
-   ※ 日付はここには表示しない
+   GAME STATUS
 ========================================================= */
+
 .game-top {
     display: flex;
-    align-items: center;
+
     justify-content: flex-end;
+    align-items: center;
+
     min-height: 36px;
+
     padding:
         9px 14px 2px 16px;
 }
+
 .game-status {
-    padding: 4px 8px;
+    padding:
+        4px 8px;
+
     border-radius: 6px;
+
     background:
         rgba(227,25,55,.10);
+
     color:
         var(--red);
+
     font-size: 7px;
-    font-weight: 800;
+    font-weight: 900;
+
     letter-spacing: .8px;
 }
+
+
 /* =========================================================
    MATCHUP
 ========================================================= */
+
 .matchup {
     display: grid;
+
     grid-template-columns:
         1fr auto 1fr;
+
     align-items: center;
+
     gap: 10px;
+
     padding:
         7px 16px 15px;
 }
+
 .team {
     min-width: 0;
 }
+
 .team.away {
     text-align: left;
 }
+
 .team.home {
     text-align: right;
 }
+
 .team-code {
     display: block;
+
     font-family:
         "Barlow Condensed",
         sans-serif;
-    font-size: 27px;
+
+    font-size: 28px;
     font-weight: 900;
+
     line-height: .95;
 }
+
 .team-name {
     display: block;
+
     margin-top: 4px;
+
     color: var(--muted);
+
     font-size: 8px;
     font-weight: 700;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
 /* =========================================================
    SCORE
 ========================================================= */
+
 .score {
-    min-width: 61px;
+    min-width: 70px;
+
     text-align: center;
 }
+
+.score-numbers {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
 .score-main {
     font-family:
         "Barlow Condensed",
         sans-serif;
-    font-size: 28px;
+
+    font-size: 30px;
     font-weight: 900;
-    letter-spacing: 1px;
+
+    line-height: 1;
 }
+
 .score-divider {
-    color:
-        rgba(255,255,255,.18);
-    font-size: 12px;
     margin:
-        0 2px;
+        0 4px;
+
+    color:
+        rgba(255,255,255,.22);
+
+    font-size: 13px;
 }
+
 .result {
-    display: inline-block;
-    margin-top: 4px;
+    display: block;
+
+    margin-top: 5px;
+
     color: var(--red);
+
     font-size: 8px;
     font-weight: 900;
+
     letter-spacing: 1px;
 }
+
+
 /* =========================================================
    VENUE
 ========================================================= */
+
 .venue {
     display: flex;
+
     align-items: center;
-    gap: 8px;
+
+    gap: 9px;
+
     padding:
         10px 16px 13px;
+
     border-top:
         1px solid rgba(255,255,255,.045);
 }
+
 .venue-icon {
     width: 25px;
     height: 25px;
-    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
+
     border-radius: 7px;
+
     background:
         rgba(255,255,255,.04);
+
     color:
         var(--red);
-    font-size: 11px;
+
+    font-size: 10px;
 }
-.venue-info {
-    min-width: 0;
-}
+
 .venue-name {
     display: block;
+
     font-size: 10px;
     font-weight: 800;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
+
 .venue-location {
     display: block;
+
     margin-top: 2px;
+
     color: var(--muted);
+
     font-size: 8px;
 }
+
+
 /* =========================================================
-   SECTION
+   SECTION TITLE
 ========================================================= */
+
 .score-section {
     margin-top: 22px;
 }
+
 .section-title {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 9px;
+
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 900;
+
     letter-spacing: 1px;
+
     color:
-        rgba(255,255,255,.68);
+        rgba(255,255,255,.72);
 }
+
 .section-title::after {
     content: "";
+
     flex: 1;
+
     height: 1px;
+
     background:
         rgba(255,255,255,.08);
 }
+
+
 /* =========================================================
    DETAIL CARD
 ========================================================= */
+
 .detail-card {
     width: 100%;
+
     overflow: hidden;
+
     border:
         1px solid var(--line);
+
     border-radius: 16px;
+
     background:
         linear-gradient(
             145deg,
@@ -459,633 +631,589 @@ main {
             rgba(255,255,255,.018)
         );
 }
+
+
 /* =========================================================
    INNING SCORE
 ========================================================= */
-.inning-scroll {
+
+.table-scroll {
     width: 100%;
+
     overflow-x: auto;
+
     -webkit-overflow-scrolling: touch;
 }
+
 .inning-table {
-    min-width: 350px;
     width: 100%;
+
+    min-width: 350px;
+
     border-collapse: collapse;
 }
+
 .inning-table th,
 .inning-table td {
     height: 34px;
-    padding: 0 5px;
+
+    padding:
+        0 5px;
+
     text-align: center;
+
     white-space: nowrap;
+
     font-size: 8px;
     font-weight: 700;
 }
+
 .inning-table th {
     color:
         rgba(255,255,255,.30);
-    font-size: 7px;
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 8px;
     font-weight: 800;
 }
+
 .inning-table td {
     border-top:
         1px solid rgba(255,255,255,.045);
+
     color:
         rgba(255,255,255,.70);
 }
+
 .inning-table .team-cell {
     padding-left: 14px;
+
     text-align: left;
-    color:
-        var(--white);
+
+    color: var(--white);
+
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 11px;
     font-weight: 900;
 }
+
 .inning-table .total {
     color:
         var(--white);
+
     font-weight: 900;
 }
+
+
 /* =========================================================
-   STATS TABLE
+   CURRENT AT-BAT
 ========================================================= */
-.table-scroll {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+
+.at-bat-card {
+    padding:
+        15px;
 }
+
+.at-bat-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+.at-bat-label {
+    color: var(--red);
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+.at-bat-inning {
+    color:
+        rgba(255,255,255,.42);
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.at-bat-main {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.batter-order {
+    color:
+        var(--muted);
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .7px;
+}
+
+.batter-name {
+    margin-top: 2px;
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 26px;
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+.batter-vs {
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.count-box {
+    display: flex;
+
+    gap: 8px;
+}
+
+.count-item {
+    text-align: center;
+}
+
+.count-number {
+    display: block;
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 23px;
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+.count-label {
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.pitch-sequence {
+    display: flex;
+
+    gap: 7px;
+
+    margin-top: 16px;
+
+    padding-top: 13px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+}
+
+.pitch {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    color:
+        rgba(255,255,255,.68);
+
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.pitch.result {
+    width: auto;
+
+    padding:
+        0 10px;
+
+    background:
+        rgba(227,25,55,.12);
+
+    color:
+        var(--red);
+
+    letter-spacing: .6px;
+}
+
+
+/* =========================================================
+   BATTING / PITCHING TABLE
+========================================================= */
+
 .stats-table {
     width: 100%;
-    min-width: 430px;
+
+    min-width: 420px;
+
     border-collapse: collapse;
 }
+
 .stats-table th,
 .stats-table td {
     height: 39px;
-    padding: 0 7px;
+
+    padding:
+        0 7px;
+
     text-align: center;
+
     white-space: nowrap;
+
     font-size: 9px;
     font-weight: 700;
 }
+
 .stats-table th {
     height: 31px;
+
     background:
         rgba(255,255,255,.025);
+
     color:
         rgba(255,255,255,.30);
+
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 8px;
-    font-weight: 800;
+    font-weight: 900;
+
     letter-spacing: .5px;
 }
+
 .stats-table td {
     border-top:
         1px solid rgba(255,255,255,.045);
+
     color:
         rgba(255,255,255,.72);
 }
+
 .stats-table td:first-child {
     padding-left: 14px;
+
     text-align: left;
+
     color:
         var(--white);
+
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 11px;
     font-weight: 800;
 }
+
+.stats-table td.order {
+    width: 28px;
+
+    padding-left: 10px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+}
+
 .stats-table tr.featured td:first-child {
     color:
         var(--red);
 }
+
+
 /* =========================================================
    BOTTOM NAV
 ========================================================= */
+
 .bottom-nav {
     position: fixed;
+
     left: 0;
     right: 0;
     bottom: 0;
+
     z-index: 999;
+
     height:
         calc(76px + env(safe-area-inset-bottom));
+
+    display: flex;
+
+    align-items: flex-start;
+
     padding:
         7px 5px env(safe-area-inset-bottom);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+
     background:
         rgba(5,16,34,.97);
+
     backdrop-filter:
         blur(18px);
+
     -webkit-backdrop-filter:
         blur(18px);
+
     border-top:
         1px solid rgba(255,255,255,.08);
 }
+
 .nav-item {
     flex: 1;
+
     min-width: 0;
+
     height: 60px;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
+
     gap: 5px;
+
+    border-radius: 13px;
+
     text-decoration: none;
+
     color:
         #64748b;
-    border-radius: 13px;
-    transition:
-        color .15s ease,
-        background .15s ease,
-        transform .15s ease;
 }
-.nav-item:active {
-    transform: scale(.94);
-}
+
 .nav-item.active {
     color:
         #ffffff;
+
     background:
         rgba(227,25,55,.13);
 }
+
 .nav-icon {
     width: 25px;
     height: 25px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
+
+    font-size: 17px;
 }
+
 .nav-item.active .nav-icon {
     color:
-        #e31937;
+        var(--red);
 }
+
 .nav-label {
     font-family:
         "Barlow Condensed",
         sans-serif;
+
     font-size: 10px;
-    font-weight: 700;
-    line-height: 1;
+    font-weight: 800;
+
     letter-spacing: .45px;
-    white-space: nowrap;
 }
+
+
 /* =========================================================
-   SMALL IPHONE
+   SMALL SCREEN
 ========================================================= */
+
 @media (max-width: 360px) {
+
     .header {
         height: 68px;
     }
+
     main {
         padding-top: 68px;
     }
+
     .page {
         padding-left: 11px;
         padding-right: 11px;
     }
+
     .team-code {
         font-size: 25px;
     }
+
     .score-main {
-        font-size: 26px;
+        font-size: 27px;
     }
+
+    .batter-name {
+        font-size: 24px;
+    }
+
     .nav-label {
         font-size: 9px;
     }
 }
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <!-- =====================================================
      HEADER
 ===================================================== -->
+
 <header class="header">
-    <div class="header-navy-shape"></div>
-    <div class="header-line-one"></div>
-    <div class="header-line-two"></div>
-    <div class="header-light"></div>
+
+    <div class="header-shape"></div>
+
+    <div class="header-line"></div>
+
 </header>
+
+
 <!-- =====================================================
      MAIN
 ===================================================== -->
+
 <main>
+
 <section class="page">
+
+
     <!-- =================================================
-         PAGE HEADING
+         TITLE
     ================================================== -->
+
     <div class="page-heading">
+
         <h1>
             Score
         </h1>
+
         <p>
             2026 REGULAR SEASON
         </p>
+
     </div>
+
+
     <!-- =================================================
-         DATE SELECTOR
-         ※ 試合日の表示はここだけ
+         DATE
     ================================================== -->
+
     <div class="date-selector">
+
         <button
             type="button"
             class="date-button"
-            aria-label="Previous day"
         >
             ‹
         </button>
+
+
         <div class="date-center">
+
             <span class="date-main">
                 AUGUST 11, 2026
             </span>
+
             <span class="date-sub">
                 GAME SCORE
             </span>
+
         </div>
+
+
         <button
             type="button"
             class="date-button"
-            aria-label="Next day"
         >
             ›
         </button>
+
     </div>
+
+
     <!-- =================================================
-         GAME CARD
-         ※ カード内の日付は表示しない
+         GAME
     ================================================== -->
+
     <section class="game-card">
+
+
         <div class="game-top">
-            <div></div>
+
             <div class="game-status">
                 FINAL
             </div>
+
         </div>
+
+
         <div class="matchup">
+
+
             <div class="team away">
-                <span class="team-code">
-                    ATL
-                </span>
-                <span class="team-name">
-                    ATLANTA BRAVES
-                </span>
-            </div>
-            <div class="score">
-                <span class="score-main">
-                    3
-                </span>
-                <span class="score-divider">
-                    —
-                </span>
-                <span class="score-main">
-                    5
-                </span>
-                <span class="result">
-                    PHI WIN
-                </span>
-            </div>
-            <div class="team home">
-                <span class="team-code">
-                    PHI
-                </span>
-                <span class="team-name">
-                    PHILADELPHIA PHILLIES
-                </span>
-            </div>
-        </div>
-        <div class="venue">
-            <div class="venue-icon">
-                ●
-            </div>
-            <div class="venue-info">
-                <span class="venue-name">
-                    Citizens Bank Park
-                </span>
-                <span class="venue-location">
-                    Philadelphia, PA
-                </span>
-            </div>
-        </div>
-    </section>
-    <!-- =================================================
-         INNING SCORE
-    ================================================== -->
-    <section class="score-section">
-        <div class="section-title">
-            INNING SCORE
-        </div>
-        <div class="detail-card">
-            <div class="inning-scroll">
-                <table class="inning-table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>1</th>
-                            <th>2</th>
-                            <th>3</th>
-                            <th>4</th>
-                            <th>5</th>
-                            <th>6</th>
-                            <th>7</th>
-                            <th>8</th>
-                            <th>9</th>
-                            <th>R</th>
-                            <th>H</th>
-                            <th>E</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="team-cell">
-                                ATL
-                            </td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td class="total">
-                                3
-                            </td>
-                            <td class="total">
-                                8
-                            </td>
-                            <td class="total">
-                                1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="team-cell">
-                                PHI
-                            </td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td class="total">
-                                5
-                            </td>
-                            <td class="total">
-                                10
-                            </td>
-                            <td class="total">
-                                0
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-    <!-- =================================================
-         PHILLIES BATTING
-    ================================================== -->
-    <section class="score-section">
-        <div class="section-title">
-            PHILLIES BATTING
-        </div>
-        <div class="detail-card">
-            <div class="table-scroll">
-                <table class="stats-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                PLAYER
-                            </th>
-                            <th>AB</th>
-                            <th>R</th>
-                            <th>H</th>
-                            <th>RBI</th>
-                            <th>HR</th>
-                            <th>BB</th>
-                            <th>SO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="featured">
-                            <td>
-                                B. Harper
-                            </td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                K. Schwarber
-                            </td>
-                            <td>4</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                T. Turner
-                            </td>
-                            <td>5</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                A. Bohm
-                            </td>
-                            <td>4</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                J. Realmuto
-                            </td>
-                            <td>4</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-    <!-- =================================================
-         PHILLIES PITCHING
-    ================================================== -->
-    <section class="score-section">
-        <div class="section-title">
-            PHILLIES PITCHING
-        </div>
-        <div class="detail-card">
-            <div class="table-scroll">
-                <table class="stats-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                PITCHER
-                            </th>
-                            <th>IP</th>
-                            <th>H</th>
-                            <th>R</th>
-                            <th>ER</th>
-                            <th>BB</th>
-                            <th>SO</th>
-                            <th>HR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="featured">
-                            <td>
-                                Z. Wheeler
-                            </td>
-                            <td>6.0</td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                J. Hoffman
-                            </td>
-                            <td>1.0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                M. Strahm
-                            </td>
-                            <td>1.0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                J. Alvarado
-                            </td>
-                            <td>1.0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</section>
-</main>
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
-<nav class="bottom-nav">
-    <a
-        href="schedule.html"
-        class="nav-item"
-    >
-        <div class="nav-icon">
-            ▣
-        </div>
-        <div class="nav-label">
-            SCHEDULE
-        </div>
-    </a>
-    <a
-        href="score.html"
-        class="nav-item active"
-    >
-        <div class="nav-icon">
-            ●
-        </div>
-        <div class="nav-label">
-            SCORE
-        </div>
-    </a>
-    <a
-        href="index.html"
-        class="nav-item"
-    >
-        <div class="nav-icon">
-            ⌂
-        </div>
-        <div class="nav-label">
-            HOME
-        </div>
-    </a>
-    <a
-        href="player.html"
-        class="nav-item"
-    >
-        <div class="nav-icon">
-            ♟
-        </div>
-        <div class="nav-label">
-            PLAYER
-        </div>
-    </a>
-    <a
-        href="stats.html"
-        class="nav-item"
-    >
-        <div class="nav-icon">
-            ▥
-        </div>
-        <div class="nav-label">
-            STATS
-        </div>
-    </a>
-</nav>
-</body>
-</html>
