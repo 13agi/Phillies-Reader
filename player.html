@@ -2,11 +2,12 @@
 <html lang="ja">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>Players | Phillies Reader</title>
@@ -14,7 +15,7 @@
 <style>
 
 /* =========================================================
-   RESET
+   BASE
 ========================================================= */
 
 * {
@@ -33,7 +34,8 @@ body {
 }
 
 body {
-    color: #fff;
+
+    color: #ffffff;
 
     font-family:
         -apple-system,
@@ -45,15 +47,9 @@ body {
     padding-bottom: 78px;
 }
 
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
-
 
 /* =========================================================
    EXISTING HEADER
-   ※既存UI領域
 ========================================================= */
 
 .header {
@@ -191,154 +187,71 @@ a {
 
 
 /* =========================================================
-   PLAYER PAGE
+   PLAYER AREA
 ========================================================= */
 
 .player-main {
-    width: 100%;
 
-    min-height:
-        calc(100vh - 162px);
+    width: 100%;
 
     padding:
-        20px 0 30px;
+        18px 0 30px;
 }
 
-.player-shell {
+.player-container {
+
     width: 100%;
 
-    max-width: 820px;
+    max-width: 760px;
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 }
 
 
 /* =========================================================
-   PAGE TITLE
+   PLAYER PAGE TITLE
 ========================================================= */
 
-.player-heading {
+.player-header {
+
     display: flex;
 
-    align-items: flex-end;
+    align-items: center;
 
     justify-content: space-between;
 
     padding:
-        0 16px 18px;
+        0 14px 15px;
 
     border-bottom:
-        1px solid rgba(255,255,255,.10);
+        1px solid rgba(255,255,255,.08);
 }
 
-.player-heading-main {
-    display: flex;
+.player-header-title {
 
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-.player-heading-eyebrow {
-    color:
-        rgba(255,255,255,.30);
-
-    font-size: 7px;
-
-    line-height: 1;
-
-    font-weight: 800;
-
-    letter-spacing:
-        2px;
-}
-
-.player-heading-title {
     margin: 0;
 
-    color: #fff;
+    color: #ffffff;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-size: 24px;
 
-    font-size: 32px;
-
-    line-height: .9;
-
-    font-weight: 400;
-
-    letter-spacing:
-        -.8px;
-}
-
-.player-heading-season {
-    color:
-        rgba(255,255,255,.35);
-
-    font-size: 8px;
+    line-height: 1;
 
     font-weight: 800;
 
     letter-spacing:
-        1.2px;
+        -.7px;
 }
 
+.player-header-count {
 
-/* =========================================================
-   ROSTER GROUP
-========================================================= */
-
-.roster-group {
-    margin-top: 14px;
-}
-
-.roster-group-header {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding:
-        0 16px 9px;
-}
-
-.roster-group-title {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-}
-
-.roster-group-line {
-    width: 14px;
-    height: 2px;
-
-    background: #e31837;
-}
-
-.roster-group-name {
     color:
-        rgba(255,255,255,.54);
+        rgba(255,255,255,.28);
 
     font-size: 7px;
 
     line-height: 1;
-
-    font-weight: 900;
-
-    letter-spacing:
-        1.5px;
-}
-
-.roster-group-count {
-    color:
-        rgba(255,255,255,.20);
-
-    font-size: 6px;
 
     font-weight: 800;
 
@@ -348,63 +261,155 @@ a {
 
 
 /* =========================================================
-   PLAYER ITEM
+   SECTION
 ========================================================= */
 
-.player-item {
-    --accent: #e31837;
+.player-section {
+
+    margin-top: 16px;
+}
+
+.player-section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 14px 8px;
+}
+
+.player-section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+        rgba(255,255,255,.48);
+
+    font-size: 7px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing:
+        1px;
+}
+
+.player-section-title::before {
+
+    content: "";
+
+    width: 13px;
+    height: 2px;
+
+    background:
+        #e31837;
+}
+
+.player-section.il
+.player-section-title::before {
+
+    background:
+        #f4c542;
+}
+
+.player-section-count {
+
+    color:
+        rgba(255,255,255,.20);
+
+    font-size: 6px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        .8px;
+}
+
+
+/* =========================================================
+   PLAYER LIST
+========================================================= */
+
+.player-list {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   PLAYER ROW
+   基本構成
+   背番号 / POS / B/T / 選手名
+========================================================= */
+
+.player-row {
+
+    --status-color: #e31837;
 
     position: relative;
 
     display: grid;
 
     grid-template-columns:
-        76px
-        1fr
-        42px;
-
-    min-height: 108px;
+        58px
+        42px
+        48px
+        minmax(0, 1fr);
 
     width: 100%;
+
+    min-height: 92px;
+
+    padding:
+        14px 14px 12px 0;
 
     border-top:
         1px solid rgba(255,255,255,.065);
 
     background:
-        rgba(255,255,255,.008);
-
-    overflow: hidden;
+        transparent;
 
     transition:
-        background .18s ease;
+        background .15s ease;
 }
 
-.player-item.il {
-    --accent: #f4c542;
+.player-row.il {
+
+    --status-color: #f4c542;
 }
 
-.player-item.forty {
-    --accent: #75869b;
+.player-row.forty {
+
+    --status-color: #75869b;
 }
 
 
 /* =========================================================
-   ACTIVE ACCENT
+   STATUS LINE
 ========================================================= */
 
-.player-item::before {
+.player-row::before {
+
     content: "";
 
     position: absolute;
 
     left: 0;
-    top: 0;
-    bottom: 0;
+    top: 13px;
+    bottom: 13px;
 
     width: 3px;
 
     background:
-        var(--accent);
+        var(--status-color);
 }
 
 
@@ -412,36 +417,27 @@ a {
    NUMBER
 ========================================================= */
 
-.player-item-number {
+.player-number {
+
     display: flex;
 
-    align-items: center;
+    align-items: flex-start;
 
     justify-content: center;
 
-    padding-left: 4px;
+    padding-top: 2px;
 
-    border-right:
-        1px solid rgba(255,255,255,.065);
-}
-
-.player-item-number span {
     color:
-        rgba(255,255,255,.95);
+        #ffffff;
 
-    font-family:
-        "Arial Narrow",
-        "Roboto Condensed",
-        sans-serif;
+    font-size: 29px;
 
-    font-size: 42px;
-
-    line-height: .8;
+    line-height: 1;
 
     font-weight: 800;
 
     letter-spacing:
-        -3px;
+        -1.5px;
 
     font-variant-numeric:
         tabular-nums;
@@ -449,58 +445,49 @@ a {
 
 
 /* =========================================================
-   PLAYER CONTENT
+   POSITION
 ========================================================= */
 
-.player-item-content {
-    min-width: 0;
+.player-position {
 
     display: flex;
 
-    flex-direction: column;
+    align-items: flex-start;
 
     justify-content: center;
 
-    padding:
-        15px 12px 14px 17px;
-}
+    padding-top: 5px;
 
-
-/* =========================================================
-   POS + B/T
-========================================================= */
-
-.player-item-meta {
-    display: flex;
-
-    align-items: center;
-
-    min-width: 0;
-
-    gap: 8px;
-}
-
-.player-position {
     color:
-        rgba(255,255,255,.82);
+        rgba(255,255,255,.75);
 
     font-size: 9px;
 
     line-height: 1;
 
-    font-weight: 900;
+    font-weight: 850;
 
     letter-spacing:
-        .9px;
+        .4px;
 }
 
-.player-bt {
-    position: relative;
 
-    padding-left: 9px;
+/* =========================================================
+   B/T
+========================================================= */
+
+.player-bt {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    padding-top: 5px;
 
     color:
-        rgba(255,255,255,.37);
+        rgba(255,255,255,.36);
 
     font-size: 8px;
 
@@ -509,25 +496,23 @@ a {
     font-weight: 700;
 
     letter-spacing:
-        .7px;
+        .4px;
 }
 
-.player-bt::before {
-    content: "";
 
-    position: absolute;
+/* =========================================================
+   NAME AREA
+========================================================= */
 
-    left: 0;
-    top: 50%;
+.player-name-area {
 
-    width: 1px;
-    height: 10px;
+    min-width: 0;
 
-    transform:
-        translateY(-50%);
+    display: flex;
 
-    background:
-        rgba(255,255,255,.16);
+    flex-direction: column;
+
+    justify-content: flex-start;
 }
 
 
@@ -535,69 +520,67 @@ a {
    NAME
 ========================================================= */
 
-.player-item-name {
+.player-name {
+
     width: 100%;
 
     min-width: 0;
 
-    margin-top: 6px;
+    color:
+        #ffffff;
 
-    color: #fff;
+    font-size: 20px;
 
-    font-family:
-        "Helvetica Neue",
-        Arial,
-        sans-serif;
-
-    font-size: 24px;
-
-    line-height: 1;
+    line-height: 1.15;
 
     font-weight: 650;
 
     letter-spacing:
-        -1px;
+        -.45px;
 
     white-space: nowrap;
 
     overflow: hidden;
 
-    transform-origin:
-        left center;
+    text-overflow: clip;
 }
 
 
 /* =========================================================
-   ROSTER STATUS
+   ROSTER
 ========================================================= */
 
-.player-item-status {
+.player-roster {
+
     display: flex;
 
     align-items: center;
 
-    gap: 7px;
+    gap: 6px;
 
-    margin-top: 9px;
+    margin-top: 8px;
 
     min-width: 0;
 }
 
-.player-status-marker {
+.player-roster-dot {
+
     width: 5px;
     height: 5px;
 
-    flex: 0 0 auto;
+    flex:
+        0 0 auto;
 
     border-radius: 50%;
 
     background:
-        var(--accent);
+        var(--status-color);
 }
 
-.player-status-name {
+.player-roster-status {
+
     color:
-        var(--accent);
+        var(--status-color);
 
     font-size: 6px;
 
@@ -606,10 +589,11 @@ a {
     font-weight: 900;
 
     letter-spacing:
-        1.1px;
+        .8px;
 }
 
-.player-status-detail {
+.player-roster-detail {
+
     color:
         rgba(255,255,255,.20);
 
@@ -617,42 +601,12 @@ a {
 
     line-height: 1;
 
-    font-weight: 800;
+    font-weight: 700;
 
     letter-spacing:
-        .8px;
+        .5px;
 
     white-space: nowrap;
-}
-
-
-/* =========================================================
-   RIGHT POSITION MARK
-========================================================= */
-
-.player-item-side {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding-right: 8px;
-}
-
-.player-item-side span {
-    color:
-        rgba(255,255,255,.10);
-
-    font-size: 8px;
-
-    font-weight: 900;
-
-    letter-spacing:
-        1px;
-
-    writing-mode:
-        vertical-rl;
 }
 
 
@@ -662,7 +616,8 @@ a {
 
 @media (hover:hover) {
 
-    .player-item:hover {
+    .player-row:hover {
+
         background:
             rgba(255,255,255,.025);
     }
@@ -676,46 +631,27 @@ a {
 
 @media (max-width: 390px) {
 
-    .player-main {
-        padding-top: 17px;
-    }
+    .player-row {
 
-    .player-heading {
-        padding:
-            0 13px 16px;
-    }
-
-    .player-heading-title {
-        font-size: 29px;
-    }
-
-    .roster-group-header {
-        padding:
-            0 13px 8px;
-    }
-
-    .player-item {
         grid-template-columns:
-            66px
-            minmax(0,1fr)
-            35px;
+            53px
+            39px
+            43px
+            minmax(0,1fr);
 
-        min-height: 103px;
+        min-height: 88px;
+
+        padding-right: 10px;
     }
 
-    .player-item-content {
-        padding:
-            14px 8px 13px 15px;
+    .player-number {
+
+        font-size: 27px;
     }
 
-    .player-item-number span {
-        font-size: 38px;
-    }
+    .player-name {
 
-    .player-item-name {
-        font-size: 21px;
-        letter-spacing:
-            -.8px;
+        font-size: 18px;
     }
 
 }
@@ -727,22 +663,18 @@ a {
 
 @media (max-width: 340px) {
 
-    .player-item {
+    .player-row {
+
         grid-template-columns:
-            58px
+            48px
+            35px
+            40px
             minmax(0,1fr);
     }
 
-    .player-item-side {
-        display: none;
-    }
+    .player-name {
 
-    .player-item-name {
-        font-size: 19px;
-    }
-
-    .player-item-number span {
-        font-size: 34px;
+        font-size: 17px;
     }
 
 }
@@ -753,6 +685,7 @@ a {
 ========================================================= */
 
 .bottom-nav {
+
     position: fixed;
 
     left: 0;
@@ -777,6 +710,7 @@ a {
 }
 
 .bottom-inner {
+
     width: 100%;
 
     max-width: 760px;
@@ -792,6 +726,7 @@ a {
 }
 
 .nav-item {
+
     display: flex;
 
     flex-direction: column;
@@ -816,6 +751,7 @@ a {
 }
 
 .nav-icon {
+
     width: 31px;
     height: 31px;
 
@@ -829,6 +765,7 @@ a {
 }
 
 .nav-icon svg {
+
     width: 20px;
     height: 20px;
 
@@ -845,16 +782,19 @@ a {
 }
 
 .nav-item.active {
+
     color:
         #e31837;
 }
 
 .nav-item.active .nav-icon {
+
     background:
         rgba(227,24,55,.14);
 }
 
 </style>
+
 </head>
 
 
@@ -888,126 +828,109 @@ a {
 
 <main class="player-main">
 
-<div class="player-shell">
+<div class="player-container">
 
 
-    <div class="player-heading">
+    <header class="player-header">
 
-        <div class="player-heading-main">
+        <h1 class="player-header-title">
+            Players
+        </h1>
 
-            <span class="player-heading-eyebrow">
-                PHILADELPHIA PHILLIES
-            </span>
-
-            <h1 class="player-heading-title">
-                Players
-            </h1>
-
-        </div>
-
-        <span class="player-heading-season">
-            2026
+        <span
+            class="player-header-count"
+            id="player-count"
+        >
+            PHILLIES
         </span>
 
-    </div>
+    </header>
 
 
-    <!-- ================================================
+    <!-- =================================================
          ACTIVE
-    ================================================= -->
+    ================================================== -->
 
     <section
-        class="roster-group"
-        data-group="ACTIVE"
+        class="player-section"
+        data-roster-group="ACTIVE"
     >
 
-        <div class="roster-group-header">
+        <div class="player-section-header">
 
-            <div class="roster-group-title">
+            <span class="player-section-title">
+                ACTIVE
+            </span>
 
-                <span
-                    class="roster-group-line"
-                ></span>
-
-                <span
-                    class="roster-group-name"
-                >
-                    ACTIVE
-                </span>
-
-            </div>
-
-            <span
-                class="roster-group-count"
-            >
+            <span class="player-section-count">
                 26
             </span>
 
         </div>
 
 
-        <div
-            class="player-list"
-            id="activePlayers"
-        >
+        <div class="player-list">
 
+
+            <!-- PLAYER -->
 
             <article
-                class="player-item active"
+                class="player-row"
                 data-status="ACTIVE"
             >
 
                 <div
-                    class="player-item-number"
+                    class="player-number"
+                    data-number="7"
                 >
-                    <span>7</span>
+                    7
                 </div>
 
 
                 <div
-                    class="player-item-content"
+                    class="player-position"
+                    data-position="SS"
+                >
+                    SS
+                </div>
+
+
+                <div
+                    class="player-bt"
+                    data-bt="R/R"
+                >
+                    R/R
+                </div>
+
+
+                <div
+                    class="player-name-area"
                 >
 
-                    <div class="player-item-meta">
-
-                        <span
-                            class="player-position"
-                        >
-                            SS
-                        </span>
-
-                        <span
-                            class="player-bt"
-                        >
-                            R/R
-                        </span>
-
-                    </div>
-
-
                     <div
-                        class="player-item-name"
+                        class="player-name"
+                        data-name="Trea Turner"
                     >
                         Trea Turner
                     </div>
 
 
                     <div
-                        class="player-item-status"
+                        class="player-roster"
                     >
 
                         <span
-                            class="player-status-marker"
+                            class="player-roster-dot"
                         ></span>
 
                         <span
-                            class="player-status-name"
+                            class="player-roster-status"
                         >
                             ACTIVE
                         </span>
 
                         <span
-                            class="player-status-detail"
+                            class="player-roster-detail"
                         >
                             40-MAN
                         </span>
@@ -1016,165 +939,140 @@ a {
 
                 </div>
 
-
-                <div
-                    class="player-item-side"
-                >
-                    <span>
-                        SS
-                    </span>
-                </div>
-
             </article>
 
 
             <article
-                class="player-item active"
+                class="player-row"
                 data-status="ACTIVE"
             >
 
                 <div
-                    class="player-item-number"
+                    class="player-number"
+                    data-number="10"
                 >
-                    <span>10</span>
+                    10
                 </div>
 
 
                 <div
-                    class="player-item-content"
+                    class="player-position"
+                    data-position="C"
+                >
+                    C
+                </div>
+
+
+                <div
+                    class="player-bt"
+                    data-bt="R/R"
+                >
+                    R/R
+                </div>
+
+
+                <div
+                    class="player-name-area"
                 >
 
-                    <div class="player-item-meta">
-
-                        <span
-                            class="player-position"
-                        >
-                            C
-                        </span>
-
-                        <span
-                            class="player-bt"
-                        >
-                            R/R
-                        </span>
-
-                    </div>
-
-
                     <div
-                        class="player-item-name"
+                        class="player-name"
+                        data-name="J.T. Realmuto"
                     >
                         J.T. Realmuto
                     </div>
 
 
                     <div
-                        class="player-item-status"
+                        class="player-roster"
                     >
 
                         <span
-                            class="player-status-marker"
+                            class="player-roster-dot"
                         ></span>
 
                         <span
-                            class="player-status-name"
+                            class="player-roster-status"
                         >
                             ACTIVE
                         </span>
 
                         <span
-                            class="player-status-detail"
+                            class="player-roster-detail"
                         >
                             40-MAN
                         </span>
 
                     </div>
 
-                </div>
-
-
-                <div
-                    class="player-item-side"
-                >
-                    <span>
-                        C
-                    </span>
                 </div>
 
             </article>
 
 
             <article
-                class="player-item active"
+                class="player-row"
                 data-status="ACTIVE"
             >
 
                 <div
-                    class="player-item-number"
+                    class="player-number"
+                    data-number="28"
                 >
-                    <span>28</span>
+                    28
                 </div>
 
 
                 <div
-                    class="player-item-content"
+                    class="player-position"
+                    data-position="3B"
+                >
+                    3B
+                </div>
+
+
+                <div
+                    class="player-bt"
+                    data-bt="R/R"
+                >
+                    R/R
+                </div>
+
+
+                <div
+                    class="player-name-area"
                 >
 
-                    <div class="player-item-meta">
-
-                        <span
-                            class="player-position"
-                        >
-                            3B
-                        </span>
-
-                        <span
-                            class="player-bt"
-                        >
-                            R/R
-                        </span>
-
-                    </div>
-
-
                     <div
-                        class="player-item-name"
+                        class="player-name"
+                        data-name="Alec Bohm"
                     >
                         Alec Bohm
                     </div>
 
 
                     <div
-                        class="player-item-status"
+                        class="player-roster"
                     >
 
                         <span
-                            class="player-status-marker"
+                            class="player-roster-dot"
                         ></span>
 
                         <span
-                            class="player-status-name"
+                            class="player-roster-status"
                         >
                             ACTIVE
                         </span>
 
                         <span
-                            class="player-status-detail"
+                            class="player-roster-detail"
                         >
                             40-MAN
                         </span>
 
                     </div>
 
-                </div>
-
-
-                <div
-                    class="player-item-side"
-                >
-                    <span>
-                        3B
-                    </span>
                 </div>
 
             </article>
@@ -1185,101 +1083,88 @@ a {
     </section>
 
 
-    <!-- ================================================
+    <!-- =================================================
          IL
-    ================================================= -->
+    ================================================== -->
 
     <section
-        class="roster-group"
-        data-group="IL"
+        class="player-section il"
+        data-roster-group="IL"
     >
 
-        <div class="roster-group-header">
+        <div class="player-section-header">
 
-            <div class="roster-group-title">
+            <span class="player-section-title">
+                INJURED LIST
+            </span>
 
-                <span
-                    class="roster-group-line"
-                    style="background:#f4c542"
-                ></span>
-
-                <span
-                    class="roster-group-name"
-                >
-                    INJURED LIST
-                </span>
-
-            </div>
-
-            <span
-                class="roster-group-count"
-            >
+            <span class="player-section-count">
                 1
             </span>
 
         </div>
 
 
-        <div
-            class="player-list"
-        >
+        <div class="player-list">
+
 
             <article
-                class="player-item il"
+                class="player-row il"
                 data-status="IL"
             >
 
                 <div
-                    class="player-item-number"
+                    class="player-number"
+                    data-number="25"
                 >
-                    <span>25</span>
+                    25
                 </div>
 
 
                 <div
-                    class="player-item-content"
+                    class="player-position"
+                    data-position="P"
+                >
+                    P
+                </div>
+
+
+                <div
+                    class="player-bt"
+                    data-bt="L/R"
+                >
+                    L/R
+                </div>
+
+
+                <div
+                    class="player-name-area"
                 >
 
-                    <div class="player-item-meta">
-
-                        <span
-                            class="player-position"
-                        >
-                            P
-                        </span>
-
-                        <span
-                            class="player-bt"
-                        >
-                            L/R
-                        </span>
-
-                    </div>
-
-
                     <div
-                        class="player-item-name"
+                        class="player-name"
+                        data-name="Ranger Suárez"
                     >
                         Ranger Suárez
                     </div>
 
 
                     <div
-                        class="player-item-status"
+                        class="player-roster"
                     >
 
                         <span
-                            class="player-status-marker"
+                            class="player-roster-dot"
                         ></span>
 
                         <span
-                            class="player-status-name"
+                            class="player-roster-status"
                         >
                             IL
                         </span>
 
                         <span
-                            class="player-status-detail"
+                            class="player-roster-detail"
                         >
                             INJURED LIST
                         </span>
@@ -1288,117 +1173,96 @@ a {
 
                 </div>
 
-
-                <div
-                    class="player-item-side"
-                >
-                    <span>
-                        P
-                    </span>
-                </div>
-
             </article>
+
 
         </div>
 
     </section>
 
 
-    <!-- ================================================
+    <!-- =================================================
          40-MAN
-    ================================================= -->
+    ================================================== -->
 
     <section
-        class="roster-group"
-        data-group="40-MAN"
+        class="player-section"
+        data-roster-group="40-MAN"
     >
 
-        <div class="roster-group-header">
+        <div class="player-section-header">
 
-            <div class="roster-group-title">
+            <span class="player-section-title">
+                40-MAN
+            </span>
 
-                <span
-                    class="roster-group-line"
-                    style="background:#75869b"
-                ></span>
-
-                <span
-                    class="roster-group-name"
-                >
-                    40-MAN
-                </span>
-
-            </div>
-
-            <span
-                class="roster-group-count"
-            >
+            <span class="player-section-count">
                 40
             </span>
 
         </div>
 
 
-        <div
-            class="player-list"
-        >
+        <div class="player-list">
+
 
             <article
-                class="player-item forty"
+                class="player-row forty"
                 data-status="40-MAN"
             >
 
                 <div
-                    class="player-item-number"
+                    class="player-number"
+                    data-number="54"
                 >
-                    <span>54</span>
+                    54
                 </div>
 
 
                 <div
-                    class="player-item-content"
+                    class="player-position"
+                    data-position="P"
+                >
+                    P
+                </div>
+
+
+                <div
+                    class="player-bt"
+                    data-bt="R/R"
+                >
+                    R/R
+                </div>
+
+
+                <div
+                    class="player-name-area"
                 >
 
-                    <div class="player-item-meta">
-
-                        <span
-                            class="player-position"
-                        >
-                            P
-                        </span>
-
-                        <span
-                            class="player-bt"
-                        >
-                            R/R
-                        </span>
-
-                    </div>
-
-
                     <div
-                        class="player-item-name"
+                        class="player-name"
+                        data-name="Sample Player"
                     >
                         Sample Player
                     </div>
 
 
                     <div
-                        class="player-item-status"
+                        class="player-roster"
                     >
 
                         <span
-                            class="player-status-marker"
+                            class="player-roster-dot"
                         ></span>
 
                         <span
-                            class="player-status-name"
+                            class="player-roster-status"
                         >
                             40-MAN
                         </span>
 
                         <span
-                            class="player-status-detail"
+                            class="player-roster-detail"
                         >
                             ROSTER
                         </span>
@@ -1407,16 +1271,8 @@ a {
 
                 </div>
 
-
-                <div
-                    class="player-item-side"
-                >
-                    <span>
-                        P
-                    </span>
-                </div>
-
             </article>
+
 
         </div>
 
@@ -1435,7 +1291,6 @@ a {
 <nav class="bottom-nav">
 
 <div class="bottom-inner">
-
 
     <a
         href="schedule.html"
@@ -1641,7 +1496,6 @@ a {
 
     </a>
 
-
 </div>
 
 </nav>
@@ -1650,10 +1504,10 @@ a {
 <script>
 
 /* =========================================================
-   PLAYER DATA NORMALIZATION
+   NORMALIZATION
 ========================================================= */
 
-const VALID_POSITIONS = new Set([
+const VALID_POSITIONS = [
     "P",
     "C",
     "1B",
@@ -1664,14 +1518,12 @@ const VALID_POSITIONS = new Set([
     "CF",
     "RF",
     "DH"
-]);
+];
 
 
-/* ---------------------------------------------------------
-   Number
-   07 -> 7
-   null -> —
---------------------------------------------------------- */
+/* =========================================================
+   NUMBER
+========================================================= */
 
 function normalizeNumber(value) {
 
@@ -1689,15 +1541,19 @@ function normalizeNumber(value) {
             10
         );
 
-    return Number.isNaN(number)
-        ? "—"
-        : String(number);
+    if (
+        Number.isNaN(number)
+    ) {
+        return "—";
+    }
+
+    return String(number);
 }
 
 
-/* ---------------------------------------------------------
-   Position
---------------------------------------------------------- */
+/* =========================================================
+   POSITION
+========================================================= */
 
 function normalizePosition(value) {
 
@@ -1710,15 +1566,21 @@ function normalizePosition(value) {
             .trim()
             .toUpperCase();
 
-    return VALID_POSITIONS.has(position)
-        ? position
-        : "—";
+    if (
+        !VALID_POSITIONS.includes(
+            position
+        )
+    ) {
+        return "—";
+    }
+
+    return position;
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    B/T
---------------------------------------------------------- */
+========================================================= */
 
 function normalizeBT(
     bats,
@@ -1742,15 +1604,9 @@ function normalizeBT(
             .trim()
             .toUpperCase();
 
-    const validBats =
-        ["R", "L", "S"];
-
-    const validThrows =
-        ["R", "L"];
-
     if (
-        !validBats.includes(b) ||
-        !validThrows.includes(t)
+        !["R", "L", "S"].includes(b) ||
+        !["R", "L"].includes(t)
     ) {
         return "—";
     }
@@ -1759,9 +1615,9 @@ function normalizeBT(
 }
 
 
-/* ---------------------------------------------------------
-   Player normalization
---------------------------------------------------------- */
+/* =========================================================
+   PLAYER OBJECT
+========================================================= */
 
 function normalizePlayer(player) {
 
@@ -1780,14 +1636,6 @@ function normalizePlayer(player) {
             normalizePosition(
                 player?.position
             ),
-
-        bats:
-            player?.bats ??
-            null,
-
-        throws:
-            player?.throws ??
-            null,
 
         bt:
             normalizeBT(
@@ -1813,47 +1661,60 @@ function normalizePlayer(player) {
 
 
 /* =========================================================
-   NAME FIT
-   ---------------------------------------------------------
-   長い選手名でも絶対に2行にしない
+   FORCE NUMBER NORMALIZATION
 ========================================================= */
 
-function fitPlayerNames() {
+document
+    .querySelectorAll(
+        ".player-number"
+    )
+    .forEach(element => {
+
+        element.textContent =
+            normalizeNumber(
+                element.dataset.number
+            );
+
+    });
+
+
+/* =========================================================
+   NAME FIT
+========================================================= */
+
+function fitNames() {
 
     document
         .querySelectorAll(
-            ".player-item-name"
+            ".player-name"
         )
         .forEach(name => {
 
-            const container =
+            const parent =
                 name.parentElement;
 
-            if (!container) {
+            if (!parent) {
                 return;
             }
 
-            const availableWidth =
-                container.clientWidth;
-
-            let fontSize =
+            let size =
                 window.innerWidth <= 390
-                    ? 21
-                    : 24;
+                    ? 18
+                    : 20;
 
             name.style.fontSize =
-                `${fontSize}px`;
+                `${size}px`;
 
             while (
                 name.scrollWidth >
-                    availableWidth &&
-                fontSize > 13
+                    parent.clientWidth &&
+                size > 12
             ) {
 
-                fontSize -= .25;
+                size -= .25;
 
                 name.style.fontSize =
-                    `${fontSize}px`;
+                    `${size}px`;
             }
 
         });
@@ -1862,38 +1723,21 @@ function fitPlayerNames() {
 
 
 /* =========================================================
-   INITIALIZATION
+   START
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
-
-        fitPlayerNames();
-
-    }
+    fitNames
 );
-
 
 window.addEventListener(
     "resize",
-    fitPlayerNames
-);
-
-
-window.addEventListener(
-    "orientationchange",
-    () => {
-
-        setTimeout(
-            fitPlayerNames,
-            100
-        );
-
-    }
+    fitNames
 );
 
 </script>
 
 </body>
+
 </html>
