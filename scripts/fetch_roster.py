@@ -1,139 +1,291 @@
 import json
 import os
 import re
-import time
+import sys
 from datetime import datetime, timezone
-
 import requests
-
-
 # =========================================================
-# SETTINGS
+# 設定
 # =========================================================
-
 BASE_URL = "https://statsapi.mlb.com/api/v1"
-
 TEAM_ID = 143
 SEASON = 2026
-
 OUTPUT_FILE = "data/players.json"
-
-REQUEST_SLEEP = 0.15
-
-
+TEMP_FILE = "data/players.json.tmp"
+TIMEOUT = 30
 # =========================================================
-# SESSION
+# HTTP
 # =========================================================
-
 session = requests.Session()
-
 session.headers.update({
-    "User-Agent": "Phillies-Reader/1.0"
+    "User-Agent": "Phillies-Reader-Roster/1.0"
 })
-
-
-# =========================================================
-# API
-# =========================================================
-
-def get_json(url, params=None):
-
+def api_get(endpoint, params=None):
+    url = f"{BASE_URL}{endpoint}"
     response = session.get(
         url,
         params=params,
-        timeout=30
+        timeout=TIMEOUT
     )
-
     response.raise_for_status()
-
     return response.json()
-
-
 # =========================================================
-# ROSTER
+# ロスター取得
 # =========================================================
-
 def get_roster(roster_type):
-
-    url = f"{BASE_URL}/teams/{TEAM_ID}/roster"
-
-    params = {
-        "rosterType": roster_type,
-        "season": SEASON
-    }
-
-    data = get_json(
-        url,
-        params
+    data = api_get(
+        f"/teams/{TEAM_ID}/roster",
+        {
+            "rosterType": roster_type,
+            "season": SEASON
+        }
     )
-
-    return data.get(
-        "roster",
-        []
-    )
-
-
+    return data.get("roster", [])
 # =========================================================
-# PLAYER
+# 選手情報取得
 # =========================================================
-
-def get_person(player_id):
-
-    url = f"{BASE_URL}/people/{player_id}"
-
-    params = {
-        "hydrate": "transactions"
-    }
-
-    data = get_json(
-        url,
-        params
+def get_player(player_id):
+    data = api_get(
+        f"/people/{player_id}",
+        {
+            "hydrate": "transactions"
+        }
     )
-
-    people = data.get(
-        "people",
-        []
-    )
-
+    people = data.get("people", [])
     if not people:
-        return {}
-
+        return None
     return people[0]
-
-
 # =========================================================
-# TEAM TRANSACTIONS
+# チームのTransaction取得
 # =========================================================
-
-def get_team_transactions():
-
+def get_transactions():
     today = datetime.now(
         timezone.utc
     ).date().isoformat()
-
-    url = f"{BASE_URL}/transactions"
-
-    params = {
-        "teamId": TEAM_ID,
-        "startDate": f"{SEASON}-01-01",
-        "endDate": today
-    }
-
-    data = get_json(
-        url,
-        params
+    data = api_get(
+        "/transactions",
+        {
+            "teamId": TEAM_ID,
+            "startDate": f"{SEASON}-01-01",
+            "endDate": today
+        }
     )
-
     return data.get(
         "transactions",
         []
     )
-
-
 # =========================================================
-# POSITION
+# IL判定
 # =========================================================
-
+IL_WORDS = re.compile(
+    r"\binjured list\b|\binjured-list\b|\bIL\b",
+    re.IGNORECASE
+)
+IL_START_WORDS = re.compile(
+    r"\bplaced\b|\btransferred\b|\bto the\b",
+    re.IGNORECASE
+)
+IL_END_WORDS = re.compile(
+    r"\bactivated\b|\breinstated\b",
+    re.IGNORECASE
+)
+def transaction_is_il_start(description):
+    if not description:
+        return False
+    if not IL_WORDS.search(description):
+        return False
+    if IL_END_WORDS.search(description):
+        return False
+    return bool(
+        IL_START_WORDS.search(description)
+    )
+def transaction_is_il_end(description):
+    if not description:
+        return False
+    if not IL_WORDS.search(description):
+        return False
+    return bool(
+        IL_END_WORDS.search(description)
+    )
+def extract_il_type(description):
+    if not description:
+        return None
+    match = re.search(
+        r"(\d+)[ -]?day\s+(?:injured list|IL)",
+        description,
+        re.IGNORECASE
+    )
+    if match:
+        return f"{match.group(1)}-Day IL"
+    return None
+# =========================================================
+# 選手ごとのIL状態を再構築
+# =========================================================
+def determine_il_state(
+    player_id,
+    player_transactions,
+    team_transactions
+):
+    events = []
+    # -----------------------------------------------------
+    # player transaction
+    # -----------------------------------------------------
+    for transaction in player_transactions:
+        description = (
+            transaction.get(
+                "description"
+            )
+            or ""
+        )
+        if not IL_WORDS.search(description):
+            continue
+        if not (
+            transaction_is_il_start(description)
+            or
+            transaction_is_il_end(description)
+        ):
+            continue
+        events.append({
+            "date": (
+                transaction.get(
+                    "effectiveDate"
+                )
+                or
+                transaction.get(
+                    "date"
+                )
+                or
+                ""
+            ),
+            "description": description,
+            "transactionId":
+                transaction.get("id")
+        })
+    # -----------------------------------------------------
+    # team transaction
+    # 補完用
+    # -----------------------------------------------------
+    for transaction in team_transactions:
+        person = transaction.get(
+            "person",
+            {}
+        )
+        if person.get("id") != player_id:
+            continue
+        description = (
+            transaction.get(
+                "description"
+            )
+            or ""
+        )
+        if not IL_WORDS.search(description):
+            continue
+        if not (
+            transaction_is_il_start(description)
+            or
+            transaction_is_il_end(description)
+        ):
+            continue
+        events.append({
+            "date": (
+                transaction.get(
+                    "effectiveDate"
+                )
+                or
+                transaction.get(
+                    "date"
+                )
+                or
+                ""
+            ),
+            "description": description,
+            "transactionId":
+                transaction.get("id")
+        })
+    # -----------------------------------------------------
+    # 重複削除
+    # -----------------------------------------------------
+    unique = {}
+    for event in events:
+        key = (
+            event.get("transactionId")
+            or
+            (
+                event.get("date"),
+                event.get("description")
+            )
+        )
+        unique[key] = event
+    events = list(
+        unique.values()
+    )
+    # -----------------------------------------------------
+    # 日付順
+    # -----------------------------------------------------
+    events.sort(
+        key=lambda x:
+            x.get("date") or ""
+    )
+    # -----------------------------------------------------
+    # 状態再構築
+    # -----------------------------------------------------
+    is_il = False
+    latest_il_start = None
+    for event in events:
+        description = (
+            event.get(
+                "description"
+            )
+            or
+            ""
+        )
+        if transaction_is_il_start(
+            description
+        ):
+            is_il = True
+            latest_il_start = event
+        elif transaction_is_il_end(
+            description
+        ):
+            is_il = False
+    # -----------------------------------------------------
+    # IL情報
+    # -----------------------------------------------------
+    il_info = {
+        "isIL": is_il,
+        "ilType": None,
+        "ilDate": None,
+        "description": None
+    }
+    if is_il and latest_il_start:
+        description = (
+            latest_il_start.get(
+                "description"
+            )
+            or
+            ""
+        )
+        il_info["ilType"] = (
+            extract_il_type(
+                description
+            )
+        )
+        il_info["ilDate"] = (
+            latest_il_start.get(
+                "date"
+            )
+        )
+        il_info["description"] = (
+            description
+        )
+    return (
+        is_il,
+        il_info,
+        events
+    )
+# =========================================================
+# ポジション
+# =========================================================
 VALID_POSITIONS = {
     "P",
     "C",
@@ -146,771 +298,190 @@ VALID_POSITIONS = {
     "RF",
     "DH"
 }
-
-
-def get_position(roster_item, person):
-
+def get_position(roster_item, player):
     position = roster_item.get(
         "position",
         {}
     )
-
     code = position.get(
         "abbreviation"
     )
-
     if code in VALID_POSITIONS:
-
         return {
             "code": code,
             "name": position.get(
                 "name"
             )
         }
-
-    primary = person.get(
+    primary = player.get(
         "primaryPosition",
         {}
     )
-
     code = primary.get(
         "abbreviation"
     )
-
     if code in VALID_POSITIONS:
-
         return {
             "code": code,
             "name": primary.get(
                 "name"
             )
         }
-
     return {
         "code": None,
         "name": None
     }
-
-
 # =========================================================
 # B/T
 # =========================================================
-
-def get_bt(person):
-
+def get_bt(player):
     bat = (
-        person
-        .get(
-            "batSide",
-            {}
-        )
-        .get(
-            "code"
-        )
+        player
+        .get("batSide", {})
+        .get("code")
     )
-
     throw = (
-        person
-        .get(
-            "pitchHand",
-            {}
-        )
-        .get(
-            "code"
-        )
+        player
+        .get("pitchHand", {})
+        .get("code")
     )
-
     return {
-
-        "bat":
-            bat if bat else None,
-
-        "throw":
-            throw if throw else None,
-
-        "display":
+        "bat": bat if bat else None,
+        "throw": throw if throw else None,
+        "display": (
             f"{bat}/{throw}"
             if bat and throw
             else None
-
+        )
     }
-
-
 # =========================================================
-# TRANSACTION DATE
+# ロスター状態
 # =========================================================
-
-def get_transaction_date(transaction):
-
-    return (
-        transaction.get(
-            "effectiveDate"
-        )
-        or
-        transaction.get(
-            "date"
-        )
-        or
-        ""
-    )
-
-
-# =========================================================
-# IL DETECTION
-# =========================================================
-
-IL_PLACEMENT_PATTERNS = [
-
-    re.compile(
-        r"\bplaced\b.*\binjured list\b",
-        re.IGNORECASE
-    ),
-
-    re.compile(
-        r"\btransferred\b.*\binjured list\b",
-        re.IGNORECASE
-    ),
-
-    re.compile(
-        r"\btransferred\b.*\b\d+[- ]day\b.*\binjured list\b",
-        re.IGNORECASE
-    ),
-
-    re.compile(
-        r"\bto the\b.*\binjured list\b",
-        re.IGNORECASE
-    )
-]
-
-
-IL_REMOVAL_PATTERNS = [
-
-    re.compile(
-        r"\bactivated\b.*\binjured list\b",
-        re.IGNORECASE
-    ),
-
-    re.compile(
-        r"\breinstated\b.*\binjured list\b",
-        re.IGNORECASE
-    ),
-
-    re.compile(
-        r"\bfrom the\b.*\binjured list\b",
-        re.IGNORECASE
-    )
-]
-
-
-def is_il_placement(description):
-
-    if not description:
-        return False
-
-    for pattern in IL_PLACEMENT_PATTERNS:
-
-        if pattern.search(description):
-
-            return True
-
-    return False
-
-
-def is_il_removal(description):
-
-    if not description:
-        return False
-
-    for pattern in IL_REMOVAL_PATTERNS:
-
-        if pattern.search(description):
-
-            return True
-
-    return False
-
-
-# =========================================================
-# IL TYPE
-# =========================================================
-
-def extract_il_type(description):
-
-    if not description:
-        return None
-
-    patterns = [
-
-        (
-            r"(\d+)[ -]?day injured list",
-            lambda m:
-                f"{m.group(1)}-Day IL"
-        ),
-
-        (
-            r"(\d+)[ -]?day IL",
-            lambda m:
-                f"{m.group(1)}-Day IL"
-        )
-
-    ]
-
-    for pattern, formatter in patterns:
-
-        match = re.search(
-            pattern,
-            description,
-            re.IGNORECASE
-        )
-
-        if match:
-
-            return formatter(match)
-
-    return None
-
-
-# =========================================================
-# PLAYER TRANSACTIONS
-# =========================================================
-
-def get_player_transactions(person):
-
-    transactions = person.get(
-        "transactions",
-        []
-    )
-
-    result = []
-
-    for transaction in transactions:
-
-        description = (
-            transaction.get(
-                "description"
-            )
-            or ""
-        )
-
-        if not (
-            is_il_placement(
-                description
-            )
-            or
-            is_il_removal(
-                description
-            )
-        ):
-
-            continue
-
-        result.append({
-
-            "date":
-                get_transaction_date(
-                    transaction
-                ),
-
-            "effectiveDate":
-                transaction.get(
-                    "effectiveDate"
-                ),
-
-            "description":
-                description,
-
-            "typeCode":
-                transaction.get(
-                    "typeCode"
-                ),
-
-            "typeDesc":
-                transaction.get(
-                    "typeDesc"
-                ),
-
-            "transactionId":
-                transaction.get(
-                    "id"
-                )
-
-        })
-
-    result.sort(
-        key=lambda x:
-            x.get("date") or ""
-    )
-
-    return result
-
-
-# =========================================================
-# CURRENT IL STATE
-# =========================================================
-
-def determine_il_state(
-    person,
-    team_transactions,
-    player_id
-):
-
-    events = []
-
-    # -----------------------------------------------------
-    # PLAYER TRANSACTIONS
-    # -----------------------------------------------------
-
-    for transaction in (
-        person.get(
-            "transactions",
-            []
-        )
-    ):
-
-        transaction_person = (
-            transaction.get(
-                "person",
-                {}
-            )
-        )
-
-        transaction_player_id = (
-            transaction_person.get(
-                "id"
-            )
-        )
-
-        # person hydrateの場合はpersonが
-        # 入っていない場合があるためID確認を
-        # 厳密に要求しない
-        if (
-            transaction_player_id
-            and
-            transaction_player_id != player_id
-        ):
-            continue
-
-        description = (
-            transaction.get(
-                "description"
-            )
-            or ""
-        )
-
-        if (
-            is_il_placement(
-                description
-            )
-            or
-            is_il_removal(
-                description
-            )
-        ):
-
-            events.append({
-                "date":
-                    get_transaction_date(
-                        transaction
-                    ),
-
-                "effectiveDate":
-                    transaction.get(
-                        "effectiveDate"
-                    ),
-
-                "description":
-                    description,
-
-                "typeCode":
-                    transaction.get(
-                        "typeCode"
-                    ),
-
-                "typeDesc":
-                    transaction.get(
-                        "typeDesc"
-                    ),
-
-                "transactionId":
-                    transaction.get(
-                        "id"
-                    )
-            })
-
-    # -----------------------------------------------------
-    # TEAM TRANSACTIONS
-    # 補完
-    # -----------------------------------------------------
-
-    for transaction in team_transactions:
-
-        person_data = (
-            transaction.get(
-                "person",
-                {}
-            )
-        )
-
-        if person_data.get(
-            "id"
-        ) != player_id:
-
-            continue
-
-        description = (
-            transaction.get(
-                "description"
-            )
-            or ""
-        )
-
-        if (
-            is_il_placement(
-                description
-            )
-            or
-            is_il_removal(
-                description
-            )
-        ):
-
-            events.append({
-                "date":
-                    get_transaction_date(
-                        transaction
-                    ),
-
-                "effectiveDate":
-                    transaction.get(
-                        "effectiveDate"
-                    ),
-
-                "description":
-                    description,
-
-                "typeCode":
-                    transaction.get(
-                        "typeCode"
-                    ),
-
-                "typeDesc":
-                    transaction.get(
-                        "typeDesc"
-                    ),
-
-                "transactionId":
-                    transaction.get(
-                        "id"
-                    )
-            })
-
-    # -----------------------------------------------------
-    # 重複除去
-    # -----------------------------------------------------
-
-    unique = {}
-
-    for event in events:
-
-        key = (
-            event.get(
-                "transactionId"
-            )
-            or
-            (
-                event.get("date"),
-                event.get("description")
-            )
-        )
-
-        unique[key] = event
-
-    events = list(
-        unique.values()
-    )
-
-    # -----------------------------------------------------
-    # 時系列
-    # -----------------------------------------------------
-
-    events.sort(
-        key=lambda x:
-            x.get("date") or ""
-    )
-
-    # -----------------------------------------------------
-    # STATE MACHINE
-    # -----------------------------------------------------
-
-    is_il = False
-
-    latest_il_event = None
-
-    for event in events:
-
-        description = (
-            event.get(
-                "description"
-            )
-            or
-            ""
-        )
-
-        # IL登録・IL間移動
-        if is_il_placement(
-            description
-        ):
-
-            is_il = True
-
-            latest_il_event = event
-
-        # ILから復帰
-        elif is_il_removal(
-            description
-        ):
-
-            is_il = False
-
-            latest_il_event = event
-
-    # -----------------------------------------------------
-    # IL情報
-    # -----------------------------------------------------
-
-    il_info = {
-
-        "isIL":
-            is_il,
-
-        "ilType":
-            None,
-
-        "ilDate":
-            None,
-
-        "description":
-            None
-
-    }
-
-    if is_il and latest_il_event:
-
-        description = (
-            latest_il_event.get(
-                "description"
-            )
-            or
-            ""
-        )
-
-        il_info["ilType"] = (
-            extract_il_type(
-                description
-            )
-        )
-
-        il_info["ilDate"] = (
-            latest_il_event.get(
-                "effectiveDate"
-            )
-            or
-            latest_il_event.get(
-                "date"
-            )
-        )
-
-        il_info["description"] = (
-            description
-        )
-
-    return (
-        is_il,
-        il_info,
-        events
-    )
-
-
-# =========================================================
-# ROSTER STATUS
-# =========================================================
-
-def determine_status(
+def determine_roster_status(
     player_id,
     is_il,
     active_ids,
     forty_ids
 ):
-
-    # ILが最優先
+    # -----------------------------------------------------
+    # IL最優先
+    # -----------------------------------------------------
     if is_il:
-
         return "IL"
-
-    # MLB APIのactive roster
-    if player_id in active_ids:
-
-        return "ACTIVE"
-
-    # MLB APIの40-man roster
-    if player_id in forty_ids:
-
-        return "40-MAN"
-
-    return "UNKNOWN"
-
-
-# =========================================================
-# MAIN
-# =========================================================
-
-def main():
-
-    print(
-        "=============================================="
-    )
-
-    print(
-        "PHILLIES ROSTER COLLECTOR"
-    )
-
-    print(
-        f"Season: {SEASON}"
-    )
-
-    print(
-        "=============================================="
-    )
-
-    # =====================================================
+    # -----------------------------------------------------
     # ACTIVE
+    # -----------------------------------------------------
+    if player_id in active_ids:
+        return "ACTIVE"
+    # -----------------------------------------------------
+    # 40-MAN
+    # -----------------------------------------------------
+    if player_id in forty_ids:
+        return "40-MAN"
+    # -----------------------------------------------------
+    # 保存対象外
+    # -----------------------------------------------------
+    return None
+# =========================================================
+# メイン
+# =========================================================
+def main():
+    print("========================================")
+    print("Phillies Roster Collector")
+    print(f"Season: {SEASON}")
+    print("========================================")
     # =====================================================
-
-    print(
-        "\nFetching ACTIVE roster..."
-    )
-
+    # API取得
+    # =====================================================
+    print("\n[1] ACTIVE roster")
     active_roster = get_roster(
         "active"
     )
-
-    # =====================================================
-    # 40-MAN
-    # =====================================================
-
     print(
-        "Fetching 40-MAN roster..."
+        f"ACTIVE API: {len(active_roster)}"
     )
-
+    print("\n[2] 40-MAN roster")
     forty_roster = get_roster(
         "40Man"
     )
-
-    # =====================================================
-    # FULL
-    # =====================================================
-
     print(
-        "Fetching FULL roster..."
+        f"40-MAN API: {len(forty_roster)}"
     )
-
+    print("\n[3] FULL roster")
     full_roster = get_roster(
         "fullRoster"
     )
-
-    # =====================================================
-    # TRANSACTIONS
-    # =====================================================
-
     print(
-        "Fetching team transactions..."
+        f"FULL API: {len(full_roster)}"
     )
-
+    print("\n[4] Transactions")
     team_transactions = (
-        get_team_transactions()
+        get_transactions()
     )
-
+    print(
+        f"Transactions: "
+        f"{len(team_transactions)}"
+    )
     # =====================================================
-    # IDS
+    # ID SET
     # =====================================================
-
     active_ids = set()
-
     forty_ids = set()
-
     full_ids = set()
-
     roster_items = {}
-
+    # ACTIVE
     for item in active_roster:
-
         person = item.get(
             "person",
             {}
         )
-
         player_id = person.get(
             "id"
         )
-
         if player_id:
-
             active_ids.add(
                 player_id
             )
-
             roster_items[
                 player_id
             ] = item
-
+    # 40-MAN
     for item in forty_roster:
-
         person = item.get(
             "person",
             {}
         )
-
         player_id = person.get(
             "id"
         )
-
         if player_id:
-
             forty_ids.add(
                 player_id
             )
-
             roster_items.setdefault(
                 player_id,
                 item
             )
-
+    # FULL
     for item in full_roster:
-
         person = item.get(
             "person",
             {}
         )
-
         player_id = person.get(
             "id"
         )
-
         if player_id:
-
             full_ids.add(
                 player_id
             )
-
             roster_items.setdefault(
                 player_id,
                 item
             )
-
     # =====================================================
-    # FULL ROSTER IS THE MASTER LIST
+    # 母集団
     # =====================================================
-
     all_ids = (
         full_ids
         |
@@ -918,374 +489,259 @@ def main():
         |
         forty_ids
     )
-
     print(
-        f"\nPlayers discovered: "
+        f"\nCandidate players: "
         f"{len(all_ids)}"
     )
-
     # =====================================================
-    # BUILD
+    # 選手処理
     # =====================================================
-
     players = []
-
     for index, player_id in enumerate(
         sorted(all_ids),
         start=1
     ):
-
         print(
-            f"[{index}/{len(all_ids)}] "
-            f"{player_id}"
+            f"\n[{index}/{len(all_ids)}] "
+            f"ID={player_id}"
         )
-
         try:
-
+            player = get_player(
+                player_id
+            )
+            if not player:
+                print(
+                    "  Player data unavailable"
+                )
+                continue
             roster_item = roster_items.get(
                 player_id,
                 {}
             )
-
-            # -------------------------------------------------
-            # PROFILE
-            # -------------------------------------------------
-
-            person = get_person(
-                player_id
-            )
-
-            if not person:
-
-                print(
-                    "  Profile unavailable"
-                )
-
-                continue
-
-            time.sleep(
-                REQUEST_SLEEP
-            )
-
-            # -------------------------------------------------
-            # BASIC
-            # -------------------------------------------------
-
-            name = person.get(
-                "fullName"
-            )
-
-            jersey = (
-                roster_item.get(
-                    "jerseyNumber"
+            player_transactions = (
+                player.get(
+                    "transactions",
+                    []
                 )
             )
-
-            bt = get_bt(
-                person
-            )
-
-            position = get_position(
-                roster_item,
-                person
-            )
-
             # -------------------------------------------------
-            # IL
+            # IL判定
             # -------------------------------------------------
-
             (
                 is_il,
                 il_info,
                 il_history
             ) = determine_il_state(
-                person,
-                team_transactions,
-                player_id
+                player_id,
+                player_transactions,
+                team_transactions
             )
-
             # -------------------------------------------------
-            # STATUS
+            # 最終状態
             # -------------------------------------------------
-
-            status = determine_status(
+            status = determine_roster_status(
                 player_id,
                 is_il,
                 active_ids,
                 forty_ids
             )
-
             # -------------------------------------------------
-            # PLAYER
+            # UNKNOWNは完全除外
             # -------------------------------------------------
-
-            player = {
-
-                "id":
-                    player_id,
-
-                "name":
-                    name,
-
-                "firstName":
-                    person.get(
-                        "firstName"
-                    ),
-
-                "lastName":
-                    person.get(
-                        "lastName"
-                    ),
-
-                "jerseyNumber":
-                    jersey,
-
-                "bt":
-                    bt,
-
-                "position":
-                    position,
-
-                "rosterStatus":
-                    status,
-
-                "rosterMembership": {
-
-                    "active":
-                        player_id
-                        in active_ids,
-
-                    "fortyMan":
-                        player_id
-                        in forty_ids,
-
-                    "fullRoster":
-                        player_id
-                        in full_ids,
-
-                    "il":
-                        is_il
-
-                },
-
-                "il":
-                    il_info,
-
-                "ilTransactionHistory":
-                    il_history
-
-            }
-
-            players.append(
+            if status is None:
+                print(
+                    "  Excluded: no valid roster status"
+                )
+                continue
+            # -------------------------------------------------
+            # 基本情報
+            # -------------------------------------------------
+            position = get_position(
+                roster_item,
                 player
             )
-
+            bt = get_bt(
+                player
+            )
+            # -------------------------------------------------
+            # 保存
+            # -------------------------------------------------
+            result = {
+                "id":
+                    player_id,
+                "name":
+                    player.get(
+                        "fullName"
+                    ),
+                "firstName":
+                    player.get(
+                        "firstName"
+                    ),
+                "lastName":
+                    player.get(
+                        "lastName"
+                    ),
+                "jerseyNumber":
+                    roster_item.get(
+                        "jerseyNumber"
+                    ),
+                "bt":
+                    bt,
+                "position":
+                    position,
+                "rosterStatus":
+                    status,
+                "rosterMembership": {
+                    "active":
+                        player_id in active_ids,
+                    "fortyMan":
+                        player_id in forty_ids,
+                    "fullRoster":
+                        player_id in full_ids,
+                    "il":
+                        is_il
+                },
+                "il":
+                    il_info,
+                "ilTransactionHistory":
+                    il_history
+            }
+            players.append(
+                result
+            )
             print(
-                f"  {name} | "
-                f"{status} | "
-                f"{position.get('code')} | "
+                f"  {result['name']}"
+            )
+            print(
+                f"  STATUS: {status}"
+            )
+            print(
+                f"  POS: "
+                f"{position.get('code')}"
+            )
+            print(
+                f"  B/T: "
                 f"{bt.get('display')}"
             )
-
             if is_il:
-
                 print(
-                    f"  >>> IL: "
+                    f"  IL: "
                     f"{il_info.get('ilType')}"
                 )
-
         except Exception as error:
-
             print(
                 f"  ERROR: {error}"
             )
-
+            # 一人の失敗で全体を止めない
+            continue
     # =====================================================
-    # SORT
+    # 件数
     # =====================================================
-
-    status_order = {
-
-        "ACTIVE": 0,
-
-        "IL": 1,
-
-        "40-MAN": 2,
-
-        "UNKNOWN": 3
-
-    }
-
-    players.sort(
-        key=lambda p: (
-            status_order.get(
-                p.get(
-                    "rosterStatus"
-                ),
-                99
-            ),
-
-            p.get(
-                "name"
-            )
-            or
-            ""
-        )
-    )
-
-    # =====================================================
-    # COUNTS
-    # =====================================================
-
     counts = {
-
         "players":
             len(players),
-
         "active":
             sum(
                 1
                 for p in players
-                if p.get(
-                    "rosterStatus"
-                )
+                if p["rosterStatus"]
                 == "ACTIVE"
             ),
-
         "il":
             sum(
                 1
                 for p in players
-                if p.get(
-                    "rosterStatus"
-                )
+                if p["rosterStatus"]
                 == "IL"
             ),
-
         "fortyMan":
             sum(
                 1
                 for p in players
-                if p.get(
-                    "rosterStatus"
-                )
+                if p["rosterStatus"]
                 == "40-MAN"
-            ),
-
-        "unknown":
-            sum(
-                1
-                for p in players
-                if p.get(
-                    "rosterStatus"
-                )
-                == "UNKNOWN"
             )
-
     }
-
     # =====================================================
-    # OUTPUT
+    # 出力
     # =====================================================
-
     output = {
-
         "team": {
-
             "id":
                 TEAM_ID,
-
             "name":
                 "Philadelphia Phillies",
-
             "abbreviation":
                 "PHI"
-
         },
-
         "season":
             SEASON,
-
         "updatedAt":
             datetime.now(
                 timezone.utc
             ).isoformat(),
-
         "counts":
             counts,
-
         "players":
             players
-
     }
-
     # =====================================================
-    # SAVE
+    # 保存
     # =====================================================
-
     os.makedirs(
         "data",
         exist_ok=True
     )
-
+    # 一時ファイルへ書く
     with open(
-        OUTPUT_FILE,
+        TEMP_FILE,
         "w",
         encoding="utf-8"
     ) as file:
-
         json.dump(
             output,
             file,
             ensure_ascii=False,
             indent=2
         )
-
+    # 正常なJSONが作れた場合のみ本番ファイルを置換
+    os.replace(
+        TEMP_FILE,
+        OUTPUT_FILE
+    )
     # =====================================================
-    # REPORT
+    # 結果
     # =====================================================
-
+    print("\n========================================")
+    print("COMPLETED")
+    print("========================================")
     print(
-        "\n=============================================="
+        f"ACTIVE : {counts['active']}"
     )
-
     print(
-        "UPDATE COMPLETED"
+        f"IL     : {counts['il']}"
     )
-
     print(
-        "=============================================="
+        f"40-MAN : {counts['fortyMan']}"
     )
-
     print(
-        f"Players : {counts['players']}"
+        f"TOTAL  : {counts['players']}"
     )
-
     print(
-        f"ACTIVE  : {counts['active']}"
+        f"FILE   : {OUTPUT_FILE}"
     )
-
-    print(
-        f"IL      : {counts['il']}"
-    )
-
-    print(
-        f"40-MAN  : {counts['fortyMan']}"
-    )
-
-    print(
-        f"UNKNOWN : {counts['unknown']}"
-    )
-
-    print(
-        f"Output  : {OUTPUT_FILE}"
-    )
-
-    print(
-        "=============================================="
-    )
-
-
+    print("========================================")
 if __name__ == "__main__":
-
-    main()
+    try:
+        main()
+    except Exception as error:
+        print(
+            "\nFATAL ERROR:"
+        )
+        print(error)
+        # 既存players.jsonは触らない
+        if os.path.exists(TEMP_FILE):
+            os.remove(
+                TEMP_FILE
+            )
+        sys.exit(1)
