@@ -2,12 +2,30 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               viewport-fit=cover">
+<meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1.0,
+             viewport-fit=cover"
+>
 <title>PLAYER | PHILLIES</title>
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 <style>
+/* =====================================================
+   ROOT
+===================================================== */
 :root {
     --navy: #07152b;
     --navy-light: #0b1c38;
@@ -17,23 +35,31 @@
     --yellow: #f4c430;
     --gray: #64748b;
 }
+/* =====================================================
+   RESET
+===================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+        transparent;
 }
 html,
 body {
     width: 100%;
     min-height: 100%;
-    background: var(--navy);
+    background:
+        var(--navy);
 }
 body {
-    color: var(--white);
+    color:
+        var(--white);
     font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
         Arial,
-        Helvetica,
         sans-serif;
     padding-bottom:
         calc(
@@ -43,6 +69,7 @@ body {
 }
 /* =====================================================
    HEADER
+   SCHEDULE UI
 ===================================================== */
 .header {
     position: fixed;
@@ -62,26 +89,28 @@ body {
         );
     box-shadow:
         0 7px 22px
-        rgba(0,0,0,0.30);
+        rgba(0,0,0,.30);
 }
 .header::before {
     content: "";
     position: absolute;
-    top: -150px;
-    right: -65px;
-    width: 330px;
-    height: 330px;
+    top: -120px;
+    right: -55px;
+    width: 300px;
+    height: 300px;
     transform:
         rotate(27deg);
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.14),
-            rgba(255,255,255,0.015)
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.015)
         );
     border-left:
         1px solid
-        rgba(255,255,255,0.14);
+        rgba(255,255,255,.16);
+    pointer-events:
+        none;
 }
 .header::after {
     content: "";
@@ -95,108 +124,235 @@ body {
             90deg,
             #07152b 0%,
             #07152b 18%,
-            rgba(7,21,43,0.35) 45%,
-            rgba(255,255,255,0.28) 72%,
+            rgba(7,21,43,.35) 45%,
+            rgba(255,255,255,.28) 72%,
             transparent 100%
         );
+    pointer-events:
+        none;
+}
+/* =====================================================
+   HEADER DECORATION
+===================================================== */
+.header-navy-shape {
+    position: absolute;
+    top: -20px;
+    left: 43%;
+    width: 130px;
+    height: 130px;
+    transform:
+        rotate(25deg);
+    background:
+        rgba(7,21,43,.16);
+    pointer-events:
+        none;
+}
+.header-line-one {
+    position: absolute;
+    left: -20px;
+    bottom: 14px;
+    width: 55%;
+    height: 2px;
+    transform:
+        skewX(-35deg);
+    background:
+        rgba(255,255,255,.34);
+    pointer-events:
+        none;
+}
+.header-line-two {
+    position: absolute;
+    left: 4%;
+    bottom: 8px;
+    width: 35%;
+    height: 1px;
+    transform:
+        skewX(-35deg);
+    background:
+        rgba(255,255,255,.18);
+    pointer-events:
+        none;
+}
+.header-light {
+    position: absolute;
+    top: -85px;
+    right: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius:
+        50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.18) 0%,
+            rgba(255,255,255,.06) 35%,
+            transparent 72%
+        );
+    pointer-events:
+        none;
 }
 /* =====================================================
    MAIN
 ===================================================== */
 main {
-    min-height: 100vh;
-    padding-top: 72px;
-    padding-bottom: 20px;
+    min-height:
+        100vh;
+    padding-top:
+        72px;
+    padding-bottom:
+        20px;
 }
 .player-page {
-    width: 100%;
+    width:
+        100%;
     padding:
-        22px 16px 30px;
+        21px 14px 30px;
 }
+/* =====================================================
+   PAGE TITLE
+   SCHEDULE UI
+===================================================== */
 .player-title {
-    font-size: 27px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 5px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        31px;
+    font-weight:
+        800;
+    line-height:
+        .95;
+    letter-spacing:
+        -.5px;
+    margin-bottom:
+        6px;
 }
 .player-subtitle {
-    color: var(--muted);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-    margin-bottom: 20px;
+    color:
+        var(--muted);
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        10px;
+    font-weight:
+        700;
+    line-height:
+        1;
+    letter-spacing:
+        1.4px;
+    margin-bottom:
+        19px;
 }
 /* =====================================================
    FILTER
 ===================================================== */
 .filter-area {
-    width: 100%;
-    margin-bottom: 27px;
-    padding: 13px;
+    width:
+        100%;
+    margin-bottom:
+        27px;
+    padding:
+        13px;
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,0.055),
-            rgba(255,255,255,0.025)
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.025)
         );
     border:
         1px solid
-        rgba(255,255,255,0.075);
-    border-radius: 16px;
+        rgba(255,255,255,.075);
+    border-radius:
+        16px;
     box-shadow:
         0 8px 25px
-        rgba(0,0,0,0.12);
+        rgba(0,0,0,.12);
 }
 .filter-area::before {
-    content: "FILTER";
-    display: block;
+    content:
+        "FILTER";
+    display:
+        block;
     margin:
         0 2px 11px;
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        10px;
+    font-weight:
+        900;
+    line-height:
+        1;
+    letter-spacing:
+        1.5px;
     color:
-        rgba(255,255,255,0.38);
+        rgba(255,255,255,.38);
 }
 .filter-block {
-    width: 100%;
+    width:
+        100%;
 }
 .filter-block:first-child {
-    margin-bottom: 9px;
+    margin-bottom:
+        9px;
 }
 .roster-filter-block {
-    padding-top: 9px;
+    padding-top:
+        9px;
     border-top:
         1px solid
-        rgba(255,255,255,0.06);
+        rgba(255,255,255,.06);
 }
 .filter-caption {
     margin:
         0 0 5px 2px;
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        9px;
+    font-weight:
+        900;
+    line-height:
+        1;
+    letter-spacing:
+        1px;
     color:
-        rgba(255,255,255,0.42);
+        rgba(255,255,255,.42);
 }
 .filter-select {
-    width: 100%;
-    height: 45px;
+    width:
+        100%;
+    height:
+        45px;
     padding:
         0 40px 0 14px;
     border:
         1px solid
-        rgba(255,255,255,0.085);
-    border-radius: 11px;
+        rgba(255,255,255,.085);
+    border-radius:
+        11px;
     background:
-        rgba(7,21,43,0.82);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .45px;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+        rgba(7,21,43,.82);
+    color:
+        var(--white);
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        12px;
+    font-weight:
+        700;
+    letter-spacing:
+        .45px;
+    outline:
+        none;
+    appearance:
+        none;
+    -webkit-appearance:
+        none;
     background-image:
         linear-gradient(
             45deg,
@@ -218,67 +374,97 @@ main {
         no-repeat;
 }
 .filter-select option {
-    background: #07152b;
-    color: white;
+    background:
+        #07152b;
+    color:
+        white;
 }
 /* =====================================================
    POSITION GROUP
 ===================================================== */
 .position-group {
-    margin-bottom: 25px;
+    margin-bottom:
+        25px;
 }
 .position-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 9px;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    display:
+        flex;
+    align-items:
+        center;
+    gap:
+        10px;
+    margin-bottom:
+        9px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        12px;
+    font-weight:
+        900;
+    line-height:
+        1;
+    letter-spacing:
+        1px;
     color:
-        rgba(255,255,255,0.66);
+        rgba(255,255,255,.66);
 }
 .position-title::after {
-    content: "";
-    flex: 1;
-    height: 1px;
+    content:
+        "";
+    flex:
+        1;
+    height:
+        1px;
     background:
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 }
 /* =====================================================
    PLAYER LIST
 ===================================================== */
 .player-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display:
+        flex;
+    flex-direction:
+        column;
+    gap:
+        8px;
 }
 .player-wrapper {
-    width: 100%;
+    width:
+        100%;
 }
 /* =====================================================
    PLAYER CARD
 ===================================================== */
 .player-card {
-    position: relative;
-    width: 100%;
-    min-height: 84px;
-    display: flex;
-    align-items: center;
+    position:
+        relative;
+    width:
+        100%;
+    min-height:
+        84px;
+    display:
+        flex;
+    align-items:
+        center;
     padding:
         11px 13px 11px 18px;
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.055),
-            rgba(255,255,255,0.022)
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.022)
         );
     border:
         1px solid
-        rgba(255,255,255,0.075);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
+        rgba(255,255,255,.075);
+    border-radius:
+        14px;
+    overflow:
+        hidden;
+    cursor:
+        pointer;
     transition:
         transform .15s ease,
         background .15s ease;
@@ -288,73 +474,103 @@ main {
         scale(.985);
 }
 .player-card.open {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius:
+        5px;
+    border-bottom-right-radius:
+        5px;
 }
 /* =====================================================
    STATUS LINE
 ===================================================== */
 .player-card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 4px;
+    content:
+        "";
+    position:
+        absolute;
+    top:
+        0;
+    left:
+        0;
+    bottom:
+        0;
+    width:
+        4px;
 }
 .player-card.active::after {
-    background: var(--red);
+    background:
+        var(--red);
 }
 .player-card.il::after {
-    background: var(--yellow);
+    background:
+        var(--yellow);
 }
 .player-card.outside::after {
-    background: var(--gray);
+    background:
+        var(--gray);
 }
 /* =====================================================
    NUMBER
 ===================================================== */
 .player-number {
-    width: 55px;
-    flex-shrink: 0;
+    width:
+        55px;
+    flex-shrink:
+        0;
     font-family:
         Impact,
         Haettenschweiler,
         "Arial Narrow Bold",
         sans-serif;
-    font-size: 31px;
-    line-height: 1;
-    letter-spacing: -1.5px;
+    font-size:
+        31px;
+    line-height:
+        1;
+    letter-spacing:
+        -1.5px;
     color:
-        rgba(255,255,255,0.30);
+        rgba(255,255,255,.30);
     transform:
         scaleX(.88);
     transform-origin:
         left center;
 }
 .player-number::before {
-    content: "#";
-    display: inline-block;
-    margin-right: 1px;
+    content:
+        "#";
+    display:
+        inline-block;
+    margin-right:
+        1px;
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-    font-size: 9px;
-    font-weight: 800;
+    font-size:
+        9px;
+    font-weight:
+        800;
     color:
         rgba(227,25,55,.75);
-    vertical-align: top;
+    vertical-align:
+        top;
 }
 /* =====================================================
    B/T
 ===================================================== */
 .player-bt {
-    width: 54px;
-    flex-shrink: 0;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .3px;
+    width:
+        54px;
+    flex-shrink:
+        0;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        11px;
+    font-weight:
+        700;
+    letter-spacing:
+        .3px;
     color:
         rgba(255,255,255,.55);
 }
@@ -362,10 +578,17 @@ main {
    POSITION
 ===================================================== */
 .player-pos {
-    width: 39px;
-    flex-shrink: 0;
-    font-size: 10px;
-    font-weight: 900;
+    width:
+        39px;
+    flex-shrink:
+        0;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        11px;
+    font-weight:
+        900;
     color:
         var(--red);
 }
@@ -373,62 +596,98 @@ main {
    PLAYER INFO
 ===================================================== */
 .player-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
+    flex:
+        1;
+    min-width:
+        0;
+    display:
+        flex;
+    flex-direction:
+        column;
+    justify-content:
+        center;
+    gap:
+        4px;
 }
 .player-name {
-    width: 100%;
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.25;
-    color: var(--white);
-    white-space: normal;
-    overflow-wrap: anywhere;
+    width:
+        100%;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        18px;
+    font-weight:
+        800;
+    line-height:
+        1.1;
+    color:
+        var(--white);
+    white-space:
+        normal;
+    overflow-wrap:
+        anywhere;
 }
 .player-status {
-    width: fit-content;
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: .8px;
-    line-height: 1;
+    width:
+        fit-content;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        9px;
+    font-weight:
+        900;
+    letter-spacing:
+        .8px;
+    line-height:
+        1;
 }
 .player-card.active
 .player-status {
-    color: var(--red);
+    color:
+        var(--red);
 }
 .player-card.il
 .player-status {
-    color: var(--yellow);
+    color:
+        var(--yellow);
 }
 .player-card.outside
 .player-status {
-    color: #94a3b8;
+    color:
+        #94a3b8;
 }
 /* =====================================================
    EXPAND
 ===================================================== */
 .expand-mark {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width:
+        22px;
+    height:
+        22px;
+    flex-shrink:
+        0;
+    margin-left:
+        8px;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        center;
     color:
         rgba(255,255,255,.35);
-    font-size: 15px;
+    font-size:
+        15px;
     transition:
         transform .2s ease,
         color .2s ease;
 }
 .player-card.open
 .expand-mark {
-    color: var(--red);
+    color:
+        var(--red);
     transform:
         rotate(180deg);
 }
@@ -436,9 +695,12 @@ main {
    STATS CARD
 ===================================================== */
 .stats-card {
-    display: none;
-    position: relative;
-    margin-top: -1px;
+    display:
+        none;
+    position:
+        relative;
+    margin-top:
+        -1px;
     padding:
         15px 12px 16px;
     background:
@@ -449,7 +711,7 @@ main {
         );
     border:
         1px solid
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,.07);
     border-top:
         1px solid
         rgba(227,25,55,.20);
@@ -459,16 +721,19 @@ main {
         statsOpen .18s ease-out;
 }
 .stats-card.show {
-    display: block;
+    display:
+        block;
 }
 @keyframes statsOpen {
     from {
-        opacity: 0;
+        opacity:
+            0;
         transform:
             translateY(-5px);
     }
     to {
-        opacity: 1;
+        opacity:
+            1;
         transform:
             translateY(0);
     }
@@ -477,21 +742,40 @@ main {
    STATS HEADER
 ===================================================== */
 .stats-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 13px;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        space-between;
+    margin-bottom:
+        13px;
 }
 .stats-title {
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 1.2px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        10px;
+    font-weight:
+        900;
+    line-height:
+        1;
+    letter-spacing:
+        1.2px;
     color:
         rgba(255,255,255,.42);
 }
 .stats-period {
-    font-size: 9px;
-    font-weight: 800;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        10px;
+    font-weight:
+        800;
+    line-height:
+        1;
     color:
         rgba(255,255,255,.35);
 }
@@ -499,42 +783,69 @@ main {
    STATS GRID
 ===================================================== */
 .stat-grid {
-    display: grid;
+    display:
+        grid;
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
-    gap: 6px;
+    gap:
+        6px;
 }
 .stat-grid.second-row {
-    margin-top: 6px;
+    margin-top:
+        6px;
 }
 .stat-box {
-    min-width: 0;
+    min-width:
+        0;
     padding:
         10px 3px;
-    text-align: center;
+    text-align:
+        center;
     background:
         rgba(255,255,255,.035);
     border:
         1px solid
         rgba(255,255,255,.055);
-    border-radius: 9px;
+    border-radius:
+        9px;
 }
 .stat-value {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 14px;
-    font-weight: 900;
-    line-height: 1;
-    color: var(--white);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display:
+        block;
+    margin-bottom:
+        4px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        17px;
+    font-weight:
+        900;
+    line-height:
+        1;
+    color:
+        var(--white);
+    white-space:
+        nowrap;
+    overflow:
+        hidden;
+    text-overflow:
+        ellipsis;
 }
 .stat-label {
-    display: block;
-    font-size: 7px;
-    font-weight: 800;
-    letter-spacing: .55px;
+    display:
+        block;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        8px;
+    font-weight:
+        800;
+    line-height:
+        1;
+    letter-spacing:
+        .55px;
     color:
         rgba(255,255,255,.38);
 }
@@ -544,20 +855,30 @@ main {
 .message {
     padding:
         35px 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.7;
+    text-align:
+        center;
+    color:
+        var(--muted);
+    font-size:
+        13px;
+    line-height:
+        1.7;
 }
 /* =====================================================
    BOTTOM NAV
+   SCHEDULE UI
 ===================================================== */
 .bottom-nav {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 200;
+    position:
+        fixed;
+    left:
+        0;
+    right:
+        0;
+    bottom:
+        0;
+    z-index:
+        200;
     height:
         calc(
             76px +
@@ -566,300 +887,279 @@ main {
     padding:
         7px 5px
         env(safe-area-inset-bottom);
-    display: flex;
-    align-items: flex-start;
+    display:
+        flex;
+    align-items:
+        flex-start;
     justify-content:
         space-between;
     background:
-        rgba(5,16,34,0.97);
+        rgba(5,16,34,.97);
     backdrop-filter:
         blur(18px);
     -webkit-backdrop-filter:
         blur(18px);
     border-top:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 }
 .nav-item {
-    flex: 1;
-    min-width: 0;
-    height: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    text-decoration: none;
-    color: var(--muted);
-    border-radius: 13px;
+    flex:
+        1;
+    min-width:
+        0;
+    height:
+        60px;
+    display:
+        flex;
+    flex-direction:
+        column;
+    align-items:
+        center;
+    justify-content:
+        center;
+    gap:
+        5px;
+    text-decoration:
+        none;
+    color:
+        var(--muted);
+    border-radius:
+        13px;
+    transition:
+        color .15s ease,
+        background .15s ease,
+        transform .15s ease;
 }
 .nav-item:active {
     transform:
         scale(.94);
 }
 .nav-icon {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    width:
+        25px;
+    height:
+        25px;
+    display:
+        flex;
+    align-items:
+        center;
+    justify-content:
+        center;
+    font-size:
+        18px;
+    font-weight:
+        700;
+    line-height:
+        1;
 }
 .nav-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .45px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size:
+        10px;
+    font-weight:
+        700;
+    line-height:
+        1;
+    letter-spacing:
+        .45px;
     white-space:
         nowrap;
 }
 .nav-item.active {
-    color: var(--white);
+    color:
+        var(--white);
     background:
-        rgba(227,25,55,0.13);
+        rgba(227,25,55,.13);
 }
 .nav-item.active
 .nav-icon {
-    color: var(--red);
+    color:
+        var(--red);
 }
 /* =====================================================
    SMALL IPHONE
 ===================================================== */
 @media (max-width: 360px) {
     .player-page {
-        padding-left: 13px;
-        padding-right: 13px;
+        padding-left:
+            13px;
+        padding-right:
+            13px;
     }
     .player-number {
-        width: 48px;
-        font-size: 28px;
+        width:
+            48px;
+        font-size:
+            28px;
     }
     .player-bt {
-        width: 43px;
+        width:
+            43px;
     }
     .player-pos {
-        width: 34px;
+        width:
+            34px;
     }
     .player-name {
-        font-size: 14px;
+        font-size:
+            16px;
     }
     .stat-value {
-        font-size: 12px;
+        font-size:
+            15px;
     }
     .stat-label {
-        font-size: 6px;
+        font-size:
+            7px;
     }
- /* SCHEDULE UI FIX */
-
-.header {
-    height: 72px !important;
-    background: #e31937 !important;
-    box-shadow: 0 5px 20px rgba(0,0,0,.25) !important;
-    overflow: hidden !important;
 }
-
-main {
-    padding-top: 72px !important;
-}
-
-.player-title,
-.page-heading h1 {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        Arial,
-        sans-serif !important;
-    font-size: 31px !important;
-    font-weight: 800 !important;
-    line-height: .95 !important;
-    letter-spacing: -.5px !important;
-    color: #fff !important;
-}
-
-.bottom-nav {
-    height:
-        calc(76px + env(safe-area-inset-bottom))
-        !important;
-    padding:
-        7px 5px env(safe-area-inset-bottom)
-        !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: space-between !important;
-    background: rgba(5,16,34,.97) !important;
-    backdrop-filter: blur(18px) !important;
-    -webkit-backdrop-filter: blur(18px) !important;
-    border-top: 1px solid rgba(255,255,255,.08) !important;
-}
-
-.nav-item {
-    flex: 1 !important;
-    min-width: 0 !important;
-    max-width: 100px !important;
-    height: 60px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 5px !important;
-}
-
-.nav-icon {
-    width: 25px !important;
-    height: 25px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    line-height: 1 !important;
-}
-
-.nav-label {
-    font-family:
-        "Barlow Condensed",
-        sans-serif !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    line-height: 1 !important;
-    letter-spacing: .45px !important;
-}
-
-.nav-item.active {
-    color: #fff !important;
-    background: rgba(227,25,55,.13) !important;
-}
-
-.nav-item.active .nav-icon {
-    color: #e31937 !important;
-}}
 </style>
 </head>
 <body>
-<header class="header"></header>
+<!-- =====================================================
+     HEADER
+===================================================== -->
+<header class="header">
+    <div class="header-navy-shape"></div>
+    <div class="header-line-one"></div>
+    <div class="header-line-two"></div>
+    <div class="header-light"></div>
+</header>
+<!-- =====================================================
+     MAIN
+===================================================== -->
 <main>
 <section class="player-page">
-<h1 class="player-title">
-    Players
-</h1>
-<p class="player-subtitle">
-    PHILADELPHIA PHILLIES
-</p>
-<!-- =================================================
-     FILTER
-================================================== -->
-<div class="filter-area">
-    <div class="filter-block">
-        <div class="filter-caption">
-            POSITION
+    <h1 class="player-title">
+        Players
+    </h1>
+    <p class="player-subtitle">
+        PHILADELPHIA PHILLIES
+    </p>
+    <!-- =================================================
+         FILTER
+    ================================================== -->
+    <div class="filter-area">
+        <div class="filter-block">
+            <div class="filter-caption">
+                POSITION
+            </div>
+            <select
+                id="position-filter"
+                class="filter-select"
+            >
+                <option value="ALL">
+                    ALL POSITIONS
+                </option>
+                <option value="P">
+                    PITCHERS
+                </option>
+                <option value="C">
+                    CATCHERS
+                </option>
+                <option value="IF">
+                    INFIELDERS
+                </option>
+                <option value="OF">
+                    OUTFIELDERS
+                </option>
+                <option value="DH">
+                    DESIGNATED HITTERS
+                </option>
+            </select>
         </div>
-        <select
-            id="position-filter"
-            class="filter-select">
-            <option value="ALL">
-                ALL POSITIONS
-            </option>
-            <option value="P">
-                PITCHERS
-            </option>
-            <option value="C">
-                CATCHERS
-            </option>
-            <option value="IF">
-                INFIELDERS
-            </option>
-            <option value="OF">
-                OUTFIELDERS
-            </option>
-            <option value="DH">
-                DESIGNATED HITTERS
-            </option>
-        </select>
-    </div>
-    <div class="filter-block roster-filter-block">
-        <div class="filter-caption">
-            ROSTER
+        <div class="filter-block roster-filter-block">
+            <div class="filter-caption">
+                ROSTER
+            </div>
+            <select
+                id="roster-filter"
+                class="filter-select"
+            >
+                <option value="ALL">
+                    ACTIVE + 40-MAN + IL
+                </option>
+                <option value="26MAN">
+                    ACTIVE
+                </option>
+                <option value="IL">
+                    IL
+                </option>
+                <option value="40MAN">
+                    40-MAN
+                </option>
+            </select>
         </div>
-        <select
-            id="roster-filter"
-            class="filter-select">
-            <option value="ALL">
-                ACTIVE + 40-MAN + IL
-            </option>
-            <option value="26MAN">
-                ACTIVE
-            </option>
-            <option value="IL">
-                IL
-            </option>
-            <option value="40MAN">
-                40-MAN
-            </option>
-        </select>
     </div>
-</div>
-<div id="player-container">
-    <div class="message">
-        Loading players...
+    <div id="player-container">
+        <div class="message">
+            Loading players...
+        </div>
     </div>
-</div>
 </section>
 </main>
-<!-- =================================================
+<!-- =====================================================
      BOTTOM NAV
-================================================== -->
+===================================================== -->
 <nav class="bottom-nav">
-<a
-    href="schedule.html"
-    class="nav-item">
-    <div class="nav-icon">
-        ▣
-    </div>
-    <div class="nav-label">
-        SCHEDULE
-    </div>
-</a>
-<a
-    href="score.html"
-    class="nav-item">
-    <div class="nav-icon">
-        ●
-    </div>
-    <div class="nav-label">
-        SCORE
-    </div>
-</a>
-<a
-    href="index.html"
-    class="nav-item">
-    <div class="nav-icon">
-        ⌂
-    </div>
-    <div class="nav-label">
-        HOME
-    </div>
-</a>
-<a
-    href="player.html"
-    class="nav-item active">
-    <div class="nav-icon">
-        ♟
-    </div>
-    <div class="nav-label">
-        PLAYER
-    </div>
-</a>
-<a
-    href="stats.html"
-    class="nav-item">
-    <div class="nav-icon">
-        ▥
-    </div>
-    <div class="nav-label">
-        STATS
-    </div>
-</a>
+    <a
+        href="schedule.html"
+        class="nav-item"
+    >
+        <div class="nav-icon">
+            ▣
+        </div>
+        <div class="nav-label">
+            SCHEDULE
+        </div>
+    </a>
+    <a
+        href="score.html"
+        class="nav-item"
+    >
+        <div class="nav-icon">
+            ●
+        </div>
+        <div class="nav-label">
+            SCORE
+        </div>
+    </a>
+    <a
+        href="index.html"
+        class="nav-item"
+    >
+        <div class="nav-icon">
+            ⌂
+        </div>
+        <div class="nav-label">
+            HOME
+        </div>
+    </a>
+    <a
+        href="player.html"
+        class="nav-item active"
+    >
+        <div class="nav-icon">
+            ♟
+        </div>
+        <div class="nav-label">
+            PLAYER
+        </div>
+    </a>
+    <a
+        href="stats.html"
+        class="nav-item"
+    >
+        <div class="nav-icon">
+            ▥
+        </div>
+        <div class="nav-label">
+            STATS
+        </div>
+    </a>
 </nav>
 <script>
 /* =====================================================
@@ -1059,10 +1359,6 @@ function findPlayerStats(player) {
 }
 /* =====================================================
    BATTING STATS
-   1段目
-   G / H / HR / RBI
-   2段目
-   PA / AVG / OPS / BABIP
 ===================================================== */
 function createBattingStats(
     card,
@@ -1107,7 +1403,6 @@ function createBattingStats(
                 2026 SEASON
             </div>
         </div>
-        <!-- ROW 1 -->
         <div class="stat-grid">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1142,7 +1437,6 @@ function createBattingStats(
                 </span>
             </div>
         </div>
-        <!-- ROW 2 -->
         <div class="stat-grid second-row">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1192,15 +1486,6 @@ function createBattingStats(
 }
 /* =====================================================
    PITCHING STATS
-   1段目
-   G / W-L / IP / K
-   2段目
-   ERA / WHIP / K% / BB%
-   K%  = K / BF × 100
-   BB% = BB / BF × 100
-   ★ JSONに保存されたK%/BB%を
-     表示値として直接使用しない
-   ★ 必ずK・BB・BFから再計算
 ===================================================== */
 function createPitchingStats(
     card,
@@ -1208,9 +1493,6 @@ function createPitchingStats(
 ) {
     const pitching =
         stats.pitching || {};
-    /* =========================
-       BASIC
-    ========================== */
     const games =
         pitching.games ??
         pitching.G ??
@@ -1240,18 +1522,9 @@ function createPitchingStats(
         pitching.walks ??
         pitching.BB ??
         pitching.baseOnBalls;
-    /* =========================
-       BATTERS FACED
-       BFのみを使用
-       PAなどへの代替はしない
-    ========================== */
     const battersFaced =
         pitching.battersFaced ??
         pitching.BF;
-    /* =========================
-       K%
-       K / BF × 100
-    ========================== */
     let kPercent = null;
     const so =
         parseFloat(
@@ -1271,10 +1544,6 @@ function createPitchingStats(
                 so / bf
             ) * 100;
     }
-    /* =========================
-       BB%
-       BB / BF × 100
-    ========================== */
     let bbPercent = null;
     const bb =
         parseFloat(
@@ -1290,9 +1559,6 @@ function createPitchingStats(
                 bb / bf
             ) * 100;
     }
-    /* =========================
-       DISPLAY
-    ========================== */
     const kDisplay =
         kPercent !== null
             ? kPercent.toFixed(1) + "%"
@@ -1301,9 +1567,6 @@ function createPitchingStats(
         bbPercent !== null
             ? bbPercent.toFixed(1) + "%"
             : "—";
-    /* =========================
-       W-L
-    ========================== */
     let record = "—";
     if (
         wins !== null &&
@@ -1316,9 +1579,6 @@ function createPitchingStats(
             "-" +
             String(losses);
     }
-    /* =========================
-       CARD
-    ========================== */
     card.innerHTML = `
         <div class="stats-header">
             <div class="stats-title">
@@ -1328,7 +1588,6 @@ function createPitchingStats(
                 2026 SEASON
             </div>
         </div>
-        <!-- ROW 1 -->
         <div class="stat-grid">
             <div class="stat-box">
                 <span class="stat-value">
@@ -1367,7 +1626,6 @@ function createPitchingStats(
                 </span>
             </div>
         </div>
-        <!-- ROW 2 -->
         <div class="stat-grid second-row">
             <div class="stat-box">
                 <span class="stat-value">
