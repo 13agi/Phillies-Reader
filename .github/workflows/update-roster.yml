@@ -1,55 +1,29 @@
 name: Update Phillies Roster
-
 on:
-  # 3時間ごとに自動更新
+  # 3時間ごと
   schedule:
     - cron: "15 */3 * * *"
-
-  # GitHub Actionsから手動実行可能
+  # 手動実行も可能
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   update-roster:
-
     runs-on: ubuntu-latest
-
     steps:
-
-      # ==========================================
-      # GitHubリポジトリ取得
-      # ==========================================
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      # ==========================================
-      # Python
-      # ==========================================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-
-      # ==========================================
-      # requests
-      # ==========================================
-      - name: Install dependencies
+      - name: Install requests
         run: |
           python -m pip install --upgrade pip
           pip install requests
-
-      # ==========================================
-      # MLB APIからロスター取得
-      # ==========================================
       - name: Fetch Phillies roster
         run: |
           python scripts/fetch_roster.py
-
-      # ==========================================
-      # JSON変更確認
-      # ==========================================
       - name: Check changes
         id: changes
         run: |
@@ -58,30 +32,20 @@ jobs:
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
-
-      # ==========================================
-      # Git設定
-      # ==========================================
       - name: Configure Git
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      # ==========================================
-      # 保存
-      # ==========================================
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Commit roster update
         if: steps.changes.outputs.changed == 'true'
         run: |
           git add data/players.json
-          git commit -m "Update Phillies roster"
+          git commit \
+            -m "Update Phillies roster"
           git push
-
-      # ==========================================
-      # 変更なし
-      # ==========================================
       - name: No changes
         if: steps.changes.outputs.changed == 'false'
         run: |
-          echo "Roster information has not changed."
+          echo "No roster changes."
