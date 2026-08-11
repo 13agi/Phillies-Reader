@@ -8,21 +8,22 @@
 
 <style>
 
-/* =========================================================
-   BASE
-========================================================= */
-
 :root {
     --navy: #06172d;
-    --navy-deep: #041020;
+    --navy-deep: #031020;
 
     --red: #e31837;
-    --red-dark: #c20f2f;
+    --red-dark: #c20f30;
     --red-deep: #970a24;
 
     --white: #ffffff;
-    --gray: #708197;
+    --gray: #718298;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -30,23 +31,19 @@
     padding: 0;
 }
 
-html {
+html,
+body {
     width: 100%;
     min-height: 100%;
-    background: var(--navy);
+
+    background:
+        var(--navy);
 }
 
 body {
-    width: 100%;
     min-height: 100vh;
 
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(227,24,55,.045),
-            transparent 34%
-        ),
-        var(--navy);
+    padding-bottom: 78px;
 
     color: var(--white);
 
@@ -56,233 +53,207 @@ body {
         "Helvetica Neue",
         Arial,
         sans-serif;
-
-    padding-bottom: 78px;
 }
 
 
 /* =========================================================
    HEADER
-   文字・ロゴなし
 ========================================================= */
 
 .header {
 
     position: sticky;
+
     top: 0;
 
     z-index: 1000;
 
-    width: 100%;
-    height: 82px;
+    height: 84px;
 
     overflow: hidden;
 
     background:
         linear-gradient(
             135deg,
-            #8f0923 0%,
-            #c10f30 24%,
-            #e31837 50%,
-            #d31534 74%,
-            #a30b27 100%
+            #8d0822 0%,
+            #b90d2c 25%,
+            #e31837 52%,
+            #d41434 73%,
+            #a50b27 100%
         );
 
     box-shadow:
-        0 9px 30px rgba(0,0,0,.42);
+        0 9px 32px rgba(0,0,0,.42);
 }
 
 
-/* ---------------------------------------------------------
-   巨大な斜め面
---------------------------------------------------------- */
+/* =========================================================
+   FIELD SHAPE
+   野球場のダイヤモンドを抽象化
+========================================================= */
 
-.header-panel {
-
-    position: absolute;
-
-    width: 72%;
-    height: 190%;
-
-    left: -19%;
-    top: -43%;
-
-    transform:
-        skewX(-25deg);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.015),
-            rgba(255,255,255,.105),
-            rgba(255,255,255,.025)
-        );
-}
-
-
-/* ---------------------------------------------------------
-   深い赤の右面
---------------------------------------------------------- */
-
-.header-depth {
+.header-field {
 
     position: absolute;
 
-    width: 45%;
-    height: 180%;
-
-    right: -12%;
-    top: -37%;
-
-    transform:
-        skewX(-24deg);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(91,0,20,.02),
-            rgba(73,0,17,.22)
-        );
-}
-
-
-/* ---------------------------------------------------------
-   中央を横切る細い光
---------------------------------------------------------- */
-
-.header-glow {
-
-    position: absolute;
-
-    left: 15%;
-    right: 15%;
-
+    left: 50%;
     top: 50%;
 
+    width: 250px;
+    height: 250px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.01)
+        );
+
+    opacity: .8;
+}
+
+
+/* =========================================================
+   FIELD INNER
+========================================================= */
+
+.header-field::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 175px;
+    height: 175px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+}
+
+
+/* =========================================================
+   FIELD LINE
+========================================================= */
+
+.header-field::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: -30px;
+
+    width: 1px;
+    height: 310px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(255,255,255,.12),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   LEFT RED PANEL
+========================================================= */
+
+.header-left {
+
+    position: absolute;
+
+    left: -14%;
+    top: -60%;
+
+    width: 47%;
+    height: 220%;
+
+    transform:
+        skewX(-22deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(80,0,18,.12),
+            rgba(80,0,18,.025)
+        );
+}
+
+
+/* =========================================================
+   RIGHT RED PANEL
+========================================================= */
+
+.header-right {
+
+    position: absolute;
+
+    right: -13%;
+    top: -60%;
+
+    width: 47%;
+    height: 220%;
+
+    transform:
+        skewX(-22deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.01),
+            rgba(90,0,20,.20)
+        );
+}
+
+
+/* =========================================================
+   HIGHLIGHT
+========================================================= */
+
+.header-highlight {
+
+    position: absolute;
+
+    left: -10%;
+    top: 0;
+
+    width: 120%;
     height: 1px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.22),
+            rgba(255,255,255,.34),
             transparent
         );
-
-    opacity: .7;
 }
 
 
-/* ---------------------------------------------------------
-   左側の抽象ライン
---------------------------------------------------------- */
+/* =========================================================
+   BOTTOM EDGE
+========================================================= */
 
-.header-line-left {
-
-    position: absolute;
-
-    left: 18px;
-    bottom: 20px;
-
-    width: 58px;
-    height: 4px;
-
-    transform:
-        skewX(-28deg);
-
-    border-radius: 99px;
-
-    background:
-        rgba(255,255,255,.88);
-}
-
-
-.header-line-left::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 12px;
-    top: 8px;
-
-    width: 34px;
-    height: 2px;
-
-    border-radius: 99px;
-
-    background:
-        rgba(255,255,255,.35);
-}
-
-
-/* ---------------------------------------------------------
-   右側の抽象ライン
---------------------------------------------------------- */
-
-.header-line-right {
-
-    position: absolute;
-
-    right: 20px;
-    top: 20px;
-
-    width: 42px;
-    height: 3px;
-
-    transform:
-        skewX(-28deg);
-
-    border-radius: 99px;
-
-    background:
-        rgba(255,255,255,.42);
-}
-
-
-.header-line-right::after {
-
-    content: "";
-
-    position: absolute;
-
-    right: 9px;
-    top: 7px;
-
-    width: 24px;
-    height: 2px;
-
-    border-radius: 99px;
-
-    background:
-        rgba(255,255,255,.2);
-}
-
-
-/* ---------------------------------------------------------
-   上端
---------------------------------------------------------- */
-
-.header-top-edge {
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.35);
-}
-
-
-/* ---------------------------------------------------------
-   下端
---------------------------------------------------------- */
-
-.header-bottom-edge {
+.header-edge {
 
     position: absolute;
 
@@ -290,77 +261,61 @@ body {
     right: 0;
     bottom: 0;
 
-    height: 3px;
+    height: 4px;
 
     background:
         linear-gradient(
             90deg,
-            var(--navy-deep),
-            rgba(255,255,255,.45) 50%,
-            var(--navy-deep)
+            var(--navy-deep) 0%,
+            rgba(255,255,255,.28) 50%,
+            var(--navy-deep) 100%
         );
-
-    opacity: .85;
-}
-
-
-/* ---------------------------------------------------------
-   ヘッダー中央の小さなアクセント
-   ロゴではなく抽象的な形
---------------------------------------------------------- */
-
-.header-center {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 30px;
-    height: 30px;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg);
-
-    border:
-        1px solid rgba(255,255,255,.24);
-
-    background:
-        rgba(255,255,255,.018);
-}
-
-
-.header-center::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 12px;
-    height: 12px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border:
-        1px solid rgba(255,255,255,.34);
 }
 
 
 /* =========================================================
-   HOME
-   現在は空
+   SMALL BASE ACCENT
+========================================================= */
+
+.header-base {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 9px;
+
+    width: 24px;
+    height: 20px;
+
+    transform:
+        translateX(-50%);
+
+    border:
+        1px solid rgba(255,255,255,.22);
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            100% 62%,
+            50% 100%,
+            0 62%
+        );
+
+    opacity: .75;
+}
+
+
+/* =========================================================
+   EMPTY HOME
 ========================================================= */
 
 main {
 
     width: 100%;
+
     min-height:
-        calc(100vh - 160px);
+        calc(100vh - 162px);
 }
 
 
@@ -397,6 +352,7 @@ main {
 .bottom-inner {
 
     width: 100%;
+
     max-width: 760px;
 
     height: 100%;
@@ -409,10 +365,6 @@ main {
         repeat(5, 1fr);
 }
 
-
-/* =========================================================
-   NAV ITEM
-========================================================= */
 
 .nav-item {
 
@@ -434,17 +386,9 @@ main {
 
     font-weight: 800;
 
-    letter-spacing:
-        .65px;
-
-    -webkit-tap-highlight-color:
-        transparent;
+    letter-spacing: .65px;
 }
 
-
-/* =========================================================
-   ICON
-========================================================= */
 
 .nav-icon {
 
@@ -457,17 +401,13 @@ main {
     justify-content: center;
 
     border-radius: 10px;
-
-    transition:
-        background .15s ease,
-        color .15s ease;
 }
 
 
 .nav-icon svg {
 
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
 
     fill: none;
 
@@ -504,25 +444,13 @@ main {
 
 
 /* =========================================================
-   HOME
-   五角形 + 180度回転
-========================================================= */
-
-.nav-item.home .nav-icon {
-
-    transform:
-        rotate(180deg);
-}
-
-
-/* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 380px) {
 
     .header {
-        height: 76px;
+        height: 78px;
     }
 
     .nav-item {
@@ -535,8 +463,8 @@ main {
     }
 
     .nav-icon svg {
-        width: 18px;
-        height: 18px;
+        width: 19px;
+        height: 19px;
     }
 }
 
@@ -553,21 +481,17 @@ main {
 
 <header class="header">
 
-    <div class="header-panel"></div>
+    <div class="header-field"></div>
 
-    <div class="header-depth"></div>
+    <div class="header-left"></div>
 
-    <div class="header-glow"></div>
+    <div class="header-right"></div>
 
-    <div class="header-line-left"></div>
+    <div class="header-highlight"></div>
 
-    <div class="header-line-right"></div>
+    <div class="header-base"></div>
 
-    <div class="header-center"></div>
-
-    <div class="header-top-edge"></div>
-
-    <div class="header-bottom-edge"></div>
+    <div class="header-edge"></div>
 
 </header>
 
@@ -708,11 +632,11 @@ main {
 
 
 
-        <!-- HOME -->
+        <!-- HOME / HOME BASE -->
 
         <a
             href="index.html"
-            class="nav-item active home"
+            class="nav-item active"
         >
 
             <div class="nav-icon">
@@ -722,15 +646,15 @@ main {
                     aria-hidden="true"
                 >
 
-                    <!-- 五角形 -->
+                    <!-- 野球のホームベース -->
 
                     <path
                         d="
-                            M12 3
-                            L20.5 9.2
-                            L17.25 19.2
-                            H6.75
-                            L3.5 9.2
+                            M4 4
+                            H20
+                            V13
+                            L12 21
+                            L4 13
                             Z
                         "
                     />
