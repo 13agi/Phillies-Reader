@@ -1,0 +1,4488 @@
+{
+  "team": {
+    "id": 143,
+    "name": "Philadelphia Phillies",
+    "abbreviation": "PHI"
+  },
+  "season": 2026,
+  "updatedAt": "2026-08-11T10:43:08.769823+00:00",
+  "counts": {
+    "players": 263,
+    "active": 26,
+    "il": 0,
+    "fortyMan": 237
+  },
+  "players": [
+    {
+      "id": 605400,
+      "name": "Aaron Nola",
+      "firstName": "Aaron",
+      "lastName": "Nola",
+      "jerseyNumber": "27",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 660604,
+      "name": "Alan Rangel",
+      "firstName": "Alan",
+      "lastName": "Rangel",
+      "jerseyNumber": "57",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 664761,
+      "name": "Alec Bohm",
+      "firstName": "Alec",
+      "lastName": "Bohm",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "3B",
+        "name": "Third Base"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 691725,
+      "name": "Andrew Painter",
+      "firstName": "Andrew",
+      "lastName": "Painter",
+      "jerseyNumber": "24",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 669016,
+      "name": "Brandon Marsh",
+      "firstName": "Brandon",
+      "lastName": "Marsh",
+      "jerseyNumber": "16",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 548384,
+      "name": "Brooks Raley",
+      "firstName": "Brooks",
+      "lastName": "Raley",
+      "jerseyNumber": "30",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 650559,
+      "name": "Bryan De La Cruz",
+      "firstName": "Bryan",
+      "lastName": "De La Cruz",
+      "jerseyNumber": "41",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 547180,
+      "name": "Bryce Harper",
+      "firstName": "Bryce",
+      "lastName": "Harper",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "1B",
+        "name": "First Base"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 681082,
+      "name": "Bryson Stott",
+      "firstName": "Bryson",
+      "lastName": "Stott",
+      "jerseyNumber": "5",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 663767,
+      "name": "Chase Shugart",
+      "firstName": "Chase",
+      "lastName": "Shugart",
+      "jerseyNumber": "55",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 650911,
+      "name": "Cristopher Sánchez",
+      "firstName": "Cristopher",
+      "lastName": "Sánchez",
+      "jerseyNumber": "61",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 656537,
+      "name": "Derek Hill",
+      "firstName": "Derek",
+      "lastName": "Hill",
+      "jerseyNumber": "49",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 624641,
+      "name": "Edmundo Sosa",
+      "firstName": "Edmundo",
+      "lastName": "Sosa",
+      "jerseyNumber": "33",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 596117,
+      "name": "Garrett Stubbs",
+      "firstName": "Garrett",
+      "lastName": "Stubbs",
+      "jerseyNumber": "21",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 592663,
+      "name": "J.T. Realmuto",
+      "firstName": "Jacob",
+      "lastName": "Realmuto",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 666200,
+      "name": "Jesús Luzardo",
+      "firstName": "Jesús",
+      "lastName": "Luzardo",
+      "jerseyNumber": "44",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 661395,
+      "name": "Jhoan Duran",
+      "firstName": "Jhoan",
+      "lastName": "Duran",
+      "jerseyNumber": "59",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 680742,
+      "name": "Jonathan Bowlan",
+      "firstName": "Jonathan",
+      "lastName": "Bowlan",
+      "jerseyNumber": "52",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 621237,
+      "name": "José Alvarado",
+      "firstName": "José",
+      "lastName": "Alvarado",
+      "jerseyNumber": "46",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 702222,
+      "name": "Justin Crawford",
+      "firstName": "Justin",
+      "lastName": "Crawford",
+      "jerseyNumber": "2",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 656941,
+      "name": "Kyle Schwarber",
+      "firstName": "Kyle",
+      "lastName": "Schwarber",
+      "jerseyNumber": "12",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "DH",
+        "name": "Designated Hitter"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 650333,
+      "name": "Luis Arraez",
+      "firstName": "Luis",
+      "lastName": "Arraez",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 689147,
+      "name": "Orion Kerkering",
+      "firstName": "Richard",
+      "lastName": "Kerkering",
+      "jerseyNumber": "50",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 641835,
+      "name": "Tim Mayza",
+      "firstName": "Timothy",
+      "lastName": "Mayza",
+      "jerseyNumber": "37",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 607208,
+      "name": "Trea Turner",
+      "firstName": "Trea",
+      "lastName": "Turner",
+      "jerseyNumber": "7",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 554430,
+      "name": "Zack Wheeler",
+      "firstName": "Zachary",
+      "lastName": "Wheeler",
+      "jerseyNumber": "45",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "ACTIVE"
+    },
+    {
+      "id": 694551,
+      "name": "Aaron Combs",
+      "firstName": "Aaron",
+      "lastName": "Combs",
+      "jerseyNumber": "27",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694372,
+      "name": "Adam Seminaris",
+      "firstName": "Adam",
+      "lastName": "Seminaris",
+      "jerseyNumber": "25",
+      "bt": {
+        "bat": "R",
+        "throw": "L",
+        "display": "R/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 824687,
+      "name": "Adam Troy",
+      "firstName": "Adam",
+      "lastName": "Troy",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800012,
+      "name": "Adilson Peralta",
+      "firstName": "Adilson",
+      "lastName": "Peralta",
+      "jerseyNumber": "20",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 666969,
+      "name": "Adolis García",
+      "firstName": "Jose",
+      "lastName": "García",
+      "jerseyNumber": "53",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805795,
+      "name": "Aidan Miller",
+      "firstName": "Aidan",
+      "lastName": "Miller",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 830484,
+      "name": "Albertt Medina",
+      "firstName": "Albertt",
+      "lastName": "Medina",
+      "jerseyNumber": "67",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 681323,
+      "name": "Alex Binelas",
+      "firstName": "Alexander",
+      "lastName": "Binelas",
+      "jerseyNumber": "18",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "1B",
+        "name": "First Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 686934,
+      "name": "Alex McFarlane",
+      "firstName": "Alexander",
+      "lastName": "McFarlane",
+      "jerseyNumber": "71",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808167,
+      "name": "Alexander De Los Santos",
+      "firstName": "Alexander",
+      "lastName": "De Los Santos",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837705,
+      "name": "Alexandre Moreti",
+      "firstName": "Alexandre",
+      "lastName": "Moreti",
+      "jerseyNumber": "57",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808232,
+      "name": "Alirio Ferrebus",
+      "firstName": "Alirio",
+      "lastName": "Ferrebus",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827410,
+      "name": "Anderson Araujo",
+      "firstName": "Anderson",
+      "lastName": "Araujo",
+      "jerseyNumber": "70",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815014,
+      "name": "Anderson Navas",
+      "firstName": "Anderson",
+      "lastName": "Navas",
+      "jerseyNumber": "96",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 657510,
+      "name": "Andrew Bechtold",
+      "firstName": "Andrew",
+      "lastName": "Bechtold",
+      "jerseyNumber": "54",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 681003,
+      "name": "Andrew Walling",
+      "firstName": "Andrew",
+      "lastName": "Walling",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 831570,
+      "name": "Aneury Montilla",
+      "firstName": "Aneury",
+      "lastName": "Montilla",
+      "jerseyNumber": "82",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808158,
+      "name": "Angel Liranzo",
+      "firstName": "Angel",
+      "lastName": "Liranzo",
+      "jerseyNumber": "38",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800171,
+      "name": "Angel Mata",
+      "firstName": "Angel",
+      "lastName": "Mata",
+      "jerseyNumber": "9",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800169,
+      "name": "Aroon Escobar",
+      "firstName": "Agnnel",
+      "lastName": "Escobar",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 689456,
+      "name": "Austin Murr",
+      "firstName": "Austin",
+      "lastName": "Murr",
+      "jerseyNumber": "0",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806205,
+      "name": "Bo Rhudy",
+      "firstName": "Bo",
+      "lastName": "Rhudy",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 641745,
+      "name": "Brad Keller",
+      "firstName": "Brad",
+      "lastName": "Keller",
+      "jerseyNumber": "40",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 814372,
+      "name": "Brad Pacheco",
+      "firstName": "Brad",
+      "lastName": "Pacheco",
+      "jerseyNumber": "51",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800953,
+      "name": "Brady Day",
+      "firstName": "Brady",
+      "lastName": "Day",
+      "jerseyNumber": "5",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805634,
+      "name": "Braeden Fausnaught",
+      "firstName": "Braeden",
+      "lastName": "Fausnaught",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 699552,
+      "name": "Brandon Beckel",
+      "firstName": "Brandon",
+      "lastName": "Beckel",
+      "jerseyNumber": "50",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806025,
+      "name": "Brayden Bakes",
+      "firstName": "Brayden",
+      "lastName": "Bakes",
+      "jerseyNumber": "31",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 685319,
+      "name": "Braydon Tucker",
+      "firstName": "Braydon",
+      "lastName": "Tucker",
+      "jerseyNumber": "38",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 821310,
+      "name": "Brendan Sweeney",
+      "firstName": "Brendan",
+      "lastName": "Sweeney",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 662144,
+      "name": "Brian Keller",
+      "firstName": "Brian",
+      "lastName": "Keller",
+      "jerseyNumber": "48",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805758,
+      "name": "Brian Walters",
+      "firstName": "Brian",
+      "lastName": "Walters",
+      "jerseyNumber": "27",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 804858,
+      "name": "Bryan Rincon",
+      "firstName": "Bryan",
+      "lastName": "Rincon",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694310,
+      "name": "Bryson Ware",
+      "firstName": "Bryson",
+      "lastName": "Ware",
+      "jerseyNumber": "16",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 702691,
+      "name": "Cade Climie",
+      "firstName": "Cade",
+      "lastName": "Climie",
+      "jerseyNumber": "16",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "3B",
+        "name": "Third Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805261,
+      "name": "Cade Obermueller",
+      "firstName": "Cade",
+      "lastName": "Obermueller",
+      "jerseyNumber": "40",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806470,
+      "name": "Caden Bogenpohl",
+      "firstName": "Caden",
+      "lastName": "Bogenpohl",
+      "jerseyNumber": "24",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834984,
+      "name": "Cal Higgins",
+      "firstName": "Cal",
+      "lastName": "Higgins",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 668873,
+      "name": "Caleb Kilian",
+      "firstName": "Caleb",
+      "lastName": "Kilian",
+      "jerseyNumber": "56",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 681080,
+      "name": "Caleb Ricketts",
+      "firstName": "Caleb",
+      "lastName": "Ricketts",
+      "jerseyNumber": "48",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 701320,
+      "name": "Camron Hill",
+      "firstName": "Camron",
+      "lastName": "Hill",
+      "jerseyNumber": "20",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827423,
+      "name": "Carlos Severino",
+      "firstName": "Carlos",
+      "lastName": "Severino",
+      "jerseyNumber": "64",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 701831,
+      "name": "Carson DeMartini",
+      "firstName": "Carson",
+      "lastName": "DeMartini",
+      "jerseyNumber": "5",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 666198,
+      "name": "Carter Kieboom",
+      "firstName": "Carter",
+      "lastName": "Kieboom",
+      "jerseyNumber": "29",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "3B",
+        "name": "Third Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 701296,
+      "name": "Carter Mathison",
+      "firstName": "Carter",
+      "lastName": "Mathison",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 804523,
+      "name": "Casey Steward",
+      "firstName": "Casey",
+      "lastName": "Steward",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815009,
+      "name": "Cesar Mujica",
+      "firstName": "Cesar",
+      "lastName": "Mujica",
+      "jerseyNumber": "5",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 842353,
+      "name": "Chan-Min Park",
+      "firstName": "Chan-Min",
+      "lastName": "Park",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 686551,
+      "name": "Christian Cairo",
+      "firstName": "Christian",
+      "lastName": "Cairo",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805563,
+      "name": "Christian Coppola",
+      "firstName": "Christian",
+      "lastName": "Coppola",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694909,
+      "name": "Christian McGowan",
+      "firstName": "Christian",
+      "lastName": "McGowan",
+      "jerseyNumber": "12",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 666155,
+      "name": "Chuck King",
+      "firstName": "Charles",
+      "lastName": "King",
+      "jerseyNumber": "25",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805790,
+      "name": "Cody Bowker",
+      "firstName": "Cody",
+      "lastName": "Bowker",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 687515,
+      "name": "Colby Thomas",
+      "firstName": "Colby",
+      "lastName": "Thomas",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 809126,
+      "name": "Cole Gilley",
+      "firstName": "Stephen",
+      "lastName": "Gilley",
+      "jerseyNumber": "54",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 687362,
+      "name": "Connor Gillispie",
+      "firstName": "Connor",
+      "lastName": "Gillispie",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 807307,
+      "name": "Cooper Consiglio",
+      "firstName": "Cooper",
+      "lastName": "Consiglio",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832328,
+      "name": "Cristian Rego",
+      "firstName": "Cristian",
+      "lastName": "Rego",
+      "jerseyNumber": "83",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 838516,
+      "name": "D'wichi Ramirez",
+      "firstName": "D'wichi",
+      "lastName": "Ramirez",
+      "jerseyNumber": "27",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 679702,
+      "name": "Daniel Harper",
+      "firstName": "Daniel",
+      "lastName": "Harper",
+      "jerseyNumber": "58",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 642016,
+      "name": "Daniel Robert",
+      "firstName": "Daniel",
+      "lastName": "Robert",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 807276,
+      "name": "Dante Nori",
+      "firstName": "Dante",
+      "lastName": "Nori",
+      "jerseyNumber": "16",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 699707,
+      "name": "Danyony Pulido",
+      "firstName": "Danyony",
+      "lastName": "Pulido",
+      "jerseyNumber": "18",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 690715,
+      "name": "Daunte Stuart",
+      "firstName": "Daunte",
+      "lastName": "Stuart",
+      "jerseyNumber": "7",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829967,
+      "name": "David Hernandez",
+      "firstName": "David",
+      "lastName": "Hernandez",
+      "jerseyNumber": "75",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 836433,
+      "name": "David Victorino",
+      "firstName": "David",
+      "lastName": "Victorino",
+      "jerseyNumber": "68",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827426,
+      "name": "Dayber Cruceta",
+      "firstName": "Dayber",
+      "lastName": "Cruceta",
+      "jerseyNumber": "17",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806754,
+      "name": "Declan Speirs",
+      "firstName": "Declan",
+      "lastName": "Speirs",
+      "jerseyNumber": "12",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829083,
+      "name": "Deiry Gonzalez",
+      "firstName": "Deiry",
+      "lastName": "Gonzalez",
+      "jerseyNumber": "46",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827414,
+      "name": "Deivis Velasquez",
+      "firstName": "Deivis",
+      "lastName": "Velasquez",
+      "jerseyNumber": "13",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 828822,
+      "name": "Deven Sheerin",
+      "firstName": "Deven",
+      "lastName": "Sheerin",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 813880,
+      "name": "Devin Saltiban",
+      "firstName": "Devin",
+      "lastName": "Saltiban",
+      "jerseyNumber": "1",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 666148,
+      "name": "Drake Fellows",
+      "firstName": "Drake",
+      "lastName": "Fellows",
+      "jerseyNumber": "45",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815037,
+      "name": "Drew Titsworth",
+      "firstName": "Drew",
+      "lastName": "Titsworth",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 664238,
+      "name": "Dylan Moore",
+      "firstName": "Dylan",
+      "lastName": "Moore",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 836434,
+      "name": "Edwin Ramirez",
+      "firstName": "Edwin",
+      "lastName": "Ramirez",
+      "jerseyNumber": "70",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827424,
+      "name": "Elian Adames",
+      "firstName": "Elian",
+      "lastName": "Adames",
+      "jerseyNumber": "43",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815149,
+      "name": "Elias Holbert",
+      "firstName": "Elias",
+      "lastName": "Holbert",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 820857,
+      "name": "Eligio Arias",
+      "firstName": "Eligio",
+      "lastName": "Arias",
+      "jerseyNumber": "65",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 844158,
+      "name": "Enmanuel Leon",
+      "firstName": "Enmanuel",
+      "lastName": "Leon",
+      "jerseyNumber": "49",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 684081,
+      "name": "Erick Brito",
+      "firstName": "Erick",
+      "lastName": "Brito",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808079,
+      "name": "Esterling Rodriguez",
+      "firstName": "Esterling",
+      "lastName": "Rodriguez",
+      "jerseyNumber": "49",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 693732,
+      "name": "Estibenzon Jimenez",
+      "firstName": "Estibenzon",
+      "lastName": "Jimenez",
+      "jerseyNumber": "29",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694839,
+      "name": "Ethan Chenault",
+      "firstName": "Ethan",
+      "lastName": "Chenault",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 828408,
+      "name": "Evan Bouldin",
+      "firstName": "Evan",
+      "lastName": "Bouldin",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "3B",
+        "name": "Third Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 688753,
+      "name": "Evan Gates",
+      "firstName": "Evan",
+      "lastName": "Gates",
+      "jerseyNumber": "30",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694025,
+      "name": "Felix Reyes",
+      "firstName": "Felix",
+      "lastName": "Reyes",
+      "jerseyNumber": "29",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829364,
+      "name": "Filippo Sabatini",
+      "firstName": "Filippo",
+      "lastName": "Sabatini",
+      "jerseyNumber": "51",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 838747,
+      "name": "Francisco Mercedes",
+      "firstName": "Francisco",
+      "lastName": "Mercedes",
+      "jerseyNumber": "62",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 836353,
+      "name": "Francisco Renteria",
+      "firstName": "Francisco",
+      "lastName": "Renteria",
+      "jerseyNumber": "50",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 700582,
+      "name": "Gabe Craig",
+      "firstName": "Gabriel",
+      "lastName": "Craig",
+      "jerseyNumber": "43",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 682858,
+      "name": "Gabriel Barbosa",
+      "firstName": "Gabriel",
+      "lastName": "Barbosa",
+      "jerseyNumber": "31",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827412,
+      "name": "Gabriel Flores",
+      "firstName": "Gabriel",
+      "lastName": "Flores",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 687282,
+      "name": "Gabriel Rincones Jr.",
+      "firstName": "Gabriel",
+      "lastName": "Rincones",
+      "jerseyNumber": "17",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805906,
+      "name": "Gage Wood",
+      "firstName": "Austin",
+      "lastName": "Wood",
+      "jerseyNumber": "15",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 825751,
+      "name": "Gerardo Lopez",
+      "firstName": "Gerardo",
+      "lastName": "Lopez",
+      "jerseyNumber": "87",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 691908,
+      "name": "Giussepe Velasquez",
+      "firstName": "Giussepe",
+      "lastName": "Velasquez",
+      "jerseyNumber": "24",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 680880,
+      "name": "Grant Holman",
+      "firstName": "Grant",
+      "lastName": "Holman",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 816120,
+      "name": "Griffin Burkholder",
+      "firstName": "Griffin",
+      "lastName": "Burkholder",
+      "jerseyNumber": "17",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806518,
+      "name": "Guillermo Rosario",
+      "firstName": "Guillermo",
+      "lastName": "Rosario",
+      "jerseyNumber": "53",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 843974,
+      "name": "Hua Ho",
+      "firstName": "Hua",
+      "lastName": "Ho",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 835716,
+      "name": "Jack Barker",
+      "firstName": "Jack",
+      "lastName": "Barker",
+      "jerseyNumber": "31",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806585,
+      "name": "Jack Dallas",
+      "firstName": "Jackson",
+      "lastName": "Dallas",
+      "jerseyNumber": "57",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 844295,
+      "name": "Jack Hopko",
+      "firstName": "Jack",
+      "lastName": "Hopko",
+      "jerseyNumber": "43",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 809131,
+      "name": "Jacob Pruitt",
+      "firstName": "Peter",
+      "lastName": "Pruitt",
+      "jerseyNumber": "35",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808496,
+      "name": "Jaeden Calderon",
+      "firstName": "Jaeden",
+      "lastName": "Calderon",
+      "jerseyNumber": "19",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 690974,
+      "name": "Jake Eddington",
+      "firstName": "Jacob",
+      "lastName": "Eddington",
+      "jerseyNumber": "35",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815003,
+      "name": "Jalvin Arias",
+      "firstName": "Jalvin",
+      "lastName": "Arias",
+      "jerseyNumber": "44",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 810890,
+      "name": "James Tallon",
+      "firstName": "James",
+      "lastName": "Tallon",
+      "jerseyNumber": "26",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829367,
+      "name": "Javen Maduro",
+      "firstName": "Javen",
+      "lastName": "Maduro",
+      "jerseyNumber": "23",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 801210,
+      "name": "Jaxon Jelkin",
+      "firstName": "Jaxon",
+      "lastName": "Jelkin",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 691893,
+      "name": "Jean Cabrera",
+      "firstName": "Jean",
+      "lastName": "Cabrera",
+      "jerseyNumber": "31",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 828435,
+      "name": "Jesus Montiel",
+      "firstName": "Jesus",
+      "lastName": "Montiel",
+      "jerseyNumber": "54",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837672,
+      "name": "Jhoener Tovar",
+      "firstName": "Jhoener",
+      "lastName": "Tovar",
+      "jerseyNumber": "60",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 811780,
+      "name": "Joel Dragoo",
+      "firstName": "Joel",
+      "lastName": "Dragoo",
+      "jerseyNumber": "27",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 679032,
+      "name": "Johan Rojas",
+      "firstName": "Johan",
+      "lastName": "Rojas",
+      "jerseyNumber": "23",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834886,
+      "name": "Jonathan Alcantara",
+      "firstName": "Jonathan",
+      "lastName": "Alcantara",
+      "jerseyNumber": "62",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 822499,
+      "name": "Jonathan Gonzalez",
+      "firstName": "Jonathan",
+      "lastName": "Gonzalez",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 814781,
+      "name": "Jonathan Hogart",
+      "firstName": "Jonathan",
+      "lastName": "Hogart",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805301,
+      "name": "Jordan Dissin",
+      "firstName": "Jordan",
+      "lastName": "Dissin",
+      "jerseyNumber": "38",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832062,
+      "name": "Jorge Miranda",
+      "firstName": "Jorge",
+      "lastName": "Miranda",
+      "jerseyNumber": "58",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829087,
+      "name": "Jorge Mitre",
+      "firstName": "Jorge",
+      "lastName": "Mitre",
+      "jerseyNumber": "54",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 822246,
+      "name": "Jose Briceno",
+      "firstName": "Jose",
+      "lastName": "Briceno",
+      "jerseyNumber": "61",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 683569,
+      "name": "Jose Colmenares",
+      "firstName": "Jose",
+      "lastName": "Colmenares",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 700247,
+      "name": "Jose Pena Jr.",
+      "firstName": "Jose",
+      "lastName": "Pena",
+      "jerseyNumber": "6",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837932,
+      "name": "Jose Romero",
+      "firstName": "Jose",
+      "lastName": "Romero",
+      "jerseyNumber": "92",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832154,
+      "name": "Jose Tovar",
+      "firstName": "Jose",
+      "lastName": "Tovar",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 702431,
+      "name": "Juan Amarante",
+      "firstName": "Juan",
+      "lastName": "Amarante",
+      "jerseyNumber": "14",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832324,
+      "name": "Juan Parra",
+      "firstName": "Juan",
+      "lastName": "Parra",
+      "jerseyNumber": "16",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800276,
+      "name": "Juan Villavicencio",
+      "firstName": "Juan",
+      "lastName": "Villavicencio",
+      "jerseyNumber": "13",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832060,
+      "name": "Justin Burgos",
+      "firstName": "Justin",
+      "lastName": "Burgos",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806139,
+      "name": "Justin Lee",
+      "firstName": "Justin",
+      "lastName": "Lee",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 670224,
+      "name": "Kameron Misner",
+      "firstName": "Kameron",
+      "lastName": "Misner",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "CF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805704,
+      "name": "Keaton Anthony",
+      "firstName": "Keaton",
+      "lastName": "Anthony",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "1B",
+        "name": "First Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 700176,
+      "name": "Keegan Batka",
+      "firstName": "Keegan",
+      "lastName": "Batka",
+      "jerseyNumber": "38",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800607,
+      "name": "Kehden Hettiger",
+      "firstName": "Kehden",
+      "lastName": "Hettiger",
+      "jerseyNumber": "7",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 825100,
+      "name": "Kevin Warunek",
+      "firstName": "Kevin",
+      "lastName": "Warunek",
+      "jerseyNumber": "48",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 669912,
+      "name": "Kirby Snead",
+      "firstName": "Kirby",
+      "lastName": "Snead",
+      "jerseyNumber": "37",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808762,
+      "name": "Kobe Minchey",
+      "firstName": "Kobe",
+      "lastName": "Minchey",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 809975,
+      "name": "Kodey Shojinaga",
+      "firstName": "Kodey",
+      "lastName": "Shojinaga",
+      "jerseyNumber": "18",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 663465,
+      "name": "Kolby Allard",
+      "firstName": "Kolby",
+      "lastName": "Allard",
+      "jerseyNumber": "56",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 679775,
+      "name": "Kyle Backhus",
+      "firstName": "Kyle",
+      "lastName": "Backhus",
+      "jerseyNumber": "19",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 820837,
+      "name": "Kyler Carmack",
+      "firstName": "Kyler",
+      "lastName": "Carmack",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 825130,
+      "name": "Lane Haworth",
+      "firstName": "Lane",
+      "lastName": "Haworth",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837711,
+      "name": "Leonardo Larez",
+      "firstName": "Leonardo",
+      "lastName": "Larez",
+      "jerseyNumber": "22",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 686651,
+      "name": "Levi Stoudt",
+      "firstName": "Levi",
+      "lastName": "Stoudt",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 814973,
+      "name": "Logan Dawson",
+      "firstName": "Logan",
+      "lastName": "Dawson",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 642152,
+      "name": "Lou Trivino III",
+      "firstName": "Lou",
+      "lastName": "Trivino III",
+      "jerseyNumber": "57",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 809701,
+      "name": "Luis Avila",
+      "firstName": "Luis",
+      "lastName": "Avila",
+      "jerseyNumber": "39",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 691276,
+      "name": "Luis Caicuto",
+      "firstName": "Luis",
+      "lastName": "Caicuto",
+      "jerseyNumber": "36",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837940,
+      "name": "Luis Mirabal",
+      "firstName": "Luis",
+      "lastName": "Mirabal",
+      "jerseyNumber": "21",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 701592,
+      "name": "Luke Davis",
+      "firstName": "Luke",
+      "lastName": "Davis",
+      "jerseyNumber": "32",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 682239,
+      "name": "Luke Ritter",
+      "firstName": "Lucas",
+      "lastName": "Ritter",
+      "jerseyNumber": "8",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 689726,
+      "name": "Luke Russo",
+      "firstName": "Luke",
+      "lastName": "Russo",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 700429,
+      "name": "MT Morrissey",
+      "firstName": "Michael Thomas",
+      "lastName": "Morrissey",
+      "jerseyNumber": "47",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806264,
+      "name": "Macon Winslow",
+      "firstName": "Macon",
+      "lastName": "Winslow",
+      "jerseyNumber": "23",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800272,
+      "name": "Manolfi Jimenez",
+      "firstName": "Manolfi",
+      "lastName": "Jimenez",
+      "jerseyNumber": "17",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823841,
+      "name": "Manuel Colon",
+      "firstName": "Manuel",
+      "lastName": "Colon",
+      "jerseyNumber": "19",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 656627,
+      "name": "Mark Kolozsvary",
+      "firstName": "Mark",
+      "lastName": "Kolozsvary",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 825578,
+      "name": "Matt Quintanar",
+      "firstName": "Matthew",
+      "lastName": "Quintanar",
+      "jerseyNumber": "11",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 814955,
+      "name": "Matthew Ferrara",
+      "firstName": "Matthew",
+      "lastName": "Ferrara",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832455,
+      "name": "Matthew Fisher",
+      "firstName": "Matthew",
+      "lastName": "Fisher",
+      "jerseyNumber": "21",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 826936,
+      "name": "Matthew Potok",
+      "firstName": "Matthew",
+      "lastName": "Potok",
+      "jerseyNumber": "77",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 703496,
+      "name": "Mavis Graves",
+      "firstName": "William",
+      "lastName": "Graves",
+      "jerseyNumber": "19",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 676661,
+      "name": "Max Lazar",
+      "firstName": "Max",
+      "lastName": "Lazar",
+      "jerseyNumber": "60",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815004,
+      "name": "Maylerson Casanova",
+      "firstName": "Maylerson",
+      "lastName": "Casanova",
+      "jerseyNumber": "97",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 695648,
+      "name": "Micah Ottenbreit",
+      "firstName": "Micah",
+      "lastName": "Ottenbreit",
+      "jerseyNumber": "41",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 675650,
+      "name": "Michael Mercado",
+      "firstName": "David",
+      "lastName": "Mercado",
+      "jerseyNumber": "43",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 666748,
+      "name": "Mitch Neunborn",
+      "firstName": "Mitchell",
+      "lastName": "Neunborn",
+      "jerseyNumber": "22",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 691330,
+      "name": "Moisés Chace",
+      "firstName": "Moises",
+      "lastName": "Chace",
+      "jerseyNumber": "75",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827642,
+      "name": "Naiker Velazquez",
+      "firstName": "Naiker",
+      "lastName": "Velazquez",
+      "jerseyNumber": "73",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 811638,
+      "name": "Naoel Mejia",
+      "firstName": "Naoel",
+      "lastName": "Mejia",
+      "jerseyNumber": "43",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 801537,
+      "name": "Nathan Humphreys",
+      "firstName": "Nathan",
+      "lastName": "Humphreys",
+      "jerseyNumber": "23",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 815005,
+      "name": "Nathanael Cijntje",
+      "firstName": "Nathanael",
+      "lastName": "Cijntje",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827413,
+      "name": "Nelson Prieto",
+      "firstName": "Nelson",
+      "lastName": "Prieto",
+      "jerseyNumber": "52",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 680994,
+      "name": "Nick Biddison",
+      "firstName": "Nick",
+      "lastName": "Biddison",
+      "jerseyNumber": "39",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 827417,
+      "name": "Nieves Izaguirre",
+      "firstName": "Nieves",
+      "lastName": "Izaguirre",
+      "jerseyNumber": "19",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800179,
+      "name": "Nolan Beltran",
+      "firstName": "Nolan",
+      "lastName": "Beltran",
+      "jerseyNumber": "52",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 701432,
+      "name": "Orlando Gonzalez",
+      "firstName": "Orlando",
+      "lastName": "Gonzalez",
+      "jerseyNumber": "45",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805249,
+      "name": "Otto Kemp",
+      "firstName": "Otto",
+      "lastName": "Kemp",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 842160,
+      "name": "Owen Clyne",
+      "firstName": "Owen",
+      "lastName": "Clyne",
+      "jerseyNumber": "17",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834595,
+      "name": "Patrick Clemmey",
+      "firstName": "Patrick",
+      "lastName": "Clemmey",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 836627,
+      "name": "Patrick Crotty",
+      "firstName": "Patrick",
+      "lastName": "Crotty",
+      "jerseyNumber": "91",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832061,
+      "name": "Patrick Silva",
+      "firstName": "Patrick",
+      "lastName": "Silva",
+      "jerseyNumber": "55",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "3B",
+        "name": "Third Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 682192,
+      "name": "Paul McIntosh",
+      "firstName": "Paul",
+      "lastName": "McIntosh",
+      "jerseyNumber": "24",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 668721,
+      "name": "Payton Henry",
+      "firstName": "Payton",
+      "lastName": "Henry",
+      "jerseyNumber": "40",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 694175,
+      "name": "Pedro León",
+      "firstName": "Pedro",
+      "lastName": "León",
+      "jerseyNumber": "51",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 665561,
+      "name": "Rafael Marchán",
+      "firstName": "Rafael",
+      "lastName": "Marchán",
+      "jerseyNumber": "13",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808864,
+      "name": "Raider Tello",
+      "firstName": "Dominick",
+      "lastName": "Tello",
+      "jerseyNumber": "22",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 699712,
+      "name": "Raylin Heredia",
+      "firstName": "Raylin",
+      "lastName": "Heredia",
+      "jerseyNumber": "23",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 814964,
+      "name": "Reece Moroney",
+      "firstName": "Reece",
+      "lastName": "Moroney",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 700848,
+      "name": "Reese Dutton",
+      "firstName": "Reese",
+      "lastName": "Dutton",
+      "jerseyNumber": "47",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 821054,
+      "name": "Rene Yrish",
+      "firstName": "Rene",
+      "lastName": "Yrish",
+      "jerseyNumber": "56",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834631,
+      "name": "Rey Cruz",
+      "firstName": "Rey",
+      "lastName": "Cruz",
+      "jerseyNumber": "92",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834395,
+      "name": "Richie Cortese",
+      "firstName": "Richard",
+      "lastName": "Cortese",
+      "jerseyNumber": "45",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 691001,
+      "name": "Robert Moore",
+      "firstName": "Robert",
+      "lastName": "Moore",
+      "jerseyNumber": "4",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 804859,
+      "name": "Robert Phelps",
+      "firstName": "Robert",
+      "lastName": "Phelps",
+      "jerseyNumber": "11",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829089,
+      "name": "Romeli Espinosa",
+      "firstName": "Romeli",
+      "lastName": "Espinosa",
+      "jerseyNumber": "46",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 839103,
+      "name": "Ronaldson Estevez",
+      "firstName": "Ronaldson",
+      "lastName": "Estevez",
+      "jerseyNumber": "18",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823162,
+      "name": "Ruger Riojas",
+      "firstName": "Ruger",
+      "lastName": "Riojas",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 680743,
+      "name": "Ryan Cusick",
+      "firstName": "Ryan",
+      "lastName": "Cusick",
+      "jerseyNumber": "41",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823804,
+      "name": "Ryan Dromboski",
+      "firstName": "Ryan",
+      "lastName": "Dromboski",
+      "jerseyNumber": "54",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 687122,
+      "name": "Sam Highfill",
+      "firstName": "Samuel",
+      "lastName": "Highfill",
+      "jerseyNumber": "21",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 832063,
+      "name": "Samuel Ortiz",
+      "firstName": "Samuel",
+      "lastName": "Ortiz",
+      "jerseyNumber": "45",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 699703,
+      "name": "Saul Teran",
+      "firstName": "Saul",
+      "lastName": "Teran",
+      "jerseyNumber": "46",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808564,
+      "name": "Scott Mudler",
+      "firstName": "Scott",
+      "lastName": "Mudler",
+      "jerseyNumber": "32",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823781,
+      "name": "Sean Youngerman",
+      "firstName": "Sean",
+      "lastName": "Youngerman",
+      "jerseyNumber": "55",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829368,
+      "name": "Sebastian Saenz",
+      "firstName": "Mauricio",
+      "lastName": "Saenz",
+      "jerseyNumber": "33",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 672642,
+      "name": "Steward Berroa",
+      "firstName": "Steward",
+      "lastName": "Berroa",
+      "jerseyNumber": "0",
+      "bt": {
+        "bat": "S",
+        "throw": "R",
+        "display": "S/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 807737,
+      "name": "TJayy Walton",
+      "firstName": "Tayshaun",
+      "lastName": "Walton",
+      "jerseyNumber": "22",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 621383,
+      "name": "Tanner Banks",
+      "firstName": "Tanner",
+      "lastName": "Banks",
+      "jerseyNumber": "58",
+      "bt": {
+        "bat": "R",
+        "throw": "L",
+        "display": "R/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823242,
+      "name": "Tanner Gresham",
+      "firstName": "Tanner",
+      "lastName": "Gresham",
+      "jerseyNumber": "36",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823136,
+      "name": "Tegan Cain",
+      "firstName": "Tegan",
+      "lastName": "Cain",
+      "jerseyNumber": "34",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 813901,
+      "name": "Titan Kennedy-Hayes",
+      "firstName": "Titan",
+      "lastName": "Kennedy-Hayes",
+      "jerseyNumber": "5",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 502054,
+      "name": "Tommy Pham",
+      "firstName": "Thomas",
+      "lastName": "Pham",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "LF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 702911,
+      "name": "Tristan Garnett",
+      "firstName": "Tristan",
+      "lastName": "Garnett",
+      "jerseyNumber": "44",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 656353,
+      "name": "Tucker Davidson",
+      "firstName": "Joseph",
+      "lastName": "Davidson",
+      "jerseyNumber": "12",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 834579,
+      "name": "Tyler Bowen",
+      "firstName": "Tyler",
+      "lastName": "Bowen",
+      "jerseyNumber": "28",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 806166,
+      "name": "Tyler Minnick",
+      "firstName": "Tyler",
+      "lastName": "Minnick",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808805,
+      "name": "Tyler Pettorini",
+      "firstName": "Tyler",
+      "lastName": "Pettorini",
+      "jerseyNumber": "15",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "2B",
+        "name": "Second Base"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 828811,
+      "name": "Tyler Spangler",
+      "firstName": "Tyler",
+      "lastName": "Spangler",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "SS",
+        "name": "Shortstop"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808282,
+      "name": "Victor Cardoza",
+      "firstName": "Victor",
+      "lastName": "Cardoza",
+      "jerseyNumber": "40",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 838939,
+      "name": "Wandelin Garcia",
+      "firstName": "Wandelin",
+      "lastName": "Garcia",
+      "jerseyNumber": "24",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808207,
+      "name": "Wen-Hui Pan",
+      "firstName": "Wen-Hui",
+      "lastName": "Pan",
+      "jerseyNumber": "52",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 667744,
+      "name": "Wesley Moore",
+      "firstName": "Wesley",
+      "lastName": "Moore",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 839891,
+      "name": "Wilfry Michel",
+      "firstName": "Wilfry",
+      "lastName": "Michel",
+      "jerseyNumber": "59",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 800605,
+      "name": "Will Gasparino",
+      "firstName": "William",
+      "lastName": "Gasparino",
+      "jerseyNumber": "44",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": null,
+        "name": null
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 805416,
+      "name": "Will Vierling",
+      "firstName": "William",
+      "lastName": "Vierling",
+      "jerseyNumber": "10",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 804627,
+      "name": "Wilmer Blanco",
+      "firstName": "Wilmer",
+      "lastName": "Blanco",
+      "jerseyNumber": "18",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 686404,
+      "name": "Wuilfredo Antunez",
+      "firstName": "Wuilfredo",
+      "lastName": "Antunez",
+      "jerseyNumber": "3",
+      "bt": {
+        "bat": "L",
+        "throw": "R",
+        "display": "L/R"
+      },
+      "position": {
+        "code": "RF",
+        "name": "Outfielder"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 804863,
+      "name": "Wyatt Danilowicz",
+      "firstName": "Wyatt",
+      "lastName": "Danilowicz",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "L",
+        "display": "R/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 808253,
+      "name": "Yhoan Escalona",
+      "firstName": "Yhoan",
+      "lastName": "Escalona",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "C",
+        "name": "Catcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 837692,
+      "name": "Yilmar Samudio",
+      "firstName": "Yilmar",
+      "lastName": "Samudio",
+      "jerseyNumber": "93",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 838164,
+      "name": "Yoel Zambrano",
+      "firstName": "Yoel",
+      "lastName": "Zambrano",
+      "jerseyNumber": "25",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 829084,
+      "name": "Yordanis Guerra",
+      "firstName": "Yordanis",
+      "lastName": "Guerra",
+      "jerseyNumber": "25",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 821486,
+      "name": "Zack Tukis",
+      "firstName": "Zachary",
+      "lastName": "Tukis",
+      "jerseyNumber": "",
+      "bt": {
+        "bat": "R",
+        "throw": "R",
+        "display": "R/R"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    },
+    {
+      "id": 823358,
+      "name": "Zuher Yousuf",
+      "firstName": "Zuher",
+      "lastName": "Yousuf",
+      "jerseyNumber": "13",
+      "bt": {
+        "bat": "L",
+        "throw": "L",
+        "display": "L/L"
+      },
+      "position": {
+        "code": "P",
+        "name": "Pitcher"
+      },
+      "rosterStatus": "40-MAN"
+    }
+  ]
+}
