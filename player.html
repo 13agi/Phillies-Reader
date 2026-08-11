@@ -10,6 +10,7 @@
 <style>
 /* =========================================================
    GLOBAL
+   ※既存UI維持
 ========================================================= */
 :root {
     --navy: #06172d;
@@ -43,7 +44,7 @@ body {
 }
 /* =========================================================
    HEADER
-   既存UI
+   ※ここは既存コードを変更しない
 ========================================================= */
 .header {
     position: sticky;
@@ -190,31 +191,32 @@ body {
         );
 }
 /* =========================================================
-   PLAYER
+   PLAYER AREA
 ========================================================= */
 .player-page {
     width: 100%;
     max-width: 760px;
     margin: 0 auto;
     padding:
-        17px
+        18px
         12px
-        35px;
+        34px;
 }
-/* ---------------------------------------------------------
-   TITLE
---------------------------------------------------------- */
+/* =========================================================
+   PAGE TITLE
+========================================================= */
 .player-heading {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
+    min-height: 39px;
     padding:
-        2px
+        0
         3px
-        14px;
+        13px;
     border-bottom:
         1px solid
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.065);
 }
 .player-heading-main {
     display: flex;
@@ -223,7 +225,7 @@ body {
 }
 .player-heading-line {
     width: 3px;
-    height: 22px;
+    height: 21px;
     flex: 0 0 auto;
     border-radius: 2px;
     background:
@@ -235,300 +237,312 @@ body {
     font-size: 21px;
     line-height: 1;
     font-weight: 600;
-    letter-spacing: -.55px;
+    letter-spacing:
+        -.55px;
 }
 .player-heading-meta {
     color:
-        rgba(255,255,255,.18);
+        rgba(255,255,255,.17);
     font-size: 7px;
     line-height: 1;
     font-weight: 800;
-    letter-spacing: .6px;
+    letter-spacing:
+        .65px;
 }
-/* ---------------------------------------------------------
-   SUMMARY
---------------------------------------------------------- */
-.player-summary {
-    display: grid;
-    grid-template-columns:
-        repeat(3,1fr);
-    margin-top: 13px;
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.055);
-}
-.player-summary-item {
-    min-width: 0;
-    padding:
-        10px
-        11px
-        12px;
-}
-.player-summary-item
-+ .player-summary-item {
-    border-left:
-        1px solid
-        rgba(255,255,255,.045);
-}
-.player-summary-label {
-    display: block;
-    margin-bottom: 7px;
-    color:
-        rgba(255,255,255,.18);
-    font-size: 6px;
-    line-height: 1;
-    font-weight: 800;
-    letter-spacing: .6px;
-}
-.player-summary-value {
-    display: block;
-    color:
-        rgba(255,255,255,.86);
-    font-size: 19px;
-    line-height: 1;
-    font-weight: 650;
-    font-variant-numeric:
-        tabular-nums;
-}
-.player-summary-active
-.player-summary-value {
-    color:
-        var(--red);
-}
-.player-summary-il
-.player-summary-value {
-    color:
-        #f0c84b;
-}
-/* ---------------------------------------------------------
-   COLUMN HEADER
---------------------------------------------------------- */
+/* =========================================================
+   COLUMN GUIDE
+   控えめな見出し
+========================================================= */
 .player-columns {
     display: grid;
     grid-template-columns:
-        56px
+        58px
         43px
-        46px
+        45px
         minmax(0,1fr);
-    height: 29px;
+    height: 28px;
     align-items: center;
     border-bottom:
         1px solid
-        rgba(255,255,255,.05);
+        rgba(255,255,255,.045);
 }
 .player-columns span {
     color:
-        rgba(255,255,255,.18);
+        rgba(255,255,255,.17);
     font-size: 6px;
     line-height: 1;
     font-weight: 800;
-    letter-spacing: .55px;
+    letter-spacing:
+        .55px;
     text-align: center;
 }
-.player-columns-name {
-    text-align: left !important;
-    padding-left: 5px;
+.player-columns .player-columns-name {
+    padding-left: 8px;
+    text-align: left;
 }
-/* ---------------------------------------------------------
-   SECTION
---------------------------------------------------------- */
-.player-section {
-    margin-top: 17px;
+/* =========================================================
+   ROSTER LIST
+========================================================= */
+.player-list {
+    width: 100%;
 }
-.player-section:first-of-type {
-    margin-top: 8px;
-}
-.player-section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 21px;
-    padding: 0 3px;
-    margin-bottom: 3px;
-}
-.player-section-title {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    color:
-        rgba(255,255,255,.37);
-    font-size: 7px;
-    line-height: 1;
-    font-weight: 800;
-    letter-spacing: .65px;
-}
-.player-section-title::before {
-    content: "";
-    width: 8px;
-    height: 2px;
-    border-radius: 2px;
-    background:
-        var(--red);
-}
-.player-section-il
-.player-section-title::before {
-    background:
-        #f0c84b;
-}
-.player-section-count {
-    color:
-        rgba(255,255,255,.15);
-    font-size: 7px;
-    line-height: 1;
-    font-weight: 700;
-}
-/* ---------------------------------------------------------
+/* =========================================================
    PLAYER ROW
---------------------------------------------------------- */
-.player-row {
-    --status-color:
+========================================================= */
+.player-card {
+    --player-status:
         var(--red);
     position: relative;
     display: grid;
     grid-template-columns:
-        56px
+        58px
         43px
-        46px
+        45px
         minmax(0,1fr);
     width: 100%;
-    min-height: 78px;
+    min-height: 76px;
     border-bottom:
         1px solid
-        rgba(255,255,255,.055);
+        rgba(255,255,255,.052);
+    transition:
+        background .18s ease;
 }
-.player-row-il {
-    --status-color:
-        #f0c84b;
-}
-.player-row::before {
+/*
+    カード全体を赤くしない。
+    左のラインだけで状態を表現。
+*/
+.player-card::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 12px;
-    bottom: 12px;
+    top: 13px;
+    bottom: 13px;
     width: 2px;
     border-radius:
         0 2px 2px 0;
     background:
-        var(--status-color);
+        var(--player-status);
 }
-/* ---------------------------------------------------------
+/* =========================================================
+   IL
+========================================================= */
+.player-card--il {
+    --player-status:
+        #f0c84b;
+}
+/* =========================================================
    NUMBER
---------------------------------------------------------- */
-.player-number {
+========================================================= */
+.player-card__number {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.player-number span {
+.player-card__number span {
     color:
-        rgba(255,255,255,.89);
-    font-size: 28px;
-    line-height: .9;
-    font-weight: 650;
-    letter-spacing: -1.7px;
+        rgba(255,255,255,.72);
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing:
+        -1px;
     font-variant-numeric:
         tabular-nums;
 }
-/* ---------------------------------------------------------
-   POS
---------------------------------------------------------- */
-.player-position {
+/* =========================================================
+   POSITION
+========================================================= */
+.player-card__position {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.player-position span {
+.player-card__position span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+    height: 21px;
     color:
-        rgba(255,255,255,.48);
+        rgba(255,255,255,.52);
     font-size: 8px;
     line-height: 1;
     font-weight: 800;
+    letter-spacing:
+        .15px;
 }
-/* ---------------------------------------------------------
-   B/T
---------------------------------------------------------- */
-.player-bt {
+/* =========================================================
+   BAT / THROW
+========================================================= */
+.player-card__bt {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.player-bt span {
+.player-card__bt span {
     color:
         rgba(255,255,255,.29);
     font-size: 8px;
     line-height: 1;
     font-weight: 700;
+    letter-spacing:
+        .15px;
 }
-/* ---------------------------------------------------------
-   NAME
---------------------------------------------------------- */
-.player-identity {
+/* =========================================================
+   IDENTITY
+========================================================= */
+.player-card__identity {
     min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding:
         0
-        10px
+        8px
         0
-        5px;
+        8px;
 }
-.player-name {
+/* =========================================================
+   PLAYER NAME
+   必ず1行
+========================================================= */
+.player-card__name {
     display: block;
     width: 100%;
     min-width: 0;
     overflow: hidden;
     color:
-        rgba(255,255,255,.95);
-    font-size: 17px;
-    line-height: 20px;
+        rgba(255,255,255,.94);
+    font-size: 16px;
+    line-height: 19px;
     font-weight: 600;
-    letter-spacing: -.4px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    letter-spacing:
+        -.32px;
+    white-space:
+        nowrap;
+    text-overflow:
+        ellipsis;
 }
-/* ---------------------------------------------------------
-   ROSTER
---------------------------------------------------------- */
-.player-roster {
+/* =========================================================
+   STATUS
+   正式名称はここには置かない
+========================================================= */
+.player-card__status {
     display: flex;
     align-items: center;
-    min-width: 0;
-    height: 9px;
+    min-height: 8px;
     margin-top: 6px;
 }
-.player-status {
-    flex: 0 0 auto;
+.player-card__status-label {
     color:
-        var(--status-color);
+        var(--player-status);
     font-size: 6px;
     line-height: 1;
     font-weight: 800;
-    letter-spacing: .45px;
+    letter-spacing:
+        .55px;
 }
-.player-divider {
-    flex: 0 0 auto;
-    width: 1px;
-    height: 6px;
-    margin:
-        0 6px;
+/* =========================================================
+   STATUS DOT
+   ACTIVEは小さな点。
+   ILは同じ色の状態表示。
+========================================================= */
+.player-card:not(.player-card--il)
+.player-card__status-label::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-right: 5px;
+    vertical-align: 1px;
+    border-radius: 50%;
     background:
-        rgba(255,255,255,.12);
+        var(--player-status);
 }
-.player-roster-detail {
-    min-width: 0;
-    overflow: hidden;
+/* =========================================================
+   SECTION
+   グループ名は簡潔にする
+========================================================= */
+.player-section {
+    margin-top: 18px;
+}
+.player-section:first-child {
+    margin-top: 7px;
+}
+.player-section__heading {
+    display: flex;
+    align-items: center;
+    height: 23px;
+    padding:
+        0
+        4px;
+}
+.player-section__title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
     color:
-        rgba(255,255,255,.20);
-    font-size: 6px;
+        rgba(255,255,255,.25);
+    font-size: 7px;
     line-height: 1;
-    font-weight: 700;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    font-weight: 800;
+    letter-spacing:
+        .65px;
+}
+.player-section__title::before {
+    content: "";
+    width: 7px;
+    height: 2px;
+    border-radius: 2px;
+    background:
+        var(--red);
+}
+.player-section--il
+.player-section__title::before {
+    background:
+        #f0c84b;
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 390px) {
+    .player-page {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+    .player-columns,
+    .player-card {
+        grid-template-columns:
+            51px
+            38px
+            41px
+            minmax(0,1fr);
+    }
+    .player-card__number span {
+        font-size: 21px;
+    }
+    .player-card__name {
+        font-size: 15px;
+        letter-spacing:
+            -.25px;
+    }
+}
+@media (max-width: 340px) {
+    .player-columns,
+    .player-card {
+        grid-template-columns:
+            46px
+            34px
+            38px
+            minmax(0,1fr);
+    }
+    .player-card__name {
+        font-size: 14px;
+    }
 }
 /* =========================================================
    BOTTOM NAV
+   ※既存UIを変更しない
 ========================================================= */
 .bottom-nav {
     position: fixed;
@@ -568,7 +582,8 @@ body {
     text-decoration: none;
     font-size: 8px;
     font-weight: 800;
-    letter-spacing: .65px;
+    letter-spacing:
+        .65px;
 }
 .nav-icon {
     width: 31px;
@@ -582,10 +597,14 @@ body {
     width: 20px;
     height: 20px;
     fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    stroke:
+        currentColor;
+    stroke-width:
+        1.8;
+    stroke-linecap:
+        round;
+    stroke-linejoin:
+        round;
 }
 .nav-item.active {
     color:
@@ -595,45 +614,10 @@ body {
     background:
         rgba(227,24,55,.14);
 }
-/* =========================================================
-   MOBILE
-========================================================= */
-@media (max-width: 390px) {
-    .player-page {
-        padding-left: 9px;
-        padding-right: 9px;
-    }
-    .player-columns,
-    .player-row {
-        grid-template-columns:
-            51px
-            38px
-            41px
-            minmax(0,1fr);
-    }
-    .player-number span {
-        font-size: 25px;
-    }
-    .player-name {
-        font-size: 16px;
-    }
-}
-@media (max-width: 340px) {
-    .player-columns,
-    .player-row {
-        grid-template-columns:
-            46px
-            34px
-            38px
-            minmax(0,1fr);
-    }
-    .player-name {
-        font-size: 15px;
-    }
-}
 </style>
 <!-- =========================================================
      HEADER
+     既存
 ========================================================= -->
 <header class="header">
     <div class="header-field"></div>
@@ -659,32 +643,6 @@ body {
             2026 ROSTER
         </span>
     </div>
-    <div class="player-summary">
-        <div class="player-summary-item player-summary-active">
-            <span class="player-summary-label">
-                ACTIVE
-            </span>
-            <strong class="player-summary-value">
-                26
-            </strong>
-        </div>
-        <div class="player-summary-item">
-            <span class="player-summary-label">
-                40-MAN
-            </span>
-            <strong class="player-summary-value">
-                40
-            </strong>
-        </div>
-        <div class="player-summary-item player-summary-il">
-            <span class="player-summary-label">
-                IL
-            </span>
-            <strong class="player-summary-value">
-                1
-            </strong>
-        </div>
-    </div>
     <div class="player-columns">
         <span>#</span>
         <span>POS</span>
@@ -693,243 +651,211 @@ body {
             PLAYER
         </span>
     </div>
-    <!-- ACTIVE -->
-    <section class="player-section">
-        <div class="player-section-heading">
-            <span class="player-section-title">
-                ACTIVE
-            </span>
-            <span class="player-section-count">
-                26
-            </span>
-        </div>
-        <article class="player-row">
-            <div class="player-number">
-                <span>7</span>
+    <div class="player-list">
+        <!-- =================================================
+             ACTIVE
+        ================================================== -->
+        <section class="player-section">
+            <div class="player-section__heading">
+                <span class="player-section__title">
+                    ACTIVE
+                </span>
             </div>
-            <div class="player-position">
-                <span>SS</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Trea Turner
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>7</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__position">
+                    <span>SS</span>
                 </div>
-            </div>
-        </article>
-        <article class="player-row">
-            <div class="player-number">
-                <span>10</span>
-            </div>
-            <div class="player-position">
-                <span>C</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    J.T. Realmuto
+                <div class="player-card__bt">
+                    <span>R/R</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Trea Turner
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </article>
-        <article class="player-row">
-            <div class="player-number">
-                <span>5</span>
-            </div>
-            <div class="player-position">
-                <span>2B</span>
-            </div>
-            <div class="player-bt">
-                <span>L/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Bryson Stott
+            </article>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>10</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__position">
+                    <span>C</span>
                 </div>
-            </div>
-        </article>
-        <article class="player-row">
-            <div class="player-number">
-                <span>28</span>
-            </div>
-            <div class="player-position">
-                <span>3B</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Alec Bohm
+                <div class="player-card__bt">
+                    <span>R/R</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        J.T. Realmuto
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </article>
-        <article class="player-row">
-            <div class="player-number">
-                <span>3</span>
-            </div>
-            <div class="player-position">
-                <span>OF</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Bryce Harper
+            </article>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>5</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__position">
+                    <span>2B</span>
                 </div>
-            </div>
-        </article>
-    </section>
-    <!-- PITCHERS -->
-    <section class="player-section">
-        <div class="player-section-heading">
-            <span class="player-section-title">
-                PITCHERS
-            </span>
-            <span class="player-section-count">
-                13
-            </span>
-        </div>
-        <article class="player-row">
-            <div class="player-number">
-                <span>45</span>
-            </div>
-            <div class="player-position">
-                <span>P</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Zack Wheeler
+                <div class="player-card__bt">
+                    <span>L/R</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Bryson Stott
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </article>
-        <article class="player-row">
-            <div class="player-number">
-                <span>25</span>
-            </div>
-            <div class="player-position">
-                <span>P</span>
-            </div>
-            <div class="player-bt">
-                <span>L/L</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Ranger Suárez
+            </article>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>28</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        ACTIVE
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        40-man roster
-                    </span>
+                <div class="player-card__position">
+                    <span>3B</span>
                 </div>
-            </div>
-        </article>
-    </section>
-    <!-- INJURED LIST -->
-    <section class="player-section player-section-il">
-        <div class="player-section-heading">
-            <span class="player-section-title">
-                INJURED LIST
-            </span>
-            <span class="player-section-count">
-                1
-            </span>
-        </div>
-        <article class="player-row player-row-il">
-            <div class="player-number">
-                <span>56</span>
-            </div>
-            <div class="player-position">
-                <span>P</span>
-            </div>
-            <div class="player-bt">
-                <span>R/R</span>
-            </div>
-            <div class="player-identity">
-                <div class="player-name">
-                    Andrew Painter
+                <div class="player-card__bt">
+                    <span>R/R</span>
                 </div>
-                <div class="player-roster">
-                    <span class="player-status">
-                        IL
-                    </span>
-                    <span class="player-divider"></span>
-                    <span class="player-roster-detail">
-                        Injured List
-                    </span>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Alec Bohm
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
                 </div>
+            </article>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>3</span>
+                </div>
+                <div class="player-card__position">
+                    <span>OF</span>
+                </div>
+                <div class="player-card__bt">
+                    <span>R/R</span>
+                </div>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Bryce Harper
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <!-- =================================================
+             PITCHERS
+        ================================================== -->
+        <section class="player-section">
+            <div class="player-section__heading">
+                <span class="player-section__title">
+                    PITCHERS
+                </span>
             </div>
-        </article>
-    </section>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>45</span>
+                </div>
+                <div class="player-card__position">
+                    <span>P</span>
+                </div>
+                <div class="player-card__bt">
+                    <span>R/R</span>
+                </div>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Zack Wheeler
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+            </article>
+            <article class="player-card">
+                <div class="player-card__number">
+                    <span>25</span>
+                </div>
+                <div class="player-card__position">
+                    <span>P</span>
+                </div>
+                <div class="player-card__bt">
+                    <span>L/L</span>
+                </div>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Ranger Suárez
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <!-- =================================================
+             IL
+        ================================================== -->
+        <section class="player-section player-section--il">
+            <div class="player-section__heading">
+                <span class="player-section__title">
+                    IL
+                </span>
+            </div>
+            <article class="player-card player-card--il">
+                <div class="player-card__number">
+                    <span>56</span>
+                </div>
+                <div class="player-card__position">
+                    <span>P</span>
+                </div>
+                <div class="player-card__bt">
+                    <span>R/R</span>
+                </div>
+                <div class="player-card__identity">
+                    <div class="player-card__name">
+                        Andrew Painter
+                    </div>
+                    <div class="player-card__status">
+                        <span class="player-card__status-label">
+                            IL
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
 </section>
 </main>
 <!-- =========================================================
      BOTTOM NAV
+     既存
 ========================================================= -->
 <nav class="bottom-nav">
     <div class="bottom-inner">
