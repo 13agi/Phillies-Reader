@@ -1,8 +1,9 @@
 name: Update Phillies News
 on:
+  # 毎時実行
   schedule:
-    # 毎時00分 UTC
     - cron: "0 * * * *"
+  # GitHubから手動実行可能
   workflow_dispatch:
 permissions:
   contents: write
@@ -10,29 +11,44 @@ jobs:
   update-news:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      # ===================================================
+      # CHECKOUT
+      # ===================================================
+      - name: Checkout repository
         uses: actions/checkout@v4
+      # ===================================================
+      # PYTHON
+      # ===================================================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # ===================================================
+      # DEPENDENCIES
+      # ===================================================
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
-      - name: Update news
+      # ===================================================
+      # NEWS UPDATE
+      # ===================================================
+      - name: Update MLB.com Phillies News
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python scripts/update_news.py
-      - name: Commit news data
+          python update_news.py
+      # ===================================================
+      # SAVE CHANGES
+      # ===================================================
+      - name: Commit news.json
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/news.json
           if git diff --cached --quiet; then
-            echo "No news changes."
+            echo "No changes detected."
           else
-            git commit \
-              -m "Update Phillies news"
+            git commit -m "Update Phillies news"
             git push
           fi
