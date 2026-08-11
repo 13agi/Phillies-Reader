@@ -1,55 +1,61 @@
 name: Update Phillies Roster
 on:
-  # 6時間ごとに実行
   schedule:
-    - cron: "30 */6 * * *"
-  # Actions画面から手動実行可能
+    # 5分ごとにMLB APIから最新ロスターを取得
+    - cron: "*/5 * * * *"
+  # GitHub Actionsから手動実行可能
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   update-roster:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      # ===============================================
-      # GitHub repository
-      # ===============================================
+      # =====================================================
+      # CHECKOUT
+      # =====================================================
       - name: Checkout repository
         uses: actions/checkout@v4
-      # ===============================================
-      # Python
-      # ===============================================
-      - name: Setup Python
+      # =====================================================
+      # PYTHON
+      # =====================================================
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      # ===============================================
-      # requests
-      # ===============================================
+      # =====================================================
+      # DEPENDENCIES
+      # =====================================================
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
-      # ===============================================
-      # MLB API
-      # ===============================================
-      - name: Update Phillies roster
+      # =====================================================
+      # UPDATE ROSTER
+      # =====================================================
+      - name: Update roster
         run: |
           python scripts/update_roster.py
-      # ===============================================
-      # GitHub
-      # ===============================================
-      - name: Save roster data
+      # =====================================================
+      # CHECK RESULT
+      # =====================================================
+      - name: Show roster result
         run: |
-          git config user.name \
-            "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "========================================"
+          echo "data/roster.json"
+          echo "========================================"
+          cat data/roster.json
+      # =====================================================
+      # COMMIT
+      # =====================================================
+      - name: Commit roster data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/roster.json
           if git diff --cached --quiet; then
-            echo "No changes detected."
+            echo "No changes to commit."
           else
-            git commit \
-              -m "Update Phillies roster"
+            git commit -m "Update Phillies roster data"
             git push
           fi
