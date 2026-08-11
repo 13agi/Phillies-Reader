@@ -10,6 +10,8 @@ from datetime import datetime, timezone, timedelta
 # =========================================================
 
 TEAM_ID = 143
+TEAM_NAME = "Philadelphia Phillies"
+TEAM_ABBR = "PHI"
 SEASON = 2026
 
 BASE_URL = "https://statsapi.mlb.com/api/v1"
@@ -42,56 +44,6 @@ def get_json(url, params=None):
 
 
 # =========================================================
-# HELPERS
-# =========================================================
-
-def value_or_none(value):
-
-    if value is None:
-        return None
-
-    return value
-
-
-def player_name(player):
-
-    person = player.get("person") or {}
-
-    return (
-        person.get("fullName")
-        or player.get("fullName")
-        or "-"
-    )
-
-
-def player_id(player):
-
-    person = player.get("person") or {}
-
-    return person.get("id")
-
-
-def batting_stat(stats, key):
-
-    value = stats.get(key)
-
-    if value is None:
-        return None
-
-    return value
-
-
-def pitching_stat(stats, key):
-
-    value = stats.get(key)
-
-    if value is None:
-        return None
-
-    return value
-
-
-# =========================================================
 # TIME
 # =========================================================
 
@@ -108,12 +60,67 @@ def get_date_string(date_value):
 
 
 # =========================================================
+# SAFE HELPERS
+# =========================================================
+
+def safe_dict(value):
+
+    if isinstance(value, dict):
+        return value
+
+    return {}
+
+
+def safe_list(value):
+
+    if isinstance(value, list):
+        return value
+
+    return []
+
+
+def player_name(player):
+
+    player = safe_dict(player)
+
+    person = safe_dict(
+        player.get("person")
+    )
+
+    return (
+        person.get("fullName")
+        or player.get("fullName")
+        or "-"
+    )
+
+
+def player_id(player):
+
+    player = safe_dict(player)
+
+    person = safe_dict(
+        player.get("person")
+    )
+
+    return person.get("id")
+
+
+def stat(stats, key):
+
+    stats = safe_dict(stats)
+
+    return stats.get(key)
+
+
+# =========================================================
 # SCHEDULE
 # =========================================================
 
 def get_games_by_date(game_date):
 
-    url = f"{BASE_URL}/schedule"
+    url = (
+        f"{BASE_URL}/schedule"
+    )
 
     params = {
         "sportId": 1,
@@ -130,61 +137,45 @@ def get_games_by_date(game_date):
 
     games = []
 
-    for date_block in data.get(
-        "dates",
-        []
+    for date_block in safe_list(
+        data.get("dates")
     ):
 
-        for game in date_block.get(
-            "games",
-            []
+        for game in safe_list(
+            date_block.get("games")
         ):
 
-            games.append(
-                game
-            )
+            games.append(game)
 
     return games
 
 
 # =========================================================
-# SELECT RELEVANT GAME
-#
-# MLB APIのgameDateはUTC。
-#
-# 日本時間の日付をまたぐ試合を正しく扱う。
+# SELECT LATEST / CURRENT GAME
 #
 # 優先順位
 #
-# 1. LIVE中の試合
-# 2. すでに開始した試合
-# 3. 次に開始する未来の試合
+# 1. LIVE
+# 2. 今日/昨日の終了済み試合
+# 3. 次の試合
 #
-# これにより、日本時間8/11になっていても、
-# 8/10の試合がLIVEなら8/10の試合を取得する。
+# 日本時間を基準にする。
 # =========================================================
 
-def get_relevant_games():
+def get_relevant_game():
 
     now = get_now_jst()
 
     today = now.date()
 
     dates = [
-
+        today - timedelta(days=2),
         today - timedelta(days=1),
-
         today,
-
         today + timedelta(days=1)
-
     ]
 
     all_games = []
-
-    # -----------------------------------------------------
-    # 昨日・今日・明日の試合を取得
-    # -----------------------------------------------------
 
     for date_value in dates:
 
@@ -217,6 +208,7 @@ def get_relevant_games():
                 error
             )
 
+
     # -----------------------------------------------------
     # 重複除去
     # -----------------------------------------------------
@@ -239,16 +231,18 @@ def get_relevant_games():
         unique_games.values()
     )
 
-    print(
-        "Total candidate games:",
-        len(all_games)
-    )
 
-    # -----------------------------------------------------
-    # 時刻情報を作成
-    # -----------------------------------------------------
+    if not all_games:
+
+        return None
+
 
     candidates = []
+
+
+    # -----------------------------------------------------
+    # 時刻変換
+    # -----------------------------------------------------
 
     for game in all_games:
 
@@ -257,12 +251,9 @@ def get_relevant_games():
         )
 
         if not game_date_raw:
-
             continue
 
         try:
-
-            # MLB APIのgameDateはUTC
 
             game_dt_utc = (
                 datetime.fromisoformat(
@@ -273,29 +264,19 @@ def get_relevant_games():
                 )
             )
 
-            # JSTへ変換
-
             game_dt_jst = (
                 game_dt_utc.astimezone(
                     JST
                 )
             )
 
-        except Exception as error:
-
-            print(
-                "Date conversion error:",
-                error
-            )
+        except Exception:
 
             continue
 
-        status = (
-            game.get(
-                "status",
-                {}
-            )
-            or {}
+
+        status = safe_dict(
+            game.get("status")
         )
 
         abstract = status.get(
@@ -306,93 +287,63 @@ def get_relevant_games():
             "detailedState"
         )
 
-        print(
-            "Candidate:",
-            game.get("gamePk"),
-            "UTC:",
-            game_date_raw,
-            "JST:",
-            game_dt_jst.isoformat(),
-            "status:",
-            abstract,
-            detailed
-        )
 
         candidates.append({
 
-            "game":
-                game,
+            "game": game,
 
-            "start":
-                game_dt_jst,
+            "start": game_dt_jst,
 
-            "status":
-                abstract,
+            "abstract": abstract,
 
-            "detailed":
-                detailed
+            "detailed": detailed
 
         })
 
+
     # =====================================================
-    # 1. LIVE GAME
+    # 1. LIVE
     # =====================================================
 
     live_games = [
 
         item
+
         for item in candidates
 
-        if item["status"] == "Live"
+        if item["abstract"]
+        in (
+            "Live",
+            "In Progress"
+        )
 
     ]
+
 
     if live_games:
 
         live_games.sort(
-            key=lambda item:
-                item["start"],
+            key=lambda x:
+                x["start"],
             reverse=True
         )
 
-        print(
-            "========================================"
-        )
+        selected = live_games[0]
 
         print(
-            "LIVE GAME FOUND"
-        )
-
-        print(
-            "Game:",
-            live_games[0]["game"].get(
+            "LIVE GAME:",
+            selected["game"].get(
                 "gamePk"
             )
         )
 
-        print(
-            "Start JST:",
-            live_games[0]["start"].isoformat()
-        )
+        return selected["game"]
 
-        print(
-            "========================================"
-        )
-
-        return [
-
-            item["game"]
-
-            for item in live_games
-
-        ]
 
     # =====================================================
-    # 2. ALREADY STARTED GAME
+    # 2. COMPLETED / STARTED
     #
-    # Final / Postponedなど。
-    #
-    # まだ始まっていないPreviewはここに入らない。
+    # 最新の終了済み試合を選ぶ
     # =====================================================
 
     started_games = [
@@ -404,68 +355,40 @@ def get_relevant_games():
         if (
             item["start"] <= now
             and
-            item["status"]
+            item["abstract"]
             in (
-                "Live",
                 "Final",
-                "Postponed"
+                "Postponed",
+                "Cancelled",
+                "Suspended"
             )
         )
 
     ]
 
+
     if started_games:
 
         started_games.sort(
-            key=lambda item:
-                item["start"],
+            key=lambda x:
+                x["start"],
             reverse=True
         )
 
-        selected = (
-            started_games[0]
-        )
+        selected = started_games[0]
 
         print(
-            "========================================"
-        )
-
-        print(
-            "SELECTED STARTED GAME"
-        )
-
-        print(
-            "Game:",
+            "LATEST COMPLETED GAME:",
             selected["game"].get(
                 "gamePk"
             )
         )
 
-        print(
-            "Start JST:",
-            selected["start"].isoformat()
-        )
+        return selected["game"]
 
-        print(
-            "Status:",
-            selected["status"]
-        )
-
-        print(
-            "========================================"
-        )
-
-        return [
-
-            selected["game"]
-
-        ]
 
     # =====================================================
-    # 3. FUTURE GAME
-    #
-    # まだ試合が始まっていない場合のみ、
-    # 次に開始する試合を返す。
+    # 3. 次の試合
     # =====================================================
 
     future_games = [
@@ -478,56 +401,27 @@ def get_relevant_games():
 
     ]
 
+
     if future_games:
 
         future_games.sort(
-            key=lambda item:
-                item["start"]
+            key=lambda x:
+                x["start"]
         )
 
-        selected = (
-            future_games[0]
-        )
+        selected = future_games[0]
 
         print(
-            "========================================"
-        )
-
-        print(
-            "NEXT FUTURE GAME"
-        )
-
-        print(
-            "Game:",
+            "NEXT GAME:",
             selected["game"].get(
                 "gamePk"
             )
         )
 
-        print(
-            "Start JST:",
-            selected["start"].isoformat()
-        )
+        return selected["game"]
 
-        print(
-            "========================================"
-        )
 
-        return [
-
-            selected["game"]
-
-        ]
-
-    # =====================================================
-    # 4. NOTHING
-    # =====================================================
-
-    print(
-        "NO RELEVANT GAME FOUND"
-    )
-
-    return []
+    return None
 
 
 # =========================================================
@@ -585,52 +479,116 @@ def get_boxscore(game_pk):
 
 
 # =========================================================
-# DETERMINE PHILLIES SIDE
+# LINESCORE
+#
+# ここが今回の重要部分。
+#
+# 1. 専用 /linescore
+# 2. feed/live の linescore
+#
+# の順で取得。
+# =========================================================
+
+def get_linescore(game_pk, live_feed):
+
+    # -----------------------------------------------------
+    # ① 専用 Linescore API
+    # -----------------------------------------------------
+
+    url = (
+        f"{BASE_URL}/game/"
+        f"{game_pk}/linescore"
+    )
+
+    try:
+
+        data = get_json(
+            url
+        )
+
+        if safe_list(
+            data.get("innings")
+        ):
+
+            print(
+                "Linescore endpoint: OK"
+            )
+
+            return data
+
+    except Exception as error:
+
+        print(
+            "Linescore endpoint error:",
+            error
+        )
+
+
+    # -----------------------------------------------------
+    # ② Live Feed
+    # -----------------------------------------------------
+
+    live_data = safe_dict(
+        live_feed.get(
+            "liveData"
+        )
+    )
+
+    linescore = safe_dict(
+        live_data.get(
+            "linescore"
+        )
+    )
+
+
+    if safe_list(
+        linescore.get("innings")
+    ):
+
+        print(
+            "Linescore from live feed: OK"
+        )
+
+        return linescore
+
+
+    print(
+        "Linescore unavailable"
+    )
+
+    return {}
+
+
+# =========================================================
+# PHILLIES SIDE
 # =========================================================
 
 def get_phillies_side(
     game_data
 ):
 
-    teams = (
-        game_data
-        .get(
-            "teams",
-            {}
+    teams = safe_dict(
+        game_data.get(
+            "teams"
         )
     )
 
-    home = (
-        teams
-        .get(
-            "home",
-            {}
-        )
+    home = safe_dict(
+        teams.get("home")
     )
 
-    away = (
-        teams
-        .get(
-            "away",
-            {}
-        )
+    away = safe_dict(
+        teams.get("away")
     )
 
-    home_team = (
-        home
-        .get(
-            "team",
-            {}
-        )
+    home_team = safe_dict(
+        home.get("team")
     )
 
-    away_team = (
-        away
-        .get(
-            "team",
-            {}
-        )
+    away_team = safe_dict(
+        away.get("team")
     )
+
 
     if (
         home_team.get("id")
@@ -639,6 +597,7 @@ def get_phillies_side(
 
         return "home"
 
+
     if (
         away_team.get("id")
         == TEAM_ID
@@ -646,76 +605,52 @@ def get_phillies_side(
 
         return "away"
 
+
     return None
 
 
 # =========================================================
-# GAME INFORMATION
+# GAME INFO
 # =========================================================
 
 def build_game_info(
     game_data
 ):
 
-    teams = (
-        game_data
-        .get(
-            "teams",
-            {}
+    teams = safe_dict(
+        game_data.get(
+            "teams"
         )
     )
 
-    home = (
-        teams
-        .get(
-            "home",
-            {}
+    home = safe_dict(
+        teams.get("home")
+    )
+
+    away = safe_dict(
+        teams.get("away")
+    )
+
+    home_team = safe_dict(
+        home.get("team")
+    )
+
+    away_team = safe_dict(
+        away.get("team")
+    )
+
+    venue = safe_dict(
+        game_data.get(
+            "venue"
         )
     )
 
-    away = (
-        teams
-        .get(
-            "away",
-            {}
+    status = safe_dict(
+        game_data.get(
+            "status"
         )
     )
 
-    home_team = (
-        home
-        .get(
-            "team",
-            {}
-        )
-        or {}
-    )
-
-    away_team = (
-        away
-        .get(
-            "team",
-            {}
-        )
-        or {}
-    )
-
-    venue = (
-        game_data
-        .get(
-            "venue",
-            {}
-        )
-        or {}
-    )
-
-    status = (
-        game_data
-        .get(
-            "status",
-            {}
-        )
-        or {}
-    )
 
     return {
 
@@ -836,35 +771,37 @@ def build_inning_scores(
     linescore
 ):
 
-    innings = (
+    linescore = safe_dict(
         linescore
-        .get(
-            "innings",
-            []
+    )
+
+    innings = safe_list(
+        linescore.get(
+            "innings"
         )
     )
 
     result = []
 
+
     for inning in innings:
 
-        away = (
+        inning = safe_dict(
             inning
-            .get(
-                "away",
-                {}
-            )
-            or {}
         )
 
-        home = (
-            inning
-            .get(
-                "home",
-                {}
+        away = safe_dict(
+            inning.get(
+                "away"
             )
-            or {}
         )
+
+        home = safe_dict(
+            inning.get(
+                "home"
+            )
+        )
+
 
         result.append({
 
@@ -901,15 +838,26 @@ def build_inning_scores(
             "homeErrors":
                 home.get(
                     "errors"
+                ),
+
+            "awayLOB":
+                away.get(
+                    "leftOnBase"
+                ),
+
+            "homeLOB":
+                home.get(
+                    "leftOnBase"
                 )
 
         })
+
 
     return result
 
 
 # =========================================================
-# PHILLIES BATTING
+# BATTING
 # =========================================================
 
 def build_phillies_batting(
@@ -917,76 +865,71 @@ def build_phillies_batting(
     side
 ):
 
-    teams = (
-        boxscore
-        .get(
-            "teams",
-            {}
+    teams = safe_dict(
+        boxscore.get(
+            "teams"
         )
     )
 
-    team = (
-        teams
-        .get(
-            side,
-            {}
-        )
-        or {}
-    )
-
-    players = (
-        team
-        .get(
-            "players",
-            {}
+    team = safe_dict(
+        teams.get(
+            side
         )
     )
 
-    batting_order = (
-        team
-        .get(
-            "battingOrder",
-            []
+    players = safe_dict(
+        team.get(
+            "players"
         )
     )
+
+    batting_order = safe_list(
+        team.get(
+            "battingOrder"
+        )
+    )
+
 
     result = []
+
+
+    # -----------------------------------------------------
+    # battingOrderを使う
+    # -----------------------------------------------------
 
     for sequence, pid in enumerate(
         batting_order,
         start=1
     ):
 
-        key = f"ID{pid}"
-
-        player = (
-            players
-            .get(
-                key,
-                {}
+        player = safe_dict(
+            players.get(
+                f"ID{pid}"
             )
         )
 
         if not player:
             continue
 
-        stats_container = (
-            player
-            .get(
-                "stats",
-                {}
+
+        stats = safe_dict(
+            player.get(
+                "stats"
             )
-            or {}
         )
 
-        batting = (
-            stats_container
-            .get(
-                "batting",
-                {}
+        batting = safe_dict(
+            stats.get(
+                "batting"
             )
-            or {}
         )
+
+        position = safe_dict(
+            player.get(
+                "position"
+            )
+        )
+
 
         order_raw = (
             player.get(
@@ -995,23 +938,19 @@ def build_phillies_batting(
             or ""
         )
 
+
         try:
 
-            if order_raw:
-
-                order_number = int(
-                    str(
-                        order_raw
-                    )[:1]
-                )
-
-            else:
-
-                order_number = None
+            order_number = int(
+                str(
+                    order_raw
+                )[:1]
+            )
 
         except Exception:
 
             order_number = None
+
 
         result.append({
 
@@ -1035,102 +974,84 @@ def build_phillies_batting(
                 ),
 
             "position":
-                (
-                    player
-                    .get(
-                        "position",
-                        {}
-                    )
-                    or {}
-                )
-                .get(
+                position.get(
                     "abbreviation"
                 ),
 
             "PA":
-                batting_stat(
+                stat(
                     batting,
                     "plateAppearances"
                 ),
 
             "H":
-                batting_stat(
+                stat(
                     batting,
                     "hits"
                 ),
 
             "HR":
-                batting_stat(
+                stat(
                     batting,
                     "homeRuns"
                 ),
 
             "RBI":
-                batting_stat(
+                stat(
                     batting,
                     "rbi"
                 ),
 
             "BB":
-                batting_stat(
+                stat(
                     batting,
                     "baseOnBalls"
                 ),
 
             "AB":
-                batting_stat(
+                stat(
                     batting,
                     "atBats"
                 ),
 
             "R":
-                batting_stat(
+                stat(
                     batting,
                     "runs"
                 ),
 
             "SO":
-                batting_stat(
+                stat(
                     batting,
                     "strikeOuts"
                 )
 
         })
 
+
     # -----------------------------------------------------
-    # battingOrderが存在しない場合
+    # 念のためplayersからも回収
     # -----------------------------------------------------
 
     if not result:
 
         for key, player in players.items():
 
-            if not isinstance(
-                player,
-                dict
-            ):
-                continue
-
-            stats_container = (
+            player = safe_dict(
                 player
-                .get(
-                    "stats",
-                    {}
-                )
-                or {}
             )
 
-            batting = (
-                stats_container
-                .get(
-                    "batting",
-                    {}
+            stats = safe_dict(
+                player.get(
+                    "stats"
                 )
-                or {}
             )
 
-            if not batting:
-                continue
+            batting = safe_dict(
+                stats.get(
+                    "batting"
+                )
+            )
 
             pa = batting.get(
                 "plateAppearances"
@@ -1138,6 +1059,14 @@ def build_phillies_batting(
 
             if pa is None:
                 continue
+
+
+            position = safe_dict(
+                player.get(
+                    "position"
+                )
+            )
+
 
             result.append({
 
@@ -1161,20 +1090,14 @@ def build_phillies_batting(
                     ),
 
                 "position":
-                    (
-                        player
-                        .get(
-                            "position",
-                            {}
-                        )
-                        or {}
-                    )
-                    .get(
+                    position.get(
                         "abbreviation"
                     ),
 
                 "PA":
-                    pa,
+                    batting.get(
+                        "plateAppearances"
+                    ),
 
                 "H":
                     batting.get(
@@ -1213,32 +1136,23 @@ def build_phillies_batting(
 
             })
 
-    # -----------------------------------------------------
-    # 打順順
-    # -----------------------------------------------------
 
     result.sort(
-
         key=lambda x: (
-
             x["battingOrder"]
-
             if x["battingOrder"]
             is not None
-
             else 99,
-
             x["sequence"]
-
         )
-
     )
+
 
     return result
 
 
 # =========================================================
-# PHILLIES PITCHING
+# PITCHING
 # =========================================================
 
 def build_phillies_pitching(
@@ -1246,74 +1160,61 @@ def build_phillies_pitching(
     side
 ):
 
-    teams = (
-        boxscore
-        .get(
-            "teams",
-            {}
+    teams = safe_dict(
+        boxscore.get(
+            "teams"
         )
     )
 
-    team = (
-        teams
-        .get(
-            side,
-            {}
-        )
-        or {}
-    )
-
-    players = (
-        team
-        .get(
-            "players",
-            {}
+    team = safe_dict(
+        teams.get(
+            side
         )
     )
 
-    pitcher_ids = (
-        team
-        .get(
-            "pitchers",
-            []
+    players = safe_dict(
+        team.get(
+            "players"
         )
     )
+
+    pitcher_ids = safe_list(
+        team.get(
+            "pitchers"
+        )
+    )
+
 
     result = []
+
 
     for sequence, pid in enumerate(
         pitcher_ids,
         start=1
     ):
 
-        player = (
-            players
-            .get(
-                f"ID{pid}",
-                {}
+        player = safe_dict(
+            players.get(
+                f"ID{pid}"
             )
         )
 
         if not player:
             continue
 
-        stats_container = (
-            player
-            .get(
-                "stats",
-                {}
+
+        stats = safe_dict(
+            player.get(
+                "stats"
             )
-            or {}
         )
 
-        pitching = (
-            stats_container
-            .get(
-                "pitching",
-                {}
+        pitching = safe_dict(
+            stats.get(
+                "pitching"
             )
-            or {}
         )
+
 
         ip = pitching.get(
             "inningsPitched"
@@ -1323,11 +1224,15 @@ def build_phillies_pitching(
             "pitchesThrown"
         )
 
+
         if (
             ip is None
-            and pitches is None
+            and
+            pitches is None
         ):
+
             continue
+
 
         result.append({
 
@@ -1345,54 +1250,55 @@ def build_phillies_pitching(
                 ),
 
             "IP":
-                pitching_stat(
+                stat(
                     pitching,
                     "inningsPitched"
                 ),
 
             "H":
-                pitching_stat(
+                stat(
                     pitching,
                     "hits"
                 ),
 
             "K":
-                pitching_stat(
+                stat(
                     pitching,
                     "strikeOuts"
                 ),
 
             "HR":
-                pitching_stat(
+                stat(
                     pitching,
                     "homeRuns"
                 ),
 
             "R":
-                pitching_stat(
+                stat(
                     pitching,
                     "runs"
                 ),
 
             "ER":
-                pitching_stat(
+                stat(
                     pitching,
                     "earnedRuns"
                 ),
 
             "BB":
-                pitching_stat(
+                stat(
                     pitching,
                     "baseOnBalls"
                 ),
 
             "pitches":
-                pitching_stat(
+                stat(
                     pitching,
                     "pitchesThrown"
                 )
 
         })
+
 
     return result
 
@@ -1406,101 +1312,75 @@ def build_current_game(
     side
 ):
 
-    live_data = (
-        live_feed
-        .get(
-            "liveData",
-            {}
+    live_data = safe_dict(
+        live_feed.get(
+            "liveData"
         )
     )
 
-    game_data = (
-        live_feed
-        .get(
-            "gameData",
-            {}
+    plays = safe_dict(
+        live_data.get(
+            "plays"
         )
     )
 
-    plays = (
-        live_data
-        .get(
-            "plays",
-            {}
-        )
-    )
-
-    linescore = (
-        live_data
-        .get(
-            "linescore",
-            {}
+    linescore = safe_dict(
+        live_data.get(
+            "linescore"
         )
     )
 
     current_play = (
-        plays
-        .get(
+        plays.get(
             "currentPlay"
         )
     )
 
-    if not current_play:
 
-        return {
+    empty = {
 
-            "available":
-                False,
+        "available": False,
 
-            "isPhilliesBatting":
-                None,
+        "isPhilliesBatting": None,
 
-            "inning":
-                None,
+        "inning": None,
 
-            "half":
-                None,
+        "half": None,
 
-            "outs":
-                None,
+        "outs": None,
 
-            "balls":
-                None,
+        "balls": None,
 
-            "strikes":
-                None,
+        "strikes": None,
 
-            "pitcher":
-                None,
+        "pitcher": None,
 
-            "batter":
-                None,
+        "batter": None,
 
-            "lastPitch":
-                None,
+        "lastPitch": None,
 
-            "runners": {
+        "runners": {
 
-                "first":
-                    False,
+            "first": False,
 
-                "second":
-                    False,
+            "second": False,
 
-                "third":
-                    False
-
-            }
+            "third": False
 
         }
 
-    about = (
-        current_play
-        .get(
-            "about",
-            {}
+    }
+
+
+    if not current_play:
+
+        return empty
+
+
+    about = safe_dict(
+        current_play.get(
+            "about"
         )
-        or {}
     )
 
     half = about.get(
@@ -1511,9 +1391,6 @@ def build_current_game(
         "inning"
     )
 
-    # -----------------------------------------------------
-    # Phillies攻撃中
-    # -----------------------------------------------------
 
     if side == "home":
 
@@ -1527,80 +1404,55 @@ def build_current_game(
             half == "top"
         )
 
-    # -----------------------------------------------------
-    # COUNT
-    # -----------------------------------------------------
 
-    count = (
-        current_play
-        .get(
-            "count",
-            {}
+    count = safe_dict(
+        current_play.get(
+            "count"
         )
-        or {}
     )
 
-    # -----------------------------------------------------
-    # MATCHUP
-    # -----------------------------------------------------
 
-    matchup = (
-        current_play
-        .get(
-            "matchup",
-            {}
+    matchup = safe_dict(
+        current_play.get(
+            "matchup"
         )
-        or {}
     )
 
-    pitcher = (
-        matchup
-        .get(
-            "pitcher",
-            {}
+    pitcher = safe_dict(
+        matchup.get(
+            "pitcher"
         )
-        or {}
     )
 
-    batter = (
-        matchup
-        .get(
-            "batter",
-            {}
+    batter = safe_dict(
+        matchup.get(
+            "batter"
         )
-        or {}
     )
 
-    pitch_hand = (
-        matchup
-        .get(
-            "pitchHand",
-            {}
+    pitch_hand = safe_dict(
+        matchup.get(
+            "pitchHand"
         )
-        or {}
     )
 
-    bat_side = (
-        matchup
-        .get(
-            "batSide",
-            {}
+    bat_side = safe_dict(
+        matchup.get(
+            "batSide"
         )
-        or {}
     )
+
 
     # -----------------------------------------------------
-    # RUNNERS
+    # runners
     # -----------------------------------------------------
 
-    offense = (
-        linescore
-        .get(
-            "offense",
-            {}
+    offense = safe_dict(
+        linescore.get(
+            "offense"
         )
-        or {}
     )
+
 
     runners = {
 
@@ -1624,27 +1476,26 @@ def build_current_game(
 
     }
 
+
     # -----------------------------------------------------
-    # LAST PITCH
+    # last pitch
     # -----------------------------------------------------
 
     last_pitch = {
 
-        "speed":
-            None,
+        "speed": None,
 
-        "type":
-            None
+        "type": None
 
     }
 
-    play_events = (
-        current_play
-        .get(
-            "playEvents",
-            []
+
+    play_events = safe_list(
+        current_play.get(
+            "playEvents"
         )
     )
+
 
     for event in reversed(
         play_events
@@ -1656,34 +1507,28 @@ def build_current_game(
             )
             is not True
         ):
+
             continue
 
-        pitch_data = (
-            event
-            .get(
-                "pitchData",
-                {}
+
+        pitch_data = safe_dict(
+            event.get(
+                "pitchData"
             )
-            or {}
         )
 
-        details = (
-            event
-            .get(
-                "details",
-                {}
+        details = safe_dict(
+            event.get(
+                "details"
             )
-            or {}
         )
 
-        pitch_type = (
-            details
-            .get(
-                "type",
-                {}
+        pitch_type = safe_dict(
+            details.get(
+                "type"
             )
-            or {}
         )
+
 
         last_pitch = {
 
@@ -1701,14 +1546,10 @@ def build_current_game(
 
         break
 
-    # -----------------------------------------------------
-    # RETURN
-    # -----------------------------------------------------
 
     return {
 
-        "available":
-            True,
+        "available": True,
 
         "isPhilliesBatting":
             is_phillies_batting,
@@ -1718,16 +1559,6 @@ def build_current_game(
 
         "half":
             half,
-
-        "inningLabel":
-            (
-                f"{str(half).upper()} "
-                f"{inning}"
-
-                if half and inning
-
-                else None
-            ),
 
         "outs":
             count.get(
@@ -1803,38 +1634,34 @@ def build_game(
         "gamePk"
     )
 
+
     print(
         "Processing game:",
         game_pk
     )
 
+
     # -----------------------------------------------------
-    # Live Feed
+    # live feed
     # -----------------------------------------------------
 
     live_feed = get_live_feed(
         game_pk
     )
 
-    live_game_data = (
-        live_feed
-        .get(
-            "gameData",
-            {}
+
+    live_game_data = safe_dict(
+        live_feed.get(
+            "gameData"
         )
     )
 
-    live_data = (
-        live_feed
-        .get(
-            "liveData",
-            {}
+    live_data = safe_dict(
+        live_feed.get(
+            "liveData"
         )
     )
 
-    # -----------------------------------------------------
-    # game data
-    # -----------------------------------------------------
 
     if live_game_data:
 
@@ -1848,13 +1675,15 @@ def build_game(
             scheduled_game
         )
 
+
     # -----------------------------------------------------
-    # side
+    # Phillies side
     # -----------------------------------------------------
 
     side = get_phillies_side(
         game_data
     )
+
 
     if side is None:
 
@@ -1864,46 +1693,49 @@ def build_game(
 
         return None
 
+
     # -----------------------------------------------------
-    # Boxscore
+    # boxscore
     # -----------------------------------------------------
 
     boxscore = get_boxscore(
         game_pk
     )
 
+
     if not boxscore:
 
-        boxscore = (
-            live_data
-            .get(
-                "boxscore",
-                {}
+        boxscore = safe_dict(
+            live_data.get(
+                "boxscore"
             )
         )
 
+
     # -----------------------------------------------------
-    # Linescore
+    # LINESCORE
+    #
+    # 専用endpointを最優先。
+    # これでFinal試合でもinningScoresを取得する。
     # -----------------------------------------------------
 
-    linescore = (
-        live_data
-        .get(
-            "linescore",
-            {}
-        )
+    linescore = get_linescore(
+        game_pk,
+        live_feed
     )
 
+
     # -----------------------------------------------------
-    # Game info
+    # game info
     # -----------------------------------------------------
 
     game_info = build_game_info(
         game_data
     )
 
+
     # -----------------------------------------------------
-    # Phillies batting
+    # batting
     # -----------------------------------------------------
 
     batting = build_phillies_batting(
@@ -1911,8 +1743,9 @@ def build_game(
         side
     )
 
+
     # -----------------------------------------------------
-    # Phillies pitching
+    # pitching
     # -----------------------------------------------------
 
     pitching = build_phillies_pitching(
@@ -1920,8 +1753,9 @@ def build_game(
         side
     )
 
+
     # -----------------------------------------------------
-    # Current
+    # current game
     # -----------------------------------------------------
 
     current_game = build_current_game(
@@ -1929,14 +1763,33 @@ def build_game(
         side
     )
 
+
     # -----------------------------------------------------
-    # RETURN
+    # score
     # -----------------------------------------------------
+
+    teams = safe_dict(
+        game_data.get(
+            "teams"
+        )
+    )
+
+    away = safe_dict(
+        teams.get(
+            "away"
+        )
+    )
+
+    home = safe_dict(
+        teams.get(
+            "home"
+        )
+    )
+
 
     return {
 
-        "game":
-            game_info,
+        "game": game_info,
 
         "location":
             (
@@ -1950,44 +1803,17 @@ def build_game(
             "away": {
 
                 "runs":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "away",
-                        {}
-                    )
-                    .get(
+                    away.get(
                         "score"
                     ),
 
                 "hits":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "away",
-                        {}
-                    )
-                    .get(
+                    away.get(
                         "hits"
                     ),
 
                 "errors":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "away",
-                        {}
-                    )
-                    .get(
+                    away.get(
                         "errors"
                     )
 
@@ -1996,44 +1822,17 @@ def build_game(
             "home": {
 
                 "runs":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "home",
-                        {}
-                    )
-                    .get(
+                    home.get(
                         "score"
                     ),
 
                 "hits":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "home",
-                        {}
-                    )
-                    .get(
+                    home.get(
                         "hits"
                     ),
 
                 "errors":
-                    game_data
-                    .get(
-                        "teams",
-                        {}
-                    )
-                    .get(
-                        "home",
-                        {}
-                    )
-                    .get(
+                    home.get(
                         "errors"
                     )
 
@@ -2059,7 +1858,7 @@ def build_game(
 
 
 # =========================================================
-# EMPTY
+# EMPTY DATA
 # =========================================================
 
 def empty_data(
@@ -2074,10 +1873,10 @@ def empty_data(
                 TEAM_ID,
 
             "name":
-                "Philadelphia Phillies",
+                TEAM_NAME,
 
             "abbreviation":
-                "PHI"
+                TEAM_ABBR
 
         },
 
@@ -2109,9 +1908,12 @@ def main():
 
     now = get_now_jst()
 
-    game_date = now.strftime(
-        "%Y-%m-%d"
+    game_date = (
+        now.strftime(
+            "%Y-%m-%d"
+        )
     )
+
 
     print(
         "========================================"
@@ -2127,96 +1929,92 @@ def main():
     )
 
     print(
-        "Display Date:",
-        game_date
-    )
-
-    print(
         "========================================"
     )
 
-    # =====================================================
-    # 重要
-    #
-    # 「今日」だけではなく、
-    # 昨日・今日・明日から実際の対象試合を選ぶ。
-    # =====================================================
-
-    games = get_relevant_games()
 
     # -----------------------------------------------------
-    # No game
+    # 最新/現在の試合
     # -----------------------------------------------------
 
-    if not games:
+    game = get_relevant_game()
+
+
+    # -----------------------------------------------------
+    # no game
+    # -----------------------------------------------------
+
+    if game is None:
 
         data = empty_data(
             game_date
         )
 
+
     else:
 
-        result_games = []
+        result = None
 
-        for scheduled_game in games:
 
-            try:
+        try:
 
-                result = build_game(
-                    scheduled_game
-                )
+            result = build_game(
+                game
+            )
 
-                if result is not None:
+        except Exception as error:
 
-                    result_games.append(
-                        result
-                    )
+            print(
+                "BUILD ERROR:",
+                error
+            )
 
-            except Exception as error:
 
-                print(
-                    "ERROR:",
-                    scheduled_game.get(
-                        "gamePk"
-                    ),
-                    error
-                )
+        if result is None:
 
-        data = {
+            data = empty_data(
+                game_date
+            )
 
-            "team": {
+        else:
 
-                "id":
-                    TEAM_ID,
+            data = {
 
-                "name":
-                    "Philadelphia Phillies",
+                "team": {
 
-                "abbreviation":
-                    "PHI"
+                    "id":
+                        TEAM_ID,
 
-            },
+                    "name":
+                        TEAM_NAME,
 
-            "season":
-                SEASON,
+                    "abbreviation":
+                        TEAM_ABBR
 
-            "date":
-                game_date,
+                },
 
-            "updated":
-                datetime.now(
-                    JST
-                ).isoformat(),
+                "season":
+                    SEASON,
 
-            "gameCount":
-                len(
-                    result_games
-                ),
+                "date":
+                    game_date,
 
-            "games":
-                result_games
+                "updated":
+                    datetime.now(
+                        JST
+                    ).isoformat(),
 
-        }
+                "gameCount":
+                    1,
+
+                "games": [
+
+                    result
+
+                ]
+
+            }
+
 
     # =====================================================
     # SAVE
@@ -2226,6 +2024,7 @@ def main():
         "data",
         exist_ok=True
     )
+
 
     with open(
         OUTPUT_FILE,
@@ -2239,6 +2038,11 @@ def main():
             ensure_ascii=False,
             indent=2
         )
+
+
+    # =====================================================
+    # LOG
+    # =====================================================
 
     print(
         "========================================"
@@ -2262,6 +2066,59 @@ def main():
             "updated"
         )
     )
+
+
+    if data.get("games"):
+
+        game_data = (
+            data["games"][0]
+        )
+
+        print(
+            "GamePk:",
+            game_data
+            .get("game", {})
+            .get("gamePk")
+        )
+
+        print(
+            "Status:",
+            game_data
+            .get("game", {})
+            .get("status", {})
+            .get("abstract")
+        )
+
+        print(
+            "Innings:",
+            len(
+                game_data.get(
+                    "inningScores",
+                    []
+                )
+            )
+        )
+
+        print(
+            "Batters:",
+            len(
+                game_data.get(
+                    "philliesBatting",
+                    []
+                )
+            )
+        )
+
+        print(
+            "Pitchers:",
+            len(
+                game_data.get(
+                    "philliesPitching",
+                    []
+                )
+            )
+        )
+
 
     print(
         "========================================"
