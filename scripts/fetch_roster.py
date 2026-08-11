@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import time
 from datetime import datetime, timezone
 
 import requests
@@ -17,12 +18,11 @@ SEASON = 2026
 
 OUTPUT_FILE = "data/players.json"
 
-# MLBシーズン開始から現在までのTransactionを取得
-TRANSACTION_START = f"{SEASON}-01-01"
+REQUEST_SLEEP = 0.15
 
 
 # =========================================================
-# HTTP SESSION
+# SESSION
 # =========================================================
 
 session = requests.Session()
@@ -31,6 +31,10 @@ session.headers.update({
     "User-Agent": "Phillies-Reader/1.0"
 })
 
+
+# =========================================================
+# API
+# =========================================================
 
 def get_json(url, params=None):
 
@@ -63,20 +67,33 @@ def get_roster(roster_type):
         params
     )
 
-    return data.get("roster", [])
+    return data.get(
+        "roster",
+        []
+    )
 
 
 # =========================================================
-# PLAYER PROFILE
+# PLAYER
 # =========================================================
 
 def get_person(player_id):
 
     url = f"{BASE_URL}/people/{player_id}"
 
-    data = get_json(url)
+    params = {
+        "hydrate": "transactions"
+    }
 
-    people = data.get("people", [])
+    data = get_json(
+        url,
+        params
+    )
+
+    people = data.get(
+        "people",
+        []
+    )
 
     if not people:
         return {}
@@ -85,10 +102,10 @@ def get_person(player_id):
 
 
 # =========================================================
-# TRANSACTIONS
+# TEAM TRANSACTIONS
 # =========================================================
 
-def get_transactions():
+def get_team_transactions():
 
     today = datetime.now(
         timezone.utc
@@ -98,7 +115,7 @@ def get_transactions():
 
     params = {
         "teamId": TEAM_ID,
-        "startDate": TRANSACTION_START,
+        "startDate": f"{SEASON}-01-01",
         "endDate": today
     }
 
@@ -138,15 +155,17 @@ def get_position(roster_item, person):
         {}
     )
 
-    abbreviation = position.get(
+    code = position.get(
         "abbreviation"
     )
 
-    if abbreviation in VALID_POSITIONS:
+    if code in VALID_POSITIONS:
 
         return {
-            "code": abbreviation,
-            "name": position.get("name")
+            "code": code,
+            "name": position.get(
+                "name"
+            )
         }
 
     primary = person.get(
@@ -154,15 +173,17 @@ def get_position(roster_item, person):
         {}
     )
 
-    abbreviation = primary.get(
+    code = primary.get(
         "abbreviation"
     )
 
-    if abbreviation in VALID_POSITIONS:
+    if code in VALID_POSITIONS:
 
         return {
-            "code": abbreviation,
-            "name": primary.get("name")
+            "code": code,
+            "name": primary.get(
+                "name"
+            )
         }
 
     return {
@@ -179,24 +200,39 @@ def get_bt(person):
 
     bat = (
         person
-        .get("batSide", {})
-        .get("code")
+        .get(
+            "batSide",
+            {}
+        )
+        .get(
+            "code"
+        )
     )
 
     throw = (
         person
-        .get("pitchHand", {})
-        .get("code")
+        .get(
+            "pitchHand",
+            {}
+        )
+        .get(
+            "code"
+        )
     )
 
     return {
-        "bat": bat if bat else None,
-        "throw": throw if throw else None,
-        "display": (
+
+        "bat":
+            bat if bat else None,
+
+        "throw":
+            throw if throw else None,
+
+        "display":
             f"{bat}/{throw}"
             if bat and throw
             else None
-        )
+
     }
 
 
@@ -204,112 +240,174 @@ def get_bt(person):
 # TRANSACTION DATE
 # =========================================================
 
-def transaction_date(transaction):
+def get_transaction_date(transaction):
 
-    value = (
-        transaction.get("effectiveDate")
-        or transaction.get("date")
-        or ""
+    return (
+        transaction.get(
+            "effectiveDate"
+        )
+        or
+        transaction.get(
+            "date"
+        )
+        or
+        ""
     )
-
-    return value
 
 
 # =========================================================
-# IL TRANSACTION DETECTION
+# IL DETECTION
 # =========================================================
 
-IL_PATTERN = re.compile(
-    r"(injured list|injured-list)",
-    re.IGNORECASE
-)
+IL_PLACEMENT_PATTERNS = [
 
-IL_PLACEMENT_PATTERN = re.compile(
-    r"(placed|transferred).*(injured list|injured-list)",
-    re.IGNORECASE
-)
+    re.compile(
+        r"\bplaced\b.*\binjured list\b",
+        re.IGNORECASE
+    ),
 
-IL_ACTIVATION_PATTERN = re.compile(
-    r"(activated|reinstated).*(injured list|injured-list)",
-    re.IGNORECASE
-)
+    re.compile(
+        r"\btransferred\b.*\binjured list\b",
+        re.IGNORECASE
+    ),
 
+    re.compile(
+        r"\btransferred\b.*\b\d+[- ]day\b.*\binjured list\b",
+        re.IGNORECASE
+    ),
 
-def classify_il_transaction(transaction):
-
-    description = (
-        transaction.get("description")
-        or ""
+    re.compile(
+        r"\bto the\b.*\binjured list\b",
+        re.IGNORECASE
     )
+]
 
-    # -----------------------------------------------------
-    # ILから復帰
-    # -----------------------------------------------------
 
-    if IL_ACTIVATION_PATTERN.search(
-        description
-    ):
+IL_REMOVAL_PATTERNS = [
 
-        return "ACTIVATED"
+    re.compile(
+        r"\bactivated\b.*\binjured list\b",
+        re.IGNORECASE
+    ),
 
-    # -----------------------------------------------------
-    # ILへ登録
-    # -----------------------------------------------------
+    re.compile(
+        r"\breinstated\b.*\binjured list\b",
+        re.IGNORECASE
+    ),
 
-    if IL_PLACEMENT_PATTERN.search(
-        description
-    ):
+    re.compile(
+        r"\bfrom the\b.*\binjured list\b",
+        re.IGNORECASE
+    )
+]
 
-        return "PLACED"
 
-    # -----------------------------------------------------
-    # その他
-    # -----------------------------------------------------
+def is_il_placement(description):
+
+    if not description:
+        return False
+
+    for pattern in IL_PLACEMENT_PATTERNS:
+
+        if pattern.search(description):
+
+            return True
+
+    return False
+
+
+def is_il_removal(description):
+
+    if not description:
+        return False
+
+    for pattern in IL_REMOVAL_PATTERNS:
+
+        if pattern.search(description):
+
+            return True
+
+    return False
+
+
+# =========================================================
+# IL TYPE
+# =========================================================
+
+def extract_il_type(description):
+
+    if not description:
+        return None
+
+    patterns = [
+
+        (
+            r"(\d+)[ -]?day injured list",
+            lambda m:
+                f"{m.group(1)}-Day IL"
+        ),
+
+        (
+            r"(\d+)[ -]?day IL",
+            lambda m:
+                f"{m.group(1)}-Day IL"
+        )
+
+    ]
+
+    for pattern, formatter in patterns:
+
+        match = re.search(
+            pattern,
+            description,
+            re.IGNORECASE
+        )
+
+        if match:
+
+            return formatter(match)
 
     return None
 
 
 # =========================================================
-# CURRENT IL STATE
+# PLAYER TRANSACTIONS
 # =========================================================
 
-def determine_current_il(
-    player_id,
-    transactions
-):
+def get_player_transactions(person):
 
-    player_transactions = []
+    transactions = person.get(
+        "transactions",
+        []
+    )
+
+    result = []
 
     for transaction in transactions:
 
-        person = transaction.get(
-            "person",
-            {}
-        )
-
-        if person.get("id") != player_id:
-            continue
-
         description = (
-            transaction.get("description")
+            transaction.get(
+                "description"
+            )
             or ""
         )
 
-        if not IL_PATTERN.search(
-            description
+        if not (
+            is_il_placement(
+                description
+            )
+            or
+            is_il_removal(
+                description
+            )
         ):
+
             continue
 
-        event_type = classify_il_transaction(
-            transaction
-        )
+        result.append({
 
-        if event_type is None:
-            continue
-
-        player_transactions.append({
             "date":
-                transaction_date(
+                get_transaction_date(
                     transaction
                 ),
 
@@ -317,9 +415,6 @@ def determine_current_il(
                 transaction.get(
                     "effectiveDate"
                 ),
-
-            "type":
-                event_type,
 
             "description":
                 description,
@@ -329,95 +424,310 @@ def determine_current_il(
                     "typeCode"
                 ),
 
+            "typeDesc":
+                transaction.get(
+                    "typeDesc"
+                ),
+
             "transactionId":
                 transaction.get(
                     "id"
                 )
+
         })
 
+    result.sort(
+        key=lambda x:
+            x.get("date") or ""
+    )
+
+    return result
+
+
+# =========================================================
+# CURRENT IL STATE
+# =========================================================
+
+def determine_il_state(
+    person,
+    team_transactions,
+    player_id
+):
+
+    events = []
+
     # -----------------------------------------------------
-    # 日付順
+    # PLAYER TRANSACTIONS
     # -----------------------------------------------------
 
-    player_transactions.sort(
-        key=lambda x: (
-            x.get("date") or ""
+    for transaction in (
+        person.get(
+            "transactions",
+            []
         )
+    ):
+
+        transaction_person = (
+            transaction.get(
+                "person",
+                {}
+            )
+        )
+
+        transaction_player_id = (
+            transaction_person.get(
+                "id"
+            )
+        )
+
+        # person hydrateの場合はpersonが
+        # 入っていない場合があるためID確認を
+        # 厳密に要求しない
+        if (
+            transaction_player_id
+            and
+            transaction_player_id != player_id
+        ):
+            continue
+
+        description = (
+            transaction.get(
+                "description"
+            )
+            or ""
+        )
+
+        if (
+            is_il_placement(
+                description
+            )
+            or
+            is_il_removal(
+                description
+            )
+        ):
+
+            events.append({
+                "date":
+                    get_transaction_date(
+                        transaction
+                    ),
+
+                "effectiveDate":
+                    transaction.get(
+                        "effectiveDate"
+                    ),
+
+                "description":
+                    description,
+
+                "typeCode":
+                    transaction.get(
+                        "typeCode"
+                    ),
+
+                "typeDesc":
+                    transaction.get(
+                        "typeDesc"
+                    ),
+
+                "transactionId":
+                    transaction.get(
+                        "id"
+                    )
+            })
+
+    # -----------------------------------------------------
+    # TEAM TRANSACTIONS
+    # 補完
+    # -----------------------------------------------------
+
+    for transaction in team_transactions:
+
+        person_data = (
+            transaction.get(
+                "person",
+                {}
+            )
+        )
+
+        if person_data.get(
+            "id"
+        ) != player_id:
+
+            continue
+
+        description = (
+            transaction.get(
+                "description"
+            )
+            or ""
+        )
+
+        if (
+            is_il_placement(
+                description
+            )
+            or
+            is_il_removal(
+                description
+            )
+        ):
+
+            events.append({
+                "date":
+                    get_transaction_date(
+                        transaction
+                    ),
+
+                "effectiveDate":
+                    transaction.get(
+                        "effectiveDate"
+                    ),
+
+                "description":
+                    description,
+
+                "typeCode":
+                    transaction.get(
+                        "typeCode"
+                    ),
+
+                "typeDesc":
+                    transaction.get(
+                        "typeDesc"
+                    ),
+
+                "transactionId":
+                    transaction.get(
+                        "id"
+                    )
+            })
+
+    # -----------------------------------------------------
+    # 重複除去
+    # -----------------------------------------------------
+
+    unique = {}
+
+    for event in events:
+
+        key = (
+            event.get(
+                "transactionId"
+            )
+            or
+            (
+                event.get("date"),
+                event.get("description")
+            )
+        )
+
+        unique[key] = event
+
+    events = list(
+        unique.values()
     )
 
     # -----------------------------------------------------
-    # 最後のIL関連イベントを確認
+    # 時系列
     # -----------------------------------------------------
 
-    current_il = False
-    latest_il = None
+    events.sort(
+        key=lambda x:
+            x.get("date") or ""
+    )
 
-    for event in player_transactions:
+    # -----------------------------------------------------
+    # STATE MACHINE
+    # -----------------------------------------------------
 
-        if event["type"] == "PLACED":
+    is_il = False
 
-            current_il = True
-            latest_il = event
+    latest_il_event = None
 
-        elif event["type"] == "ACTIVATED":
+    for event in events:
 
-            current_il = False
-            latest_il = event
+        description = (
+            event.get(
+                "description"
+            )
+            or
+            ""
+        )
+
+        # IL登録・IL間移動
+        if is_il_placement(
+            description
+        ):
+
+            is_il = True
+
+            latest_il_event = event
+
+        # ILから復帰
+        elif is_il_removal(
+            description
+        ):
+
+            is_il = False
+
+            latest_il_event = event
 
     # -----------------------------------------------------
     # IL情報
     # -----------------------------------------------------
 
     il_info = {
-        "isIL": current_il,
-        "ilType": None,
-        "ilDate": None,
-        "injuryDescription": None
+
+        "isIL":
+            is_il,
+
+        "ilType":
+            None,
+
+        "ilDate":
+            None,
+
+        "description":
+            None
+
     }
 
-    if current_il and latest_il:
+    if is_il and latest_il_event:
 
         description = (
-            latest_il["description"]
-        )
-
-        # 例:
-        # 10-day injured list
-        # 15-day injured list
-        # 60-day injured list
-        # 7-day injured list
-
-        match = re.search(
-            r"(\d+)[ -]?day injured list",
-            description,
-            re.IGNORECASE
-        )
-
-        if match:
-
-            il_info["ilType"] = (
-                f"{match.group(1)}-Day IL"
+            latest_il_event.get(
+                "description"
             )
+            or
+            ""
+        )
+
+        il_info["ilType"] = (
+            extract_il_type(
+                description
+            )
+        )
 
         il_info["ilDate"] = (
-            latest_il.get(
+            latest_il_event.get(
                 "effectiveDate"
             )
-            or latest_il.get(
+            or
+            latest_il_event.get(
                 "date"
             )
         )
 
-        # 「Left knee...」など、
-        # ILの種類より後ろにある説明を保存
-        il_info[
-            "injuryDescription"
-        ] = description
+        il_info["description"] = (
+            description
+        )
 
     return (
-        current_il,
+        is_il,
         il_info,
-        player_transactions
+        events
     )
 
 
@@ -425,40 +735,27 @@ def determine_current_il(
 # ROSTER STATUS
 # =========================================================
 
-def determine_roster_status(
+def determine_status(
     player_id,
     is_il,
     active_ids,
     forty_ids
 ):
 
-    # -----------------------------------------------------
-    # ILを最優先
-    # -----------------------------------------------------
-
+    # ILが最優先
     if is_il:
 
         return "IL"
 
-    # -----------------------------------------------------
-    # 現在Active
-    # -----------------------------------------------------
-
+    # MLB APIのactive roster
     if player_id in active_ids:
 
         return "ACTIVE"
 
-    # -----------------------------------------------------
-    # 40-Man
-    # -----------------------------------------------------
-
+    # MLB APIの40-man roster
     if player_id in forty_ids:
 
         return "40-MAN"
-
-    # -----------------------------------------------------
-    # 不明
-    # -----------------------------------------------------
 
     return "UNKNOWN"
 
@@ -474,7 +771,7 @@ def main():
     )
 
     print(
-        "Philadelphia Phillies Roster Collector"
+        "PHILLIES ROSTER COLLECTOR"
     )
 
     print(
@@ -490,15 +787,11 @@ def main():
     # =====================================================
 
     print(
-        "\n[1] Fetching ACTIVE roster..."
+        "\nFetching ACTIVE roster..."
     )
 
     active_roster = get_roster(
         "active"
-    )
-
-    print(
-        f"ACTIVE: {len(active_roster)}"
     )
 
     # =====================================================
@@ -506,31 +799,23 @@ def main():
     # =====================================================
 
     print(
-        "\n[2] Fetching 40-MAN roster..."
+        "Fetching 40-MAN roster..."
     )
 
     forty_roster = get_roster(
         "40Man"
     )
 
-    print(
-        f"40-MAN: {len(forty_roster)}"
-    )
-
     # =====================================================
-    # FULL ROSTER
+    # FULL
     # =====================================================
 
     print(
-        "\n[3] Fetching FULL roster..."
+        "Fetching FULL roster..."
     )
 
     full_roster = get_roster(
         "fullRoster"
-    )
-
-    print(
-        f"FULL: {len(full_roster)}"
     )
 
     # =====================================================
@@ -538,17 +823,15 @@ def main():
     # =====================================================
 
     print(
-        "\n[4] Fetching transactions..."
+        "Fetching team transactions..."
     )
 
-    transactions = get_transactions()
-
-    print(
-        f"Transactions: {len(transactions)}"
+    team_transactions = (
+        get_team_transactions()
     )
 
     # =====================================================
-    # ID SETS
+    # IDS
     # =====================================================
 
     active_ids = set()
@@ -558,10 +841,6 @@ def main():
     full_ids = set()
 
     roster_items = {}
-
-    # -----------------------------------------------------
-    # ACTIVE
-    # -----------------------------------------------------
 
     for item in active_roster:
 
@@ -574,20 +853,15 @@ def main():
             "id"
         )
 
-        if not player_id:
-            continue
+        if player_id:
 
-        active_ids.add(
-            player_id
-        )
+            active_ids.add(
+                player_id
+            )
 
-        roster_items[
-            player_id
-        ] = item
-
-    # -----------------------------------------------------
-    # 40-MAN
-    # -----------------------------------------------------
+            roster_items[
+                player_id
+            ] = item
 
     for item in forty_roster:
 
@@ -600,21 +874,16 @@ def main():
             "id"
         )
 
-        if not player_id:
-            continue
+        if player_id:
 
-        forty_ids.add(
-            player_id
-        )
+            forty_ids.add(
+                player_id
+            )
 
-        roster_items.setdefault(
-            player_id,
-            item
-        )
-
-    # -----------------------------------------------------
-    # FULL
-    # -----------------------------------------------------
+            roster_items.setdefault(
+                player_id,
+                item
+            )
 
     for item in full_roster:
 
@@ -627,34 +896,36 @@ def main():
             "id"
         )
 
-        if not player_id:
-            continue
+        if player_id:
 
-        full_ids.add(
-            player_id
-        )
+            full_ids.add(
+                player_id
+            )
 
-        roster_items.setdefault(
-            player_id,
-            item
-        )
+            roster_items.setdefault(
+                player_id,
+                item
+            )
 
     # =====================================================
-    # ALL PLAYERS
+    # FULL ROSTER IS THE MASTER LIST
     # =====================================================
 
     all_ids = (
-        active_ids |
-        forty_ids |
         full_ids
+        |
+        active_ids
+        |
+        forty_ids
     )
 
     print(
-        f"\nUnique players: {len(all_ids)}"
+        f"\nPlayers discovered: "
+        f"{len(all_ids)}"
     )
 
     # =====================================================
-    # BUILD PLAYERS
+    # BUILD
     # =====================================================
 
     players = []
@@ -665,8 +936,8 @@ def main():
     ):
 
         print(
-            f"\n[{index}/{len(all_ids)}] "
-            f"Player ID: {player_id}"
+            f"[{index}/{len(all_ids)}] "
+            f"{player_id}"
         )
 
         try:
@@ -675,6 +946,10 @@ def main():
                 player_id,
                 {}
             )
+
+            # -------------------------------------------------
+            # PROFILE
+            # -------------------------------------------------
 
             person = get_person(
                 player_id
@@ -688,43 +963,56 @@ def main():
 
                 continue
 
+            time.sleep(
+                REQUEST_SLEEP
+            )
+
             # -------------------------------------------------
-            # 基本情報
+            # BASIC
             # -------------------------------------------------
 
-            position = get_position(
-                roster_item,
-                person
+            name = person.get(
+                "fullName"
+            )
+
+            jersey = (
+                roster_item.get(
+                    "jerseyNumber"
+                )
             )
 
             bt = get_bt(
                 person
             )
 
+            position = get_position(
+                roster_item,
+                person
+            )
+
             # -------------------------------------------------
-            # IL判定
+            # IL
             # -------------------------------------------------
 
             (
                 is_il,
                 il_info,
                 il_history
-            ) = determine_current_il(
-                player_id,
-                transactions
+            ) = determine_il_state(
+                person,
+                team_transactions,
+                player_id
             )
 
             # -------------------------------------------------
-            # 最終ロスター状態
+            # STATUS
             # -------------------------------------------------
 
-            roster_status = (
-                determine_roster_status(
-                    player_id,
-                    is_il,
-                    active_ids,
-                    forty_ids
-                )
+            status = determine_status(
+                player_id,
+                is_il,
+                active_ids,
+                forty_ids
             )
 
             # -------------------------------------------------
@@ -737,9 +1025,7 @@ def main():
                     player_id,
 
                 "name":
-                    person.get(
-                        "fullName"
-                    ),
+                    name,
 
                 "firstName":
                     person.get(
@@ -752,9 +1038,7 @@ def main():
                     ),
 
                 "jerseyNumber":
-                    roster_item.get(
-                        "jerseyNumber"
-                    ),
+                    jersey,
 
                 "bt":
                     bt,
@@ -763,18 +1047,21 @@ def main():
                     position,
 
                 "rosterStatus":
-                    roster_status,
+                    status,
 
                 "rosterMembership": {
 
                     "active":
-                        player_id in active_ids,
+                        player_id
+                        in active_ids,
 
                     "fortyMan":
-                        player_id in forty_ids,
+                        player_id
+                        in forty_ids,
 
                     "fullRoster":
-                        player_id in full_ids,
+                        player_id
+                        in full_ids,
 
                     "il":
                         is_il
@@ -794,28 +1081,16 @@ def main():
             )
 
             print(
-                f"  {player.get('name')}"
-            )
-
-            print(
-                f"  Position: "
-                f"{position.get('code')}"
-            )
-
-            print(
-                f"  B/T: "
+                f"  {name} | "
+                f"{status} | "
+                f"{position.get('code')} | "
                 f"{bt.get('display')}"
-            )
-
-            print(
-                f"  Status: "
-                f"{roster_status}"
             )
 
             if is_il:
 
                 print(
-                    f"  IL: "
+                    f"  >>> IL: "
                     f"{il_info.get('ilType')}"
                 )
 
@@ -830,10 +1105,15 @@ def main():
     # =====================================================
 
     status_order = {
+
         "ACTIVE": 0,
+
         "IL": 1,
+
         "40-MAN": 2,
+
         "UNKNOWN": 3
+
     }
 
     players.sort(
@@ -847,7 +1127,9 @@ def main():
 
             p.get(
                 "name"
-            ) or ""
+            )
+            or
+            ""
         )
     )
 
@@ -866,7 +1148,8 @@ def main():
                 for p in players
                 if p.get(
                     "rosterStatus"
-                ) == "ACTIVE"
+                )
+                == "ACTIVE"
             ),
 
         "il":
@@ -875,7 +1158,8 @@ def main():
                 for p in players
                 if p.get(
                     "rosterStatus"
-                ) == "IL"
+                )
+                == "IL"
             ),
 
         "fortyMan":
@@ -884,7 +1168,8 @@ def main():
                 for p in players
                 if p.get(
                     "rosterStatus"
-                ) == "40-MAN"
+                )
+                == "40-MAN"
             ),
 
         "unknown":
@@ -893,7 +1178,8 @@ def main():
                 for p in players
                 if p.get(
                     "rosterStatus"
-                ) == "UNKNOWN"
+                )
+                == "UNKNOWN"
             )
 
     }
@@ -956,7 +1242,7 @@ def main():
         )
 
     # =====================================================
-    # FINAL REPORT
+    # REPORT
     # =====================================================
 
     print(
