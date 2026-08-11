@@ -2,83 +2,55 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta
-    name="viewport"
-    content="width=device-width,
-             initial-scale=1.0,
-             viewport-fit=cover"
->
-<title>Schedule</title>
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-<link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&display=swap"
-    rel="stylesheet"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Score | Phillies Reader</title>
 <style>
 /* =========================================================
-   ROOT
+   BASE
 ========================================================= */
-:root {
-    --navy: #07152b;
-    --navy-2: #0b1c38;
-    --red: #e31937;
-    --white: #ffffff;
-    --muted: #64748b;
-    --line:
-        rgba(255,255,255,.075);
+:root{
+    --navy:#07152b;
+    --navy2:#0b1d38;
+    --red:#e31937;
+    --white:#ffffff;
+    --text:#dbe4f0;
+    --muted:#7d8ca3;
+    --line:rgba(255,255,255,.08);
+    --green:#48d597;
 }
-/* =========================================================
-   RESET
-========================================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color:
-        transparent;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background:
-        var(--navy);
+body{
+    min-height:100%;
+    background:var(--navy);
 }
-body {
-    color:
-        var(--white);
+body{
+    color:var(--white);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
-    padding-bottom:
-        calc(
-            76px +
-            env(safe-area-inset-bottom)
-        );
+    padding-bottom:90px;
 }
 /* =========================================================
    HEADER
-   INDEX / PLAYER と統一
+   SCHEDULEと統一
 ========================================================= */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    height: 72px;
-    overflow: hidden;
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:100;
+    height:72px;
+    overflow:hidden;
     background:
         linear-gradient(
             115deg,
@@ -91,13 +63,13 @@ body {
         0 7px 22px
         rgba(0,0,0,.30);
 }
-.header::before {
-    content: "";
-    position: absolute;
-    top: -120px;
-    right: -55px;
-    width: 300px;
-    height: 300px;
+.header::before{
+    content:"";
+    position:absolute;
+    top:-120px;
+    right:-55px;
+    width:300px;
+    height:300px;
     transform:
         rotate(27deg);
     background:
@@ -109,16 +81,15 @@ body {
     border-left:
         1px solid
         rgba(255,255,255,.16);
-    pointer-events:
-        none;
+    pointer-events:none;
 }
-.header::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4px;
+.header::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:4px;
     background:
         linear-gradient(
             90deg,
@@ -128,55 +99,51 @@ body {
             rgba(255,255,255,.28) 72%,
             transparent 100%
         );
-    pointer-events:
-        none;
+    pointer-events:none;
 }
-.header-navy-shape {
-    position: absolute;
-    top: -20px;
-    left: 43%;
-    width: 130px;
-    height: 130px;
+.header-navy-shape{
+    position:absolute;
+    top:-20px;
+    left:43%;
+    width:130px;
+    height:130px;
     transform:
         rotate(25deg);
     background:
         rgba(7,21,43,.16);
-    pointer-events:
-        none;
+    pointer-events:none;
 }
-.header-line-one {
-    position: absolute;
-    left: -20px;
-    bottom: 14px;
-    width: 55%;
-    height: 2px;
+.header-line-one{
+    position:absolute;
+    left:-20px;
+    bottom:14px;
+    width:55%;
+    height:2px;
     transform:
         skewX(-35deg);
     background:
         rgba(255,255,255,.34);
-    pointer-events:
-        none;
+    pointer-events:none;
 }
-.header-line-two {
-    position: absolute;
-    left: 4%;
-    bottom: 8px;
-    width: 35%;
-    height: 1px;
+.header-line-two{
+    position:absolute;
+    left:4%;
+    bottom:8px;
+    width:35%;
+    height:1px;
     transform:
         skewX(-35deg);
     background:
         rgba(255,255,255,.18);
-    pointer-events:
-        none;
+    pointer-events:none;
 }
-.header-light {
-    position: absolute;
-    top: -85px;
-    right: 20px;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
+.header-light{
+    position:absolute;
+    top:-85px;
+    right:20px;
+    width:180px;
+    height:180px;
+    border-radius:50%;
     background:
         radial-gradient(
             circle,
@@ -184,644 +151,501 @@ body {
             rgba(255,255,255,.06) 35%,
             transparent 72%
         );
-    pointer-events:
-        none;
+    pointer-events:none;
 }
 /* =========================================================
    MAIN
 ========================================================= */
-main {
-    min-height:
-        100vh;
-    padding-top:
-        72px;
+main{
+    padding-top:72px;
 }
-.page {
-    width: 100%;
+.page{
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
     padding:
-        21px 14px 35px;
+        22px
+        14px
+        30px;
 }
 /* =========================================================
-   PAGE HEADING
+   TITLE
 ========================================================= */
-.page-heading {
-    margin-bottom:
-        17px;
+.page-title{
+    margin-bottom:18px;
 }
-.page-heading h1 {
+.page-title h1{
     font-family:
-        "Barlow Condensed",
+        Impact,
+        "Arial Narrow",
         sans-serif;
-    font-size:
-        31px;
-    font-weight:
-        800;
-    line-height:
-        .95;
-    letter-spacing:
-        -.5px;
+    font-size:32px;
+    line-height:1;
+    letter-spacing:.5px;
 }
-.page-heading p {
-    margin-top:
-        6px;
-    color:
-        var(--muted);
-    font-size:
-        10px;
-    font-weight:
-        700;
-    letter-spacing:
-        1.4px;
+.page-title p{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.5px;
 }
 /* =========================================================
-   MONTH SELECTOR
+   MESSAGE
 ========================================================= */
-.month-selector {
-    width: 100%;
-    height: 59px;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        space-between;
-    padding:
-        0 7px;
-    margin-bottom:
-        19px;
+.message{
+    padding:28px 18px;
     border:
         1px solid
         var(--line);
-    border-radius:
-        15px;
+    border-radius:16px;
     background:
         rgba(255,255,255,.035);
+    text-align:center;
 }
-.month-button {
-    width: 43px;
-    height: 43px;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        center;
-    border: 0;
-    border-radius:
-        11px;
-    background:
-        rgba(255,255,255,.035);
-    color:
-        rgba(255,255,255,.70);
-    font-size:
-        25px;
+.message-title{
+    font-size:18px;
+    font-weight:900;
 }
-.month-button:active {
-    transform:
-        scale(.92);
-}
-.month-center {
-    flex: 1;
-    text-align:
-        center;
-}
-.month {
-    display:
-        block;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        20px;
-    font-weight:
-        800;
-    letter-spacing:
-        .8px;
-}
-.month-sub {
-    display:
-        block;
-    margin-top:
-        2px;
-    color:
-        var(--muted);
-    font-size:
-        8px;
-    font-weight:
-        700;
-    letter-spacing:
-        1.2px;
-}
-/* =========================================================
-   SCHEDULE LIST
-========================================================= */
-.schedule-list {
-    display:
-        flex;
-    flex-direction:
-        column;
-    gap:
-        11px;
+.message-text{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
 }
 /* =========================================================
    GAME CARD
 ========================================================= */
-.game-card {
-    position:
-        relative;
-    overflow:
-        hidden;
-    width:
-        100%;
+.game-card{
+    position:relative;
+    overflow:hidden;
     border:
         1px solid
         var(--line);
-    border-radius:
-        16px;
+    border-radius:17px;
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
-            rgba(255,255,255,.018)
+            rgba(255,255,255,.015)
         );
     box-shadow:
-        0 8px 24px
-        rgba(0,0,0,.12);
-    cursor:
-        pointer;
-    transition:
-        transform .15s ease,
-        border-color .15s ease;
+        0 10px 28px
+        rgba(0,0,0,.18);
 }
-.game-card:active {
-    transform:
-        scale(.985);
-}
-.game-card.expanded {
-    border-color:
-        rgba(227,25,55,.35);
-}
-.game-card::before {
-    content: "";
-    position:
-        absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width:
-        4px;
-    background:
-        rgba(255,255,255,.10);
-}
-.game-card.win::before {
+.game-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:4px;
     background:
         var(--red);
-}
-.game-card.loss::before {
-    background:
-        #64748b;
 }
 /* =========================================================
    GAME TOP
 ========================================================= */
-.game-top {
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        space-between;
+.game-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     padding:
-        13px 14px 7px 16px;
+        13px
+        15px
+        5px
+        17px;
 }
-.game-date {
-    display:
-        flex;
-    align-items:
-        baseline;
-    gap:
-        7px;
+.game-date{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
 }
-.game-day {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        25px;
-    font-weight:
-        800;
-    line-height:
-        1;
-}
-.game-weekday {
-    color:
-        var(--muted);
-    font-size:
-        9px;
-    font-weight:
-        700;
-    letter-spacing:
-        .7px;
-}
-.game-status {
+.game-status{
     padding:
-        4px 8px;
-    border-radius:
-        6px;
+        5px 8px;
+    border-radius:6px;
     background:
-        rgba(255,255,255,.05);
-    color:
-        rgba(255,255,255,.50);
-    font-size:
-        7px;
-    font-weight:
-        800;
-    letter-spacing:
-        .8px;
+        rgba(227,25,55,.12);
+    color:var(--red);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.7px;
 }
-.game-card.win
-.game-status {
-    color:
-        var(--red);
+.game-status.final{
+    color:var(--green);
     background:
-        rgba(227,25,55,.10);
+        rgba(72,213,151,.08);
 }
-.game-card.loss
-.game-status {
-    color:
-        #94a3b8;
+.game-status.live{
+    color:var(--red);
+    background:
+        rgba(227,25,55,.14);
 }
 /* =========================================================
    MATCHUP
 ========================================================= */
-.matchup {
-    display:
-        grid;
+.matchup{
+    display:grid;
     grid-template-columns:
-        1fr auto 1fr;
-    align-items:
-        center;
-    gap:
-        10px;
+        1fr
+        auto
+        1fr;
+    align-items:center;
+    gap:12px;
     padding:
-        7px 16px 13px;
+        7px
+        17px
+        17px;
 }
-.team {
-    min-width:
-        0;
+.team{
+    min-width:0;
 }
-.team.away {
-    text-align:
-        left;
+.team.away{
+    text-align:left;
 }
-.team.home {
-    text-align:
-        right;
+.team.home{
+    text-align:right;
 }
-.team-code {
-    display:
-        block;
+.team-code{
+    display:block;
     font-family:
-        "Barlow Condensed",
+        Impact,
+        "Arial Narrow",
         sans-serif;
-    font-size:
-        27px;
-    font-weight:
-        900;
-    line-height:
-        .95;
+    font-size:29px;
+    line-height:1;
 }
-.team-name {
-    display:
-        block;
-    margin-top:
-        4px;
-    color:
-        var(--muted);
-    font-size:
-        8px;
-    font-weight:
-        700;
-    white-space:
-        nowrap;
-    overflow:
-        hidden;
-    text-overflow:
-        ellipsis;
+.team-name{
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
-/* =========================================================
-   SCORE
-========================================================= */
-.score {
-    min-width:
-        61px;
-    text-align:
-        center;
+.score{
+    text-align:center;
 }
-.score-main {
+.score-numbers{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.score-main{
     font-family:
-        "Barlow Condensed",
+        Impact,
+        "Arial Narrow",
         sans-serif;
-    font-size:
-        28px;
-    font-weight:
-        900;
-    letter-spacing:
-        1px;
+    font-size:32px;
+    line-height:1;
 }
-.score-divider {
-    color:
-        rgba(255,255,255,.18);
-    font-size:
-        12px;
+.score-divider{
     margin:
-        0 2px;
-}
-.result {
-    display:
-        inline-block;
-    margin-top:
-        4px;
-    font-size:
-        8px;
-    font-weight:
-        900;
-    letter-spacing:
-        1px;
-}
-.result.win {
+        0 5px;
     color:
-        var(--red);
+        rgba(255,255,255,.25);
+    font-size:14px;
 }
-.result.loss {
-    color:
-        #94a3b8;
-}
-/* =========================================================
-   FUTURE GAME
-========================================================= */
-.future-time {
-    text-align:
-        center;
-}
-.future-time strong {
-    display:
-        block;
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        23px;
-    font-weight:
-        900;
-}
-.future-time span {
-    display:
-        block;
-    margin-top:
-        3px;
-    color:
-        var(--muted);
-    font-size:
-        7px;
-    font-weight:
-        700;
-    letter-spacing:
-        .8px;
+.result{
+    display:block;
+    margin-top:6px;
+    color:var(--red);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
 }
 /* =========================================================
    VENUE
 ========================================================= */
-.venue {
-    display:
-        flex;
-    align-items:
-        center;
-    gap:
-        8px;
+.venue{
+    display:flex;
+    align-items:center;
+    gap:9px;
     padding:
-        10px 16px 13px;
+        10px
+        16px
+        13px;
+    border-top:
+        1px solid
+        rgba(255,255,255,.05);
+}
+.venue-icon{
+    width:26px;
+    height:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:7px;
+    background:
+        rgba(255,255,255,.04);
+    color:var(--red);
+    font-size:9px;
+}
+.venue-name{
+    display:block;
+    font-size:10px;
+    font-weight:800;
+}
+.venue-sub{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:8px;
+}
+/* =========================================================
+   SECTION
+========================================================= */
+.section{
+    margin-top:22px;
+}
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:9px;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+.section-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:
+        rgba(255,255,255,.08);
+}
+.card{
+    overflow:hidden;
+    border:
+        1px solid
+        var(--line);
+    border-radius:16px;
+    background:
+        rgba(255,255,255,.025);
+}
+/* =========================================================
+   TABLE
+========================================================= */
+.table-scroll{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th{
+    height:32px;
+    padding:
+        0 7px;
+    background:
+        rgba(255,255,255,.025);
+    color:
+        rgba(255,255,255,.35);
+    font-size:8px;
+    font-weight:900;
+    white-space:nowrap;
+}
+td{
+    height:39px;
+    padding:
+        0 7px;
     border-top:
         1px solid
         rgba(255,255,255,.045);
-}
-.venue-icon {
-    width:
-        25px;
-    height:
-        25px;
-    flex-shrink:
-        0;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        center;
-    border-radius:
-        7px;
-    background:
-        rgba(255,255,255,.04);
     color:
-        var(--red);
-    font-size:
-        11px;
+        rgba(255,255,255,.72);
+    font-size:9px;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
 }
-.venue-info {
-    min-width:
-        0;
+td.player{
+    color:var(--white);
+    text-align:left;
+    font-size:11px;
+    font-weight:900;
 }
-.venue-name {
-    display:
-        block;
-    font-size:
-        10px;
-    font-weight:
-        800;
-    white-space:
-        nowrap;
-    overflow:
-        hidden;
-    text-overflow:
-        ellipsis;
-}
-.venue-location {
-    display:
-        block;
-    margin-top:
-        2px;
-    color:
-        var(--muted);
-    font-size:
-        8px;
+td.total{
+    color:var(--white);
+    font-weight:900;
 }
 /* =========================================================
-   HOME / AWAY LABEL
+   INNING
 ========================================================= */
-.game-label {
-    position:
-        absolute;
-    top: 0;
-    right: 0;
-    padding:
-        4px 8px;
-    border-radius:
-        0 0 0 8px;
+.inning-table{
+    min-width:380px;
+}
+.inning-table th,
+.inning-table td{
+    min-width:29px;
+}
+.inning-table th:first-child,
+.inning-table td:first-child{
+    min-width:55px;
+}
+.team-cell{
+    text-align:left !important;
+    padding-left:14px !important;
+    color:var(--white) !important;
+    font-size:11px !important;
+    font-weight:900 !important;
+}
+/* =========================================================
+   CURRENT GAME
+========================================================= */
+.current{
+    padding:15px;
+}
+.current-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+.current-label{
+    color:var(--red);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+.current-inning{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:800;
+}
+.current-players{
+    display:grid;
+    grid-template-columns:
+        1fr 1fr;
+    gap:8px;
+}
+.player-box{
+    padding:12px;
+    border-radius:10px;
     background:
         rgba(255,255,255,.035);
-    color:
-        rgba(255,255,255,.30);
-    font-size:
-        6px;
-    font-weight:
-        800;
-    letter-spacing:
-        1px;
 }
-/* =========================================================
-   DETAIL
-========================================================= */
-.game-detail {
-    display:
-        none;
-    border-top:
-        1px solid
-        rgba(255,255,255,.07);
-    background:
-        rgba(0,0,0,.10);
+.player-role{
+    color:var(--muted);
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.8px;
 }
-.game-card.expanded
-.game-detail {
-    display:
-        block;
+.player-name{
+    margin-top:5px;
+    font-size:17px;
+    font-weight:900;
 }
-.detail-section {
-    padding:
-        13px 15px;
-}
-.detail-title {
-    margin-bottom:
-        9px;
-    color:
-        rgba(255,255,255,.45);
-    font-size:
-        8px;
-    font-weight:
-        800;
-    letter-spacing:
-        1.2px;
-}
-/* =========================================================
-   INNING SCORE
-========================================================= */
-.inning-table {
-    width:
-        100%;
-    overflow-x:
-        auto;
-}
-.inning-row {
-    display:
-        grid;
+.counts{
+    display:grid;
     grid-template-columns:
-        40px repeat(
-            var(--innings),
-            minmax(24px, 1fr)
-        ) 34px;
-    min-width:
-        max-content;
-    align-items:
-        center;
+        repeat(3,1fr);
+    gap:7px;
+    margin-top:9px;
 }
-.inning-row + .inning-row {
-    margin-top:
-        5px;
+.count{
+    padding:9px 4px;
+    border-radius:9px;
+    background:
+        rgba(255,255,255,.035);
+    text-align:center;
 }
-.inning-cell {
-    text-align:
-        center;
-    color:
-        rgba(255,255,255,.65);
-    font-size:
-        8px;
-    font-weight:
-        700;
+.count-label{
+    display:block;
+    color:var(--muted);
+    font-size:7px;
+    font-weight:800;
+    letter-spacing:.7px;
 }
-.inning-row.header
-.inning-cell {
-    color:
-        rgba(255,255,255,.30);
-    font-size:
-        7px;
+.count-value{
+    display:block;
+    margin-top:3px;
+    font-size:18px;
+    font-weight:900;
 }
-.inning-row.total
-.inning-cell {
-    color:
-        var(--white);
-    font-size:
-        9px;
-    font-weight:
-        900;
+.bases{
+    position:relative;
+    width:82px;
+    height:62px;
+    margin:
+        14px auto
+        0;
 }
-/* =========================================================
-   PITCHERS
-========================================================= */
-.pitcher-list {
-    display:
-        flex;
-    flex-wrap:
-        wrap;
-    gap:
-        6px;
-}
-.pitcher {
-    padding:
-        7px 9px;
+.base{
+    position:absolute;
+    width:17px;
+    height:17px;
+    transform:
+        rotate(45deg);
     border:
         1px solid
-        rgba(255,255,255,.06);
-    border-radius:
-        8px;
+        rgba(255,255,255,.22);
     background:
-        rgba(255,255,255,.035);
-    font-size:
-        9px;
-    font-weight:
-        700;
+        rgba(255,255,255,.025);
 }
-.no-data {
-    color:
-        rgba(255,255,255,.30);
-    font-size:
-        9px;
+.base.occupied{
+    border-color:var(--red);
+    background:var(--red);
+    box-shadow:
+        0 0 12px
+        rgba(227,25,55,.4);
+}
+.base.second{
+    top:2px;
+    left:32px;
+}
+.base.first{
+    top:21px;
+    right:8px;
+}
+.base.third{
+    top:21px;
+    left:8px;
+}
+.last-pitch{
+    margin-top:10px;
+    padding:10px 12px;
+    border-radius:9px;
+    background:
+        rgba(255,255,255,.03);
+}
+.last-pitch-label{
+    color:var(--muted);
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+.last-pitch-value{
+    margin-top:4px;
+    font-size:11px;
+    font-weight:900;
 }
 /* =========================================================
    BOTTOM NAV
-   INDEX / PLAYER と統一
-   並び順固定
 ========================================================= */
-.bottom-nav {
-    position:
-        fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index:
-        999;
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1000;
     height:
         calc(
             76px +
             env(safe-area-inset-bottom)
         );
+    display:flex;
+    align-items:flex-start;
     padding:
-        7px 5px
+        7px
+        5px
         env(safe-area-inset-bottom);
-    display:
-        flex;
-    align-items:
-        flex-start;
-    justify-content:
-        space-between;
     background:
         rgba(5,16,34,.97);
     backdrop-filter:
@@ -832,199 +656,451 @@ main {
         1px solid
         rgba(255,255,255,.08);
 }
-.nav-item {
-    flex:
-        1;
-    min-width:
-        0;
-    height:
-        60px;
-    display:
-        flex;
-    flex-direction:
-        column;
-    align-items:
-        center;
-    justify-content:
-        center;
-    gap:
-        5px;
-    text-decoration:
-        none;
-    color:
-        #64748b;
-    border-radius:
-        13px;
-    transition:
-        color .15s ease,
-        background .15s ease,
-        transform .15s ease;
+.nav-item{
+    flex:1;
+    height:60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    border-radius:13px;
+    color:#65758c;
+    text-decoration:none;
 }
-.nav-item:active {
-    transform:
-        scale(.94);
-}
-.nav-item.active {
-    color:
-        #ffffff;
+.nav-item.active{
+    color:var(--white);
     background:
-        rgba(227,25,55,.13);
+        rgba(227,25,55,.12);
 }
-.nav-icon {
-    width:
-        25px;
-    height:
-        25px;
-    display:
-        flex;
-    align-items:
-        center;
-    justify-content:
-        center;
-    font-size:
-        18px;
-    font-weight:
-        700;
-    line-height:
-        1;
+.nav-icon{
+    font-size:17px;
 }
-.nav-item.active
-.nav-icon {
-    color:
-        #e31937;
+.nav-item.active .nav-icon{
+    color:var(--red);
 }
-.nav-label {
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size:
-        10px;
-    font-weight:
-        700;
-    line-height:
-        1;
-    letter-spacing:
-        .45px;
-    white-space:
-        nowrap;
+.nav-label{
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.4px;
 }
 /* =========================================================
-   EMPTY
+   MOBILE
 ========================================================= */
-.empty {
-    padding:
-        50px 20px;
-    text-align:
-        center;
-    color:
-        var(--muted);
-    font-size:
-        11px;
-}
-/* =========================================================
-   SMALL IPHONE
-========================================================= */
-@media (
-    max-width: 360px
-) {
-    .header {
-        height:
-            68px;
+@media(max-width:360px){
+    .header{
+        height:68px;
     }
-    main {
-        padding-top:
-            68px;
+    main{
+        padding-top:68px;
     }
-    .page {
-        padding-left:
-            11px;
-        padding-right:
-            11px;
+    .page{
+        padding-left:10px;
+        padding-right:10px;
     }
-    .team-code {
-        font-size:
-            25px;
+    .team-code{
+        font-size:25px;
     }
-    .score-main {
-        font-size:
-            26px;
+    .score-main{
+        font-size:28px;
     }
-    .game-day {
-        font-size:
-            23px;
-    }
-    .nav-label {
-        font-size:
-            9px;
+    .player-name{
+        font-size:15px;
     }
 }
 </style>
 </head>
 <body>
-<!-- =====================================================
+<!-- =======================================================
      HEADER
-===================================================== -->
+======================================================= -->
 <header class="header">
     <div class="header-navy-shape"></div>
     <div class="header-line-one"></div>
     <div class="header-line-two"></div>
     <div class="header-light"></div>
 </header>
-<!-- =====================================================
+<!-- =======================================================
      MAIN
-===================================================== -->
+======================================================= -->
 <main>
-<section class="page">
-    <div class="page-heading">
-        <h1>
-            Schedule
-        </h1>
+<div class="page">
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+        <h1>SCORE</h1>
         <p>
-            2026 REGULAR SEASON
+            PHILADELPHIA PHILLIES
         </p>
     </div>
-    <div class="month-selector">
-        <button
-            type="button"
-            class="month-button"
-            id="prev-month"
-        >
-            ‹
-        </button>
-        <div class="month-center">
-            <span
-                class="month"
-                id="month-name"
-            >
-                AUGUST 2026
-            </span>
-            <span class="month-sub">
-                REGULAR SEASON
-            </span>
-        </div>
-        <button
-            type="button"
-            class="month-button"
-            id="next-month"
-        >
-            ›
-        </button>
-    </div>
+    <!-- LOADING -->
     <div
-        class="schedule-list"
-        id="schedule-list"
-    ></div>
-</section>
+        id="loading"
+        class="message"
+    >
+        <div class="message-title">
+            LOADING
+        </div>
+        <div class="message-text">
+            最新の試合データを読み込んでいます。
+        </div>
+    </div>
+    <!-- ERROR -->
+    <div
+        id="error"
+        class="message"
+        style="display:none;"
+    >
+        <div class="message-title">
+            SCORE DATA ERROR
+        </div>
+        <div
+            id="errorText"
+            class="message-text"
+        >
+            score.jsonを読み込めませんでした。
+        </div>
+    </div>
+    <!-- CONTENT -->
+    <div
+        id="content"
+        style="display:none;"
+    >
+        <!-- =================================================
+             GAME
+        ================================================== -->
+        <section class="game-card">
+            <div class="game-top">
+                <div
+                    id="gameDate"
+                    class="game-date"
+                >
+                    -
+                </div>
+                <div
+                    id="gameStatus"
+                    class="game-status"
+                >
+                    -
+                </div>
+            </div>
+            <div class="matchup">
+                <!-- AWAY -->
+                <div class="team away">
+                    <span
+                        id="awayCode"
+                        class="team-code"
+                    >
+                        -
+                    </span>
+                    <span
+                        id="awayName"
+                        class="team-name"
+                    >
+                        -
+                    </span>
+                </div>
+                <!-- SCORE -->
+                <div class="score">
+                    <div class="score-numbers">
+                        <span
+                            id="awayScore"
+                            class="score-main"
+                        >
+                            -
+                        </span>
+                        <span class="score-divider">
+                            —
+                        </span>
+                        <span
+                            id="homeScore"
+                            class="score-main"
+                        >
+                            -
+                        </span>
+                    </div>
+                    <span
+                        id="gameResult"
+                        class="result"
+                    >
+                        -
+                    </span>
+                </div>
+                <!-- HOME -->
+                <div class="team home">
+                    <span
+                        id="homeCode"
+                        class="team-code"
+                    >
+                        -
+                    </span>
+                    <span
+                        id="homeName"
+                        class="team-name"
+                    >
+                        -
+                    </span>
+                </div>
+            </div>
+            <div class="venue">
+                <div class="venue-icon">
+                    ●
+                </div>
+                <div>
+                    <span
+                        id="venueName"
+                        class="venue-name"
+                    >
+                        -
+                    </span>
+                    <span class="venue-sub">
+                        Philadelphia Phillies
+                    </span>
+                </div>
+            </div>
+        </section>
+        <!-- =================================================
+             INNING SCORE
+        ================================================== -->
+        <section class="section">
+            <div class="section-title">
+                INNING SCORE
+            </div>
+            <div class="card">
+                <div class="table-scroll">
+                    <table class="inning-table">
+                        <thead
+                            id="inningHead"
+                        ></thead>
+                        <tbody
+                            id="inningBody"
+                        ></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- =================================================
+             CURRENT GAME
+        ================================================== -->
+        <section class="section">
+            <div class="section-title">
+                CURRENT GAME
+            </div>
+            <div class="card current">
+                <div class="current-header">
+                    <span
+                        id="currentLabel"
+                        class="current-label"
+                    >
+                        GAME OVER
+                    </span>
+                    <span
+                        id="currentInning"
+                        class="current-inning"
+                    >
+                        FINAL
+                    </span>
+                </div>
+                <div class="current-players">
+                    <div class="player-box">
+                        <div
+                            id="batterRole"
+                            class="player-role"
+                        >
+                            BATTER
+                        </div>
+                        <div
+                            id="batterName"
+                            class="player-name"
+                        >
+                            -
+                        </div>
+                    </div>
+                    <div class="player-box">
+                        <div class="player-role">
+                            PITCHER
+                        </div>
+                        <div
+                            id="pitcherName"
+                            class="player-name"
+                        >
+                            -
+                        </div>
+                    </div>
+                </div>
+                <div class="counts">
+                    <div class="count">
+                        <span class="count-label">
+                            BALLS
+                        </span>
+                        <span
+                            id="balls"
+                            class="count-value"
+                        >
+                            -
+                        </span>
+                    </div>
+                    <div class="count">
+                        <span class="count-label">
+                            STRIKES
+                        </span>
+                        <span
+                            id="strikes"
+                            class="count-value"
+                        >
+                            -
+                        </span>
+                    </div>
+                    <div class="count">
+                        <span class="count-label">
+                            OUTS
+                        </span>
+                        <span
+                            id="outs"
+                            class="count-value"
+                        >
+                            -
+                        </span>
+                    </div>
+                </div>
+                <div class="bases">
+                    <div
+                        id="baseSecond"
+                        class="base second"
+                    ></div>
+                    <div
+                        id="baseFirst"
+                        class="base first"
+                    ></div>
+                    <div
+                        id="baseThird"
+                        class="base third"
+                    ></div>
+                </div>
+                <div class="last-pitch">
+                    <div class="last-pitch-label">
+                        LAST PITCH
+                    </div>
+                    <div
+                        id="lastPitch"
+                        class="last-pitch-value"
+                    >
+                        -
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =================================================
+             BATTING
+        ================================================== -->
+        <section class="section">
+            <div class="section-title">
+                PHILLIES BATTING
+            </div>
+            <div class="card">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    ORDER
+                                </th>
+                                <th>
+                                    PLAYER
+                                </th>
+                                <th>
+                                    POS
+                                </th>
+                                <th>
+                                    AB
+                                </th>
+                                <th>
+                                    H
+                                </th>
+                                <th>
+                                    HR
+                                </th>
+                                <th>
+                                    RBI
+                                </th>
+                                <th>
+                                    BB
+                                </th>
+                                <th>
+                                    R
+                                </th>
+                                <th>
+                                    SO
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            id="battingBody"
+                        ></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- =================================================
+             PITCHING
+        ================================================== -->
+        <section class="section">
+            <div class="section-title">
+                PHILLIES PITCHING
+            </div>
+            <div class="card">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    PLAYER
+                                </th>
+                                <th>
+                                    IP
+                                </th>
+                                <th>
+                                    H
+                                </th>
+                                <th>
+                                    K
+                                </th>
+                                <th>
+                                    HR
+                                </th>
+                                <th>
+                                    R
+                                </th>
+                                <th>
+                                    ER
+                                </th>
+                                <th>
+                                    BB
+                                </th>
+                                <th>
+                                    P
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            id="pitchingBody"
+                        ></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
 </main>
-<!-- =====================================================
+<!-- =======================================================
      BOTTOM NAV
-     順番は絶対固定
-===================================================== -->
+======================================================= -->
 <nav class="bottom-nav">
-    <!-- 1 SCHEDULE -->
     <a
         href="schedule.html"
-        class="nav-item active"
+        class="nav-item"
     >
         <div class="nav-icon">
             ▣
@@ -1033,10 +1109,9 @@ main {
             SCHEDULE
         </div>
     </a>
-    <!-- 2 SCORE -->
     <a
         href="score.html"
-        class="nav-item"
+        class="nav-item active"
     >
         <div class="nav-icon">
             ●
@@ -1045,7 +1120,6 @@ main {
             SCORE
         </div>
     </a>
-    <!-- 3 HOME -->
     <a
         href="index.html"
         class="nav-item"
@@ -1057,7 +1131,6 @@ main {
             HOME
         </div>
     </a>
-    <!-- 4 PLAYER -->
     <a
         href="player.html"
         class="nav-item"
@@ -1069,7 +1142,6 @@ main {
             PLAYER
         </div>
     </a>
-    <!-- 5 STATS -->
     <a
         href="stats.html"
         class="nav-item"
@@ -1084,923 +1156,1129 @@ main {
 </nav>
 <script>
 /* =========================================================
-   CONFIG
+   SCORE JSON
 ========================================================= */
-const DATA_URL =
-    "data/update-schedule.json";
+const SCORE_JSON_URL =
+    "./data/score.json";
 /* =========================================================
    ELEMENTS
 ========================================================= */
-const scheduleList =
+const loadingEl =
     document.getElementById(
-        "schedule-list"
+        "loading"
     );
-const monthName =
+const errorEl =
     document.getElementById(
-        "month-name"
+        "error"
     );
-const previousButton =
+const errorTextEl =
     document.getElementById(
-        "prev-month"
+        "errorText"
     );
-const nextButton =
+const contentEl =
     document.getElementById(
-        "next-month"
+        "content"
     );
 /* =========================================================
-   STATE
+   VALUE
 ========================================================= */
-let scheduleData = [];
-const now =
-    new Date();
-let currentYear =
-    now.getFullYear();
-let currentMonth =
-    now.getMonth();
-/* =========================================================
-   MONTH NAMES
-========================================================= */
-const monthNames = [
-    "JANUARY",
-    "FEBRUARY",
-    "MARCH",
-    "APRIL",
-    "MAY",
-    "JUNE",
-    "JULY",
-    "AUGUST",
-    "SEPTEMBER",
-    "OCTOBER",
-    "NOVEMBER",
-    "DECEMBER"
-];
-/* =========================================================
-   WEEKDAYS
-========================================================= */
-const weekdays = [
-    "SUN",
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT"
-];
-/* =========================================================
-   ESCAPE
-========================================================= */
-function escapeHTML(value) {
-    if (
+function valueOrDash(
+    value,
+    fallback = "-"
+){
+    if(
         value === null ||
-        value === undefined
-    ) {
-        return "";
+        value === undefined ||
+        value === ""
+    ){
+        return fallback;
     }
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return value;
 }
-/* =========================================================
-   LOAD JSON
-========================================================= */
-async function loadSchedule() {
-    try {
-        const response =
-            await fetch(
-                DATA_URL,
-                {
-                    cache:
-                        "no-store"
-                }
-            );
-        if (
-            !response.ok
-        ) {
-            throw new Error(
-                "Schedule JSON could not be loaded."
-            );
-        }
-        const data =
-            await response.json();
-        if (
-            Array.isArray(data)
-        ) {
-            scheduleData =
-                data;
-        }
-        else if (
-            Array.isArray(
-                data.games
-            )
-        ) {
-            scheduleData =
-                data.games;
-        }
-        else {
-            scheduleData =
-                [];
-        }
-        renderSchedule();
-    }
-    catch (error) {
-        console.error(
-            error
-        );
-        scheduleList.innerHTML = `
-            <div class="empty">
-                Schedule data could not be loaded.
-            </div>
-        `;
-    }
-}
-/* =========================================================
-   MONTH TITLE
-========================================================= */
-function updateMonthTitle() {
-    monthName.textContent =
-        `${monthNames[currentMonth]} ${currentYear}`;
+function escapeHtml(value){
+    return String(
+        valueOrDash(value)
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 /* =========================================================
    DATE
 ========================================================= */
-function parseGameDate(game) {
-    if (
-        !game ||
-        !game.date
-    ) {
-        return null;
+function formatGameDate(
+    dateString
+){
+    if(!dateString){
+        return "-";
     }
     const date =
-        new Date(
-            `${game.date}T12:00:00`
-        );
-    if (
+        new Date(dateString);
+    if(
         Number.isNaN(
             date.getTime()
         )
-    ) {
-        return null;
+    ){
+        return "-";
     }
-    return date;
-}
-/* =========================================================
-   MONTH FILTER
-========================================================= */
-function getGamesForMonth() {
-    return scheduleData
-        .filter(
-            game => {
-                const date =
-                    parseGameDate(
-                        game
-                    );
-                if (!date) {
-                    return false;
-                }
-                return (
-                    date.getFullYear()
-                    ===
-                    currentYear
-                    &&
-                    date.getMonth()
-                    ===
-                    currentMonth
-                );
-            }
-        )
-        .sort(
-            (
-                a,
-                b
-            ) => {
-                return String(
-                    a.date
-                ).localeCompare(
-                    String(
-                        b.date
-                    )
-                );
-            }
-        );
-}
-/* =========================================================
-   GAME TIME
-========================================================= */
-function formatGameTime(game) {
-    if (
-        !game.gameDate
-    ) {
-        return "";
-    }
-    const date =
-        new Date(
-            game.gameDate
-        );
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-        return "";
-    }
-    return date.toLocaleTimeString(
+    return date.toLocaleDateString(
         "en-US",
         {
-            hour:
-                "numeric",
-            minute:
-                "2-digit",
-            hour12:
-                true,
-            timeZone:
-                "America/New_York"
+            month:"long",
+            day:"numeric",
+            year:"numeric",
+            timeZone:"America/New_York"
         }
-    );
-}
-/* =========================================================
-   VENUE LOCATION
-========================================================= */
-function formatVenueLocation(venue) {
-    if (!venue) {
-        return "";
-    }
-    const parts = [];
-    if (
-        venue.city
-    ) {
-        parts.push(
-            venue.city
-        );
-    }
-    if (
-        venue.stateAbbrev
-    ) {
-        parts.push(
-            venue.stateAbbrev
-        );
-    }
-    else if (
-        venue.state
-    ) {
-        parts.push(
-            venue.state
-        );
-    }
-    return parts.join(
-        ", "
-    );
-}
-/* =========================================================
-   OPPONENT
-========================================================= */
-function getOpponent(game) {
-    return (
-        game.opponent ||
-        {}
-    );
-}
-function getOpponentCode(game) {
-    return (
-        getOpponent(game)
-            .abbreviation
-        ||
-        getOpponent(game)
-            .code
-        ||
-        ""
-    );
-}
-function getOpponentName(game) {
-    return (
-        getOpponent(game)
-            .name
-        ||
-        ""
-    );
+    ).toUpperCase();
 }
 /* =========================================================
    SCORE
 ========================================================= */
-function getPhilliesScore(game) {
-    return (
-        game.phillies?.score
-        ??
-        game.philliesScore
-        ??
-        "-"
-    );
+function getRuns(
+    game,
+    side
+){
+    if(
+        game.score &&
+        game.score[side] &&
+        game.score[side].runs !== null &&
+        game.score[side].runs !== undefined
+    ){
+        return game.score[side].runs;
+    }
+    if(
+        game.game &&
+        game.game[side] &&
+        game.game[side].score !== null &&
+        game.game[side].score !== undefined
+    ){
+        return game.game[side].score;
+    }
+    return "-";
 }
-function getOpponentScore(game) {
-    return (
-        game.opponent?.score
-        ??
-        game.opponentScore
-        ??
-        "-"
-    );
+function getHits(
+    game,
+    side
+){
+    if(
+        game.score &&
+        game.score[side] &&
+        game.score[side].hits !== null &&
+        game.score[side].hits !== undefined
+    ){
+        return game.score[side].hits;
+    }
+    if(
+        game.game &&
+        game.game[side] &&
+        game.game[side].hits !== null &&
+        game.game[side].hits !== undefined
+    ){
+        return game.game[side].hits;
+    }
+    return "-";
+}
+function getErrors(
+    game,
+    side
+){
+    if(
+        game.score &&
+        game.score[side] &&
+        game.score[side].errors !== null &&
+        game.score[side].errors !== undefined
+    ){
+        return game.score[side].errors;
+    }
+    if(
+        game.game &&
+        game.game[side] &&
+        game.game[side].errors !== null &&
+        game.game[side].errors !== undefined
+    ){
+        return game.game[side].errors;
+    }
+    return "-";
 }
 /* =========================================================
-   STATUS
+   GAME
 ========================================================= */
-function getStatus(game) {
-    const raw =
+function renderGame(game){
+    const info =
+        game.game || {};
+    const away =
+        info.away || {};
+    const home =
+        info.home || {};
+    const status =
+        info.status || {};
+    const venue =
+        info.venue || {};
+    document.getElementById(
+        "gameDate"
+    ).textContent =
+        formatGameDate(
+            info.gameDate
+        );
+    document.getElementById(
+        "awayCode"
+    ).textContent =
+        valueOrDash(
+            away.abbreviation
+        );
+    document.getElementById(
+        "awayName"
+    ).textContent =
+        valueOrDash(
+            away.name
+        );
+    document.getElementById(
+        "homeCode"
+    ).textContent =
+        valueOrDash(
+            home.abbreviation
+        );
+    document.getElementById(
+        "homeName"
+    ).textContent =
+        valueOrDash(
+            home.name
+        );
+    document.getElementById(
+        "awayScore"
+    ).textContent =
+        getRuns(
+            game,
+            "away"
+        );
+    document.getElementById(
+        "homeScore"
+    ).textContent =
+        getRuns(
+            game,
+            "home"
+        );
+    const statusEl =
+        document.getElementById(
+            "gameStatus"
+        );
+    const statusText =
+        valueOrDash(
+            status.abstract ||
+            status.detailed
+        );
+    statusEl.textContent =
         String(
-            game.status ||
-            ""
-        ).toLowerCase();
-    if (
-        raw === "final"
-        ||
-        raw === "completed"
-        ||
-        raw === "gameover"
-    ) {
-        return "FINAL";
-    }
-    if (
-        raw === "live"
-        ||
-        raw === "in progress"
-    ) {
-        return "LIVE";
-    }
-    return "UPCOMING";
-}
-/* =========================================================
-   LOCATION
-========================================================= */
-function getLocation(game) {
-    const value =
-        String(
-            game.location ||
-            game.homeAway ||
-            ""
+            statusText
         ).toUpperCase();
-    if (
-        value === "HOME"
-    ) {
-        return "HOME";
+    statusEl.classList.remove(
+        "final",
+        "live"
+    );
+    if(
+        String(
+            status.abstract
+        ).toLowerCase() === "final"
+    ){
+        statusEl.classList.add(
+            "final"
+        );
     }
-    return "AWAY";
+    if(
+        String(
+            status.abstract
+        ).toLowerCase() === "live"
+    ){
+        statusEl.classList.add(
+            "live"
+        );
+    }
+    const awayRuns =
+        getRuns(
+            game,
+            "away"
+        );
+    const homeRuns =
+        getRuns(
+            game,
+            "home"
+        );
+    let result = "-";
+    if(
+        typeof awayRuns === "number" &&
+        typeof homeRuns === "number"
+    ){
+        const philliesIsAway =
+            away.abbreviation === "PHI";
+        const philliesRuns =
+            philliesIsAway
+                ? awayRuns
+                : homeRuns;
+        const opponentRuns =
+            philliesIsAway
+                ? homeRuns
+                : awayRuns;
+        if(
+            String(
+                status.abstract
+            ).toLowerCase() === "final"
+        ){
+            if(
+                philliesRuns >
+                opponentRuns
+            ){
+                result = "PHI WIN";
+            }
+            else if(
+                philliesRuns <
+                opponentRuns
+            ){
+                result = "PHI LOSS";
+            }
+            else{
+                result = "TIE";
+            }
+        }
+        else if(
+            String(
+                status.abstract
+            ).toLowerCase() === "live"
+        ){
+            if(
+                philliesRuns >
+                opponentRuns
+            ){
+                result = "PHI LEADS";
+            }
+            else if(
+                philliesRuns <
+                opponentRuns
+            ){
+                result = "PHI TRAILS";
+            }
+            else{
+                result = "TIED";
+            }
+        }
+    }
+    document.getElementById(
+        "gameResult"
+    ).textContent =
+        result;
+    document.getElementById(
+        "venueName"
+    ).textContent =
+        valueOrDash(
+            venue.name
+        );
 }
 /* =========================================================
-   INNING SCORES
+   INNING SCORE
 ========================================================= */
-function renderInningScores(game) {
+function renderInningScore(
+    game
+){
+    const head =
+        document.getElementById(
+            "inningHead"
+        );
+    const body =
+        document.getElementById(
+            "inningBody"
+        );
     const innings =
         Array.isArray(
             game.inningScores
         )
             ? game.inningScores
             : [];
-    if (
+    const away =
+        game.game?.away || {};
+    const home =
+        game.game?.home || {};
+    /*
+       イニングデータがまだ存在しない場合。
+       エラーではなく - を表示。
+    */
+    if(
         innings.length === 0
-    ) {
-        return `
-            <div class="detail-section">
-                <div class="detail-title">
-                    INNING SCORE
-                </div>
-                <div class="no-data">
-                    No inning data available.
-                </div>
-            </div>
+    ){
+        head.innerHTML = `
+            <tr>
+                <th></th>
+                <th>R</th>
+                <th>H</th>
+                <th>E</th>
+            </tr>
         `;
-    }
-    const count =
-        innings.length;
-    let header = `
-        <div
-            class="inning-row header"
-            style="--innings:${count}"
-        >
-            <div class="inning-cell"></div>
-    `;
-    innings.forEach(
-        (
-            inning,
-            index
-        ) => {
-            header += `
-                <div class="inning-cell">
-                    ${escapeHTML(
-                        inning.inning
-                        ??
-                        index + 1
+        body.innerHTML = `
+            <tr>
+                <td class="team-cell">
+                    ${escapeHtml(
+                        away.abbreviation
                     )}
-                </div>
-            `;
-        }
-    );
-    header += `
-            <div class="inning-cell">
-                R
-            </div>
-        </div>
-    `;
-    const location =
-        getLocation(
-            game
-        );
-    let opponentRow = `
-        <div
-            class="inning-row"
-            style="--innings:${count}"
-        >
-            <div class="inning-cell">
-                ${escapeHTML(
-                    getOpponentCode(
-                        game
-                    ) ||
-                    "OPP"
-                )}
-            </div>
-    `;
-    let philliesRow = `
-        <div
-            class="inning-row"
-            style="--innings:${count}"
-        >
-            <div class="inning-cell">
-                PHI
-            </div>
-    `;
-    let opponentTotal = 0;
-    let philliesTotal = 0;
-    innings.forEach(
-        inning => {
-            const away =
-                Number(
-                    inning.away ??
-                    0
-                );
-            const home =
-                Number(
-                    inning.home ??
-                    0
-                );
-            let opponentRuns;
-            let philliesRuns;
-            if (
-                location === "HOME"
-            ) {
-                opponentRuns =
-                    away;
-                philliesRuns =
-                    home;
-            }
-            else {
-                opponentRuns =
-                    home;
-                philliesRuns =
-                    away;
-            }
-            opponentTotal +=
-                opponentRuns;
-            philliesTotal +=
-                philliesRuns;
-            opponentRow += `
-                <div class="inning-cell">
-                    ${opponentRuns}
-                </div>
-            `;
-            philliesRow += `
-                <div class="inning-cell">
-                    ${philliesRuns}
-                </div>
-            `;
-        }
-    );
-    opponentRow += `
-            <div class="inning-cell">
-                ${opponentTotal}
-            </div>
-        </div>
-    `;
-    philliesRow += `
-            <div class="inning-cell">
-                ${philliesTotal}
-            </div>
-        </div>
-    `;
-    return `
-        <div class="detail-section">
-            <div class="detail-title">
-                INNING SCORE
-            </div>
-            <div class="inning-table">
-                ${header}
-                ${
-                    location === "HOME"
-                    ? philliesRow
-                    : opponentRow
-                }
-                ${
-                    location === "HOME"
-                    ? opponentRow
-                    : philliesRow
-                }
-            </div>
-        </div>
-    `;
-}
-/* =========================================================
-   PHILLIES PITCHERS
-========================================================= */
-function renderPitchers(game) {
-    const pitchers =
-        Array.isArray(
-            game.philliesPitchers
-        )
-            ? game.philliesPitchers
-            : [];
-    if (
-        pitchers.length === 0
-    ) {
-        return `
-            <div class="detail-section">
-                <div class="detail-title">
-                    PHILLIES PITCHING
-                </div>
-                <div class="no-data">
-                    No pitching data available.
-                </div>
-            </div>
-        `;
-    }
-    const html =
-        pitchers
-            .map(
-                pitcher => {
-                    let name = "";
-                    if (
-                        typeof pitcher ===
-                        "string"
-                    ) {
-                        name =
-                            pitcher;
-                    }
-                    else {
-                        name =
-                            pitcher.name
-                            ||
-                            pitcher.fullName
-                            ||
-                            pitcher.playerName
-                            ||
-                            "";
-                    }
-                    return `
-                        <div class="pitcher">
-                            ${escapeHTML(
-                                name
-                            )}
-                        </div>
-                    `;
-                }
-            )
-            .join("");
-    return `
-        <div class="detail-section">
-            <div class="detail-title">
-                PHILLIES PITCHING
-            </div>
-            <div class="pitcher-list">
-                ${html}
-            </div>
-        </div>
-    `;
-}
-/* =========================================================
-   DETAIL
-========================================================= */
-function renderDetail(game) {
-    return `
-        <div class="game-detail">
-            ${renderInningScores(
-                game
-            )}
-            ${renderPitchers(
-                game
-            )}
-        </div>
-    `;
-}
-/* =========================================================
-   GAME CARD
-========================================================= */
-function renderGame(game) {
-    const date =
-        parseGameDate(
-            game
-        );
-    if (!date) {
-        return null;
-    }
-    const day =
-        date.getDate();
-    const weekday =
-        weekdays[
-            date.getDay()
-        ];
-    const location =
-        getLocation(
-            game
-        );
-    const status =
-        getStatus(
-            game
-        );
-    const result =
-        String(
-            game.result ||
-            ""
-        ).toUpperCase();
-    let cardClass = "";
-    if (
-        result === "W"
-    ) {
-        cardClass =
-            "win";
-    }
-    else if (
-        result === "L"
-    ) {
-        cardClass =
-            "loss";
-    }
-    const isCompleted =
-        status === "FINAL";
-    let centerHTML;
-    if (
-        isCompleted ||
-        status === "LIVE"
-    ) {
-        centerHTML = `
-            <div class="score">
-                <span class="score-main">
-                    ${escapeHTML(
-                        getPhilliesScore(
-                            game
-                        )
+                </td>
+                <td class="total">
+                    ${getRuns(game,"away")}
+                </td>
+                <td>
+                    ${getHits(game,"away")}
+                </td>
+                <td>
+                    ${getErrors(game,"away")}
+                </td>
+            </tr>
+            <tr>
+                <td class="team-cell">
+                    ${escapeHtml(
+                        home.abbreviation
                     )}
-                    <span class="score-divider">
-                        —
-                    </span>
-                    ${escapeHTML(
-                        getOpponentScore(
-                            game
-                        )
-                    )}
-                </span>
-                ${
-                    result === "W"
-                    ?
-                    `
-                    <span class="result win">
-                        WIN
-                    </span>
-                    `
-                    :
-                    result === "L"
-                    ?
-                    `
-                    <span class="result loss">
-                        LOSS
-                    </span>
-                    `
-                    :
-                    ""
-                }
-            </div>
-        `;
-    }
-    else {
-        centerHTML = `
-            <div class="future-time">
-                <strong>
-                    ${escapeHTML(
-                        formatGameTime(
-                            game
-                        ) ||
-                        "--:--"
-                    )}
-                </strong>
-                <span>
-                    FIRST PITCH
-                </span>
-            </div>
-        `;
-    }
-    const card =
-        document.createElement(
-            "article"
-        );
-    card.className =
-        `game-card ${cardClass}`;
-    card.innerHTML = `
-        <div class="game-label">
-            ${location}
-        </div>
-        <div class="game-top">
-            <div class="game-date">
-                <span class="game-day">
-                    ${day}
-                </span>
-                <span class="game-weekday">
-                    ${weekday}
-                </span>
-            </div>
-            <div class="game-status">
-                ${status}
-            </div>
-        </div>
-        <div class="matchup">
-            <div class="team away">
-                <span class="team-code">
-                    ${
-                        location === "AWAY"
-                        ? "PHI"
-                        : escapeHTML(
-                            getOpponentCode(
-                                game
-                            )
-                        )
-                    }
-                </span>
-                <span class="team-name">
-                    ${
-                        location === "AWAY"
-                        ? "PHILADELPHIA"
-                        : escapeHTML(
-                            getOpponentName(
-                                game
-                            )
-                        )
-                    }
-                </span>
-            </div>
-            ${centerHTML}
-            <div class="team home">
-                <span class="team-code">
-                    ${
-                        location === "HOME"
-                        ? "PHI"
-                        : escapeHTML(
-                            getOpponentCode(
-                                game
-                            )
-                        )
-                    }
-                </span>
-                <span class="team-name">
-                    ${
-                        location === "HOME"
-                        ? "PHILADELPHIA"
-                        : escapeHTML(
-                            getOpponentName(
-                                game
-                            )
-                        )
-                    }
-                </span>
-            </div>
-        </div>
-        <div class="venue">
-            <div class="venue-icon">
-                ◆
-            </div>
-            <div class="venue-info">
-                <span class="venue-name">
-                    ${escapeHTML(
-                        game.venue?.name
-                        ||
-                        game.venueName
-                        ||
-                        "Venue"
-                    )}
-                </span>
-                <span class="venue-location">
-                    ${escapeHTML(
-                        formatVenueLocation(
-                            game.venue
-                        )
-                        ||
-                        game.venueLocation
-                        ||
-                        ""
-                    )}
-                </span>
-            </div>
-        </div>
-        ${renderDetail(
-            game
-        )}
-    `;
-    card.addEventListener(
-        "click",
-        function () {
-            card.classList.toggle(
-                "expanded"
-            );
-        }
-    );
-    return card;
-}
-/* =========================================================
-   RENDER
-========================================================= */
-function renderSchedule() {
-    updateMonthTitle();
-    scheduleList.innerHTML =
-        "";
-    const games =
-        getGamesForMonth();
-    if (
-        games.length === 0
-    ) {
-        scheduleList.innerHTML = `
-            <div class="empty">
-                No games scheduled
-                for this month.
-            </div>
+                </td>
+                <td class="total">
+                    ${getRuns(game,"home")}
+                </td>
+                <td>
+                    ${getHits(game,"home")}
+                </td>
+                <td>
+                    ${getErrors(game,"home")}
+                </td>
+            </tr>
         `;
         return;
     }
-    games.forEach(
-        game => {
-            const card =
-                renderGame(
-                    game
-                );
-            if (card) {
-                scheduleList.appendChild(
-                    card
+    function inningNumber(
+        item
+    ){
+        return Number(
+            item.inning ??
+            item.inningNumber ??
+            item.number ??
+            item.inningNo
+        );
+    }
+    function runsFromItem(
+        item,
+        side
+    ){
+        if(
+            item[side] !== undefined &&
+            item[side] !== null
+        ){
+            if(
+                typeof item[side] === "object"
+            ){
+                return valueOrDash(
+                    item[side].runs
                 );
             }
+            return item[side];
         }
-    );
+        const key =
+            side === "away"
+                ? "awayRuns"
+                : "homeRuns";
+        if(
+            item[key] !== undefined &&
+            item[key] !== null
+        ){
+            return item[key];
+        }
+        return "-";
+    }
+    const normalized =
+        innings
+        .map(
+            item => ({
+                item:item,
+                inning:inningNumber(item)
+            })
+        )
+        .filter(
+            item =>
+                Number.isFinite(
+                    item.inning
+                )
+        )
+        .sort(
+            (a,b) =>
+                a.inning -
+                b.inning
+        );
+    if(
+        normalized.length === 0
+    ){
+        head.innerHTML = `
+            <tr>
+                <th></th>
+                <th>R</th>
+                <th>H</th>
+                <th>E</th>
+            </tr>
+        `;
+        body.innerHTML = `
+            <tr>
+                <td class="team-cell">
+                    ${escapeHtml(
+                        away.abbreviation
+                    )}
+                </td>
+                <td class="total">
+                    ${getRuns(game,"away")}
+                </td>
+                <td>
+                    ${getHits(game,"away")}
+                </td>
+                <td>
+                    ${getErrors(game,"away")}
+                </td>
+            </tr>
+            <tr>
+                <td class="team-cell">
+                    ${escapeHtml(
+                        home.abbreviation
+                    )}
+                </td>
+                <td class="total">
+                    ${getRuns(game,"home")}
+                </td>
+                <td>
+                    ${getHits(game,"home")}
+                </td>
+                <td>
+                    ${getErrors(game,"home")}
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    const maxInning =
+        Math.max(
+            ...normalized.map(
+                item => item.inning
+            )
+        );
+    let header =
+        "<tr><th></th>";
+    for(
+        let i=1;
+        i<=maxInning;
+        i++
+    ){
+        header +=
+            `<th>${i}</th>`;
+    }
+    header += `
+        <th>R</th>
+        <th>H</th>
+        <th>E</th>
+    </tr>`;
+    head.innerHTML =
+        header;
+    function findInning(
+        number
+    ){
+        const found =
+            normalized.find(
+                item =>
+                    item.inning === number
+            );
+        return found
+            ? found.item
+            : null;
+    }
+    function createRow(
+        team,
+        side
+    ){
+        let html = `
+            <tr>
+                <td class="team-cell">
+                    ${escapeHtml(team)}
+                </td>
+        `;
+        for(
+            let i=1;
+            i<=maxInning;
+            i++
+        ){
+            const item =
+                findInning(i);
+            html += `
+                <td>
+                    ${
+                        item
+                            ? runsFromItem(
+                                item,
+                                side
+                            )
+                            : "-"
+                    }
+                </td>
+            `;
+        }
+        html += `
+                <td class="total">
+                    ${getRuns(game,side)}
+                </td>
+                <td>
+                    ${getHits(game,side)}
+                </td>
+                <td>
+                    ${getErrors(game,side)}
+                </td>
+            </tr>
+        `;
+        return html;
+    }
+    body.innerHTML =
+        createRow(
+            away.abbreviation || "-",
+            "away"
+        )
+        +
+        createRow(
+            home.abbreviation || "-",
+            "home"
+        );
 }
 /* =========================================================
-   PREVIOUS MONTH
+   CURRENT GAME
 ========================================================= */
-previousButton.addEventListener(
-    "click",
-    function () {
-        if (
-            currentMonth === 0
-        ) {
-            currentMonth =
-                11;
-            currentYear--;
-        }
-        else {
-            currentMonth--;
-        }
-        renderSchedule();
+function renderCurrentGame(
+    game
+){
+    const current =
+        game.currentGame || {};
+    const label =
+        document.getElementById(
+            "currentLabel"
+        );
+    const inning =
+        document.getElementById(
+            "currentInning"
+        );
+    const batter =
+        document.getElementById(
+            "batterName"
+        );
+    const pitcher =
+        document.getElementById(
+            "pitcherName"
+        );
+    const batterRole =
+        document.getElementById(
+            "batterRole"
+        );
+    const balls =
+        document.getElementById(
+            "balls"
+        );
+    const strikes =
+        document.getElementById(
+            "strikes"
+        );
+    const outs =
+        document.getElementById(
+            "outs"
+        );
+    const pitch =
+        document.getElementById(
+            "lastPitch"
+        );
+    const first =
+        document.getElementById(
+            "baseFirst"
+        );
+    const second =
+        document.getElementById(
+            "baseSecond"
+        );
+    const third =
+        document.getElementById(
+            "baseThird"
+        );
+    if(
+        current.available !== true
+    ){
+        label.textContent =
+            "-";
+        inning.textContent =
+            "-";
+        batterRole.textContent =
+            "BATTER";
+        batter.textContent =
+            "-";
+        pitcher.textContent =
+            "-";
+        balls.textContent =
+            "-";
+        strikes.textContent =
+            "-";
+        outs.textContent =
+            "-";
+        pitch.textContent =
+            "-";
+        first.classList.remove(
+            "occupied"
+        );
+        second.classList.remove(
+            "occupied"
+        );
+        third.classList.remove(
+            "occupied"
+        );
+        return;
     }
-);
-/* =========================================================
-   NEXT MONTH
-========================================================= */
-nextButton.addEventListener(
-    "click",
-    function () {
-        if (
-            currentMonth === 11
-        ) {
-            currentMonth =
-                0;
-            currentYear++;
-        }
-        else {
-            currentMonth++;
-        }
-        renderSchedule();
+    label.textContent =
+        current.isPhilliesBatting === true
+            ? "PHI AT BAT"
+            : "LIVE GAME";
+    if(
+        current.inning !== null &&
+        current.inning !== undefined
+    ){
+        const half =
+            current.half
+                ? String(
+                    current.half
+                ).toUpperCase()
+                : "";
+        inning.textContent =
+            half
+                ? `${half} ${current.inning}`
+                : current.inning;
     }
-);
+    else{
+        inning.textContent =
+            "-";
+    }
+    const batterData =
+        current.batter;
+    const pitcherData =
+        current.pitcher;
+    if(
+        batterData &&
+        typeof batterData === "object"
+    ){
+        batter.textContent =
+            valueOrDash(
+                batterData.name
+            );
+    }
+    else{
+        batter.textContent =
+            valueOrDash(
+                batterData
+            );
+    }
+    if(
+        pitcherData &&
+        typeof pitcherData === "object"
+    ){
+        pitcher.textContent =
+            valueOrDash(
+                pitcherData.name
+            );
+    }
+    else{
+        pitcher.textContent =
+            valueOrDash(
+                pitcherData
+            );
+    }
+    batterRole.textContent =
+        current.isPhilliesBatting === true
+            ? "PHI BATTER"
+            : "BATTER";
+    balls.textContent =
+        valueOrDash(
+            current.balls
+        );
+    strikes.textContent =
+        valueOrDash(
+            current.strikes
+        );
+    outs.textContent =
+        valueOrDash(
+            current.outs
+        );
+    const runners =
+        current.runners || {};
+    first.classList.toggle(
+        "occupied",
+        runners.first === true
+    );
+    second.classList.toggle(
+        "occupied",
+        runners.second === true
+    );
+    third.classList.toggle(
+        "occupied",
+        runners.third === true
+    );
+    const lastPitch =
+        current.lastPitch;
+    if(
+        !lastPitch
+    ){
+        pitch.textContent =
+            "-";
+    }
+    else if(
+        typeof lastPitch === "string"
+    ){
+        pitch.textContent =
+            lastPitch;
+    }
+    else{
+        const parts = [];
+        if(
+            lastPitch.type
+        ){
+            parts.push(
+                lastPitch.type
+            );
+        }
+        if(
+            lastPitch.speed !== null &&
+            lastPitch.speed !== undefined
+        ){
+            parts.push(
+                `${lastPitch.speed} MPH`
+            );
+        }
+        if(
+            lastPitch.description
+        ){
+            parts.push(
+                lastPitch.description
+            );
+        }
+        pitch.textContent =
+            parts.length
+                ? parts.join(" · ")
+                : "-";
+    }
+}
 /* =========================================================
-   START
+   BATTING
 ========================================================= */
-loadSchedule();
+function renderBatting(
+    game
+){
+    const body =
+        document.getElementById(
+            "battingBody"
+        );
+    const batting =
+        Array.isArray(
+            game.philliesBatting
+        )
+            ? [
+                ...game.philliesBatting
+            ]
+            : [];
+    if(
+        batting.length === 0
+    ){
+        body.innerHTML = `
+            <tr>
+                <td
+                    colspan="10"
+                >
+                    -
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    batting.sort(
+        (a,b) =>
+            Number(
+                a.battingOrder ??
+                a.sequence ??
+                999
+            )
+            -
+            Number(
+                b.battingOrder ??
+                b.sequence ??
+                999
+            )
+    );
+    body.innerHTML =
+        batting
+        .map(
+            player => `
+                <tr>
+                    <td>
+                        ${valueOrDash(
+                            player.battingOrder ??
+                            player.sequence
+                        )}
+                    </td>
+                    <td class="player">
+                        ${escapeHtml(
+                            player.name
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.position
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.AB
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.H
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.HR
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.RBI
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.BB
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.R
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            player.SO
+                        )}
+                    </td>
+                </tr>
+            `
+        )
+        .join("");
+}
+/* =========================================================
+   PITCHING
+========================================================= */
+function renderPitching(
+    game
+){
+    const body =
+        document.getElementById(
+            "pitchingBody"
+        );
+    const pitching =
+        Array.isArray(
+            game.philliesPitching
+        )
+            ? [
+                ...game.philliesPitching
+            ]
+            : [];
+    if(
+        pitching.length === 0
+    ){
+        body.innerHTML = `
+            <tr>
+                <td
+                    colspan="10"
+                >
+                    -
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    pitching.sort(
+        (a,b) =>
+            Number(
+                a.sequence ??
+                999
+            )
+            -
+            Number(
+                b.sequence ??
+                999
+            )
+    );
+    body.innerHTML =
+        pitching
+        .map(
+            pitcher => `
+                <tr>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.sequence
+                        )}
+                    </td>
+                    <td class="player">
+                        ${escapeHtml(
+                            pitcher.name
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.IP
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.H
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.K
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.HR
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.R
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.ER
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.BB
+                        )}
+                    </td>
+                    <td>
+                        ${valueOrDash(
+                            pitcher.pitches
+                        )}
+                    </td>
+                </tr>
+            `
+        )
+        .join("");
+}
+/* =========================================================
+   LOAD SCORE JSON
+========================================================= */
+async function loadScore(){
+    loadingEl.style.display =
+        "block";
+    errorEl.style.display =
+        "none";
+    contentEl.style.display =
+        "none";
+    try{
+        const response =
+            await fetch(
+                SCORE_JSON_URL +
+                "?t=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
+            );
+        if(
+            !response.ok
+        ){
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+        }
+        const data =
+            await response.json();
+        /*
+         * score.jsonが正常に読み込めた場合、
+         * データ不足はエラーにしない。
+         */
+        if(
+            !data ||
+            !Array.isArray(
+                data.games
+            )
+        ){
+            throw new Error(
+                "score.jsonのgamesがありません"
+            );
+        }
+        /*
+         * ScoreはScheduleとは独立。
+         *
+         * score.json側で最新ゲームを
+         * games[0]に入れる構造。
+         */
+        const game =
+            data.games.length > 0
+                ? data.games[0]
+                : {
+                    game:{},
+                    score:{},
+                    inningScores:[],
+                    philliesBatting:[],
+                    philliesPitching:[],
+                    currentGame:{
+                        available:false
+                    }
+                };
+        renderGame(game);
+        renderInningScore(game);
+        renderCurrentGame(game);
+        renderBatting(game);
+        renderPitching(game);
+        loadingEl.style.display =
+            "none";
+        errorEl.style.display =
+            "none";
+        contentEl.style.display =
+            "block";
+        console.log(
+            "score.json loaded:",
+            data
+        );
+    }
+    catch(error){
+        console.error(
+            "score.json load error:",
+            error
+        );
+        loadingEl.style.display =
+            "none";
+        contentEl.style.display =
+            "none";
+        errorEl.style.display =
+            "block";
+        errorTextEl.textContent =
+            "score.jsonを読み込めませんでした。";
+    }
+}
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+loadScore();
+/* =========================================================
+   AUTO UPDATE
+   5分ごとにscore.jsonを再取得
+========================================================= */
+setInterval(
+    loadScore,
+    5 * 60 * 1000
+);
 </script>
 </body>
 </html>
