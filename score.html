@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Phillies Score</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Score | Phillies Reader</title>
 
 <style>
 :root{
@@ -16,22 +12,21 @@
     --navy2:#0b1d38;
     --red:#e31937;
     --white:#ffffff;
-    --text:rgba(255,255,255,.82);
-    --muted:#718096;
-    --line:rgba(255,255,255,.075);
-    --green:#49d17d;
+    --text:#dbe4f0;
+    --muted:#7d8ca3;
+    --line:rgba(255,255,255,.08);
+    --green:#48d597;
 }
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body{
-    width:100%;
     min-height:100%;
     background:var(--navy);
 }
@@ -44,15 +39,12 @@ body{
         "Helvetica Neue",
         Arial,
         sans-serif;
-
-    padding-bottom:
-        calc(82px + env(safe-area-inset-bottom));
+    padding-bottom:90px;
 }
 
-/* =========================================================
+/* =========================
    HEADER
-   schedule.html 準拠
-========================================================= */
+========================= */
 
 .header{
     position:fixed;
@@ -61,91 +53,44 @@ body{
     right:0;
     z-index:1000;
 
-    height:72px;
-    overflow:hidden;
+    height:70px;
 
     background:
         linear-gradient(
             115deg,
-            #b90f2e 0%,
-            #e31937 38%,
-            #ef233c 65%,
-            #c8102e 100%
+            #b90f2e,
+            #e31937 48%,
+            #c8102e
         );
 
     box-shadow:
-        0 7px 22px rgba(0,0,0,.30);
+        0 7px 24px rgba(0,0,0,.32);
 }
 
-.header-navy-shape{
+.header::after{
+    content:"";
     position:absolute;
-    top:-45px;
-    right:-70px;
+    left:0;
+    right:0;
+    bottom:0;
 
-    width:230px;
-    height:150px;
-
-    transform:rotate(-17deg);
+    height:4px;
 
     background:
-        rgba(7,21,43,.26);
-
-    border-left:
-        1px solid rgba(255,255,255,.12);
+        linear-gradient(
+            90deg,
+            var(--navy),
+            rgba(7,21,43,.3),
+            transparent
+        );
 }
 
-.header-line-one{
-    position:absolute;
-
-    left:-20px;
-    bottom:17px;
-
-    width:62%;
-    height:2px;
-
-    transform:skewX(-35deg);
-
-    background:
-        rgba(255,255,255,.28);
-}
-
-.header-line-two{
-    position:absolute;
-
-    left:17%;
-    bottom:9px;
-
-    width:43%;
-    height:1px;
-
-    transform:skewX(-35deg);
-
-    background:
-        rgba(7,21,43,.34);
-}
-
-.header-light{
-    position:absolute;
-
-    right:13%;
-    top:0;
-
-    width:2px;
-    height:100%;
-
-    transform:skewX(-20deg);
-
-    background:
-        rgba(255,255,255,.11);
-}
-
-/* =========================================================
+/* =========================
    MAIN
-========================================================= */
+========================= */
 
 main{
-    min-height:100vh;
-    padding-top:72px;
+    padding-top:70px;
 }
 
 .page{
@@ -154,45 +99,46 @@ main{
     margin:0 auto;
 
     padding:
-        21px 14px 35px;
+        22px 14px
+        30px;
 }
 
-/* =========================================================
-   PAGE TITLE
-========================================================= */
+/* =========================
+   TITLE
+========================= */
 
-.page-heading{
-    margin-bottom:17px;
+.page-title{
+    margin-bottom:18px;
 }
 
-.page-heading h1{
-    font-family:"Barlow Condensed",sans-serif;
+.page-title h1{
+    font-family:
+        Impact,
+        "Arial Narrow",
+        sans-serif;
 
-    font-size:31px;
-    line-height:.95;
+    font-size:32px;
+    line-height:1;
 
-    font-weight:900;
-
-    letter-spacing:-.4px;
+    letter-spacing:.5px;
 }
 
-.page-heading p{
+.page-title p{
     margin-top:6px;
 
     color:var(--muted);
 
     font-size:9px;
     font-weight:800;
-
     letter-spacing:1.5px;
 }
 
-/* =========================================================
+/* =========================
    MESSAGE
-========================================================= */
+========================= */
 
 .message{
-    padding:25px 18px;
+    padding:28px 18px;
 
     border:
         1px solid var(--line);
@@ -206,12 +152,8 @@ main{
 }
 
 .message-title{
-    font-family:"Barlow Condensed",sans-serif;
-
     font-size:18px;
     font-weight:900;
-
-    letter-spacing:1px;
 }
 
 .message-text{
@@ -219,22 +161,18 @@ main{
 
     color:var(--muted);
 
-    font-size:10px;
+    font-size:11px;
     line-height:1.6;
 }
 
-/* =========================================================
+/* =========================
    GAME CARD
-   ① 最新試合
-========================================================= */
+========================= */
 
 .game-card{
     position:relative;
 
-    width:100%;
     overflow:hidden;
-
-    margin-bottom:22px;
 
     border:
         1px solid var(--line);
@@ -245,18 +183,17 @@ main{
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
-            rgba(255,255,255,.018)
+            rgba(255,255,255,.015)
         );
 
     box-shadow:
-        0 9px 26px rgba(0,0,0,.15);
+        0 10px 28px rgba(0,0,0,.18);
 }
 
 .game-card::before{
     content:"";
 
     position:absolute;
-
     left:0;
     top:0;
     bottom:0;
@@ -268,68 +205,70 @@ main{
 
 .game-top{
     display:flex;
-
     justify-content:space-between;
     align-items:center;
 
-    min-height:36px;
-
     padding:
-        9px 14px 2px 16px;
+        13px
+        15px
+        5px
+        17px;
 }
 
 .game-date{
     color:var(--muted);
 
-    font-family:"Barlow Condensed",sans-serif;
-
     font-size:9px;
     font-weight:800;
-
     letter-spacing:1px;
 }
 
 .game-status{
-    padding:4px 8px;
+    padding:5px 8px;
 
     border-radius:6px;
 
     background:
-        rgba(255,255,255,.06);
+        rgba(227,25,55,.12);
 
-    color:var(--muted);
+    color:var(--red);
 
-    font-size:7px;
+    font-size:8px;
     font-weight:900;
-
-    letter-spacing:.8px;
+    letter-spacing:.7px;
 }
 
 .game-status.final{
     color:var(--green);
-
     background:
-        rgba(73,209,125,.08);
+        rgba(72,213,151,.08);
 }
 
 .game-status.live{
     color:var(--red);
-
     background:
-        rgba(227,25,55,.13);
+        rgba(227,25,55,.14);
 }
+
+/* =========================
+   MATCHUP
+========================= */
 
 .matchup{
     display:grid;
-
-    grid-template-columns:1fr auto 1fr;
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
 
     align-items:center;
 
-    gap:10px;
+    gap:12px;
 
     padding:
-        7px 16px 15px;
+        7px
+        17px
+        17px;
 }
 
 .team{
@@ -347,18 +286,19 @@ main{
 .team-code{
     display:block;
 
-    font-family:"Barlow Condensed",sans-serif;
+    font-family:
+        Impact,
+        "Arial Narrow",
+        sans-serif;
 
-    font-size:28px;
-    font-weight:900;
-
-    line-height:.95;
+    font-size:29px;
+    line-height:1;
 }
 
 .team-name{
     display:block;
 
-    margin-top:4px;
+    margin-top:5px;
 
     color:var(--muted);
 
@@ -371,69 +311,71 @@ main{
 }
 
 .score{
-    min-width:82px;
-
     text-align:center;
 }
 
 .score-numbers{
     display:flex;
-
     justify-content:center;
     align-items:center;
 }
 
 .score-main{
-    font-family:"Barlow Condensed",sans-serif;
+    font-family:
+        Impact,
+        "Arial Narrow",
+        sans-serif;
 
-    font-size:30px;
-    font-weight:900;
-
+    font-size:32px;
     line-height:1;
 }
 
 .score-divider{
-    margin:0 4px;
+    margin:
+        0 5px;
 
     color:
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.25);
 
-    font-size:13px;
+    font-size:14px;
 }
 
 .result{
     display:block;
 
-    margin-top:5px;
+    margin-top:6px;
 
     color:var(--red);
 
     font-size:8px;
     font-weight:900;
-
     letter-spacing:1px;
 }
 
+/* =========================
+   VENUE
+========================= */
+
 .venue{
     display:flex;
-
     align-items:center;
 
     gap:9px;
 
     padding:
-        10px 16px 13px;
+        10px
+        16px
+        13px;
 
     border-top:
-        1px solid rgba(255,255,255,.045);
+        1px solid rgba(255,255,255,.05);
 }
 
 .venue-icon{
-    width:25px;
-    height:25px;
+    width:26px;
+    height:26px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
@@ -446,11 +388,7 @@ main{
 
     color:var(--red);
 
-    font-size:10px;
-}
-
-.venue-info{
-    min-width:0;
+    font-size:9px;
 }
 
 .venue-name{
@@ -460,7 +398,7 @@ main{
     font-weight:800;
 }
 
-.venue-location{
+.venue-sub{
     display:block;
 
     margin-top:2px;
@@ -470,32 +408,25 @@ main{
     font-size:8px;
 }
 
-/* =========================================================
-   SECTIONS
-========================================================= */
+/* =========================
+   SECTION
+========================= */
 
-.score-section{
+.section{
     margin-top:22px;
 }
 
 .section-title{
     display:flex;
-
     align-items:center;
 
-    gap:10px;
+    gap:9px;
 
     margin-bottom:9px;
 
-    font-family:"Barlow Condensed",sans-serif;
-
     font-size:13px;
     font-weight:900;
-
     letter-spacing:1px;
-
-    color:
-        rgba(255,255,255,.72);
 }
 
 .section-title::after{
@@ -509,8 +440,7 @@ main{
         rgba(255,255,255,.08);
 }
 
-.detail-card{
-    width:100%;
+.card{
     overflow:hidden;
 
     border:
@@ -519,19 +449,16 @@ main{
     border-radius:16px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.045),
-            rgba(255,255,255,.018)
-        );
+        rgba(255,255,255,.025);
 }
 
-/* =========================================================
+/* =========================
    TABLE
-========================================================= */
+========================= */
 
 .table-scroll{
     width:100%;
+
     overflow-x:auto;
 
     -webkit-overflow-scrolling:touch;
@@ -543,34 +470,29 @@ table{
     border-collapse:collapse;
 }
 
-th,
-td{
-    white-space:nowrap;
-
-    text-align:center;
-}
-
 th{
-    height:31px;
+    height:32px;
 
-    padding:0 6px;
+    padding:
+        0 7px;
 
     background:
         rgba(255,255,255,.025);
 
     color:
-        rgba(255,255,255,.30);
-
-    font-family:"Barlow Condensed",sans-serif;
+        rgba(255,255,255,.35);
 
     font-size:8px;
     font-weight:900;
+
+    white-space:nowrap;
 }
 
 td{
     height:39px;
 
-    padding:0 6px;
+    padding:
+        0 7px;
 
     border-top:
         1px solid rgba(255,255,255,.045);
@@ -580,26 +502,32 @@ td{
 
     font-size:9px;
     font-weight:700;
+
+    text-align:center;
+
+    white-space:nowrap;
 }
 
-td.name{
-    text-align:left;
-
+td.player{
     color:var(--white);
 
-    font-family:"Barlow Condensed",sans-serif;
+    text-align:left;
 
     font-size:11px;
     font-weight:900;
 }
 
-/* =========================================================
-   INNING SCORE
-   ②
-========================================================= */
+td.total{
+    color:var(--white);
+    font-weight:900;
+}
+
+/* =========================
+   INNING
+========================= */
 
 .inning-table{
-    min-width:360px;
+    min-width:380px;
 }
 
 .inning-table th,
@@ -613,77 +541,54 @@ td.name{
 }
 
 .team-cell{
-    padding-left:14px !important;
-
     text-align:left !important;
 
-    color:var(--white) !important;
+    padding-left:14px !important;
 
-    font-family:"Barlow Condensed",sans-serif !important;
+    color:var(--white) !important;
 
     font-size:11px !important;
     font-weight:900 !important;
 }
 
-.total{
-    color:var(--white) !important;
-
-    font-weight:900 !important;
-}
-
-/* =========================================================
+/* =========================
    CURRENT GAME
-   ⑤
-========================================================= */
+========================= */
 
-.live-card{
+.current{
     padding:15px;
 }
 
-.live-header{
+.current-header{
     display:flex;
-
-    align-items:flex-start;
-
     justify-content:space-between;
 
-    gap:12px;
-
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
-.live-label{
+.current-label{
     color:var(--red);
-
-    font-family:"Barlow Condensed",sans-serif;
 
     font-size:9px;
     font-weight:900;
-
-    letter-spacing:1.2px;
+    letter-spacing:1px;
 }
 
-.live-inning{
-    color:
-        rgba(255,255,255,.42);
-
-    font-family:"Barlow Condensed",sans-serif;
+.current-inning{
+    color:var(--muted);
 
     font-size:9px;
     font-weight:800;
 }
 
-.live-player{
+.current-players{
     display:grid;
-
     grid-template-columns:1fr 1fr;
 
     gap:8px;
 }
 
 .player-box{
-    min-width:0;
-
     padding:12px;
 
     border-radius:10px;
@@ -695,26 +600,20 @@ td.name{
 .player-role{
     color:var(--muted);
 
-    font-family:"Barlow Condensed",sans-serif;
-
     font-size:8px;
     font-weight:800;
-
     letter-spacing:.8px;
 }
 
 .player-name{
-    margin-top:4px;
+    margin-top:5px;
 
-    font-family:"Barlow Condensed",sans-serif;
-
-    font-size:18px;
+    font-size:17px;
     font-weight:900;
 }
 
-.count-grid{
+.counts{
     display:grid;
-
     grid-template-columns:
         repeat(3,1fr);
 
@@ -723,7 +622,7 @@ td.name{
     margin-top:9px;
 }
 
-.count-box{
+.count{
     padding:9px 4px;
 
     border-radius:9px;
@@ -739,20 +638,15 @@ td.name{
 
     color:var(--muted);
 
-    font-family:"Barlow Condensed",sans-serif;
-
     font-size:7px;
     font-weight:800;
-
-    letter-spacing:.8px;
+    letter-spacing:.7px;
 }
 
 .count-value{
     display:block;
 
     margin-top:3px;
-
-    font-family:"Barlow Condensed",sans-serif;
 
     font-size:18px;
     font-weight:900;
@@ -764,7 +658,9 @@ td.name{
     width:82px;
     height:62px;
 
-    margin:14px auto 2px;
+    margin:
+        14px auto
+        0;
 }
 
 .base{
@@ -776,7 +672,8 @@ td.name{
     transform:rotate(45deg);
 
     border:
-        1px solid rgba(255,255,255,.22);
+        1px solid
+        rgba(255,255,255,.22);
 
     background:
         rgba(255,255,255,.025);
@@ -788,7 +685,8 @@ td.name{
     background:var(--red);
 
     box-shadow:
-        0 0 12px rgba(227,25,55,.35);
+        0 0 12px
+        rgba(227,25,55,.4);
 }
 
 .base.second{
@@ -806,8 +704,8 @@ td.name{
     left:8px;
 }
 
-.pitch-box{
-    margin-top:12px;
+.last-pitch{
+    margin-top:10px;
 
     padding:10px 12px;
 
@@ -817,30 +715,24 @@ td.name{
         rgba(255,255,255,.03);
 }
 
-.pitch-label{
+.last-pitch-label{
     color:var(--muted);
-
-    font-family:"Barlow Condensed",sans-serif;
 
     font-size:8px;
     font-weight:800;
-
     letter-spacing:1px;
 }
 
-.pitch-value{
+.last-pitch-value{
     margin-top:4px;
 
-    font-family:"Barlow Condensed",sans-serif;
-
-    font-size:12px;
+    font-size:11px;
     font-weight:900;
 }
 
-/* =========================================================
+/* =========================
    BOTTOM NAV
-   schedule.html 準拠
-========================================================= */
+========================= */
 
 .bottom-nav{
     position:fixed;
@@ -849,18 +741,19 @@ td.name{
     right:0;
     bottom:0;
 
-    z-index:999;
+    z-index:1000;
 
     height:
-        calc(76px + env(safe-area-inset-bottom));
+        calc(
+            76px +
+            env(safe-area-inset-bottom)
+        );
 
     display:flex;
-
     align-items:flex-start;
 
     padding:
-        7px
-        5px
+        7px 5px
         env(safe-area-inset-bottom);
 
     background:
@@ -870,49 +763,37 @@ td.name{
     -webkit-backdrop-filter:blur(18px);
 
     border-top:
-        1px solid rgba(255,255,255,.08);
+        1px solid
+        rgba(255,255,255,.08);
 }
 
 .nav-item{
     flex:1;
 
-    min-width:0;
-
     height:60px;
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     justify-content:center;
 
     gap:5px;
 
     border-radius:13px;
 
-    text-decoration:none;
+    color:#65758c;
 
-    color:#64748b;
+    text-decoration:none;
 }
 
 .nav-item.active{
-    color:#fff;
+    color:var(--white);
 
     background:
-        rgba(227,25,55,.13);
+        rgba(227,25,55,.12);
 }
 
 .nav-icon{
-    width:25px;
-    height:25px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
     font-size:17px;
 }
 
@@ -921,31 +802,20 @@ td.name{
 }
 
 .nav-label{
-    font-family:"Barlow Condensed",sans-serif;
-
-    font-size:10px;
-    font-weight:800;
-
-    letter-spacing:.45px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.4px;
 }
 
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:360px){
 
-    .header{
-        height:68px;
-    }
-
-    main{
-        padding-top:68px;
-    }
-
     .page{
-        padding-left:11px;
-        padding-right:11px;
+        padding-left:10px;
+        padding-right:10px;
     }
 
     .team-code{
@@ -953,64 +823,38 @@ td.name{
     }
 
     .score-main{
-        font-size:27px;
+        font-size:28px;
     }
 
     .player-name{
-        font-size:16px;
+        font-size:15px;
     }
 
-    .nav-label{
-        font-size:9px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-====================================================== -->
+<header class="header"></header>
 
-<header class="header">
-
-    <div class="header-navy-shape"></div>
-    <div class="header-line-one"></div>
-    <div class="header-line-two"></div>
-    <div class="header-light"></div>
-
-</header>
-
-
-<!-- =====================================================
-     MAIN
-====================================================== -->
 
 <main>
 
-<section class="page">
+<div class="page">
 
-    <div class="page-heading">
-
-        <h1>Score</h1>
-
-        <p>
-            PHILADELPHIA PHILLIES
-        </p>
-
+    <div class="page-title">
+        <h1>SCORE</h1>
+        <p>PHILADELPHIA PHILLIES</p>
     </div>
 
 
-    <!-- =================================================
-         LOADING
-    ================================================== -->
+    <!-- LOADING -->
 
     <div
         id="loading"
         class="message"
     >
-
         <div class="message-title">
             LOADING
         </div>
@@ -1018,20 +862,16 @@ td.name{
         <div class="message-text">
             最新の試合データを読み込んでいます。
         </div>
-
     </div>
 
 
-    <!-- =================================================
-         ERROR
-    ================================================== -->
+    <!-- ERROR -->
 
     <div
         id="error"
         class="message"
         style="display:none;"
     >
-
         <div class="message-title">
             SCORE DATA ERROR
         </div>
@@ -1042,47 +882,40 @@ td.name{
         >
             score.jsonを読み込めませんでした。
         </div>
-
     </div>
 
 
-    <!-- =================================================
-         CONTENT
-    ================================================== -->
+    <!-- CONTENT -->
 
     <div
         id="content"
         style="display:none;"
     >
 
-
-        <!-- =================================================
-             ① LATEST GAME
-        ================================================== -->
+        <!-- GAME -->
 
         <section class="game-card">
 
             <div class="game-top">
 
-                <span
+                <div
                     id="gameDate"
                     class="game-date"
                 >
                     -
-                </span>
+                </div>
 
-                <span
+                <div
                     id="gameStatus"
                     class="game-status"
                 >
                     -
-                </span>
+                </div>
 
             </div>
 
 
             <div class="matchup">
-
 
                 <div class="team away">
 
@@ -1127,7 +960,6 @@ td.name{
 
                     </div>
 
-
                     <span
                         id="gameResult"
                         class="result"
@@ -1165,7 +997,7 @@ td.name{
                     ●
                 </div>
 
-                <div class="venue-info">
+                <div>
 
                     <span
                         id="venueName"
@@ -1174,11 +1006,8 @@ td.name{
                         -
                     </span>
 
-                    <span
-                        id="venueLocation"
-                        class="venue-location"
-                    >
-                        PHILADELPHIA PHILLIES
+                    <span class="venue-sub">
+                        Philadelphia Phillies
                     </span>
 
                 </div>
@@ -1188,25 +1017,27 @@ td.name{
         </section>
 
 
-        <!-- =================================================
-             ② INNING SCORE
-        ================================================== -->
+        <!-- INNING SCORE -->
 
-        <section class="score-section">
+        <section class="section">
 
             <div class="section-title">
                 INNING SCORE
             </div>
 
-            <div class="detail-card">
+            <div class="card">
 
                 <div class="table-scroll">
 
                     <table class="inning-table">
 
-                        <thead id="inningHead"></thead>
+                        <thead
+                            id="inningHead"
+                        ></thead>
 
-                        <tbody id="inningBody"></tbody>
+                        <tbody
+                            id="inningBody"
+                        ></tbody>
 
                     </table>
 
@@ -1217,38 +1048,36 @@ td.name{
         </section>
 
 
-        <!-- =================================================
-             ⑤ CURRENT GAME
-        ================================================== -->
+        <!-- CURRENT GAME -->
 
-        <section class="score-section">
+        <section class="section">
 
             <div class="section-title">
                 CURRENT GAME
             </div>
 
-            <div class="detail-card live-card">
+            <div class="card current">
 
-                <div class="live-header">
+                <div class="current-header">
 
                     <span
-                        id="liveLabel"
-                        class="live-label"
+                        id="currentLabel"
+                        class="current-label"
                     >
-                        GAME STATUS
+                        GAME OVER
                     </span>
 
                     <span
-                        id="liveInning"
-                        class="live-inning"
+                        id="currentInning"
+                        class="current-inning"
                     >
-                        -
+                        FINAL
                     </span>
 
                 </div>
 
 
-                <div class="live-player">
+                <div class="current-players">
 
                     <div class="player-box">
 
@@ -1287,9 +1116,9 @@ td.name{
                 </div>
 
 
-                <div class="count-grid">
+                <div class="counts">
 
-                    <div class="count-box">
+                    <div class="count">
 
                         <span class="count-label">
                             BALLS
@@ -1305,7 +1134,7 @@ td.name{
                     </div>
 
 
-                    <div class="count-box">
+                    <div class="count">
 
                         <span class="count-label">
                             STRIKES
@@ -1321,7 +1150,7 @@ td.name{
                     </div>
 
 
-                    <div class="count-box">
+                    <div class="count">
 
                         <span class="count-label">
                             OUTS
@@ -1359,15 +1188,15 @@ td.name{
                 </div>
 
 
-                <div class="pitch-box">
+                <div class="last-pitch">
 
-                    <div class="pitch-label">
+                    <div class="last-pitch-label">
                         LAST PITCH
                     </div>
 
                     <div
                         id="lastPitch"
-                        class="pitch-value"
+                        class="last-pitch-value"
                     >
                         -
                     </div>
@@ -1379,17 +1208,15 @@ td.name{
         </section>
 
 
-        <!-- =================================================
-             ③ BATTING
-        ================================================== -->
+        <!-- BATTING -->
 
-        <section class="score-section">
+        <section class="section">
 
             <div class="section-title">
                 PHILLIES BATTING
             </div>
 
-            <div class="detail-card">
+            <div class="card">
 
                 <div class="table-scroll">
 
@@ -1398,8 +1225,7 @@ td.name{
                         <thead>
 
                             <tr>
-
-                                <th>#</th>
+                                <th>ORDER</th>
                                 <th>PLAYER</th>
                                 <th>POS</th>
                                 <th>AB</th>
@@ -1409,12 +1235,13 @@ td.name{
                                 <th>BB</th>
                                 <th>R</th>
                                 <th>SO</th>
-
                             </tr>
 
                         </thead>
 
-                        <tbody id="battingBody"></tbody>
+                        <tbody
+                            id="battingBody"
+                        ></tbody>
 
                     </table>
 
@@ -1425,17 +1252,15 @@ td.name{
         </section>
 
 
-        <!-- =================================================
-             ④ PITCHING
-        ================================================== -->
+        <!-- PITCHING -->
 
-        <section class="score-section">
+        <section class="section">
 
             <div class="section-title">
                 PHILLIES PITCHING
             </div>
 
-            <div class="detail-card">
+            <div class="card">
 
                 <div class="table-scroll">
 
@@ -1444,7 +1269,6 @@ td.name{
                         <thead>
 
                             <tr>
-
                                 <th>#</th>
                                 <th>PLAYER</th>
                                 <th>IP</th>
@@ -1455,12 +1279,13 @@ td.name{
                                 <th>ER</th>
                                 <th>BB</th>
                                 <th>P</th>
-
                             </tr>
 
                         </thead>
 
-                        <tbody id="pitchingBody"></tbody>
+                        <tbody
+                            id="pitchingBody"
+                        ></tbody>
 
                     </table>
 
@@ -1470,17 +1295,14 @@ td.name{
 
         </section>
 
-
     </div>
 
-</section>
+</div>
 
 </main>
 
 
-<!-- =====================================================
-     BOTTOM NAV
-====================================================== -->
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
@@ -1488,15 +1310,8 @@ td.name{
         href="schedule.html"
         class="nav-item"
     >
-
-        <div class="nav-icon">
-            ▣
-        </div>
-
-        <div class="nav-label">
-            SCHEDULE
-        </div>
-
+        <div class="nav-icon">▣</div>
+        <div class="nav-label">SCHEDULE</div>
     </a>
 
 
@@ -1504,15 +1319,8 @@ td.name{
         href="score.html"
         class="nav-item active"
     >
-
-        <div class="nav-icon">
-            ●
-        </div>
-
-        <div class="nav-label">
-            SCORE
-        </div>
-
+        <div class="nav-icon">●</div>
+        <div class="nav-label">SCORE</div>
     </a>
 
 
@@ -1520,15 +1328,8 @@ td.name{
         href="index.html"
         class="nav-item"
     >
-
-        <div class="nav-icon">
-            ⌂
-        </div>
-
-        <div class="nav-label">
-            HOME
-        </div>
-
+        <div class="nav-icon">⌂</div>
+        <div class="nav-label">HOME</div>
     </a>
 
 
@@ -1536,15 +1337,8 @@ td.name{
         href="player.html"
         class="nav-item"
     >
-
-        <div class="nav-icon">
-            ♟
-        </div>
-
-        <div class="nav-label">
-            PLAYER
-        </div>
-
+        <div class="nav-icon">♟</div>
+        <div class="nav-label">PLAYER</div>
     </a>
 
 
@@ -1552,15 +1346,8 @@ td.name{
         href="stats.html"
         class="nav-item"
     >
-
-        <div class="nav-icon">
-            ▥
-        </div>
-
-        <div class="nav-label">
-            STATS
-        </div>
-
+        <div class="nav-icon">▥</div>
+        <div class="nav-label">STATS</div>
     </a>
 
 </nav>
@@ -1569,129 +1356,51 @@ td.name{
 <script>
 
 /* =========================================================
-   SCORE JSON
+   CONFIG
 ========================================================= */
 
-const SCORE_URL = "./data/score.json";
+const SCORE_JSON_URL = "./data/score.json";
 
 
 /* =========================================================
-   DOM
+   ELEMENTS
 ========================================================= */
 
-const loading =
+const loadingEl =
     document.getElementById("loading");
 
-const error =
+const errorEl =
     document.getElementById("error");
 
-const errorText =
+const errorTextEl =
     document.getElementById("errorText");
 
-const content =
+const contentEl =
     document.getElementById("content");
-
-const gameDate =
-    document.getElementById("gameDate");
-
-const gameStatus =
-    document.getElementById("gameStatus");
-
-const awayCode =
-    document.getElementById("awayCode");
-
-const awayName =
-    document.getElementById("awayName");
-
-const homeCode =
-    document.getElementById("homeCode");
-
-const homeName =
-    document.getElementById("homeName");
-
-const awayScore =
-    document.getElementById("awayScore");
-
-const homeScore =
-    document.getElementById("homeScore");
-
-const gameResult =
-    document.getElementById("gameResult");
-
-const venueName =
-    document.getElementById("venueName");
-
-const inningHead =
-    document.getElementById("inningHead");
-
-const inningBody =
-    document.getElementById("inningBody");
-
-const liveLabel =
-    document.getElementById("liveLabel");
-
-const liveInning =
-    document.getElementById("liveInning");
-
-const batterRole =
-    document.getElementById("batterRole");
-
-const batterName =
-    document.getElementById("batterName");
-
-const pitcherName =
-    document.getElementById("pitcherName");
-
-const balls =
-    document.getElementById("balls");
-
-const strikes =
-    document.getElementById("strikes");
-
-const outs =
-    document.getElementById("outs");
-
-const lastPitch =
-    document.getElementById("lastPitch");
-
-const baseFirst =
-    document.getElementById("baseFirst");
-
-const baseSecond =
-    document.getElementById("baseSecond");
-
-const baseThird =
-    document.getElementById("baseThird");
-
-const battingBody =
-    document.getElementById("battingBody");
-
-const pitchingBody =
-    document.getElementById("pitchingBody");
 
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-function value(v, fallback="-"){
+function valueOrDash(value){
 
     if(
-        v === null ||
-        v === undefined ||
-        v === ""
+        value === null ||
+        value === undefined ||
+        value === ""
     ){
-        return fallback;
+        return "-";
     }
 
-    return v;
+    return value;
 }
 
 
-function escapeHTML(v){
+function escapeHtml(value){
 
     return String(
-        value(v,"")
+        valueOrDash(value)
     )
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -1701,24 +1410,24 @@ function escapeHTML(v){
 }
 
 
-function formatDate(dateString){
+function formatGameDate(dateString){
 
     if(!dateString){
         return "-";
     }
 
-    const d =
+    const date =
         new Date(dateString);
 
     if(
         Number.isNaN(
-            d.getTime()
+            date.getTime()
         )
     ){
         return dateString;
     }
 
-    return d.toLocaleDateString(
+    return date.toLocaleDateString(
         "en-US",
         {
             month:"long",
@@ -1727,25 +1436,6 @@ function formatDate(dateString){
             timeZone:"America/New_York"
         }
     ).toUpperCase();
-}
-
-
-function formatInning(n){
-
-    const number =
-        Number(n);
-
-    if(
-        !Number.isFinite(number)
-    ){
-        return "-";
-    }
-
-    if(number === 1) return "1ST";
-    if(number === 2) return "2ND";
-    if(number === 3) return "3RD";
-
-    return number + "TH";
 }
 
 
@@ -1784,10 +1474,16 @@ function getHits(game, side){
         return game.score[side].hits;
     }
 
-    return value(
-        game.game?.[side]?.hits,
-        0
-    );
+    if(
+        game.game &&
+        game.game[side] &&
+        game.game[side].hits !== null &&
+        game.game[side].hits !== undefined
+    ){
+        return game.game[side].hits;
+    }
+
+    return 0;
 }
 
 
@@ -1802,15 +1498,38 @@ function getErrors(game, side){
         return game.score[side].errors;
     }
 
-    return value(
-        game.game?.[side]?.errors,
-        0
-    );
+    if(
+        game.game &&
+        game.game[side] &&
+        game.game[side].errors !== null &&
+        game.game[side].errors !== undefined
+    ){
+        return game.game[side].errors;
+    }
+
+    return 0;
+}
+
+
+function formatInning(number){
+
+    const n =
+        Number(number);
+
+    if(!Number.isFinite(n)){
+        return "-";
+    }
+
+    if(n === 1) return "1";
+    if(n === 2) return "2";
+    if(n === 3) return "3";
+
+    return String(n);
 }
 
 
 /* =========================================================
-   ① GAME
+   GAME
 ========================================================= */
 
 function renderGame(game){
@@ -1831,61 +1550,78 @@ function renderGame(game){
         info.venue || {};
 
 
-    gameDate.textContent =
-        formatDate(
+    document.getElementById(
+        "gameDate"
+    ).textContent =
+        formatGameDate(
             info.gameDate
         );
 
 
-    awayCode.textContent =
-        value(
+    document.getElementById(
+        "awayCode"
+    ).textContent =
+        valueOrDash(
             away.abbreviation
         );
 
-    awayName.textContent =
-        value(
+
+    document.getElementById(
+        "awayName"
+    ).textContent =
+        valueOrDash(
             away.name
         );
 
 
-    homeCode.textContent =
-        value(
+    document.getElementById(
+        "homeCode"
+    ).textContent =
+        valueOrDash(
             home.abbreviation
         );
 
-    homeName.textContent =
-        value(
+
+    document.getElementById(
+        "homeName"
+    ).textContent =
+        valueOrDash(
             home.name
         );
 
 
-    awayScore.textContent =
-        getRuns(
-            game,
-            "away"
-        );
+    document.getElementById(
+        "awayScore"
+    ).textContent =
+        getRuns(game,"away");
 
-    homeScore.textContent =
-        getRuns(
-            game,
-            "home"
+
+    document.getElementById(
+        "homeScore"
+    ).textContent =
+        getRuns(game,"home");
+
+
+    const statusEl =
+        document.getElementById(
+            "gameStatus"
         );
 
 
     const statusText =
-        value(
-            status.abstract,
-            status.detailed || "UNKNOWN"
+        valueOrDash(
+            status.abstract ||
+            status.detailed
         );
 
 
-    gameStatus.textContent =
+    statusEl.textContent =
         String(
             statusText
         ).toUpperCase();
 
 
-    gameStatus.classList.remove(
+    statusEl.classList.remove(
         "final",
         "live"
     );
@@ -1893,114 +1629,123 @@ function renderGame(game){
 
     if(
         String(status.abstract)
-        .toLowerCase()
-        === "final"
+            .toLowerCase() === "final"
     ){
-
-        gameStatus.classList.add(
+        statusEl.classList.add(
             "final"
         );
-
-    }else if(
-        String(status.abstract)
-        .toLowerCase()
-        === "live"
-    ){
-
-        gameStatus.classList.add(
-            "live"
-        );
-
     }
-
-
-    const phiIsAway =
-        away.abbreviation === "PHI";
-
-
-    const phiRuns =
-        Number(
-            phiIsAway
-                ? getRuns(game,"away")
-                : getRuns(game,"home")
-        );
-
-
-    const opponentRuns =
-        Number(
-            phiIsAway
-                ? getRuns(game,"home")
-                : getRuns(game,"away")
-        );
 
 
     if(
         String(status.abstract)
-        .toLowerCase()
-        === "final"
+            .toLowerCase() === "live"
     ){
-
-        if(phiRuns > opponentRuns){
-
-            gameResult.textContent =
-                "PHI WIN";
-
-        }else if(
-            phiRuns < opponentRuns
-        ){
-
-            gameResult.textContent =
-                "PHI LOSS";
-
-        }else{
-
-            gameResult.textContent =
-                "TIE";
-        }
-
-    }else if(
-        String(status.abstract)
-        .toLowerCase()
-        === "live"
-    ){
-
-        if(phiRuns > opponentRuns){
-
-            gameResult.textContent =
-                "PHI LEADS";
-
-        }else if(
-            phiRuns < opponentRuns
-        ){
-
-            gameResult.textContent =
-                "PHI TRAILS";
-
-        }else{
-
-            gameResult.textContent =
-                "TIED";
-        }
-
-    }else{
-
-        gameResult.textContent =
-            statusText;
+        statusEl.classList.add(
+            "live"
+        );
     }
 
 
-    venueName.textContent =
-        value(
+    const philliesIsAway =
+        away.abbreviation === "PHI";
+
+
+    const philliesRuns =
+        philliesIsAway
+            ? getRuns(game,"away")
+            : getRuns(game,"home");
+
+
+    const opponentRuns =
+        philliesIsAway
+            ? getRuns(game,"home")
+            : getRuns(game,"away");
+
+
+    let result = "";
+
+
+    if(
+        String(status.abstract)
+            .toLowerCase() === "final"
+    ){
+
+        if(
+            philliesRuns >
+            opponentRuns
+        ){
+            result = "PHI WIN";
+        }
+        else if(
+            philliesRuns <
+            opponentRuns
+        ){
+            result = "PHI LOSS";
+        }
+        else{
+            result = "TIE";
+        }
+
+    }
+    else if(
+        String(status.abstract)
+            .toLowerCase() === "live"
+    ){
+
+        if(
+            philliesRuns >
+            opponentRuns
+        ){
+            result = "PHI LEADS";
+        }
+        else if(
+            philliesRuns <
+            opponentRuns
+        ){
+            result = "PHI TRAILS";
+        }
+        else{
+            result = "TIED";
+        }
+
+    }
+    else{
+        result = statusText;
+    }
+
+
+    document.getElementById(
+        "gameResult"
+    ).textContent =
+        result;
+
+
+    document.getElementById(
+        "venueName"
+    ).textContent =
+        valueOrDash(
             venue.name
         );
 }
 
 
 /* =========================================================
-   ② INNING SCORE
+   INNING SCORE
 ========================================================= */
 
-function renderInnings(game){
+function renderInningScore(game){
+
+    const head =
+        document.getElementById(
+            "inningHead"
+        );
+
+    const body =
+        document.getElementById(
+            "inningBody"
+        );
+
 
     const innings =
         Array.isArray(
@@ -2018,18 +1763,15 @@ function renderInnings(game){
 
 
     /*
-     * 現在のscore.jsonで
+     * 現在のJSONで
      * inningScoresが空の場合。
-     *
-     * エラーにはせず、
-     * R/H/Eを表示する。
      */
 
     if(
         innings.length === 0
     ){
 
-        inningHead.innerHTML = `
+        head.innerHTML = `
             <tr>
                 <th></th>
                 <th>R</th>
@@ -2039,12 +1781,12 @@ function renderInnings(game){
         `;
 
 
-        inningBody.innerHTML = `
+        body.innerHTML = `
 
             <tr>
 
                 <td class="team-cell">
-                    ${escapeHTML(
+                    ${escapeHtml(
                         away.abbreviation || "AWAY"
                     )}
                 </td>
@@ -2067,7 +1809,7 @@ function renderInnings(game){
             <tr>
 
                 <td class="team-cell">
-                    ${escapeHTML(
+                    ${escapeHtml(
                         home.abbreviation || "HOME"
                     )}
                 </td>
@@ -2092,7 +1834,7 @@ function renderInnings(game){
 
 
     /*
-     * inningScoresの各種想定形式に対応。
+     * inningScoresの各種候補キーに対応。
      */
 
     function inningNumber(item){
@@ -2106,23 +1848,22 @@ function renderInnings(game){
     }
 
 
-    function runs(item,side){
+    function runsFromItem(item,side){
 
         if(
             item[side] !== undefined &&
-            item[side] !== null &&
-            typeof item[side] !== "object"
+            item[side] !== null
         ){
+
+            if(
+                typeof item[side] === "object"
+            ){
+                return valueOrDash(
+                    item[side].runs
+                );
+            }
 
             return item[side];
-        }
-
-
-        if(
-            item[side]?.runs !== undefined
-        ){
-
-            return item[side].runs;
         }
 
 
@@ -2135,7 +1876,6 @@ function renderInnings(game){
         if(
             item[key] !== undefined
         ){
-
             return item[key];
         }
 
@@ -2144,28 +1884,30 @@ function renderInnings(game){
     }
 
 
-    const parsed =
+    const normalized =
         innings
         .map(item => ({
-            item,
-            number:inningNumber(item)
+            item:item,
+            inning:inningNumber(item)
         }))
-        .filter(x =>
-            Number.isFinite(
-                x.number
-            )
+        .filter(
+            item =>
+                Number.isFinite(
+                    item.inning
+                )
         )
         .sort(
             (a,b) =>
-                a.number - b.number
+                a.inning -
+                b.inning
         );
 
 
     if(
-        parsed.length === 0
+        normalized.length === 0
     ){
 
-        inningHead.innerHTML = `
+        head.innerHTML = `
             <tr>
                 <th></th>
                 <th>R</th>
@@ -2175,15 +1917,23 @@ function renderInnings(game){
         `;
 
 
-        inningBody.innerHTML = `
+        body.innerHTML = `
+
             <tr>
-                <td class="team-cell">PHI</td>
+                <td class="team-cell">
+                    ${escapeHtml(
+                        away.abbreviation || "AWAY"
+                    )}
+                </td>
+
                 <td class="total">
                     ${getRuns(game,"away")}
                 </td>
+
                 <td>
                     ${getHits(game,"away")}
                 </td>
+
                 <td>
                     ${getErrors(game,"away")}
                 </td>
@@ -2191,16 +1941,19 @@ function renderInnings(game){
 
             <tr>
                 <td class="team-cell">
-                    ${escapeHTML(
+                    ${escapeHtml(
                         home.abbreviation || "HOME"
                     )}
                 </td>
+
                 <td class="total">
                     ${getRuns(game,"home")}
                 </td>
+
                 <td>
                     ${getHits(game,"home")}
                 </td>
+
                 <td>
                     ${getErrors(game,"home")}
                 </td>
@@ -2213,77 +1966,81 @@ function renderInnings(game){
 
     const maxInning =
         Math.max(
-            ...parsed.map(
-                x => x.number
+            ...normalized.map(
+                item => item.inning
             )
         );
 
 
-    let head =
+    let header =
         "<tr><th></th>";
 
 
     for(
-        let i=1;
-        i<=maxInning;
+        let i = 1;
+        i <= maxInning;
         i++
     ){
 
-        head +=
+        header +=
             `<th>${i}</th>`;
+
     }
 
 
-    head += `
+    header += `
         <th>R</th>
         <th>H</th>
         <th>E</th>
-    </tr>
-    `;
+    </tr>`;
 
 
-    inningHead.innerHTML =
-        head;
+    head.innerHTML =
+        header;
 
 
-    function find(n){
+    function findInning(number){
 
-        return parsed.find(
-            x => x.number === n
-        )?.item;
+        const found =
+            normalized.find(
+                item =>
+                    item.inning === number
+            );
+
+        return found
+            ? found.item
+            : null;
     }
 
 
-    function createRow(
-        team,
-        side
-    ){
+    function createRow(team,side){
 
         let html = `
             <tr>
+
                 <td class="team-cell">
-                    ${escapeHTML(team)}
+                    ${escapeHtml(team)}
                 </td>
         `;
 
 
         for(
-            let i=1;
-            i<=maxInning;
+            let i = 1;
+            i <= maxInning;
             i++
         ){
 
             const item =
-                find(i);
+                findInning(i);
 
 
             html += `
                 <td>
                     ${
                         item
-                            ? value(
-                                runs(item,side),
-                                0
+                            ? runsFromItem(
+                                item,
+                                side
                             )
                             : ""
                     }
@@ -2293,6 +2050,7 @@ function renderInnings(game){
 
 
         html += `
+
             <td class="total">
                 ${getRuns(game,side)}
             </td>
@@ -2305,7 +2063,7 @@ function renderInnings(game){
                 ${getErrors(game,side)}
             </td>
 
-            </tr>
+        </tr>
         `;
 
 
@@ -2313,12 +2071,11 @@ function renderInnings(game){
     }
 
 
-    inningBody.innerHTML =
+    body.innerHTML =
         createRow(
             away.abbreviation || "AWAY",
             "away"
         ) +
-
         createRow(
             home.abbreviation || "HOME",
             "home"
@@ -2327,7 +2084,279 @@ function renderInnings(game){
 
 
 /* =========================================================
-   ⑤ CURRENT GAME
+   BATTING
+========================================================= */
+
+function renderBatting(game){
+
+    const body =
+        document.getElementById(
+            "battingBody"
+        );
+
+
+    const batting =
+        Array.isArray(
+            game.philliesBatting
+        )
+            ? [
+                ...game.philliesBatting
+            ]
+            : [];
+
+
+    if(
+        batting.length === 0
+    ){
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="10">
+                    No batting data
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    batting.sort(
+        (a,b) =>
+            Number(
+                a.battingOrder ??
+                a.sequence ??
+                999
+            )
+            -
+            Number(
+                b.battingOrder ??
+                b.sequence ??
+                999
+            )
+    );
+
+
+    body.innerHTML =
+        batting
+        .map(
+            player => `
+
+                <tr>
+
+                    <td>
+                        ${valueOrDash(
+                            player.battingOrder ??
+                            player.sequence
+                        )}
+                    </td>
+
+                    <td class="player">
+                        ${escapeHtml(
+                            player.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.position
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.AB,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.H,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.HR,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.RBI,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.BB,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.R,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            player.SO,
+                            0
+                        )}
+                    </td>
+
+                </tr>
+
+            `
+        )
+        .join("");
+}
+
+
+/* =========================================================
+   PITCHING
+========================================================= */
+
+function renderPitching(game){
+
+    const body =
+        document.getElementById(
+            "pitchingBody"
+        );
+
+
+    const pitching =
+        Array.isArray(
+            game.philliesPitching
+        )
+            ? [
+                ...game.philliesPitching
+            ]
+            : [];
+
+
+    if(
+        pitching.length === 0
+    ){
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="10">
+                    No pitching data
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    pitching.sort(
+        (a,b) =>
+            Number(
+                a.sequence ??
+                999
+            )
+            -
+            Number(
+                b.sequence ??
+                999
+            )
+    );
+
+
+    body.innerHTML =
+        pitching
+        .map(
+            pitcher => `
+
+                <tr>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.sequence
+                        )}
+                    </td>
+
+                    <td class="player">
+                        ${escapeHtml(
+                            pitcher.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.IP,
+                            "0.0"
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.H,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.K,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.HR,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.R,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.ER,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.BB,
+                            0
+                        )}
+                    </td>
+
+                    <td>
+                        ${valueOrDash(
+                            pitcher.pitches,
+                            0
+                        )}
+                    </td>
+
+                </tr>
+
+            `
+        )
+        .join("");
+}
+
+
+/* =========================================================
+   CURRENT GAME
 ========================================================= */
 
 function renderCurrentGame(game){
@@ -2336,25 +2365,91 @@ function renderCurrentGame(game){
         game.currentGame || {};
 
 
+    const label =
+        document.getElementById(
+            "currentLabel"
+        );
+
+    const inning =
+        document.getElementById(
+            "currentInning"
+        );
+
+
+    const batter =
+        document.getElementById(
+            "batterName"
+        );
+
+    const pitcher =
+        document.getElementById(
+            "pitcherName"
+        );
+
+
+    const batterRole =
+        document.getElementById(
+            "batterRole"
+        );
+
+
+    const balls =
+        document.getElementById(
+            "balls"
+        );
+
+    const strikes =
+        document.getElementById(
+            "strikes"
+        );
+
+    const outs =
+        document.getElementById(
+            "outs"
+        );
+
+    const pitch =
+        document.getElementById(
+            "lastPitch"
+        );
+
+
+    const first =
+        document.getElementById(
+            "baseFirst"
+        );
+
+    const second =
+        document.getElementById(
+            "baseSecond"
+        );
+
+    const third =
+        document.getElementById(
+            "baseThird"
+        );
+
+
     if(
         current.available !== true
     ){
 
-        liveLabel.textContent =
+        label.textContent =
             "GAME OVER";
 
-        liveInning.textContent =
+        inning.textContent =
             "FINAL";
 
 
         batterRole.textContent =
             "BATTER";
 
-        batterName.textContent =
+        batter.textContent =
             "-";
 
-        pitcherName.textContent =
+        pitcher.textContent =
             "-";
+
 
         balls.textContent =
             "-";
@@ -2365,19 +2460,20 @@ function renderCurrentGame(game){
         outs.textContent =
             "-";
 
-        lastPitch.textContent =
+
+        pitch.textContent =
             "-";
 
 
-        baseFirst.classList.remove(
+        first.classList.remove(
             "occupied"
         );
 
-        baseSecond.classList.remove(
+        second.classList.remove(
             "occupied"
         );
 
-        baseThird.classList.remove(
+        third.classList.remove(
             "occupied"
         );
 
@@ -2385,7 +2481,7 @@ function renderCurrentGame(game){
     }
 
 
-    liveLabel.textContent =
+    label.textContent =
         current.isPhilliesBatting === true
             ? "PHI AT BAT"
             : "LIVE GAME";
@@ -2404,7 +2500,7 @@ function renderCurrentGame(game){
                 : "";
 
 
-        liveInning.textContent =
+        inning.textContent =
             half
                 ? `${half} ${formatInning(
                     current.inning
@@ -2415,8 +2511,54 @@ function renderCurrentGame(game){
 
     }else{
 
-        liveInning.textContent =
+        inning.textContent =
             "-";
+    }
+
+
+    const batterData =
+        current.batter;
+
+
+    const pitcherData =
+        current.pitcher;
+
+
+    if(
+        batterData &&
+        typeof batterData === "object"
+    ){
+
+        batter.textContent =
+            valueOrDash(
+                batterData.name
+            );
+
+    }else{
+
+        batter.textContent =
+            valueOrDash(
+                batterData
+            );
+    }
+
+
+    if(
+        pitcherData &&
+        typeof pitcherData === "object"
+    ){
+
+        pitcher.textContent =
+            valueOrDash(
+                pitcherData.name
+            );
+
+    }else{
+
+        pitcher.textContent =
+            valueOrDash(
+                pitcherData
+            );
     }
 
 
@@ -2426,38 +2568,18 @@ function renderCurrentGame(game){
             : "BATTER";
 
 
-    const batter =
-        current.batter;
-
-
-    const pitcher =
-        current.pitcher;
-
-
-    batterName.textContent =
-        typeof batter === "string"
-            ? batter
-            : batter?.name || "-";
-
-
-    pitcherName.textContent =
-        typeof pitcher === "string"
-            ? pitcher
-            : pitcher?.name || "-";
-
-
     balls.textContent =
-        value(
+        valueOrDash(
             current.balls
         );
 
     strikes.textContent =
-        value(
+        valueOrDash(
             current.strikes
         );
 
     outs.textContent =
-        value(
+        valueOrDash(
             current.outs
         );
 
@@ -2466,328 +2588,80 @@ function renderCurrentGame(game){
         current.runners || {};
 
 
-    baseFirst.classList.toggle(
+    first.classList.toggle(
         "occupied",
         runners.first === true
     );
 
-    baseSecond.classList.toggle(
+    second.classList.toggle(
         "occupied",
         runners.second === true
     );
 
-    baseThird.classList.toggle(
+    third.classList.toggle(
         "occupied",
         runners.third === true
     );
 
 
-    const pitch =
+    const lastPitch =
         current.lastPitch;
 
 
-    if(!pitch){
+    if(
+        !lastPitch
+    ){
 
-        lastPitch.textContent =
+        pitch.textContent =
             "-";
 
     }else if(
-        typeof pitch === "string"
+        typeof lastPitch === "string"
     ){
 
-        lastPitch.textContent =
-            pitch;
+        pitch.textContent =
+            lastPitch;
 
     }else{
 
         const parts = [];
 
 
-        if(pitch.type){
+        if(
+            lastPitch.type
+        ){
             parts.push(
-                pitch.type
+                lastPitch.type
             );
         }
 
 
         if(
-            pitch.speed !== undefined &&
-            pitch.speed !== null
+            lastPitch.speed !== null &&
+            lastPitch.speed !== undefined
         ){
 
             parts.push(
-                `${pitch.speed} MPH`
+                `${lastPitch.speed} MPH`
             );
         }
 
 
-        if(pitch.description){
+        if(
+            lastPitch.description
+        ){
 
             parts.push(
-                pitch.description
+                lastPitch.description
             );
         }
 
 
-        lastPitch.textContent =
+        pitch.textContent =
             parts.length
                 ? parts.join(" · ")
                 : "-";
     }
-}
-
-
-/* =========================================================
-   ③ BATTING
-========================================================= */
-
-function renderBatting(game){
-
-    const batting =
-        Array.isArray(
-            game.philliesBatting
-        )
-            ? [
-                ...game.philliesBatting
-            ]
-            : [];
-
-
-    if(
-        batting.length === 0
-    ){
-
-        battingBody.innerHTML = `
-            <tr>
-                <td colspan="10">
-                    No batting data
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    batting.sort(
-        (a,b) =>
-            Number(
-                a.battingOrder ||
-                a.sequence ||
-                999
-            )
-            -
-            Number(
-                b.battingOrder ||
-                b.sequence ||
-                999
-            )
-    );
-
-
-    battingBody.innerHTML =
-        batting.map(
-            player => `
-
-                <tr>
-
-                    <td>
-                        ${value(
-                            player.battingOrder,
-                            player.sequence || "-"
-                        )}
-                    </td>
-
-                    <td class="name">
-                        ${escapeHTML(
-                            player.name
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.position
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.AB,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.H,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.HR,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.RBI,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.BB,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.R,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.SO,
-                            0
-                        )}
-                    </td>
-
-                </tr>
-            `
-        )
-        .join("");
-}
-
-
-/* =========================================================
-   ④ PITCHING
-========================================================= */
-
-function renderPitching(game){
-
-    const pitching =
-        Array.isArray(
-            game.philliesPitching
-        )
-            ? [
-                ...game.philliesPitching
-            ]
-            : [];
-
-
-    if(
-        pitching.length === 0
-    ){
-
-        pitchingBody.innerHTML = `
-            <tr>
-                <td colspan="10">
-                    No pitching data
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    pitching.sort(
-        (a,b) =>
-            Number(
-                a.sequence || 999
-            )
-            -
-            Number(
-                b.sequence || 999
-            )
-    );
-
-
-    pitchingBody.innerHTML =
-        pitching.map(
-            player => `
-
-                <tr>
-
-                    <td>
-                        ${value(
-                            player.sequence
-                        )}
-                    </td>
-
-                    <td class="name">
-                        ${escapeHTML(
-                            player.name
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.IP,
-                            "0.0"
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.H,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.K,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.HR,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.R,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.ER,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.BB,
-                            0
-                        )}
-                    </td>
-
-                    <td>
-                        ${value(
-                            player.pitches,
-                            0
-                        )}
-                    </td>
-
-                </tr>
-            `
-        )
-        .join("");
 }
 
 
@@ -2797,13 +2671,13 @@ function renderPitching(game){
 
 async function loadScore(){
 
-    loading.style.display =
+    loadingEl.style.display =
         "block";
 
-    error.style.display =
+    errorEl.style.display =
         "none";
 
-    content.style.display =
+    contentEl.style.display =
         "none";
 
 
@@ -2811,7 +2685,7 @@ async function loadScore(){
 
         const response =
             await fetch(
-                SCORE_URL +
+                SCORE_JSON_URL +
                 "?t=" +
                 Date.now(),
                 {
@@ -2825,8 +2699,7 @@ async function loadScore(){
         ){
 
             throw new Error(
-                "HTTP " +
-                response.status
+                `HTTP ${response.status}`
             );
         }
 
@@ -2843,7 +2716,7 @@ async function loadScore(){
         ){
 
             throw new Error(
-                "score.jsonのgames配列がありません"
+                "games配列がありません"
             );
         }
 
@@ -2852,16 +2725,24 @@ async function loadScore(){
             data.games.length === 0
         ){
 
-            throw new Error(
-                "score.jsonに試合データがありません"
-            );
+            loadingEl.style.display =
+                "none";
+
+            errorEl.style.display =
+                "block";
+
+            errorTextEl.textContent =
+                "score.jsonは読み込めましたが、試合データがありません。";
+
+            return;
         }
 
 
         /*
-         * ScoreはScheduleとは別。
+         * ScoreはScheduleとは独立。
          *
-         * score.jsonのgames[0]だけを使用。
+         * score.jsonのgames[0]を
+         * 最新試合として使用する。
          */
 
         const game =
@@ -2880,7 +2761,7 @@ async function loadScore(){
 
         renderGame(game);
 
-        renderInnings(game);
+        renderInningScore(game);
 
         renderCurrentGame(game);
 
@@ -2889,43 +2770,43 @@ async function loadScore(){
         renderPitching(game);
 
 
-        loading.style.display =
+        loadingEl.style.display =
             "none";
 
-        error.style.display =
+        errorEl.style.display =
             "none";
 
-        content.style.display =
+        contentEl.style.display =
             "block";
 
 
         console.log(
-            "Phillies Score loaded",
+            "Score loaded:",
             data
         );
 
-
-    }catch(err){
+    }
+    catch(error){
 
         console.error(
             "Score JSON error:",
-            err
+            error
         );
 
 
-        loading.style.display =
+        loadingEl.style.display =
             "none";
 
-        content.style.display =
+        contentEl.style.display =
             "none";
 
-        error.style.display =
+        errorEl.style.display =
             "block";
 
 
-        errorText.textContent =
+        errorTextEl.textContent =
             "score.jsonを読み込めませんでした。 " +
-            err.message;
+            error.message;
     }
 }
 
@@ -2938,8 +2819,7 @@ loadScore();
 
 
 /* =========================================================
-   AUTO UPDATE
-   Score JSONを5分ごとに再取得
+   AUTO REFRESH
 ========================================================= */
 
 setInterval(
