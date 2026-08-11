@@ -21,6 +21,9 @@ HEADERS = {
     ),
     "Accept-Language": "en-US,en;q=0.9",
 }
+REQUEST_TIMEOUT = 30
+# 一度に翻訳するタイトル数
+TRANSLATION_BATCH_SIZE = 20
 # =========================================================
 # HTTP
 # =========================================================
@@ -28,7 +31,7 @@ def fetch_html(url):
     response = requests.get(
         url,
         headers=HEADERS,
-        timeout=30
+        timeout=REQUEST_TIMEOUT
     )
     response.raise_for_status()
     return response.text
@@ -91,7 +94,7 @@ def get_jsonld(soup):
                 if isinstance(item, dict):
                     yield item
 # =========================================================
-# ARTICLE DATA
+# ARTICLE
 # =========================================================
 def get_article(url):
     try:
@@ -113,29 +116,6 @@ def get_article(url):
     # JSON-LD
     # -----------------------------------------------------
     for data in get_jsonld(soup):
-        article_type = data.get(
-            "@type"
-        )
-        if isinstance(
-            article_type,
-            list
-        ):
-            article_type = " ".join(
-                str(x)
-                for x in article_type
-            )
-        if article_type:
-            article_type = str(
-                article_type
-            )
-        if (
-            article_type
-            and
-            "Article" not in article_type
-            and
-            "News" not in article_type
-        ):
-            continue
         if not title:
             value = data.get(
                 "headline"
@@ -206,7 +186,7 @@ def get_article(url):
                 published_at = value.strip()
                 break
     # -----------------------------------------------------
-    # RAW HTML FALLBACK
+    # RAW FALLBACK
     # -----------------------------------------------------
     if not published_at:
         match = re.search(
@@ -214,9 +194,7 @@ def get_article(url):
             html
         )
         if match:
-            published_at = (
-                match.group(1)
-            )
+            published_at = match.group(1)
     if not title:
         print(
             "TITLE NOT FOUND:",
@@ -231,7 +209,7 @@ def get_article(url):
         "title_ja": ""
     }
 # =========================================================
-# NEWS URL DISCOVERY
+# DISCOVER NEWS
 # =========================================================
 def get_news_urls():
     html = fetch_html(
@@ -255,9 +233,9 @@ def get_news_urls():
         )
         if is_article_url(url):
             urls.add(url)
-    return sorted(urls)
+    return list(urls)
 # =========================================================
-# EXISTING DATA
+# LOAD EXISTING
 # =========================================================
 def load_existing():
     if not os.path.exists(
@@ -278,7 +256,7 @@ def load_existing():
             return data
     except Exception as error:
         print(
-            "EXISTING DATA ERROR:",
+            "NEWS JSON LOAD ERROR:",
             error
         )
     return []
@@ -286,20 +264,20 @@ def load_existing():
 # MERGE
 # =========================================================
 def merge_articles(
-    old_articles,
-    new_articles
+    existing,
+    fetched
 ):
-    articles = {}
+    result = {}
     # -----------------------------------------------------
-    # OLD
+    # EXISTING
     # -----------------------------------------------------
-    for article in old_articles:
+    for article in existing:
         url = article.get(
             "url"
         )
         if not url:
             continue
-        articles[url] = {
+        result[url] = {
             "title":
                 article.get(
                     "title",
@@ -323,31 +301,29 @@ def merge_articles(
     # -----------------------------------------------------
     # NEW
     # -----------------------------------------------------
-    for article in new_articles:
+    for article in fetched:
         url = article.get(
             "url"
         )
         if not url:
             continue
-        if url in articles:
-            articles[url]["title"] = (
-                article.get(
-                    "title",
-                    articles[url]["title"]
+        if url in result:
+            if article.get("title"):
+                result[url]["title"] = (
+                    article["title"]
                 )
-            )
             if article.get(
                 "published_at"
             ):
-                articles[url][
+                result[url][
                     "published_at"
                 ] = article[
                     "published_at"
                 ]
         else:
-            articles[url] = article
+            result[url] = article
     return list(
-        articles.values()
+        result.values()
     )
 # =========================================================
 # DATETIME
@@ -369,75 +345,112 @@ def parse_datetime(value):
             tzinfo=timezone.utc
         )
 # =========================================================
-# TRANSLATION
+# GOOGLE TRANSLATE
+#
+# API KEY不要
+# タイトルをまとめて翻訳する
 # =========================================================
-def translate_title(title):
-    api_key = os.environ.get(
-        "OPENAI_API_KEY"
+def translate_batch_google(
+    titles
+):
+    if not titles:
+        return []
+    # Google Translateの非公式エンドポイント
+    url = (
+        "https://translate.googleapis.com/"
+        "translate_a/single"
     )
-    if not api_key:
-        print(
-            "OPENAI_API_KEY is not configured."
-        )
-        return ""
+    # 複数タイトルを一つの文章として送る。
+    # タイトル間に特殊な区切り文字を入れる。
+    separator = "\n<<<PHILLIES_TITLE_SEPARATOR>>>\n"
+    text = separator.join(
+        titles
+    )
+    params = {
+        "client": "gtx",
+        "sl": "en",
+        "tl": "ja",
+        "dt": "t",
+        "q": text
+    }
     try:
-        response = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={
-                "Authorization":
-                    f"Bearer {api_key}",
-                "Content-Type":
-                    "application/json"
-            },
-            json={
-                "model": "gpt-4o-mini",
-                "temperature": 0,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": (
-                            "あなたはMLB専門の日本語編集者です。"
-                            "MLB.comの記事タイトルを自然な日本語に翻訳してください。"
-                            "選手名、球団名、野球用語は正確に扱ってください。"
-                            "記事内容を勝手に追加しないでください。"
-                            "説明や注釈は不要です。"
-                            "日本語タイトルだけを返してください。"
-                        )
-                    },
-                    {
-                        "role": "user",
-                        "content": title
-                    }
-                ]
-            },
-            timeout=30
+        response = requests.get(
+            url,
+            params=params,
+            headers=HEADERS,
+            timeout=REQUEST_TIMEOUT
         )
         response.raise_for_status()
         data = response.json()
-        translated = (
-            data[
-                "choices"
-            ][0][
-                "message"
-            ][
-                "content"
-            ].strip()
-        )
-        return translated
     except Exception as error:
         print(
-            "TRANSLATION ERROR:",
+            "TRANSLATION REQUEST ERROR:",
             error
         )
-        return ""
+        return [
+            ""
+            for _ in titles
+        ]
+    # -----------------------------------------------------
+    # Google Translate response
+    # -----------------------------------------------------
+    translated_parts = []
+    try:
+        for item in data[0]:
+            if (
+                isinstance(item, list)
+                and len(item) >= 1
+            ):
+                translated_parts.append(
+                    item[0]
+                )
+    except Exception as error:
+        print(
+            "TRANSLATION RESPONSE ERROR:",
+            error
+        )
+        return [
+            ""
+            for _ in titles
+        ]
+    translated_text = "".join(
+        translated_parts
+    )
+    # -----------------------------------------------------
+    # 分割
+    # -----------------------------------------------------
+    translated = [
+        x.strip()
+        for x in translated_text.split(
+            "<<<PHILLIES_TITLE_SEPARATOR>>>"
+        )
+    ]
+    # -----------------------------------------------------
+    # 件数が一致しない場合
+    # -----------------------------------------------------
+    if len(translated) != len(titles):
+        print(
+            "TRANSLATION COUNT MISMATCH:",
+            len(titles),
+            "->",
+            len(translated)
+        )
+        return [
+            ""
+            for _ in titles
+        ]
+    return translated
 # =========================================================
-# TRANSLATE ARTICLES
+# TRANSLATE ALL NEW TITLES
 # =========================================================
-def translate_articles(
+def translate_new_titles(
     articles
 ):
+    # -----------------------------------------------------
+    # 日本語タイトルがない記事だけ
+    # -----------------------------------------------------
+    targets = []
     for article in articles:
-        # 既に翻訳済みなら再翻訳しない
         if article.get(
             "title_ja"
         ):
@@ -445,22 +458,83 @@ def translate_articles(
         title = article.get(
             "title",
             ""
-        )
+        ).strip()
         if not title:
             continue
+        targets.append(
+            article
+        )
+    if not targets:
         print(
-            "TRANSLATING:",
-            title
+            "No titles require translation."
         )
-        translated = translate_title(
-            title
+        return articles
+    print()
+    print(
+        "========================================"
+    )
+    print(
+        "BATCH TRANSLATION"
+    )
+    print(
+        f"Titles to translate: {len(targets)}"
+    )
+    print(
+        "========================================"
+    )
+    # -----------------------------------------------------
+    # 20件ずつまとめて翻訳
+    # -----------------------------------------------------
+    for start in range(
+        0,
+        len(targets),
+        TRANSLATION_BATCH_SIZE
+    ):
+        batch = targets[
+            start:
+            start + TRANSLATION_BATCH_SIZE
+        ]
+        titles = [
+            article["title"]
+            for article in batch
+        ]
+        print(
+            f"Translating "
+            f"{start + 1}-"
+            f"{start + len(batch)}"
         )
-        article[
-            "title_ja"
-        ] = translated
-        time.sleep(
-            0.5
+        translated = (
+            translate_batch_google(
+                titles
+            )
         )
+        for article, japanese in zip(
+            batch,
+            translated
+        ):
+            if japanese:
+                article[
+                    "title_ja"
+                ] = japanese
+                print(
+                    "EN:",
+                    article["title"]
+                )
+                print(
+                    "JA:",
+                    japanese
+                )
+            else:
+                print(
+                    "Translation failed:",
+                    article["title"]
+                )
+        # Google側への連続アクセスを少し避ける
+        if (
+            start + TRANSLATION_BATCH_SIZE
+            < len(targets)
+        ):
+            time.sleep(1)
     return articles
 # =========================================================
 # SAVE
@@ -469,7 +543,9 @@ def save_articles(
     articles
 ):
     os.makedirs(
-        "data",
+        os.path.dirname(
+            OUTPUT_FILE
+        ),
         exist_ok=True
     )
     with open(
@@ -501,9 +577,9 @@ def main():
         "========================================"
     )
     print()
-    # -----------------------------------------------------
-    # DISCOVER
-    # -----------------------------------------------------
+    # =====================================================
+    # 1. MLB.comから記事URLを取得
+    # =====================================================
     print(
         "Searching MLB.com Phillies news..."
     )
@@ -518,50 +594,50 @@ def main():
     print(
         f"Found {len(urls)} article candidates."
     )
-    # -----------------------------------------------------
-    # FETCH
-    # -----------------------------------------------------
-    articles = []
+    # =====================================================
+    # 2. 個別記事から5項目のうち4項目を取得
+    # =====================================================
+    fetched_articles = []
     for index, url in enumerate(
         urls,
         start=1
     ):
         print(
-            f"[{index}/{len(urls)}] {url}"
+            f"[{index}/{len(urls)}]"
         )
         article = get_article(
             url
         )
         if article:
-            articles.append(
+            fetched_articles.append(
                 article
             )
         time.sleep(
-            0.3
+            0.25
         )
+    print()
     print(
-        f"Successfully fetched {len(articles)} articles."
+        f"Fetched {len(fetched_articles)} articles."
     )
-    # -----------------------------------------------------
-    # LOAD OLD DATA
-    # -----------------------------------------------------
-    existing = load_existing()
-    # -----------------------------------------------------
-    # MERGE
-    # -----------------------------------------------------
+    # =====================================================
+    # 3. 既存記事と統合
+    # =====================================================
+    existing_articles = (
+        load_existing()
+    )
     articles = merge_articles(
-        existing,
+        existing_articles,
+        fetched_articles
+    )
+    # =====================================================
+    # 4. 日本語タイトルをまとめて取得
+    # =====================================================
+    articles = translate_new_titles(
         articles
     )
-    # -----------------------------------------------------
-    # TRANSLATE
-    # -----------------------------------------------------
-    articles = translate_articles(
-        articles
-    )
-    # -----------------------------------------------------
-    # SORT
-    # -----------------------------------------------------
+    # =====================================================
+    # 5. 公開日時順
+    # =====================================================
     articles.sort(
         key=lambda article:
             parse_datetime(
@@ -572,9 +648,9 @@ def main():
             ),
         reverse=True
     )
-    # -----------------------------------------------------
-    # SAVE
-    # -----------------------------------------------------
+    # =====================================================
+    # 6. 保存
+    # =====================================================
     save_articles(
         articles
     )
