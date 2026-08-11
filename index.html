@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Phillies</title>
-
+<!-- スポーティーな見出し用フォント -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
     --navy: #071a33;
@@ -18,144 +20,163 @@
     --muted: #9aa9bb;
     --line: rgba(255,255,255,.09);
 }
-
+/* =========================
+   RESET
+========================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 html {
     min-height: 100%;
     background: var(--navy);
 }
-
 body {
     min-height: 100vh;
-    background: var(--navy);
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(227,24,55,.06),
+            transparent 35%
+        ),
+        var(--navy);
     color: var(--text);
     font-family:
+        "Inter",
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
         Arial,
         sans-serif;
-
     padding-bottom: 82px;
 }
-
 /* =========================
    HEADER
 ========================= */
-
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
-
     height: 68px;
-
+    overflow: hidden;
     background:
         linear-gradient(
-            135deg,
-            #e31837 0%,
-            #d41432 55%,
-            #c8102e 100%
+            115deg,
+            #b90e2c 0%,
+            #e31837 38%,
+            #d41432 68%,
+            #b90e2c 100%
         );
-
     box-shadow:
-        0 5px 20px rgba(0,0,0,.28);
+        0 6px 22px rgba(0,0,0,.32);
 }
-
+/* ヘッダーの光沢 */
+.header::before {
+    content: "";
+    position: absolute;
+    left: -20%;
+    top: -80px;
+    width: 75%;
+    height: 180px;
+    transform: rotate(-13deg);
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.14),
+            transparent
+        );
+    pointer-events: none;
+}
+/* ヘッダー下部のライン */
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+    pointer-events: none;
+}
 .header-inner {
+    position: relative;
     width: 100%;
     max-width: 760px;
     height: 100%;
     margin: 0 auto;
-
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
     padding: 0 18px;
 }
-
-/* 文字なしのヘッダー */
+/* 文字を使わないヘッダーアクセント */
 .header-accent {
-    width: 34px;
-    height: 4px;
-
+    position: relative;
+    width: 38px;
+    height: 5px;
     border-radius: 999px;
-
     background: rgba(255,255,255,.9);
-
-    opacity: .9;
+    box-shadow:
+        0 0 14px rgba(255,255,255,.2);
+    opacity: .85;
 }
-
-
 /* =========================
    MAIN
 ========================= */
-
 .main {
     width: 100%;
     max-width: 760px;
     margin: 0 auto;
-
     padding: 24px 16px 32px;
 }
-
-
 /* =========================
-   PAGE TITLE
+   PAGE HEADING
 ========================= */
-
 .page-heading {
     margin-bottom: 20px;
 }
-
 .page-heading .eyebrow {
     color: var(--red);
-
-    font-size: 10px;
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
     margin-bottom: 6px;
 }
-
 .page-heading h1 {
-    font-size: 30px;
-    line-height: 1;
-
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 34px;
+    line-height: .95;
     font-weight: 900;
-    letter-spacing: -.8px;
+    letter-spacing: .5px;
 }
-
 .page-heading p {
-    margin-top: 8px;
-
+    margin-top: 9px;
     color: var(--muted);
-
     font-size: 12px;
+    line-height: 1.5;
 }
-
-
 /* =========================
    HERO
 ========================= */
-
 .hero {
     position: relative;
     overflow: hidden;
-
     min-height: 205px;
-
     padding: 24px;
-
     border-radius: 24px;
-
     background:
         linear-gradient(
             145deg,
@@ -163,650 +184,518 @@ body {
             #092342 55%,
             #071a33 100%
         );
-
     border: 1px solid var(--line);
-
     box-shadow:
         0 12px 32px rgba(0,0,0,.25);
 }
-
 .hero::before {
     content: "";
-
     position: absolute;
-
     width: 220px;
     height: 220px;
-
     right: -90px;
     top: -80px;
-
     border-radius: 50%;
-
     border: 38px solid rgba(227,24,55,.13);
 }
-
 .hero::after {
     content: "";
-
     position: absolute;
-
     width: 150px;
     height: 150px;
-
     right: -65px;
     bottom: -85px;
-
     border-radius: 50%;
-
-    background: rgba(227,24,55,.08);
+    background:
+        rgba(227,24,55,.08);
 }
-
 .hero-content {
     position: relative;
     z-index: 2;
 }
-
 .hero-label {
     display: inline-flex;
     align-items: center;
-
     padding: 6px 10px;
-
     border-radius: 999px;
-
-    background: rgba(227,24,55,.16);
-    border: 1px solid rgba(227,24,55,.3);
-
+    background:
+        rgba(227,24,55,.16);
+    border:
+        1px solid rgba(227,24,55,.3);
     color: #ff6a80;
-
-    font-size: 9px;
-    font-weight: 900;
-
-    letter-spacing: 1.5px;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
 }
-
 .hero h2 {
     margin-top: 17px;
-
-    font-size: 29px;
-    line-height: 1.08;
-
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 34px;
+    line-height: .98;
     font-weight: 900;
-
-    letter-spacing: -.7px;
+    letter-spacing: .2px;
 }
-
 .hero p {
     margin-top: 12px;
-
     max-width: 270px;
-
     color: var(--muted);
-
     font-size: 12px;
     line-height: 1.6;
 }
-
-
 /* =========================
    QUICK MENU
 ========================= */
-
 .quick-grid {
     display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
+    grid-template-columns:
+        repeat(2, 1fr);
     gap: 12px;
-
     margin-top: 18px;
 }
-
 .quick-card {
     min-height: 116px;
-
     padding: 17px;
-
     border-radius: 19px;
-
-    background: var(--navy-2);
-
-    border: 1px solid var(--line);
-
+    background:
+        linear-gradient(
+            145deg,
+            var(--navy-2),
+            #081d38
+        );
+    border:
+        1px solid var(--line);
     color: var(--text);
-
     text-decoration: none;
-
     transition:
-        transform .15s ease,
-        background .15s ease;
+        transform .15s ease;
 }
-
 .quick-card:active {
-    transform: scale(.97);
+    transform:
+        scale(.97);
 }
-
 .quick-icon {
     width: 38px;
     height: 38px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 12px;
-
-    background: rgba(227,24,55,.14);
-
+    background:
+        rgba(227,24,55,.14);
     color: var(--red);
-
     font-size: 17px;
     font-weight: 900;
 }
-
 .quick-card h3 {
     margin-top: 12px;
-
-    font-size: 14px;
-    font-weight: 900;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .3px;
 }
-
 .quick-card p {
     margin-top: 4px;
-
     color: var(--muted);
-
     font-size: 10px;
 }
-
-
 /* =========================
    SECTION
 ========================= */
-
 .section {
     margin-top: 28px;
 }
-
 .section-header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-
     margin-bottom: 12px;
 }
-
 .section-header h2 {
-    font-size: 18px;
-    font-weight: 900;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: .3px;
 }
-
 .section-header span {
     color: var(--muted);
-
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
     font-size: 10px;
+    letter-spacing: 1px;
 }
-
-
 /* =========================
    INFO CARD
 ========================= */
-
 .info-card {
     overflow: hidden;
-
     border-radius: 20px;
-
-    background: var(--navy-2);
-
-    border: 1px solid var(--line);
+    background:
+        var(--navy-2);
+    border:
+        1px solid var(--line);
 }
-
 .info-row {
     min-height: 72px;
-
     display: flex;
     align-items: center;
-
     padding: 14px 16px;
-
-    border-bottom: 1px solid var(--line);
+    border-bottom:
+        1px solid var(--line);
 }
-
 .info-row:last-child {
     border-bottom: none;
 }
-
 .info-icon {
     width: 38px;
     height: 38px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-right: 12px;
-
     border-radius: 11px;
-
-    background: rgba(255,255,255,.05);
-
+    background:
+        rgba(255,255,255,.05);
     color: var(--red);
-
-    font-weight: 900;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 15px;
+    font-weight: 800;
 }
-
 .info-text {
     flex: 1;
 }
-
 .info-text strong {
     display: block;
-
-    font-size: 13px;
-    font-weight: 800;
+    font-family:
+        "Barlow Condensed",
+        sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .2px;
 }
-
 .info-text span {
     display: block;
-
     margin-top: 4px;
-
     color: var(--muted);
-
     font-size: 10px;
 }
-
 .arrow {
     color: var(--muted);
-    font-size: 17px;
+    font-size: 20px;
+    font-weight: 300;
 }
-
-
 /* =========================
    BOTTOM NAV
+   ※文字・配置は変更なし
+   ※アイコンのみ変更
 ========================= */
-
 .bottom-nav {
     position: fixed;
-
     left: 0;
     right: 0;
     bottom: 0;
-
     z-index: 2000;
-
     height: 76px;
-
     background:
         rgba(7,26,51,.97);
-
-    border-top: 1px solid var(--line);
-
+    border-top:
+        1px solid var(--line);
     box-shadow:
         0 -8px 25px rgba(0,0,0,.28);
-
-    backdrop-filter: blur(14px);
+    backdrop-filter:
+        blur(14px);
 }
-
 .bottom-inner {
     width: 100%;
     max-width: 760px;
     height: 100%;
-
     margin: 0 auto;
-
     display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns:
+        repeat(5, 1fr);
 }
-
 .nav-item {
     display: flex;
-
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     gap: 5px;
-
     color: #718298;
-
     text-decoration: none;
-
+    font-family:
+        "Inter",
+        sans-serif;
     font-size: 8px;
     font-weight: 900;
-
     letter-spacing: .5px;
 }
-
+/* 新しいアイコン */
 .nav-icon {
-    width: 29px;
-    height: 29px;
-
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 10px;
-
-    font-size: 15px;
-
-    transition: .15s ease;
+    font-size: 16px;
+    transition:
+        .15s ease;
 }
-
 .nav-item.active {
     color: var(--red);
 }
-
 .nav-item.active .nav-icon {
-    background: rgba(227,24,55,.14);
+    background:
+        rgba(227,24,55,.14);
 }
-
-
 /* =========================
    DESKTOP
 ========================= */
-
 @media (min-width: 700px) {
-
     .main {
         padding-top: 36px;
     }
-
     .quick-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns:
+            repeat(4, 1fr);
     }
-
     .quick-card {
         min-height: 130px;
     }
-
     .hero {
         min-height: 230px;
         padding: 32px;
     }
-
     .hero h2 {
-        font-size: 38px;
+        font-size: 42px;
     }
 }
 </style>
 </head>
-
 <body>
-
 <!-- =========================
      HEADER
 ========================= -->
-
 <header class="header">
     <div class="header-inner">
         <div class="header-accent"></div>
     </div>
 </header>
-
-
 <!-- =========================
      MAIN
 ========================= -->
-
 <main class="main">
-
     <section class="page-heading">
-
         <div class="eyebrow">
             PHILADELPHIA BASEBALL
         </div>
-
-        <h1>Home</h1>
-
+        <h1>
+            Home
+        </h1>
         <p>
             Philliesを楽しむための専用ベース
         </p>
-
     </section>
-
-
     <!-- HERO -->
-
     <section class="hero">
-
         <div class="hero-content">
-
             <div class="hero-label">
                 PHILADELPHIA
             </div>
-
             <h2>
                 Baseball,<br>
                 all in one place.
             </h2>
-
             <p>
                 Schedule、Score、Players、Statsを
                 ひとつのサイトでチェック。
             </p>
-
         </div>
-
     </section>
-
-
     <!-- QUICK MENU -->
-
     <section class="quick-grid">
-
-        <a href="schedule.html" class="quick-card">
-
+        <a
+            href="schedule.html"
+            class="quick-card"
+        >
             <div class="quick-icon">
-                ▣
+                ▤
             </div>
-
-            <h3>Schedule</h3>
-
+            <h3>
+                Schedule
+            </h3>
             <p>
                 試合日程
             </p>
-
         </a>
-
-
-        <a href="score.html" class="quick-card">
-
+        <a
+            href="score.html"
+            class="quick-card"
+        >
             <div class="quick-icon">
-                ●
+                ◎
             </div>
-
-            <h3>Score</h3>
-
+            <h3>
+                Score
+            </h3>
             <p>
                 試合結果
             </p>
-
         </a>
-
-
-        <a href="player.html" class="quick-card">
-
+        <a
+            href="player.html"
+            class="quick-card"
+        >
             <div class="quick-icon">
-                ♟
+                ◉
             </div>
-
-            <h3>Player</h3>
-
+            <h3>
+                Player
+            </h3>
             <p>
                 選手情報
             </p>
-
         </a>
-
-
-        <a href="stats.html" class="quick-card">
-
+        <a
+            href="stats.html"
+            class="quick-card"
+        >
             <div class="quick-icon">
-                ↗
+                ▥
             </div>
-
-            <h3>Stats</h3>
-
+            <h3>
+                Stats
+            </h3>
             <p>
                 成績・データ
             </p>
-
         </a>
-
     </section>
-
-
     <!-- INFO -->
-
     <section class="section">
-
         <div class="section-header">
-
-            <h2>Phillies</h2>
-
-            <span>BASEBALL HUB</span>
-
+            <h2>
+                Phillies
+            </h2>
+            <span>
+                BASEBALL HUB
+            </span>
         </div>
-
-
         <div class="info-card">
-
             <div class="info-row">
-
                 <div class="info-icon">
-                    G
+                    ◷
                 </div>
-
                 <div class="info-text">
-
-                    <strong>Game Center</strong>
-
+                    <strong>
+                        Game Center
+                    </strong>
                     <span>
                         試合日程とスコアをチェック
                     </span>
-
                 </div>
-
                 <div class="arrow">
                     ›
                 </div>
-
             </div>
-
-
             <div class="info-row">
-
                 <div class="info-icon">
-                    P
+                    ◉
                 </div>
-
                 <div class="info-text">
-
-                    <strong>Players</strong>
-
+                    <strong>
+                        Players
+                    </strong>
                     <span>
                         ロスターと選手成績
                     </span>
-
                 </div>
-
                 <div class="arrow">
                     ›
                 </div>
-
             </div>
-
-
             <div class="info-row">
-
                 <div class="info-icon">
-                    S
+                    ▥
                 </div>
-
                 <div class="info-text">
-
-                    <strong>Statistics</strong>
-
+                    <strong>
+                        Statistics
+                    </strong>
                     <span>
                         チーム・選手データ
                     </span>
-
                 </div>
-
                 <div class="arrow">
                     ›
                 </div>
-
             </div>
-
         </div>
-
     </section>
-
 </main>
-
-
 <!-- =========================
      BOTTOM NAV
 ========================= -->
-
 <nav class="bottom-nav">
-
     <div class="bottom-inner">
-
         <a
             href="schedule.html"
             class="nav-item"
         >
-            <div class="nav-icon">▣</div>
+            <div class="nav-icon">
+                ▤
+            </div>
             SCHEDULE
         </a>
-
-
         <a
             href="score.html"
             class="nav-item"
         >
-            <div class="nav-icon">●</div>
+            <div class="nav-icon">
+                ◎
+            </div>
             SCORE
         </a>
-
-
         <a
             href="index.html"
             class="nav-item active"
         >
-            <div class="nav-icon">⌂</div>
+            <div class="nav-icon">
+                ⌂
+            </div>
             HOME
         </a>
-
-
         <a
             href="player.html"
             class="nav-item"
         >
-            <div class="nav-icon">♟</div>
+            <div class="nav-icon">
+                ◉
+            </div>
             PLAYER
         </a>
-
-
         <a
             href="stats.html"
             class="nav-item"
         >
-            <div class="nav-icon">↗</div>
+            <div class="nav-icon">
+                ▥
+            </div>
             STATS
         </a>
-
     </div>
-
 </nav>
-
 </body>
 </html>
