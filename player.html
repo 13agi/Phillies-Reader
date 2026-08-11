@@ -7,12 +7,13 @@
 <style>
 :root{
     --navy:#06172d;
-    --navy2:#091d35;
+    --navy-deep:#031020;
     --red:#e31837;
-    --yellow:#f3c548;
+    --yellow:#f4c542;
     --white:#f7f9fc;
-    --muted:#718198;
-    --dim:#394b62;
+    --muted:#708198;
+    --soft:rgba(255,255,255,.42);
+    --faint:rgba(255,255,255,.16);
     --line:rgba(255,255,255,.075);
 }
 *{
@@ -20,13 +21,16 @@
     margin:0;
     padding:0;
 }
-html,body{
+html,
+body{
+    width:100%;
     min-height:100%;
     background:var(--navy);
 }
 body{
-    color:var(--white);
+    min-height:100vh;
     padding-bottom:78px;
+    color:var(--white);
     font-family:
         Inter,
         -apple-system,
@@ -65,13 +69,15 @@ body{
     transform:
         translate(-50%,-50%)
         rotate(45deg);
-    border:1px solid rgba(255,255,255,.10);
+    border:
+        1px solid rgba(255,255,255,.10);
     background:
         linear-gradient(
             135deg,
             rgba(255,255,255,.035),
             rgba(255,255,255,.01)
         );
+    opacity:.8;
 }
 .header-field::before{
     content:"";
@@ -80,8 +86,10 @@ body{
     top:50%;
     width:175px;
     height:175px;
-    transform:translate(-50%,-50%);
-    border:1px solid rgba(255,255,255,.09);
+    transform:
+        translate(-50%,-50%);
+    border:
+        1px solid rgba(255,255,255,.09);
 }
 .header-field::after{
     content:"";
@@ -90,7 +98,8 @@ body{
     top:-30px;
     width:1px;
     height:310px;
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
     background:
         linear-gradient(
             180deg,
@@ -105,7 +114,8 @@ body{
     top:-60%;
     width:47%;
     height:220%;
-    transform:skewX(-22deg);
+    transform:
+        skewX(-22deg);
     background:
         linear-gradient(
             90deg,
@@ -119,7 +129,8 @@ body{
     top:-60%;
     width:47%;
     height:220%;
-    transform:skewX(-22deg);
+    transform:
+        skewX(-22deg);
     background:
         linear-gradient(
             90deg,
@@ -150,10 +161,11 @@ body{
     background:
         linear-gradient(
             90deg,
-            var(--navy),
+            var(--navy-deep),
             rgba(255,255,255,.28) 50%,
-            var(--navy)
+            var(--navy-deep)
         );
+    opacity:.85;
 }
 .header-base{
     position:absolute;
@@ -161,8 +173,10 @@ body{
     bottom:9px;
     width:24px;
     height:20px;
-    transform:translateX(-50%);
-    border:1px solid rgba(255,255,255,.22);
+    transform:
+        translateX(-50%);
+    border:
+        1px solid rgba(255,255,255,.22);
     clip-path:
         polygon(
             0 0,
@@ -171,266 +185,316 @@ body{
             50% 100%,
             0 62%
         );
+    opacity:.75;
 }
 /* =========================================================
-   PLAYER AREA
+   ROSTER
 ========================================================= */
 main{
     width:100%;
     min-height:calc(100vh - 162px);
-    padding:20px 12px 30px;
+    padding:
+        22px 14px 30px;
 }
 .roster{
     width:100%;
-    max-width:720px;
-    margin:auto;
+    max-width:760px;
+    margin:0 auto;
 }
 /* =========================================================
-   PAGE TITLE
+   TITLE
 ========================================================= */
-.page-title{
+.roster-header{
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
-    margin:
-        0 4px 18px;
+    padding:
+        0 3px 14px;
+    border-bottom:
+        1px solid var(--line);
+    margin-bottom:0;
 }
-.page-title-main{
+.roster-title{
     display:flex;
     align-items:baseline;
-    gap:8px;
+    gap:9px;
 }
-.page-title h1{
+.roster-title strong{
     font-size:13px;
-    line-height:1;
-    font-weight:900;
-    letter-spacing:2px;
+    font-weight:950;
+    letter-spacing:2.2px;
 }
-.page-title span{
-    color:rgba(255,255,255,.28);
+.roster-title span{
+    color:
+        rgba(255,255,255,.28);
     font-size:7px;
-    font-weight:800;
-    letter-spacing:1.2px;
+    font-weight:850;
+    letter-spacing:1.1px;
+}
+.roster-count{
+    color:
+        rgba(255,255,255,.28);
+    font-size:7px;
+    font-weight:850;
+    letter-spacing:1px;
 }
 /* =========================================================
-   PLAYER CARD
+   PLAYER ROW
 ========================================================= */
 .player{
     --accent:var(--red);
     position:relative;
     display:grid;
-    grid-template-columns:76px minmax(0,1fr);
+    grid-template-columns:
+        58px
+        54px
+        minmax(0,1fr)
+        70px;
+    align-items:center;
     width:100%;
-    min-height:126px;
-    margin-bottom:12px;
+    height:104px;
+    border-bottom:
+        1px solid var(--line);
     overflow:hidden;
-    border:
-        1px solid rgba(255,255,255,.075);
-    border-radius:16px;
-    background:
-        linear-gradient(
-            115deg,
-            #0b213b 0%,
-            #091c34 55%,
-            #07172b 100%
-        );
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.28);
+    cursor:pointer;
     transition:
-        transform .18s ease,
-        border-color .18s ease;
+        background .18s ease,
+        padding-left .18s ease;
 }
 .player.il{
     --accent:var(--yellow);
 }
-.player:active{
-    transform:scale(.985);
-}
-/* =========================================================
-   LEFT NUMBER PANEL
-========================================================= */
-.player-number{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-width:0;
-    border-right:
-        1px solid rgba(255,255,255,.065);
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.008)
-        );
-}
-.player-number::before{
+/* status line */
+.player::before{
     content:"";
     position:absolute;
     left:0;
-    top:14px;
-    bottom:14px;
+    top:18px;
+    bottom:18px;
     width:3px;
-    background:var(--accent);
+    background:
+        var(--accent);
+    opacity:.95;
 }
-.player-number::after{
-    content:"";
+/* subtle number background */
+.player::after{
+    content:attr(data-number);
     position:absolute;
-    width:48px;
-    height:48px;
-    border:
-        1px solid rgba(255,255,255,.035);
-    border-radius:50%;
+    right:62px;
+    top:50%;
+    transform:
+        translateY(-50%);
+    color:
+        rgba(255,255,255,.018);
+    font-family:
+        "Arial Narrow",
+        Impact,
+        sans-serif;
+    font-size:100px;
+    font-weight:900;
+    line-height:.8;
+    letter-spacing:-7px;
+    pointer-events:none;
 }
+/* =========================================================
+   NUMBER
+========================================================= */
 .number{
     position:relative;
     z-index:2;
-    color:#fff;
+    padding-left:16px;
+    color:
+        rgba(255,255,255,.94);
     font-family:
         "Arial Narrow",
         "Roboto Condensed",
         Impact,
         sans-serif;
-    font-size:39px;
-    line-height:1;
+    font-size:31px;
     font-weight:900;
-    letter-spacing:-2px;
+    line-height:1;
+    letter-spacing:-1.8px;
     font-variant-numeric:
         tabular-nums;
 }
 /* =========================================================
-   MAIN PLAYER INFORMATION
+   POS
 ========================================================= */
-.player-main{
-    min-width:0;
-    display:flex;
-    flex-direction:column;
-    padding:
-        15px 17px 13px 16px;
-}
-/* TOP LINE */
-.player-top{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    min-height:18px;
-}
 .position{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:28px;
-    height:19px;
-    padding:0 7px;
-    border:
-        1px solid rgba(255,255,255,.12);
-    border-radius:5px;
-    background:
-        rgba(255,255,255,.055);
+    position:relative;
+    z-index:2;
     color:
-        rgba(255,255,255,.92);
-    font-size:8px;
-    font-weight:900;
-    letter-spacing:.7px;
-}
-.batthrow{
-    color:
-        rgba(255,255,255,.46);
+        rgba(255,255,255,.55);
     font-family:
         "Arial Narrow",
         Arial,
         sans-serif;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1px;
-}
-.meta-divider{
-    width:1px;
-    height:11px;
-    background:
-        rgba(255,255,255,.12);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1.3px;
 }
 /* =========================================================
    NAME
 ========================================================= */
-.name-wrap{
+.player-center{
+    position:relative;
+    z-index:2;
     min-width:0;
     display:flex;
-    align-items:flex-end;
-    flex:1;
-    padding-top:7px;
+    flex-direction:column;
+    justify-content:center;
+    padding-right:8px;
 }
 .name{
     min-width:0;
-    max-width:100%;
-    color:#fff;
+    overflow:hidden;
+    white-space:nowrap;
+    color:
+        var(--white);
     font-family:
         "Arial Narrow",
         "Roboto Condensed",
         "Helvetica Neue",
         Arial,
         sans-serif;
-    font-size:clamp(20px,6vw,28px);
-    line-height:.92;
+    font-size:
+        clamp(19px,5.8vw,27px);
+    line-height:.95;
     font-weight:900;
-    letter-spacing:-.8px;
-    white-space:nowrap;
-    overflow:hidden;
+    letter-spacing:
+        -.8px;
     text-overflow:ellipsis;
 }
-/* =========================================================
-   BOTTOM STATUS
-========================================================= */
-.status-area{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    padding-top:10px;
-    border-top:
-        1px solid rgba(255,255,255,.065);
+.bt{
+    margin-top:7px;
+    color:
+        rgba(255,255,255,.29);
+    font-family:
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+    font-size:7px;
+    font-weight:850;
+    letter-spacing:1px;
 }
+/* =========================================================
+   ROSTER STATUS
+========================================================= */
 .status{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    justify-content:center;
+    padding-right:5px;
+    text-align:right;
+}
+.status-main{
     display:flex;
     align-items:center;
     gap:6px;
-    color:var(--accent);
+    color:
+        var(--accent);
     font-size:7px;
-    line-height:1;
     font-weight:950;
-    letter-spacing:1.1px;
+    letter-spacing:1px;
 }
 .status-dot{
     width:5px;
     height:5px;
-    flex:0 0 auto;
     border-radius:50%;
-    background:var(--accent);
-    box-shadow:
-        0 0 9px
+    background:
         var(--accent);
+    box-shadow:
+        0 0 8px
+        color-mix(
+            in srgb,
+            var(--accent) 65%,
+            transparent
+        );
 }
-.roster-info{
+.status-sub{
+    margin-top:5px;
     color:
-        rgba(255,255,255,.27);
-    font-size:6.5px;
-    font-weight:850;
-    letter-spacing:.8px;
+        rgba(255,255,255,.20);
+    font-size:5.5px;
+    font-weight:800;
+    letter-spacing:.7px;
     white-space:nowrap;
 }
 /* =========================================================
-   SMALL SECONDARY ACCENT
+   INTERACTION
 ========================================================= */
-.player-main::after{
-    content:"";
-    position:absolute;
-    right:16px;
-    top:14px;
-    width:18px;
-    height:1px;
+@media(hover:hover){
+    .player:hover{
+        background:
+            linear-gradient(
+                90deg,
+                rgba(255,255,255,.025),
+                rgba(255,255,255,.01)
+            );
+        padding-left:4px;
+    }
+    .player:hover::before{
+        box-shadow:
+            0 0 16px
+            color-mix(
+                in srgb,
+                var(--accent) 45%,
+                transparent
+            );
+    }
+}
+.player:active{
     background:
-        var(--accent);
-    opacity:.65;
+        rgba(255,255,255,.035);
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media(max-width:390px){
+    main{
+        padding:
+            18px 9px 28px;
+    }
+    .player{
+        grid-template-columns:
+            50px
+            43px
+            minmax(0,1fr)
+            63px;
+        height:96px;
+    }
+    .number{
+        padding-left:13px;
+        font-size:28px;
+    }
+    .position{
+        font-size:9px;
+    }
+    .name{
+        font-size:
+            clamp(
+                17px,
+                5.8vw,
+                23px
+            );
+    }
+    .bt{
+        font-size:6px;
+        margin-top:6px;
+    }
+    .status-main{
+        font-size:6.5px;
+    }
+    .status-sub{
+        font-size:5px;
+    }
+    .player::after{
+        right:52px;
+        font-size:82px;
+    }
 }
 /* =========================================================
    BOTTOM NAV
@@ -455,7 +519,7 @@ main{
     width:100%;
     max-width:760px;
     height:100%;
-    margin:auto;
+    margin:0 auto;
     display:grid;
     grid-template-columns:
         repeat(5,1fr);
@@ -487,46 +551,19 @@ main{
     width:20px;
     height:20px;
     fill:none;
-    stroke:currentColor;
+    stroke:
+        currentColor;
     stroke-width:1.8;
     stroke-linecap:round;
     stroke-linejoin:round;
 }
 .nav-item.active{
-    color:var(--red);
+    color:
+        var(--red);
 }
 .nav-item.active .nav-icon{
     background:
         rgba(227,24,55,.14);
-}
-/* =========================================================
-   MOBILE
-========================================================= */
-@media(max-width:380px){
-    main{
-        padding:
-            16px 9px 26px;
-    }
-    .player{
-        grid-template-columns:68px minmax(0,1fr);
-        min-height:119px;
-        border-radius:15px;
-    }
-    .player-main{
-        padding:
-            14px 13px 12px 14px;
-    }
-    .number{
-        font-size:35px;
-    }
-    .name{
-        font-size:
-            clamp(
-                18px,
-                6vw,
-                24px
-            );
-    }
 }
 </style>
 </head>
@@ -541,127 +578,126 @@ main{
 </header>
 <main>
 <section class="roster">
-    <div class="page-title">
-        <div class="page-title-main">
-            <h1>ROSTER</h1>
+    <header class="roster-header">
+        <div class="roster-title">
+            <strong>ROSTER</strong>
             <span>2026 PHILLIES</span>
         </div>
-        <span>4 PLAYERS</span>
-    </div>
+        <span class="roster-count">
+            4 PLAYERS
+        </span>
+    </header>
+    <!-- PLAYER -->
     <article
         class="player"
-        data-status="ACTIVE"
+        data-number="7"
     >
-        <div class="player-number">
-            <span class="number">7</span>
+        <div class="number">
+            7
         </div>
-        <div class="player-main">
-            <div class="player-top">
-                <span class="position">SS</span>
-                <span class="meta-divider"></span>
-                <span class="batthrow">R/R</span>
+        <div class="position">
+            SS
+        </div>
+        <div class="player-center">
+            <div class="name">
+                TREA TURNER
             </div>
-            <div class="name-wrap">
-                <span class="name">
-                    TREA TURNER
-                </span>
+            <div class="bt">
+                B/T&nbsp;&nbsp; R/R
             </div>
-            <div class="status-area">
-                <span class="status">
-                    <span class="status-dot"></span>
-                    ACTIVE
-                </span>
-                <span class="roster-info">
-                    40-MAN ROSTER
-                </span>
+        </div>
+        <div class="status">
+            <div class="status-main">
+                <span class="status-dot"></span>
+                ACTIVE
+            </div>
+            <div class="status-sub">
+                40-MAN
             </div>
         </div>
     </article>
     <article
         class="player"
-        data-status="ACTIVE"
+        data-number="10"
     >
-        <div class="player-number">
-            <span class="number">10</span>
+        <div class="number">
+            10
         </div>
-        <div class="player-main">
-            <div class="player-top">
-                <span class="position">C</span>
-                <span class="meta-divider"></span>
-                <span class="batthrow">R/R</span>
+        <div class="position">
+            C
+        </div>
+        <div class="player-center">
+            <div class="name">
+                J.T. REALMUTO
             </div>
-            <div class="name-wrap">
-                <span class="name">
-                    J.T. REALMUTO
-                </span>
+            <div class="bt">
+                B/T&nbsp;&nbsp; R/R
             </div>
-            <div class="status-area">
-                <span class="status">
-                    <span class="status-dot"></span>
-                    ACTIVE
-                </span>
-                <span class="roster-info">
-                    40-MAN ROSTER
-                </span>
+        </div>
+        <div class="status">
+            <div class="status-main">
+                <span class="status-dot"></span>
+                ACTIVE
+            </div>
+            <div class="status-sub">
+                40-MAN
             </div>
         </div>
     </article>
     <article
         class="player il"
-        data-status="IL"
+        data-number="28"
     >
-        <div class="player-number">
-            <span class="number">28</span>
+        <div class="number">
+            28
         </div>
-        <div class="player-main">
-            <div class="player-top">
-                <span class="position">3B</span>
-                <span class="meta-divider"></span>
-                <span class="batthrow">R/R</span>
+        <div class="position">
+            3B
+        </div>
+        <div class="player-center">
+            <div class="name">
+                ALEC BOHM
             </div>
-            <div class="name-wrap">
-                <span class="name">
-                    ALEC BOHM
-                </span>
+            <div class="bt">
+                B/T&nbsp;&nbsp; R/R
             </div>
-            <div class="status-area">
-                <span class="status">
-                    <span class="status-dot"></span>
-                    IL
-                </span>
-                <span class="roster-info">
-                    INJURED LIST
-                </span>
+        </div>
+        <div class="status">
+            <div class="status-main">
+                <span class="status-dot"></span>
+                IL
+            </div>
+            <div class="status-sub">
+                INJURED LIST
             </div>
         </div>
     </article>
     <article
         class="player"
-        data-status="40-MAN"
-        style="--accent:#8291a3;"
+        data-number="54"
+        style="--accent:#8190a3;"
     >
-        <div class="player-number">
-            <span class="number">54</span>
+        <div class="number">
+            54
         </div>
-        <div class="player-main">
-            <div class="player-top">
-                <span class="position">P</span>
-                <span class="meta-divider"></span>
-                <span class="batthrow">L/R</span>
+        <div class="position">
+            P
+        </div>
+        <div class="player-center">
+            <div class="name">
+                SAMPLE PLAYER
             </div>
-            <div class="name-wrap">
-                <span class="name">
-                    SAMPLE PLAYER
-                </span>
+            <div class="bt">
+                B/T&nbsp;&nbsp; L/R
             </div>
-            <div class="status-area">
-                <span class="status">
-                    <span class="status-dot"></span>
-                    40-MAN
-                </span>
-                <span class="roster-info">
-                    40-MAN ROSTER
-                </span>
+        </div>
+        <div class="status">
+            <div class="status-main">
+                <span class="status-dot"></span>
+                40-MAN
+            </div>
+            <div class="status-sub">
+                40-MAN ROSTER
             </div>
         </div>
     </article>
@@ -669,52 +705,141 @@ main{
 </main>
 <nav class="bottom-nav">
     <div class="bottom-inner">
-        <a href="schedule.html" class="nav-item">
+        <a
+            href="schedule.html"
+            class="nav-item"
+        >
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24">
-                    <rect x="3.5" y="5" width="17" height="16" rx="2"/>
-                    <line x1="7.5" y1="3" x2="7.5" y2="7"/>
-                    <line x1="16.5" y1="3" x2="16.5" y2="7"/>
-                    <line x1="3.5" y1="10" x2="20.5" y2="10"/>
+                    <rect
+                        x="3.5"
+                        y="5"
+                        width="17"
+                        height="16"
+                        rx="2"
+                    />
+                    <line
+                        x1="7.5"
+                        y1="3"
+                        x2="7.5"
+                        y2="7"
+                    />
+                    <line
+                        x1="16.5"
+                        y1="3"
+                        x2="16.5"
+                        y2="7"
+                    />
+                    <line
+                        x1="3.5"
+                        y1="10"
+                        x2="20.5"
+                        y2="10"
+                    />
                 </svg>
             </div>
             SCHEDULE
         </a>
-        <a href="score.html" class="nav-item">
+        <a
+            href="score.html"
+            class="nav-item"
+        >
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24">
-                    <rect x="3.5" y="4" width="17" height="16" rx="2"/>
-                    <line x1="8" y1="4" x2="8" y2="20"/>
-                    <line x1="16" y1="4" x2="16" y2="20"/>
-                    <line x1="3.5" y1="12" x2="20.5" y2="12"/>
+                    <rect
+                        x="3.5"
+                        y="4"
+                        width="17"
+                        height="16"
+                        rx="2"
+                    />
+                    <line
+                        x1="8"
+                        y1="4"
+                        x2="8"
+                        y2="20"
+                    />
+                    <line
+                        x1="16"
+                        y1="4"
+                        x2="16"
+                        y2="20"
+                    />
+                    <line
+                        x1="3.5"
+                        y1="12"
+                        x2="20.5"
+                        y2="12"
+                    />
                 </svg>
             </div>
             SCORE
         </a>
-        <a href="index.html" class="nav-item">
+        <a
+            href="index.html"
+            class="nav-item"
+        >
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24">
-                    <path d="M4 4H20V13L12 21L4 13Z"/>
+                    <path
+                        d="M4 4H20V13L12 21L4 13Z"
+                    />
                 </svg>
             </div>
             HOME
         </a>
-        <a href="player.html" class="nav-item active">
+        <a
+            href="player.html"
+            class="nav-item active"
+        >
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="8" r="3.4"/>
-                    <path d="M5 20C5.7 16 8.1 14 12 14C15.9 14 18.3 16 19 20"/>
+                    <circle
+                        cx="12"
+                        cy="8"
+                        r="3.4"
+                    />
+                    <path
+                        d="
+                            M5 20
+                            C5.7 16 8.1 14 12 14
+                            C15.9 14 18.3 16 19 20
+                        "
+                    />
                 </svg>
             </div>
             PLAYER
         </a>
-        <a href="stats.html" class="nav-item">
+        <a
+            href="stats.html"
+            class="nav-item"
+        >
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24">
-                    <line x1="4" y1="20" x2="4" y2="14"/>
-                    <line x1="10" y1="20" x2="10" y2="9"/>
-                    <line x1="16" y1="20" x2="16" y2="5"/>
-                    <line x1="22" y1="20" x2="22" y2="11"/>
+                    <line
+                        x1="4"
+                        y1="20"
+                        x2="4"
+                        y2="14"
+                    />
+                    <line
+                        x1="10"
+                        y1="20"
+                        x2="10"
+                        y2="9"
+                    />
+                    <line
+                        x1="16"
+                        y1="20"
+                        x2="16"
+                        y2="5"
+                    />
+                    <line
+                        x1="22"
+                        y1="20"
+                        x2="22"
+                        y2="11"
+                    />
                 </svg>
             </div>
             STATS
@@ -723,7 +848,8 @@ main{
 </nav>
 <script>
 /*
- * 表示用背番号の正規化
+ * 背番号
+ *
  * "07" → "7"
  * null → "—"
  */
@@ -735,88 +861,99 @@ function normalizeNumber(value){
     ){
         return "—";
     }
-    const number =
+    const parsed =
         Number.parseInt(
             String(value),
             10
         );
-    return Number.isNaN(number)
+    return Number.isNaN(parsed)
         ? "—"
-        : String(number);
+        : String(parsed);
 }
 /*
- * 将来のMLB API接続用
+ * B/T
  *
- * player.number
- * player.position
- * player.bats
- * player.throws
- * player.fullName
- * player.status
- * player.roster
+ * bats / throws のどちらかが
+ * 不明なら勝手に推測しない。
  */
-function createPlayerCard(player){
-    const article =
-        document.createElement("article");
-    article.className =
-        "player";
-    if(player.status === "IL"){
-        article.classList.add("il");
+function formatBT(bats, throws){
+    if(
+        !bats ||
+        !throws
+    ){
+        return "—";
     }
-    const number =
-        normalizeNumber(
-            player.number
-        );
-    const position =
-        player.position ?? "—";
-    const bats =
-        player.bats ?? null;
-    const throws =
-        player.throws ?? null;
-    const bt =
-        bats && throws
-            ? `${bats}/${throws}`
-            : "—";
-    const name =
-        player.fullName ?? "—";
-    const status =
-        player.status ?? "—";
-    const roster =
-        player.roster ?? "—";
-    article.innerHTML = `
-        <div class="player-number">
-            <span class="number">
-                ${number}
-            </span>
-        </div>
-        <div class="player-main">
-            <div class="player-top">
-                <span class="position">
-                    ${position}
-                </span>
-                <span class="meta-divider"></span>
-                <span class="batthrow">
-                    ${bt}
-                </span>
-            </div>
-            <div class="name-wrap">
-                <span class="name">
-                    ${String(name).toUpperCase()}
-                </span>
-            </div>
-            <div class="status-area">
-                <span class="status">
-                    <span class="status-dot"></span>
-                    ${status}
-                </span>
-                <span class="roster-info">
-                    ${roster}
-                </span>
-            </div>
-        </div>
-    `;
-    return article;
+    return `${bats}/${throws}`;
 }
+/*
+ * 将来のMLB APIデータ用
+ */
+function playerViewModel(player){
+    return {
+        number:
+            normalizeNumber(
+                player?.number
+            ),
+        position:
+            player?.position ?? "—",
+        bt:
+            formatBT(
+                player?.bats,
+                player?.throws
+            ),
+        name:
+            player?.fullName ?? "—",
+        status:
+            player?.status ?? "—",
+        roster:
+            player?.roster ?? "—"
+    };
+}
+/*
+ * 長い選手名をカード幅に合わせる。
+ * カード自体の高さ・幅は変更しない。
+ */
+function fitPlayerNames(){
+    document
+        .querySelectorAll(".name")
+        .forEach(name => {
+            name.style.fontSize = "";
+            const maxWidth =
+                name.parentElement
+                    .clientWidth;
+            let size =
+                parseFloat(
+                    getComputedStyle(name)
+                        .fontSize
+                );
+            while(
+                name.scrollWidth >
+                maxWidth &&
+                size > 14
+            ){
+                size -= .5;
+                name.style.fontSize =
+                    `${size}px`;
+            }
+        });
+}
+window.addEventListener(
+    "DOMContentLoaded",
+    fitPlayerNames
+);
+window.addEventListener(
+    "resize",
+    fitPlayerNames
+);
+window.addEventListener(
+    "orientationchange",
+    () => {
+        setTimeout(
+            fitPlayerNames,
+            100
+        );
+    }
+);
 </script>
 </body>
 </html>
