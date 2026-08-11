@@ -2,60 +2,38 @@
 <html lang="ja">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<title>Player | Phillies</title>
+<title>Players | Phillies Reader</title>
 
 <style>
 
 /* =========================================================
-   ROOT
-========================================================= */
-
-:root {
-    --navy: #06172d;
-    --navy-deep: #031020;
-    --panel: #0a1d34;
-    --panel-2: #0d2540;
-
-    --red: #e31837;
-    --yellow: #f4c542;
-
-    --white: #ffffff;
-    --muted: #718298;
-
-    --line: rgba(255,255,255,.075);
-}
-
-
-/* =========================================================
-   GLOBAL
+   RESET
 ========================================================= */
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html,
 body {
+    margin: 0;
+    padding: 0;
+
     width: 100%;
     min-height: 100%;
-    background: var(--navy);
+
+    background: #06172d;
 }
 
 body {
-    min-height: 100vh;
-    padding-bottom: 78px;
-
-    color: var(--white);
+    color: #fff;
 
     font-family:
         -apple-system,
@@ -63,20 +41,29 @@ body {
         "Helvetica Neue",
         Arial,
         sans-serif;
+
+    padding-bottom: 78px;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
 }
 
 
 /* =========================================================
-   HEADER
-   EXISTING UI — DO NOT CHANGE
+   EXISTING HEADER
+   ※既存UI領域
 ========================================================= */
 
 .header {
     position: sticky;
     top: 0;
+
     z-index: 1000;
 
     height: 84px;
+
     overflow: hidden;
 
     background:
@@ -108,15 +95,6 @@ body {
 
     border:
         1px solid rgba(255,255,255,.10);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.01)
-        );
-
-    opacity: .8;
 }
 
 .header-field::before {
@@ -137,29 +115,6 @@ body {
         1px solid rgba(255,255,255,.09);
 }
 
-.header-field::after {
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    top: -30px;
-
-    width: 1px;
-    height: 310px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        linear-gradient(
-            180deg,
-            transparent,
-            rgba(255,255,255,.12),
-            transparent
-        );
-}
-
 .header-left {
     position: absolute;
 
@@ -173,11 +128,7 @@ body {
         skewX(-22deg);
 
     background:
-        linear-gradient(
-            90deg,
-            rgba(80,0,18,.12),
-            rgba(80,0,18,.025)
-        );
+        rgba(70,0,20,.08);
 }
 
 .header-right {
@@ -193,11 +144,7 @@ body {
         skewX(-22deg);
 
     background:
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.01),
-            rgba(90,0,20,.20)
-        );
+        rgba(80,0,20,.14);
 }
 
 .header-highlight {
@@ -210,12 +157,7 @@ body {
     height: 1px;
 
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.34),
-            transparent
-        );
+        rgba(255,255,255,.30);
 }
 
 .header-edge {
@@ -228,14 +170,7 @@ body {
     height: 4px;
 
     background:
-        linear-gradient(
-            90deg,
-            var(--navy-deep),
-            rgba(255,255,255,.28) 50%,
-            var(--navy-deep)
-        );
-
-    opacity: .85;
+        rgba(0,0,0,.30);
 }
 
 .header-base {
@@ -252,61 +187,51 @@ body {
 
     border:
         1px solid rgba(255,255,255,.22);
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            100% 62%,
-            50% 100%,
-            0 62%
-        );
-
-    opacity: .75;
 }
 
 
 /* =========================================================
    PLAYER PAGE
-   NEW DESIGN
 ========================================================= */
 
-main {
+.player-main {
     width: 100%;
 
     min-height:
         calc(100vh - 162px);
 
     padding:
-        22px 12px 32px;
+        20px 0 30px;
 }
 
-.player-page {
+.player-shell {
     width: 100%;
-    max-width: 760px;
+
+    max-width: 820px;
 
     margin: 0 auto;
 }
 
 
 /* =========================================================
-   PAGE INTRO
+   PAGE TITLE
 ========================================================= */
 
-.player-page-head {
+.player-heading {
     display: flex;
 
     align-items: flex-end;
+
     justify-content: space-between;
 
     padding:
-        0 5px 17px;
+        0 16px 18px;
 
     border-bottom:
         1px solid rgba(255,255,255,.10);
 }
 
-.player-page-title {
+.player-heading-main {
     display: flex;
 
     flex-direction: column;
@@ -314,11 +239,12 @@ main {
     gap: 5px;
 }
 
-.player-page-title small {
+.player-heading-eyebrow {
     color:
         rgba(255,255,255,.30);
 
     font-size: 7px;
+
     line-height: 1;
 
     font-weight: 800;
@@ -327,45 +253,31 @@ main {
         2px;
 }
 
-.player-page-title h1 {
-    color:
-        #ffffff;
+.player-heading-title {
+    margin: 0;
 
-    font-size: 29px;
-    line-height: .95;
+    color: #fff;
 
-    font-weight: 650;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 32px;
+
+    line-height: .9;
+
+    font-weight: 400;
 
     letter-spacing:
-        -1.3px;
+        -.8px;
 }
 
-.player-page-meta {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-end;
-
-    gap: 4px;
-}
-
-.player-page-meta strong {
+.player-heading-season {
     color:
-        rgba(255,255,255,.88);
+        rgba(255,255,255,.35);
 
-    font-size: 15px;
-    line-height: 1;
-
-    font-weight: 700;
-}
-
-.player-page-meta span {
-    color:
-        rgba(255,255,255,.24);
-
-    font-size: 6px;
-    line-height: 1;
+    font-size: 8px;
 
     font-weight: 800;
 
@@ -375,170 +287,161 @@ main {
 
 
 /* =========================================================
-   FILTER BAR
+   ROSTER GROUP
 ========================================================= */
 
-.player-filter {
+.roster-group {
+    margin-top: 14px;
+}
+
+.roster-group-header {
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
-    height: 44px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.065);
+    padding:
+        0 16px 9px;
 }
 
-.player-filter-left {
+.roster-group-title {
     display: flex;
 
     align-items: center;
 
-    gap: 15px;
+    gap: 8px;
 }
 
-.player-filter-item {
-    position: relative;
+.roster-group-line {
+    width: 14px;
+    height: 2px;
 
+    background: #e31837;
+}
+
+.roster-group-name {
     color:
-        rgba(255,255,255,.30);
+        rgba(255,255,255,.54);
 
     font-size: 7px;
 
-    font-weight: 850;
+    line-height: 1;
+
+    font-weight: 900;
 
     letter-spacing:
-        .9px;
+        1.5px;
 }
 
-.player-filter-item.active {
+.roster-group-count {
     color:
-        rgba(255,255,255,.85);
-}
-
-.player-filter-item.active::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: -15px;
-
-    height: 2px;
-
-    background:
-        var(--red);
-}
-
-.player-filter-count {
-    color:
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.20);
 
     font-size: 6px;
 
     font-weight: 800;
 
     letter-spacing:
-        .7px;
+        1px;
 }
 
 
 /* =========================================================
-   PLAYER LIST
+   PLAYER ITEM
 ========================================================= */
 
-.player-list {
-    width: 100%;
-}
-
-
-/* =========================================================
-   PLAYER ROW
-========================================================= */
-
-.player-entry {
-    --player-status: var(--red);
+.player-item {
+    --accent: #e31837;
 
     position: relative;
 
     display: grid;
 
     grid-template-columns:
-        78px
-        minmax(0, 1fr);
+        76px
+        1fr
+        42px;
+
+    min-height: 108px;
 
     width: 100%;
 
-    min-height: 128px;
+    border-top:
+        1px solid rgba(255,255,255,.065);
 
-    border-bottom:
-        1px solid rgba(255,255,255,.075);
+    background:
+        rgba(255,255,255,.008);
 
     overflow: hidden;
-
-    cursor: pointer;
 
     transition:
         background .18s ease;
 }
 
-.player-entry.il {
-    --player-status: var(--yellow);
+.player-item.il {
+    --accent: #f4c542;
 }
 
-.player-entry.forty {
-    --player-status: #728196;
+.player-item.forty {
+    --accent: #75869b;
 }
 
 
 /* =========================================================
-   LEFT NUMBER AREA
+   ACTIVE ACCENT
 ========================================================= */
 
-.player-number-area {
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.player-number-area::after {
+.player-item::before {
     content: "";
 
     position: absolute;
 
-    right: 0;
-    top: 20px;
-    bottom: 20px;
+    left: 0;
+    top: 0;
+    bottom: 0;
 
-    width: 1px;
+    width: 3px;
 
     background:
-        rgba(255,255,255,.085);
+        var(--accent);
 }
 
-.player-number {
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.player-item-number {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding-left: 4px;
+
+    border-right:
+        1px solid rgba(255,255,255,.065);
+}
+
+.player-item-number span {
     color:
-        rgba(255,255,255,.92);
+        rgba(255,255,255,.95);
 
     font-family:
         "Arial Narrow",
         "Roboto Condensed",
-        Impact,
         sans-serif;
 
-    font-size: 48px;
+    font-size: 42px;
 
     line-height: .8;
 
     font-weight: 800;
 
     letter-spacing:
-        -3.5px;
+        -3px;
 
     font-variant-numeric:
         tabular-nums;
@@ -546,30 +449,10 @@ main {
 
 
 /* =========================================================
-   NUMBER STATUS MARKER
+   PLAYER CONTENT
 ========================================================= */
 
-.player-number-area::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 25px;
-    bottom: 25px;
-
-    width: 2px;
-
-    background:
-        var(--player-status);
-}
-
-
-/* =========================================================
-   MAIN INFORMATION
-========================================================= */
-
-.player-content {
+.player-item-content {
     min-width: 0;
 
     display: flex;
@@ -579,137 +462,29 @@ main {
     justify-content: center;
 
     padding:
-        17px 7px 16px 19px;
+        15px 12px 14px 17px;
 }
 
 
 /* =========================================================
-   POSITION + B/T
+   POS + B/T
 ========================================================= */
 
-.player-specs {
+.player-item-meta {
     display: flex;
 
     align-items: center;
 
-    gap: 9px;
+    min-width: 0;
 
-    min-height: 14px;
+    gap: 8px;
 }
 
 .player-position {
     color:
         rgba(255,255,255,.82);
 
-    font-size: 10px;
-
-    line-height: 1;
-
-    font-weight: 900;
-
-    letter-spacing:
-        1px;
-}
-
-.player-bt {
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    color:
-        rgba(255,255,255,.38);
-
     font-size: 9px;
-
-    line-height: 1;
-
-    font-weight: 700;
-
-    letter-spacing:
-        .4px;
-}
-
-.player-bt::before {
-    content: "";
-
-    width: 1px;
-    height: 11px;
-
-    background:
-        rgba(255,255,255,.15);
-}
-
-
-/* =========================================================
-   NAME
-========================================================= */
-
-.player-name-wrap {
-    min-width: 0;
-
-    width: 100%;
-
-    margin-top: 7px;
-}
-
-.player-name {
-    display: block;
-
-    width: 100%;
-    min-width: 0;
-
-    color:
-        #ffffff;
-
-    font-size: 25px;
-
-    line-height: 1;
-
-    font-weight: 650;
-
-    letter-spacing:
-        -.85px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: clip;
-
-    transform-origin:
-        left center;
-}
-
-
-/* =========================================================
-   ROSTER INFORMATION
-========================================================= */
-
-.player-roster {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-top: 10px;
-
-    min-width: 0;
-}
-
-.player-roster-status {
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    color:
-        var(--player-status);
-
-    font-size: 7px;
 
     line-height: 1;
 
@@ -719,7 +494,96 @@ main {
         .9px;
 }
 
-.player-roster-dot {
+.player-bt {
+    position: relative;
+
+    padding-left: 9px;
+
+    color:
+        rgba(255,255,255,.37);
+
+    font-size: 8px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing:
+        .7px;
+}
+
+.player-bt::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 1px;
+    height: 10px;
+
+    transform:
+        translateY(-50%);
+
+    background:
+        rgba(255,255,255,.16);
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.player-item-name {
+    width: 100%;
+
+    min-width: 0;
+
+    margin-top: 6px;
+
+    color: #fff;
+
+    font-family:
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    font-weight: 650;
+
+    letter-spacing:
+        -1px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    transform-origin:
+        left center;
+}
+
+
+/* =========================================================
+   ROSTER STATUS
+========================================================= */
+
+.player-item-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 9px;
+
+    min-width: 0;
+}
+
+.player-status-marker {
     width: 5px;
     height: 5px;
 
@@ -728,17 +592,26 @@ main {
     border-radius: 50%;
 
     background:
-        var(--player-status);
+        var(--accent);
 }
 
-.player-roster-detail {
-    padding-left: 8px;
-
-    border-left:
-        1px solid rgba(255,255,255,.11);
-
+.player-status-name {
     color:
-        rgba(255,255,255,.22);
+        var(--accent);
+
+    font-size: 6px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    letter-spacing:
+        1.1px;
+}
+
+.player-status-detail {
+    color:
+        rgba(255,255,255,.20);
 
     font-size: 6px;
 
@@ -747,60 +620,53 @@ main {
     font-weight: 800;
 
     letter-spacing:
-        .6px;
+        .8px;
 
     white-space: nowrap;
 }
 
 
 /* =========================================================
-   RIGHT EDGE DETAIL
+   RIGHT POSITION MARK
 ========================================================= */
 
-.player-entry .edge-number {
-    position: absolute;
+.player-item-side {
+    display: flex;
 
-    right: 10px;
-    bottom: 7px;
+    align-items: center;
 
+    justify-content: center;
+
+    padding-right: 8px;
+}
+
+.player-item-side span {
     color:
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.10);
 
-    font-family:
-        "Arial Narrow",
-        Arial,
-        sans-serif;
-
-    font-size: 7px;
+    font-size: 8px;
 
     font-weight: 900;
 
     letter-spacing:
         1px;
+
+    writing-mode:
+        vertical-rl;
 }
 
 
 /* =========================================================
-   HOVER / TAP
+   HOVER
 ========================================================= */
 
-@media (hover: hover) {
+@media (hover:hover) {
 
-    .player-entry:hover {
+    .player-item:hover {
         background:
-            rgba(255,255,255,.022);
+            rgba(255,255,255,.025);
     }
 
-    .player-entry:hover
-    .player-number {
-        color:
-            #ffffff;
-    }
-}
-
-.player-entry:active {
-    background:
-        rgba(255,255,255,.04);
 }
 
 
@@ -808,81 +674,82 @@ main {
    MOBILE
 ========================================================= */
 
-@media (max-width: 380px) {
+@media (max-width: 390px) {
 
-    main {
+    .player-main {
+        padding-top: 17px;
+    }
+
+    .player-heading {
         padding:
-            17px 9px 28px;
+            0 13px 16px;
     }
 
-    .player-page-head {
-        padding-bottom: 15px;
+    .player-heading-title {
+        font-size: 29px;
     }
 
-    .player-page-title h1 {
-        font-size: 27px;
+    .roster-group-header {
+        padding:
+            0 13px 8px;
     }
 
-    .player-entry {
+    .player-item {
         grid-template-columns:
-            68px
-            minmax(0, 1fr);
+            66px
+            minmax(0,1fr)
+            35px;
 
-        min-height: 116px;
+        min-height: 103px;
     }
 
-    .player-number {
-        font-size: 42px;
-    }
-
-    .player-content {
+    .player-item-content {
         padding:
-            15px 5px 14px 16px;
+            14px 8px 13px 15px;
     }
 
-    .player-name {
-        font-size: 22px;
+    .player-item-number span {
+        font-size: 38px;
     }
 
-    .player-specs {
-        gap: 8px;
+    .player-item-name {
+        font-size: 21px;
+        letter-spacing:
+            -.8px;
     }
+
 }
 
 
 /* =========================================================
-   VERY SMALL DEVICES
+   VERY SMALL
 ========================================================= */
 
 @media (max-width: 340px) {
 
-    .player-entry {
+    .player-item {
         grid-template-columns:
-            61px
-            minmax(0, 1fr);
+            58px
+            minmax(0,1fr);
     }
 
-    .player-number {
-        font-size: 38px;
-    }
-
-    .player-content {
-        padding-left: 14px;
-    }
-
-    .player-name {
-        font-size: 20px;
-    }
-
-    .player-roster-detail {
+    .player-item-side {
         display: none;
     }
+
+    .player-item-name {
+        font-size: 19px;
+    }
+
+    .player-item-number span {
+        font-size: 34px;
+    }
+
 }
 
 
 /* =========================================================
-   BOTTOM NAV
-   EXISTING UI — DO NOT CHANGE
+   EXISTING BOTTOM NAV
 ========================================================= */
 
 .bottom-nav {
@@ -911,6 +778,7 @@ main {
 
 .bottom-inner {
     width: 100%;
+
     max-width: 760px;
 
     height: 100%;
@@ -920,7 +788,7 @@ main {
     display: grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5,1fr);
 }
 
 .nav-item {
@@ -929,12 +797,13 @@ main {
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 5px;
 
     color:
-        var(--gray);
+        rgba(255,255,255,.30);
 
     text-decoration: none;
 
@@ -944,9 +813,6 @@ main {
 
     letter-spacing:
         .65px;
-
-    -webkit-tap-highlight-color:
-        transparent;
 }
 
 .nav-icon {
@@ -956,6 +822,7 @@ main {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 10px;
@@ -979,7 +846,7 @@ main {
 
 .nav-item.active {
     color:
-        var(--red);
+        #e31837;
 }
 
 .nav-item.active .nav-icon {
@@ -988,7 +855,6 @@ main {
 }
 
 </style>
-
 </head>
 
 
@@ -996,7 +862,7 @@ main {
 
 
 <!-- =======================================================
-     EXISTING HEADER — UNCHANGED
+     HEADER
 ======================================================== -->
 
 <header class="header">
@@ -1017,648 +883,766 @@ main {
 
 
 <!-- =======================================================
-     PLAYER PAGE
+     PLAYER
 ======================================================== -->
 
-<main>
+<main class="player-main">
 
-<section class="player-page">
+<div class="player-shell">
 
 
-    <!-- PAGE HEADER -->
+    <div class="player-heading">
 
-    <header class="player-page-head">
+        <div class="player-heading-main">
 
-        <div class="player-page-title">
-
-            <small>
+            <span class="player-heading-eyebrow">
                 PHILADELPHIA PHILLIES
-            </small>
+            </span>
 
-            <h1>
+            <h1 class="player-heading-title">
                 Players
             </h1>
 
         </div>
 
-
-        <div class="player-page-meta">
-
-            <strong>
-                2026
-            </strong>
-
-            <span>
-                ROSTER
-            </span>
-
-        </div>
-
-    </header>
-
-
-    <!-- FILTER -->
-
-    <div class="player-filter">
-
-        <div class="player-filter-left">
-
-            <span
-                class="player-filter-item active"
-            >
-                ALL
-            </span>
-
-            <span
-                class="player-filter-item"
-            >
-                ACTIVE
-            </span>
-
-            <span
-                class="player-filter-item"
-            >
-                IL
-            </span>
-
-            <span
-                class="player-filter-item"
-            >
-                40-MAN
-            </span>
-
-        </div>
-
-
-        <span
-            class="player-filter-count"
-            id="playerCount"
-        >
-            4 PLAYERS
+        <span class="player-heading-season">
+            2026
         </span>
 
     </div>
 
 
-    <!-- ===================================================
-         PLAYER LIST
-    ==================================================== -->
+    <!-- ================================================
+         ACTIVE
+    ================================================= -->
 
     <section
-        class="player-list"
-        id="playerList"
+        class="roster-group"
+        data-group="ACTIVE"
     >
 
+        <div class="roster-group-header">
 
-        <!-- PLAYER 1 -->
+            <div class="roster-group-title">
 
-        <article
-            class="player-entry active"
-            data-status="ACTIVE"
-            data-roster="40-MAN"
-            data-number="7"
-        >
+                <span
+                    class="roster-group-line"
+                ></span>
 
-            <div class="player-number-area">
-
-                <span class="player-number">
-                    7
+                <span
+                    class="roster-group-name"
+                >
+                    ACTIVE
                 </span>
 
             </div>
 
+            <span
+                class="roster-group-count"
+            >
+                26
+            </span>
 
-            <div class="player-content">
+        </div>
 
-                <div class="player-specs">
 
-                    <span class="player-position">
-                        SS
-                    </span>
+        <div
+            class="player-list"
+            id="activePlayers"
+        >
 
-                    <span class="player-bt">
-                        R/R
-                    </span>
 
+            <article
+                class="player-item active"
+                data-status="ACTIVE"
+            >
+
+                <div
+                    class="player-item-number"
+                >
+                    <span>7</span>
                 </div>
 
 
-                <div class="player-name-wrap">
+                <div
+                    class="player-item-content"
+                >
 
-                    <span
-                        class="player-name"
-                        data-full-name="Trea Turner"
+                    <div class="player-item-meta">
+
+                        <span
+                            class="player-position"
+                        >
+                            SS
+                        </span>
+
+                        <span
+                            class="player-bt"
+                        >
+                            R/R
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="player-item-name"
                     >
                         Trea Turner
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <div class="player-roster">
-
-                    <span
-                        class="player-roster-status"
+                    <div
+                        class="player-item-status"
                     >
 
-                        <i
-                            class="player-roster-dot"
-                        ></i>
+                        <span
+                            class="player-status-marker"
+                        ></span>
 
-                        ACTIVE
+                        <span
+                            class="player-status-name"
+                        >
+                            ACTIVE
+                        </span>
 
-                    </span>
+                        <span
+                            class="player-status-detail"
+                        >
+                            40-MAN
+                        </span>
 
-
-                    <span
-                        class="player-roster-detail"
-                    >
-                        40-MAN
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <span class="edge-number">
-                07
-            </span>
-
-        </article>
-
-
-        <!-- PLAYER 2 -->
-
-        <article
-            class="player-entry active"
-            data-status="ACTIVE"
-            data-roster="40-MAN"
-            data-number="10"
-        >
-
-            <div class="player-number-area">
-
-                <span class="player-number">
-                    10
-                </span>
-
-            </div>
-
-
-            <div class="player-content">
-
-                <div class="player-specs">
-
-                    <span class="player-position">
-                        C
-                    </span>
-
-                    <span class="player-bt">
-                        R/R
-                    </span>
+                    </div>
 
                 </div>
 
 
-                <div class="player-name-wrap">
+                <div
+                    class="player-item-side"
+                >
+                    <span>
+                        SS
+                    </span>
+                </div>
 
-                    <span
-                        class="player-name"
-                        data-full-name="J.T. Realmuto"
+            </article>
+
+
+            <article
+                class="player-item active"
+                data-status="ACTIVE"
+            >
+
+                <div
+                    class="player-item-number"
+                >
+                    <span>10</span>
+                </div>
+
+
+                <div
+                    class="player-item-content"
+                >
+
+                    <div class="player-item-meta">
+
+                        <span
+                            class="player-position"
+                        >
+                            C
+                        </span>
+
+                        <span
+                            class="player-bt"
+                        >
+                            R/R
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="player-item-name"
                     >
                         J.T. Realmuto
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <div class="player-roster">
-
-                    <span
-                        class="player-roster-status"
+                    <div
+                        class="player-item-status"
                     >
 
-                        <i
-                            class="player-roster-dot"
-                        ></i>
+                        <span
+                            class="player-status-marker"
+                        ></span>
 
-                        ACTIVE
+                        <span
+                            class="player-status-name"
+                        >
+                            ACTIVE
+                        </span>
 
-                    </span>
+                        <span
+                            class="player-status-detail"
+                        >
+                            40-MAN
+                        </span>
 
-
-                    <span
-                        class="player-roster-detail"
-                    >
-                        40-MAN
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <span class="edge-number">
-                10
-            </span>
-
-        </article>
-
-
-        <!-- PLAYER 3 -->
-
-        <article
-            class="player-entry il"
-            data-status="IL"
-            data-roster="40-MAN"
-            data-number="28"
-        >
-
-            <div class="player-number-area">
-
-                <span class="player-number">
-                    28
-                </span>
-
-            </div>
-
-
-            <div class="player-content">
-
-                <div class="player-specs">
-
-                    <span class="player-position">
-                        3B
-                    </span>
-
-                    <span class="player-bt">
-                        R/R
-                    </span>
+                    </div>
 
                 </div>
 
 
-                <div class="player-name-wrap">
+                <div
+                    class="player-item-side"
+                >
+                    <span>
+                        C
+                    </span>
+                </div>
 
-                    <span
-                        class="player-name"
-                        data-full-name="Alec Bohm"
+            </article>
+
+
+            <article
+                class="player-item active"
+                data-status="ACTIVE"
+            >
+
+                <div
+                    class="player-item-number"
+                >
+                    <span>28</span>
+                </div>
+
+
+                <div
+                    class="player-item-content"
+                >
+
+                    <div class="player-item-meta">
+
+                        <span
+                            class="player-position"
+                        >
+                            3B
+                        </span>
+
+                        <span
+                            class="player-bt"
+                        >
+                            R/R
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="player-item-name"
                     >
                         Alec Bohm
-                    </span>
+                    </div>
+
+
+                    <div
+                        class="player-item-status"
+                    >
+
+                        <span
+                            class="player-status-marker"
+                        ></span>
+
+                        <span
+                            class="player-status-name"
+                        >
+                            ACTIVE
+                        </span>
+
+                        <span
+                            class="player-status-detail"
+                        >
+                            40-MAN
+                        </span>
+
+                    </div>
 
                 </div>
 
 
-                <div class="player-roster">
-
-                    <span
-                        class="player-roster-status"
-                    >
-
-                        <i
-                            class="player-roster-dot"
-                        ></i>
-
-                        IL
-
+                <div
+                    class="player-item-side"
+                >
+                    <span>
+                        3B
                     </span>
-
-
-                    <span
-                        class="player-roster-detail"
-                    >
-                        INJURED LIST
-                    </span>
-
                 </div>
 
-            </div>
+            </article>
 
 
-            <span class="edge-number">
-                28
-            </span>
-
-        </article>
-
-
-        <!-- PLAYER 4 -->
-
-        <article
-            class="player-entry forty"
-            data-status="40-MAN"
-            data-roster="40-MAN"
-            data-number="54"
-        >
-
-            <div class="player-number-area">
-
-                <span class="player-number">
-                    54
-                </span>
-
-            </div>
-
-
-            <div class="player-content">
-
-                <div class="player-specs">
-
-                    <span class="player-position">
-                        P
-                    </span>
-
-                    <span class="player-bt">
-                        L/R
-                    </span>
-
-                </div>
-
-
-                <div class="player-name-wrap">
-
-                    <span
-                        class="player-name"
-                        data-full-name="Sample Player"
-                    >
-                        Sample Player
-                    </span>
-
-                </div>
-
-
-                <div class="player-roster">
-
-                    <span
-                        class="player-roster-status"
-                    >
-
-                        <i
-                            class="player-roster-dot"
-                        ></i>
-
-                        40-MAN
-
-                    </span>
-
-
-                    <span
-                        class="player-roster-detail"
-                    >
-                        40-MAN ROSTER
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <span class="edge-number">
-                54
-            </span>
-
-        </article>
-
+        </div>
 
     </section>
 
-</section>
+
+    <!-- ================================================
+         IL
+    ================================================= -->
+
+    <section
+        class="roster-group"
+        data-group="IL"
+    >
+
+        <div class="roster-group-header">
+
+            <div class="roster-group-title">
+
+                <span
+                    class="roster-group-line"
+                    style="background:#f4c542"
+                ></span>
+
+                <span
+                    class="roster-group-name"
+                >
+                    INJURED LIST
+                </span>
+
+            </div>
+
+            <span
+                class="roster-group-count"
+            >
+                1
+            </span>
+
+        </div>
+
+
+        <div
+            class="player-list"
+        >
+
+            <article
+                class="player-item il"
+                data-status="IL"
+            >
+
+                <div
+                    class="player-item-number"
+                >
+                    <span>25</span>
+                </div>
+
+
+                <div
+                    class="player-item-content"
+                >
+
+                    <div class="player-item-meta">
+
+                        <span
+                            class="player-position"
+                        >
+                            P
+                        </span>
+
+                        <span
+                            class="player-bt"
+                        >
+                            L/R
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="player-item-name"
+                    >
+                        Ranger Suárez
+                    </div>
+
+
+                    <div
+                        class="player-item-status"
+                    >
+
+                        <span
+                            class="player-status-marker"
+                        ></span>
+
+                        <span
+                            class="player-status-name"
+                        >
+                            IL
+                        </span>
+
+                        <span
+                            class="player-status-detail"
+                        >
+                            INJURED LIST
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="player-item-side"
+                >
+                    <span>
+                        P
+                    </span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================
+         40-MAN
+    ================================================= -->
+
+    <section
+        class="roster-group"
+        data-group="40-MAN"
+    >
+
+        <div class="roster-group-header">
+
+            <div class="roster-group-title">
+
+                <span
+                    class="roster-group-line"
+                    style="background:#75869b"
+                ></span>
+
+                <span
+                    class="roster-group-name"
+                >
+                    40-MAN
+                </span>
+
+            </div>
+
+            <span
+                class="roster-group-count"
+            >
+                40
+            </span>
+
+        </div>
+
+
+        <div
+            class="player-list"
+        >
+
+            <article
+                class="player-item forty"
+                data-status="40-MAN"
+            >
+
+                <div
+                    class="player-item-number"
+                >
+                    <span>54</span>
+                </div>
+
+
+                <div
+                    class="player-item-content"
+                >
+
+                    <div class="player-item-meta">
+
+                        <span
+                            class="player-position"
+                        >
+                            P
+                        </span>
+
+                        <span
+                            class="player-bt"
+                        >
+                            R/R
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="player-item-name"
+                    >
+                        Sample Player
+                    </div>
+
+
+                    <div
+                        class="player-item-status"
+                    >
+
+                        <span
+                            class="player-status-marker"
+                        ></span>
+
+                        <span
+                            class="player-status-name"
+                        >
+                            40-MAN
+                        </span>
+
+                        <span
+                            class="player-status-detail"
+                        >
+                            ROSTER
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="player-item-side"
+                >
+                    <span>
+                        P
+                    </span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+</div>
 
 </main>
 
 
 <!-- =======================================================
-     EXISTING BOTTOM NAV — UNCHANGED
+     BOTTOM NAV
 ======================================================== -->
 
 <nav class="bottom-nav">
 
-    <div class="bottom-inner">
+<div class="bottom-inner">
 
 
-        <a
-            href="schedule.html"
-            class="nav-item"
-        >
+    <a
+        href="schedule.html"
+        class="nav-item"
+    >
 
-            <div class="nav-icon">
+        <div class="nav-icon">
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
+            <svg viewBox="0 0 24 24">
 
-                    <rect
-                        x="3.5"
-                        y="5"
-                        width="17"
-                        height="16"
-                        rx="2"
-                    />
+                <rect
+                    x="3.5"
+                    y="5"
+                    width="17"
+                    height="16"
+                    rx="2"
+                />
 
-                    <line
-                        x1="7.5"
-                        y1="3"
-                        x2="7.5"
-                        y2="7"
-                    />
+                <line
+                    x1="7.5"
+                    y1="3"
+                    x2="7.5"
+                    y2="7"
+                />
 
-                    <line
-                        x1="16.5"
-                        y1="3"
-                        x2="16.5"
-                        y2="7"
-                    />
+                <line
+                    x1="16.5"
+                    y1="3"
+                    x2="16.5"
+                    y2="7"
+                />
 
-                    <line
-                        x1="3.5"
-                        y1="10"
-                        x2="20.5"
-                        y2="10"
-                    />
+                <line
+                    x1="3.5"
+                    y1="10"
+                    x2="20.5"
+                    y2="10"
+                />
 
-                </svg>
+            </svg>
 
-            </div>
+        </div>
 
-            SCHEDULE
+        SCHEDULE
 
-        </a>
+    </a>
 
 
-        <a
-            href="score.html"
-            class="nav-item"
-        >
+    <a
+        href="score.html"
+        class="nav-item"
+    >
 
-            <div class="nav-icon">
+        <div class="nav-icon">
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
+            <svg viewBox="0 0 24 24">
 
-                    <rect
-                        x="3.5"
-                        y="4"
-                        width="17"
-                        height="16"
-                        rx="2"
-                    />
+                <rect
+                    x="3.5"
+                    y="4"
+                    width="17"
+                    height="16"
+                    rx="2"
+                />
 
-                    <line
-                        x1="8"
-                        y1="4"
-                        x2="8"
-                        y2="20"
-                    />
+                <line
+                    x1="8"
+                    y1="4"
+                    x2="8"
+                    y2="20"
+                />
 
-                    <line
-                        x1="16"
-                        y1="4"
-                        x2="16"
-                        y2="20"
-                    />
+                <line
+                    x1="16"
+                    y1="4"
+                    x2="16"
+                    y2="20"
+                />
 
-                    <line
-                        x1="3.5"
-                        y1="12"
-                        x2="20.5"
-                        y2="12"
-                    />
+                <line
+                    x1="3.5"
+                    y1="12"
+                    x2="20.5"
+                    y2="12"
+                />
 
-                </svg>
+            </svg>
 
-            </div>
+        </div>
 
-            SCORE
+        SCORE
 
-        </a>
+    </a>
 
 
-        <a
-            href="index.html"
-            class="nav-item"
-        >
+    <a
+        href="index.html"
+        class="nav-item"
+    >
 
-            <div class="nav-icon">
+        <div class="nav-icon">
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
+            <svg viewBox="0 0 24 24">
 
-                    <path
-                        d="
-                            M4 4
-                            H20
-                            V13
-                            L12 21
-                            L4 13
-                            Z
-                        "
-                    />
+                <path
+                    d="
+                        M4 4
+                        H20
+                        V13
+                        L12 21
+                        L4 13
+                        Z
+                    "
+                />
 
-                </svg>
+            </svg>
 
-            </div>
+        </div>
 
-            HOME
+        HOME
 
-        </a>
+    </a>
 
 
-        <a
-            href="player.html"
-            class="nav-item active"
-        >
+    <a
+        href="player.html"
+        class="nav-item active"
+    >
 
-            <div class="nav-icon">
+        <div class="nav-icon">
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
+            <svg viewBox="0 0 24 24">
 
-                    <circle
-                        cx="12"
-                        cy="8"
-                        r="3.4"
-                    />
+                <circle
+                    cx="12"
+                    cy="8"
+                    r="3.4"
+                />
 
-                    <path
-                        d="
-                            M5 20
-                            C5.7 16
-                            8.1 14
-                            12 14
-                            C15.9 14
-                            18.3 16
-                            19 20
-                        "
-                    />
+                <path
+                    d="
+                        M5 20
+                        C5.7 16
+                        8.1 14
+                        12 14
+                        C15.9 14
+                        18.3 16
+                        19 20
+                    "
+                />
 
-                </svg>
+            </svg>
 
-            </div>
+        </div>
 
-            PLAYER
+        PLAYER
 
-        </a>
+    </a>
 
 
-        <a
-            href="stats.html"
-            class="nav-item"
-        >
+    <a
+        href="stats.html"
+        class="nav-item"
+    >
 
-            <div class="nav-icon">
+        <div class="nav-icon">
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
+            <svg viewBox="0 0 24 24">
 
-                    <line
-                        x1="4"
-                        y1="20"
-                        x2="4"
-                        y2="14"
-                    />
+                <line
+                    x1="4"
+                    y1="20"
+                    x2="4"
+                    y2="14"
+                />
 
-                    <line
-                        x1="10"
-                        y1="20"
-                        x2="10"
-                        y2="9"
-                    />
+                <line
+                    x1="10"
+                    y1="20"
+                    x2="10"
+                    y2="9"
+                />
 
-                    <line
-                        x1="16"
-                        y1="20"
-                        x2="16"
-                        y2="5"
-                    />
+                <line
+                    x1="16"
+                    y1="20"
+                    x2="16"
+                    y2="5"
+                />
 
-                    <line
-                        x1="22"
-                        y1="20"
-                        x2="22"
-                        y2="11"
-                    />
+                <line
+                    x1="22"
+                    y1="20"
+                    x2="22"
+                    y2="11"
+                />
 
-                </svg>
+            </svg>
 
-            </div>
+        </div>
 
-            STATS
+        STATS
 
-        </a>
+    </a>
 
 
-    </div>
+</div>
 
 </nav>
 
@@ -1666,65 +1650,28 @@ main {
 <script>
 
 /* =========================================================
-   PLAYER NAME FIT
-   --------------------------------
-   ・常に1行
-   ・長い名前だけ縮小
-   ・名前そのものは大文字化しない
+   PLAYER DATA NORMALIZATION
 ========================================================= */
 
-function fitPlayerNames() {
-
-    const names =
-        document.querySelectorAll(
-            ".player-name"
-        );
-
-    names.forEach(name => {
-
-        const parent =
-            name.closest(
-                ".player-name-wrap"
-            );
-
-        if (!parent) {
-            return;
-        }
-
-        const width =
-            parent.clientWidth;
-
-        let size =
-            window.innerWidth <= 380
-                ? 22
-                : 25;
-
-        name.style.fontSize =
-            `${size}px`;
-
-        while (
-            name.scrollWidth > width &&
-            size > 13
-        ) {
-
-            size -= 0.25;
-
-            name.style.fontSize =
-                `${size}px`;
-        }
-
-    });
-
-}
+const VALID_POSITIONS = new Set([
+    "P",
+    "C",
+    "1B",
+    "2B",
+    "3B",
+    "SS",
+    "LF",
+    "CF",
+    "RF",
+    "DH"
+]);
 
 
-/* =========================================================
-   NUMBER NORMALIZATION
-   --------------------------------
-   07 → 7
-   0007 → 7
-   null → —
-========================================================= */
+/* ---------------------------------------------------------
+   Number
+   07 -> 7
+   null -> —
+--------------------------------------------------------- */
 
 function normalizeNumber(value) {
 
@@ -1742,32 +1689,15 @@ function normalizeNumber(value) {
             10
         );
 
-    if (
-        Number.isNaN(number)
-    ) {
-        return "—";
-    }
-
-    return String(number);
+    return Number.isNaN(number)
+        ? "—"
+        : String(number);
 }
 
 
-/* =========================================================
-   POSITION NORMALIZATION
-========================================================= */
-
-const VALID_POSITIONS = new Set([
-    "P",
-    "C",
-    "1B",
-    "2B",
-    "3B",
-    "SS",
-    "LF",
-    "CF",
-    "RF",
-    "DH"
-]);
+/* ---------------------------------------------------------
+   Position
+--------------------------------------------------------- */
 
 function normalizePosition(value) {
 
@@ -1786,12 +1716,9 @@ function normalizePosition(value) {
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    B/T
-   --------------------------------
-   必ず R/R のような一体表記。
-   不明なら推測せず —。
-========================================================= */
+--------------------------------------------------------- */
 
 function normalizeBT(
     bats,
@@ -1815,9 +1742,15 @@ function normalizeBT(
             .trim()
             .toUpperCase();
 
+    const validBats =
+        ["R", "L", "S"];
+
+    const validThrows =
+        ["R", "L"];
+
     if (
-        !["R","L","S"].includes(b) ||
-        !["R","L"].includes(t)
+        !validBats.includes(b) ||
+        !validThrows.includes(t)
     ) {
         return "—";
     }
@@ -1826,56 +1759,11 @@ function normalizeBT(
 }
 
 
-/* =========================================================
-   ROSTER STATUS
-========================================================= */
+/* ---------------------------------------------------------
+   Player normalization
+--------------------------------------------------------- */
 
-function normalizeRosterStatus(
-    status
-) {
-
-    if (!status) {
-        return "—";
-    }
-
-    const value =
-        String(status)
-            .trim()
-            .toUpperCase();
-
-    if (
-        value === "ACTIVE"
-    ) {
-        return "ACTIVE";
-    }
-
-    if (
-        value === "IL" ||
-        value === "INJURED LIST"
-    ) {
-        return "IL";
-    }
-
-    if (
-        value === "40-MAN" ||
-        value === "40 MAN"
-    ) {
-        return "40-MAN";
-    }
-
-    return "—";
-}
-
-
-/* =========================================================
-   PLAYER MODEL
-   --------------------------------
-   MLB APIから来る値をUI用に統一。
-========================================================= */
-
-function normalizePlayer(
-    player
-) {
+function normalizePlayer(player) {
 
     return {
 
@@ -1912,9 +1800,8 @@ function normalizePlayer(
             null,
 
         status:
-            normalizeRosterStatus(
-                player?.status
-            ),
+            player?.status ??
+            null,
 
         roster:
             player?.roster ??
@@ -1926,56 +1813,73 @@ function normalizePlayer(
 
 
 /* =========================================================
-   PLAYER COUNT
+   NAME FIT
+   ---------------------------------------------------------
+   長い選手名でも絶対に2行にしない
 ========================================================= */
 
-function updatePlayerCount() {
+function fitPlayerNames() {
 
-    const count =
-        document.querySelectorAll(
-            ".player-entry"
-        ).length;
+    document
+        .querySelectorAll(
+            ".player-item-name"
+        )
+        .forEach(name => {
 
-    const element =
-        document.getElementById(
-            "playerCount"
-        );
+            const container =
+                name.parentElement;
 
-    if (!element) {
-        return;
-    }
+            if (!container) {
+                return;
+            }
 
-    element.textContent =
-        `${count} PLAYERS`;
+            const availableWidth =
+                container.clientWidth;
+
+            let fontSize =
+                window.innerWidth <= 390
+                    ? 21
+                    : 24;
+
+            name.style.fontSize =
+                `${fontSize}px`;
+
+            while (
+                name.scrollWidth >
+                    availableWidth &&
+                fontSize > 13
+            ) {
+
+                fontSize -= .25;
+
+                name.style.fontSize =
+                    `${fontSize}px`;
+            }
+
+        });
+
 }
 
 
 /* =========================================================
-   INITIALIZE
+   INITIALIZATION
 ========================================================= */
 
-function initializePlayerPage() {
-
-    fitPlayerNames();
-
-    updatePlayerCount();
-
-}
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-window.addEventListener(
+document.addEventListener(
     "DOMContentLoaded",
-    initializePlayerPage
+    () => {
+
+        fitPlayerNames();
+
+    }
 );
+
 
 window.addEventListener(
     "resize",
     fitPlayerNames
 );
+
 
 window.addEventListener(
     "orientationchange",
@@ -1983,7 +1887,7 @@ window.addEventListener(
 
         setTimeout(
             fitPlayerNames,
-            120
+            100
         );
 
     }
@@ -1991,7 +1895,5 @@ window.addEventListener(
 
 </script>
 
-
 </body>
-
 </html>
