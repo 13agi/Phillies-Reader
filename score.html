@@ -273,9 +273,6 @@ main {
     background:
         var(--red);
 }
-/* =========================================================
-   GAME TOP
-========================================================= */
 .game-top {
     display: flex;
     align-items: center;
@@ -506,18 +503,18 @@ main {
     font-weight: 900;
 }
 /* =========================================================
-   CURRENT AT-BAT
+   CURRENT PLAY
 ========================================================= */
-.at-bat-card {
+.current-play-card {
     padding: 15px;
 }
-.at-bat-top {
+.current-play-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 13px;
 }
-.at-bat-label {
+.current-play-label {
     color:
         var(--red);
     font-family:
@@ -527,23 +524,23 @@ main {
     font-weight: 900;
     letter-spacing: 1.2px;
 }
-.at-bat-inning {
+.current-play-inning {
     color:
         var(--muted);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: .6px;
 }
-.at-bat-main {
+.current-play-main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 14px;
 }
-.batter-info {
+.player-info {
     min-width: 0;
 }
-.batter-order {
+.player-role {
     color:
         var(--muted);
     font-family:
@@ -553,7 +550,7 @@ main {
     font-weight: 800;
     letter-spacing: .8px;
 }
-.batter-name {
+.current-player-name {
     margin-top: 2px;
     font-family:
         "Barlow Condensed",
@@ -562,7 +559,7 @@ main {
     font-weight: 900;
     line-height: 1;
 }
-.batter-vs {
+.player-matchup {
     margin-top: 5px;
     color:
         var(--muted);
@@ -654,15 +651,15 @@ main {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-.batting-table {
+.stats-table {
     width: 100%;
-    min-width: 390px;
     border-collapse: collapse;
 }
+.batting-table {
+    min-width: 430px;
+}
 .pitching-table {
-    width: 100%;
-    min-width: 340px;
-    border-collapse: collapse;
+    min-width: 430px;
 }
 .stats-table th,
 .stats-table td {
@@ -702,17 +699,6 @@ main {
         "Barlow Condensed",
         sans-serif;
     font-size: 11px;
-    font-weight: 800;
-}
-.stats-table td.order {
-    width: 30px;
-    padding-left: 10px;
-    color:
-        var(--muted);
-    font-family:
-        "Barlow Condensed",
-        sans-serif;
-    font-size: 10px;
     font-weight: 800;
 }
 .stats-table tr.featured td.player-name {
@@ -815,7 +801,7 @@ main {
     .score-main {
         font-size: 26px;
     }
-    .batter-name {
+    .current-player-name {
         font-size: 24px;
     }
     .nav-label {
@@ -1013,32 +999,48 @@ main {
         </div>
     </section>
     <!-- =================================================
-         CURRENT AT-BAT
+         CURRENT PLAY
+         現在はPHI守備中
+         → CURRENT PITCHINGを表示
     ================================================== -->
-    <section class="score-section">
-        <div class="section-title">
-            CURRENT AT-BAT
+    <section
+        class="score-section"
+        id="currentPlaySection"
+    >
+        <div
+            class="section-title"
+            id="currentPlayTitle"
+        >
+            CURRENT PITCHING
         </div>
         <div class="detail-card">
-            <div class="at-bat-card">
-                <div class="at-bat-top">
-                    <span class="at-bat-label">
-                        LAST AT-BAT
+            <!-- =========================================
+                 CURRENT AT-BAT
+                 PHI攻撃時に表示
+            ========================================== -->
+            <div
+                class="current-play-card"
+                id="currentAtBat"
+                style="display:none;"
+            >
+                <div class="current-play-top">
+                    <span class="current-play-label">
+                        CURRENT AT-BAT
                     </span>
-                    <span class="at-bat-inning">
+                    <span class="current-play-inning">
                         BOTTOM 7TH · 1 OUT
                     </span>
                 </div>
-                <div class="at-bat-main">
-                    <div class="batter-info">
-                        <div class="batter-order">
+                <div class="current-play-main">
+                    <div class="player-info">
+                        <div class="player-role">
                             2ND BATTER
                         </div>
-                        <div class="batter-name">
+                        <div class="current-player-name">
                             T. TURNER
                         </div>
-                        <div class="batter-vs">
-                            VS RHP · Z. WHEELER
+                        <div class="player-matchup">
+                            VS RHP · ATL PITCHER
                         </div>
                     </div>
                     <div class="count-area">
@@ -1078,6 +1080,71 @@ main {
                     </div>
                 </div>
             </div>
+            <!-- =========================================
+                 CURRENT PITCHING
+                 PHI守備時に表示
+            ========================================== -->
+            <div
+                class="current-play-card"
+                id="currentPitching"
+            >
+                <div class="current-play-top">
+                    <span class="current-play-label">
+                        CURRENT PITCHING
+                    </span>
+                    <span class="current-play-inning">
+                        TOP 7TH · 1 OUT
+                    </span>
+                </div>
+                <div class="current-play-main">
+                    <div class="player-info">
+                        <div class="player-role">
+                            PHI PITCHER
+                        </div>
+                        <div class="current-player-name">
+                            Z. WHEELER
+                        </div>
+                        <div class="player-matchup">
+                            VS ATL BATTER · RHB
+                        </div>
+                    </div>
+                    <div class="count-area">
+                        <div class="count-item">
+                            <span class="count-number">
+                                2
+                            </span>
+                            <span class="count-label">
+                                BALLS
+                            </span>
+                        </div>
+                        <div class="count-item">
+                            <span class="count-number">
+                                1
+                            </span>
+                            <span class="count-label">
+                                STRIKES
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pitch-row">
+                    <div class="pitch">
+                        96
+                    </div>
+                    <div class="pitch">
+                        98
+                    </div>
+                    <div class="pitch">
+                        89
+                    </div>
+                    <div class="pitch">
+                        97
+                    </div>
+                    <div class="pitch-result">
+                        4-SEAM
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- =================================================
@@ -1093,235 +1160,77 @@ main {
                     <thead>
                         <tr>
                             <th>
-                                #
+                                PLAYER
                             </th>
-                            <th>
-                                BATTER
-                            </th>
-                            <th>
-                                PA
-                            </th>
-                            <th>
-                                H
-                            </th>
-                            <th>
-                                HR
-                            </th>
-                            <th>
-                                RBI
-                            </th>
-                            <th>
-                                BB
-                            </th>
+                            <th>AB</th>
+                            <th>R</th>
+                            <th>H</th>
+                            <th>RBI</th>
+                            <th>HR</th>
+                            <th>BB</th>
+                            <th>SO</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="featured">
-                            <td class="order">
-                                1
-                            </td>
-                            <td class="player-name">
-                                K. Schwarber
-                            </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                2
-                            </td>
-                            <td class="player-name">
-                                T. Turner
-                            </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                3
-                            </td>
                             <td class="player-name">
                                 B. Harper
                             </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                1
-                            </td>
+                            <td>4</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td class="order">
-                                4
+                            <td class="player-name">
+                                K. Schwarber
                             </td>
+                            <td>4</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td class="player-name">
+                                T. Turner
+                            </td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
                             <td class="player-name">
                                 A. Bohm
                             </td>
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
+                            <td>4</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td class="order">
-                                5
-                            </td>
                             <td class="player-name">
                                 J. Realmuto
                             </td>
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                6
-                            </td>
-                            <td class="player-name">
-                                N. Castellanos
-                            </td>
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                7
-                            </td>
-                            <td class="player-name">
-                                B. Marsh
-                            </td>
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                8
-                            </td>
-                            <td class="player-name">
-                                E. Sosa
-                            </td>
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="order">
-                                9
-                            </td>
-                            <td class="player-name">
-                                I. Vargas
-                            </td>
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
+                            <td>4</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1343,21 +1252,13 @@ main {
                             <th>
                                 PITCHER
                             </th>
-                            <th>
-                                IP
-                            </th>
-                            <th>
-                                H
-                            </th>
-                            <th>
-                                K
-                            </th>
-                            <th>
-                                HR
-                            </th>
-                            <th>
-                                R
-                            </th>
+                            <th>IP</th>
+                            <th>H</th>
+                            <th>R</th>
+                            <th>ER</th>
+                            <th>BB</th>
+                            <th>SO</th>
+                            <th>HR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1365,81 +1266,49 @@ main {
                             <td class="player-name">
                                 Z. Wheeler
                             </td>
-                            <td>
-                                6.0
-                            </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                8
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                2
-                            </td>
+                            <td>6.0</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>8</td>
+                            <td>1</td>
                         </tr>
                         <tr>
                             <td class="player-name">
                                 J. Hoffman
                             </td>
-                            <td>
-                                1.0
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
+                            <td>1.0</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td class="player-name">
                                 M. Strahm
                             </td>
-                            <td>
-                                1.0
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
+                            <td>1.0</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td class="player-name">
                                 J. Alvarado
                             </td>
-                            <td>
-                                1.0
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1
-                            </td>
+                            <td>1.0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1508,5 +1377,44 @@ main {
         </div>
     </a>
 </nav>
+<!-- =====================================================
+     CURRENT PLAY SWITCH
+===================================================== -->
+<script>
+/*
+===========================================================
+UI確認用設定
+true
+→ Phillies攻撃中
+→ CURRENT AT-BAT
+false
+→ Phillies守備中
+→ CURRENT PITCHING
+現在は false に設定。
+===========================================================
+*/
+const isPhilliesBatting = false;
+const currentPlayTitle =
+    document.getElementById("currentPlayTitle");
+const currentAtBat =
+    document.getElementById("currentAtBat");
+const currentPitching =
+    document.getElementById("currentPitching");
+if (isPhilliesBatting === true) {
+    currentPlayTitle.textContent =
+        "CURRENT AT-BAT";
+    currentAtBat.style.display =
+        "block";
+    currentPitching.style.display =
+        "none";
+} else {
+    currentPlayTitle.textContent =
+        "CURRENT PITCHING";
+    currentAtBat.style.display =
+        "none";
+    currentPitching.style.display =
+        "block";
+}
+</script>
 </body>
 </html>
