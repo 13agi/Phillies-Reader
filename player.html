@@ -40,7 +40,6 @@ body {
 }
 /* =========================================================
    HEADER
-   既存UIをそのまま維持
 ========================================================= */
 .header {
     position: sticky;
@@ -188,14 +187,14 @@ body {
     opacity: .75;
 }
 /* =========================================================
-   PLAYER
+   PLAYER AREA
 ========================================================= */
 main {
     width: 100%;
     min-height:
         calc(100vh - 162px);
     padding:
-        18px 13px 30px;
+        18px 12px 30px;
 }
 .player-list {
     width: 100%;
@@ -207,22 +206,26 @@ main {
 ========================================================= */
 .player-heading {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     margin:
-        2px 3px 14px;
+        0 3px 13px;
 }
-.player-heading-main {
-    color: rgba(255,255,255,.94);
-    font-size: 11px;
-    font-weight: 950;
-    letter-spacing: 1.6px;
+.player-heading-title {
+    color:
+        rgba(255,255,255,.88);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing:
+        1.5px;
 }
-.player-heading-sub {
-    color: rgba(255,255,255,.30);
+.player-heading-count {
+    color:
+        rgba(255,255,255,.28);
     font-size: 7px;
-    font-weight: 850;
-    letter-spacing: 1px;
+    font-weight: 800;
+    letter-spacing:
+        1px;
 }
 /* =========================================================
    PLAYER CARD
@@ -231,30 +234,26 @@ main {
     position: relative;
     display: grid;
     grid-template-columns:
-        84px minmax(0,1fr) 82px;
-    min-height: 104px;
+        82px minmax(0,1fr) 82px;
+    min-height: 106px;
     margin-bottom: 10px;
     overflow: hidden;
     background:
         linear-gradient(
             135deg,
-            rgba(18,40,68,.98),
-            rgba(7,24,46,.98)
+            #102642 0%,
+            #0b2039 48%,
+            #071a31 100%
         );
     border:
         1px solid rgba(255,255,255,.075);
     border-radius: 17px;
     box-shadow:
-        0 9px 25px rgba(0,0,0,.25);
-    transition:
-        transform .15s ease,
-        border-color .15s ease;
+        0 10px 28px rgba(0,0,0,.28);
+    -webkit-tap-highlight-color:
+        transparent;
 }
-.player-card:active {
-    transform:
-        scale(.985);
-}
-/* 左端のステータスライン */
+/* 左侧状态ライン */
 .player-card::before {
     content: "";
     position: absolute;
@@ -264,65 +263,85 @@ main {
     width: 4px;
     background:
         var(--red);
-    z-index: 5;
+    z-index: 10;
 }
 .player-card.il::before {
     background:
         var(--yellow);
 }
-.player-card.minors::before {
+.player-card.unknown::before {
     background:
-        #66778c;
+        #536579;
 }
-/* 背景に薄く背番号 */
+/* カード右上の薄い装飾 */
 .player-card::after {
-    content: attr(data-number);
+    content: "";
     position: absolute;
-    right: 70px;
-    bottom: -30px;
-    color:
-        rgba(255,255,255,.018);
-    font-size: 145px;
-    line-height: 1;
-    font-weight: 950;
-    letter-spacing:
-        -10px;
+    right: -45px;
+    top: -70px;
+    width: 170px;
+    height: 170px;
+    border:
+        1px solid rgba(255,255,255,.035);
+    transform:
+        rotate(45deg);
     pointer-events: none;
-    z-index: 0;
 }
 /* =========================================================
    NUMBER
 ========================================================= */
-.player-number {
+.player-number-area {
     position: relative;
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 0;
+}
+/* 背番号をカード全体に馴染ませる縦ライン */
+.player-number-area::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 19px;
+    bottom: 19px;
+    width: 1px;
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(255,255,255,.10),
+            transparent
+        );
+}
+/* 小さな # */
+.player-number-symbol {
+    position: absolute;
+    left: 15px;
+    top: 28px;
     color:
-        rgba(255,255,255,.96);
-    font-size: 42px;
+        rgba(255,255,255,.30);
+    font-size: 10px;
+    font-weight: 900;
     line-height: 1;
+}
+/* 背番号本体 */
+.player-number {
+    position: relative;
+    color:
+        rgba(255,255,255,.97);
+    font-size: 45px;
+    line-height: .9;
     font-weight: 950;
     letter-spacing:
         -3px;
     font-variant-numeric:
         tabular-nums;
-}
-.player-number::before {
-    content: "#";
-    margin-right: 2px;
-    color:
-        rgba(255,255,255,.32);
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: 0;
-    align-self: flex-start;
-    margin-top: 30px;
+    text-shadow:
+        0 3px 12px rgba(0,0,0,.22);
 }
 /* =========================================================
-   MAIN INFO
+   INFO
 ========================================================= */
 .player-info {
     position: relative;
@@ -332,16 +351,7 @@ main {
     flex-direction: column;
     justify-content: center;
     padding:
-        14px 8px;
-}
-.player-label {
-    margin-bottom: 5px;
-    color:
-        rgba(255,255,255,.30);
-    font-size: 6px;
-    font-weight: 900;
-    letter-spacing:
-        1.5px;
+        15px 10px;
 }
 .player-name {
     overflow: hidden;
@@ -351,36 +361,33 @@ main {
     line-height: 1.15;
     font-weight: 900;
     letter-spacing:
-        -.25px;
+        -.35px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 .player-meta {
     display: flex;
     align-items: center;
-    margin-top: 10px;
     min-width: 0;
-    color:
-        var(--gray-light);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing:
-        .55px;
+    margin-top: 10px;
+    white-space: nowrap;
 }
 .player-position {
     color:
-        rgba(255,255,255,.88);
+        rgba(255,255,255,.92);
     font-size: 10px;
     font-weight: 950;
+    letter-spacing:
+        .45px;
 }
-.meta-dot {
+.player-meta-divider {
     width: 3px;
     height: 3px;
     margin:
         0 8px;
     border-radius: 50%;
     background:
-        rgba(255,255,255,.30);
+        rgba(255,255,255,.28);
 }
 .player-bt {
     color:
@@ -400,15 +407,15 @@ main {
     align-items: center;
     justify-content: center;
     padding:
-        0 8px;
+        0 7px;
 }
-.status-inner {
+.status-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
 }
-.status-dot {
+.status-indicator {
     width: 5px;
     height: 5px;
     border-radius: 50%;
@@ -418,21 +425,21 @@ main {
         0 0 9px
         rgba(227,24,55,.65);
 }
-.player-card.il .status-dot {
+.player-card.il .status-indicator {
     background:
         var(--yellow);
     box-shadow:
         0 0 9px
-        rgba(245,197,66,.55);
+        rgba(245,197,66,.60);
 }
-.player-card.minors .status-dot {
+.player-card.unknown .status-indicator {
     background:
         #718298;
     box-shadow:
         none;
 }
-.status {
-    min-width: 65px;
+.status-label {
+    min-width: 64px;
     height: 23px;
     display: flex;
     align-items: center;
@@ -448,11 +455,11 @@ main {
 }
 .status-active {
     color:
-        #ff6680;
+        #ff6a82;
     background:
         rgba(227,24,55,.10);
     border:
-        1px solid rgba(227,24,55,.28);
+        1px solid rgba(227,24,55,.27);
 }
 .status-il {
     color:
@@ -460,19 +467,26 @@ main {
     background:
         rgba(245,197,66,.09);
     border:
-        1px solid rgba(245,197,66,.30);
+        1px solid rgba(245,197,66,.29);
 }
 .status-40 {
     color:
-        #9aa9ba;
+        #9baaba;
     background:
         rgba(113,130,152,.09);
     border:
         1px solid rgba(113,130,152,.22);
 }
+.status-unknown {
+    color:
+        #8291a3;
+    background:
+        rgba(113,130,152,.06);
+    border:
+        1px solid rgba(113,130,152,.16);
+}
 /* =========================================================
    BOTTOM NAV
-   既存UIをそのまま維持
 ========================================================= */
 .bottom-nav {
     position: fixed;
@@ -497,7 +511,7 @@ main {
     margin: 0 auto;
     display: grid;
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5,1fr);
 }
 .nav-item {
     display: flex;
@@ -510,7 +524,8 @@ main {
     text-decoration: none;
     font-size: 8px;
     font-weight: 800;
-    letter-spacing: .65px;
+    letter-spacing:
+        .65px;
     -webkit-tap-highlight-color:
         transparent;
 }
@@ -553,33 +568,40 @@ main {
     }
     .player-card {
         grid-template-columns:
-            70px minmax(0,1fr) 73px;
-        min-height: 96px;
+            70px minmax(0,1fr) 72px;
+        min-height: 98px;
         border-radius: 15px;
     }
     .player-number {
-        font-size: 36px;
+        font-size: 39px;
     }
-    .player-number::before {
-        font-size: 10px;
-        margin-top: 27px;
+    .player-number-symbol {
+        left: 12px;
+        top: 27px;
+        font-size: 9px;
     }
     .player-info {
         padding:
-            13px 5px;
+            14px 7px;
     }
     .player-name {
-        font-size: 15px;
+        font-size: 16px;
     }
     .player-meta {
         margin-top: 8px;
+    }
+    .player-position {
+        font-size: 9px;
+    }
+    .player-bt {
+        font-size: 8px;
     }
     .player-status {
         padding:
             0 5px;
     }
-    .status {
-        min-width: 59px;
+    .status-label {
+        min-width: 58px;
         height: 22px;
         font-size: 6px;
     }
@@ -615,27 +637,26 @@ main {
 <main>
     <section class="player-list">
         <div class="player-heading">
-            <span class="player-heading-main">
+            <span class="player-heading-title">
                 PHILLIES ROSTER
             </span>
-            <span class="player-heading-sub">
+            <span class="player-heading-count">
                 SAMPLE
             </span>
         </div>
         <!-- =================================================
-             ACTIVE
+             TREA TURNER
         ================================================== -->
-        <article
-            class="player-card"
-            data-number="07"
-        >
-            <div class="player-number">
-                07
+        <article class="player-card">
+            <div class="player-number-area">
+                <span class="player-number-symbol">
+                    #
+                </span>
+                <span class="player-number">
+                    7
+                </span>
             </div>
             <div class="player-info">
-                <div class="player-label">
-                    PLAYER
-                </div>
                 <div class="player-name">
                     Trea Turner
                 </div>
@@ -643,35 +664,34 @@ main {
                     <span class="player-position">
                         SS
                     </span>
-                    <span class="meta-dot"></span>
+                    <span class="player-meta-divider"></span>
                     <span class="player-bt">
-                        B/T R/R
+                        B/T: R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-inner">
-                    <span class="status-dot"></span>
-                    <span class="status status-active">
+                <div class="status-content">
+                    <span class="status-indicator"></span>
+                    <span class="status-label status-active">
                         ACTIVE
                     </span>
                 </div>
             </div>
         </article>
         <!-- =================================================
-             ACTIVE
+             J.T. REALMUTO
         ================================================== -->
-        <article
-            class="player-card"
-            data-number="10"
-        >
-            <div class="player-number">
-                10
+        <article class="player-card">
+            <div class="player-number-area">
+                <span class="player-number-symbol">
+                    #
+                </span>
+                <span class="player-number">
+                    10
+                </span>
             </div>
             <div class="player-info">
-                <div class="player-label">
-                    PLAYER
-                </div>
                 <div class="player-name">
                     J.T. Realmuto
                 </div>
@@ -679,16 +699,16 @@ main {
                     <span class="player-position">
                         C
                     </span>
-                    <span class="meta-dot"></span>
+                    <span class="player-meta-divider"></span>
                     <span class="player-bt">
-                        B/T R/R
+                        B/T: R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-inner">
-                    <span class="status-dot"></span>
-                    <span class="status status-active">
+                <div class="status-content">
+                    <span class="status-indicator"></span>
+                    <span class="status-label status-active">
                         ACTIVE
                     </span>
                 </div>
@@ -696,19 +716,17 @@ main {
         </article>
         <!-- =================================================
              IL
-             黄色アクセント
         ================================================== -->
-        <article
-            class="player-card il"
-            data-number="28"
-        >
-            <div class="player-number">
-                28
+        <article class="player-card il">
+            <div class="player-number-area">
+                <span class="player-number-symbol">
+                    #
+                </span>
+                <span class="player-number">
+                    28
+                </span>
             </div>
             <div class="player-info">
-                <div class="player-label">
-                    PLAYER
-                </div>
                 <div class="player-name">
                     Alec Bohm
                 </div>
@@ -716,16 +734,16 @@ main {
                     <span class="player-position">
                         3B
                     </span>
-                    <span class="meta-dot"></span>
+                    <span class="player-meta-divider"></span>
                     <span class="player-bt">
-                        B/T R/R
+                        B/T: R/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-inner">
-                    <span class="status-dot"></span>
-                    <span class="status status-il">
+                <div class="status-content">
+                    <span class="status-indicator"></span>
+                    <span class="status-label status-il">
                         IL
                     </span>
                 </div>
@@ -734,17 +752,16 @@ main {
         <!-- =================================================
              40-MAN
         ================================================== -->
-        <article
-            class="player-card minors"
-            data-number="54"
-        >
-            <div class="player-number">
-                54
+        <article class="player-card">
+            <div class="player-number-area">
+                <span class="player-number-symbol">
+                    #
+                </span>
+                <span class="player-number">
+                    54
+                </span>
             </div>
             <div class="player-info">
-                <div class="player-label">
-                    PLAYER
-                </div>
                 <div class="player-name">
                     Sample Player
                 </div>
@@ -752,16 +769,16 @@ main {
                     <span class="player-position">
                         P
                     </span>
-                    <span class="meta-dot"></span>
+                    <span class="player-meta-divider"></span>
                     <span class="player-bt">
-                        B/T L/R
+                        B/T: L/R
                     </span>
                 </div>
             </div>
             <div class="player-status">
-                <div class="status-inner">
-                    <span class="status-dot"></span>
-                    <span class="status status-40">
+                <div class="status-content">
+                    <span class="status-indicator"></span>
+                    <span class="status-label status-40">
                         40-MAN
                     </span>
                 </div>
