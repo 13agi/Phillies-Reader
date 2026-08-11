@@ -1,0 +1,72 @@
+{
+  "team": {
+    "id": 143,
+    "name": "Philadelphia Phillies",
+    "abbreviation": "PHI"
+  },
+  "season": 2026,
+  "date": "2026-08-11",
+  "updated": "2026-08-11T11:00:31.576146+09:00",
+  "gameCount": 1,
+  "games": [
+    {
+      "game": {
+        "gamePk": 823019,
+        "gameDate": "2026-08-11T23:45:00Z",
+        "status": {
+          "abstract": "Preview",
+          "detailed": "Scheduled",
+          "code": "S"
+        },
+        "location": "AWAY",
+        "phillies": {
+          "id": 143,
+          "name": "Philadelphia Phillies",
+          "abbreviation": "PHI"
+        },
+        "opponent": {
+          "id": 138,
+          "name": "St. Louis Cardinals",
+          "abbreviation": "STL"
+        },
+        "venue": {
+          "name": "Busch Stadium",
+          "city": null,
+          "state": null
+        }
+      },
+      "score": {
+        "away": {
+          "runs": null,
+          "hits": null,
+          "errors": null
+        },
+        "home": {
+          "runs": null,
+          "hits": null,
+          "errors": null
+        }
+      },
+      "inningScores": [],
+      "philliesBatting": [],
+      "philliesPitching": [],
+      "currentGame": {
+        "available": false,
+        "isPhilliesBatting": null,
+        "inning": null,
+        "half": null,
+        "outs": null,
+        "balls": null,
+        "strikes": null,
+        "pitcher": null,
+        "batter": null,
+        "lastPitch": null,
+        "runners": {
+          "first": false,
+          "second": false,
+          "third": false
+        }
+      }
+    }
+  ]
+}
