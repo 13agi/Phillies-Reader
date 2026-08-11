@@ -5,7 +5,7 @@
     "abbreviation": "PHI"
   },
   "season": 2026,
-  "updated": "2026-08-11T11:27:21.635291+09:00",
+  "updated": "2026-08-11T13:51:45.904511+09:00",
   "count": 184,
   "games": [
     {
@@ -13679,9 +13679,9 @@
       "gamePk": 823018,
       "date": "2026-08-10",
       "gameDate": "2026-08-10T23:45:00Z",
-      "status": "Live",
-      "statusCode": "I",
-      "detailedState": "In Progress",
+      "status": "Final",
+      "statusCode": "F",
+      "detailedState": "Final",
       "location": "AWAY",
       "phillies": {
         "id": 143,
@@ -13693,9 +13693,9 @@
         "id": 138,
         "name": "St. Louis Cardinals",
         "abbreviation": "STL",
-        "score": 3
+        "score": 5
       },
-      "result": null,
+      "result": "W",
       "venue": {
         "id": 2889,
         "name": "Busch Stadium",
@@ -13742,7 +13742,12 @@
         {
           "inning": 8,
           "away": 2,
-          "home": 1
+          "home": 3
+        },
+        {
+          "inning": 9,
+          "away": 0,
+          "home": 0
         }
       ],
       "philliesPitchers": [
@@ -13753,6 +13758,10 @@
         {
           "id": 660604,
           "name": "Rangel"
+        },
+        {
+          "id": 680742,
+          "name": "Bowlan"
         }
       ]
     },
