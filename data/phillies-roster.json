@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T20:03:47.201073+00:00",
+  "updatedAt": "2026-08-14T05:46:24.307935+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -11,9 +11,9 @@
   },
   "roster": {
     "total40": 44,
-    "active": 26,
+    "active": 27,
     "il": 6,
-    "unknownStatus": 12
+    "unknownStatus": 11
   },
   "players": [
     {
@@ -146,6 +146,18 @@
       "status": null,
       "roster40": true,
       "active": false,
+      "il": null
+    },
+    {
+      "id": 670224,
+      "name": "Kameron Misner",
+      "number": "18",
+      "bat": "L",
+      "throw": "L",
+      "position": "CF",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
       "il": null
     },
     {
@@ -527,18 +539,6 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
-      "roster40": true,
-      "active": false,
-      "il": null
-    },
-    {
-      "id": 670224,
-      "name": "Kameron Misner",
-      "number": null,
-      "bat": "L",
-      "throw": "L",
-      "position": "CF",
       "status": null,
       "roster40": true,
       "active": false,
