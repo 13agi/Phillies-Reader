@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T19:12:12.220345+00:00",
+  "updatedAt": "2026-08-20T03:12:43.418544+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -341,18 +341,6 @@
       "il": null
     },
     {
-      "id": 662144,
-      "name": "Brian Keller",
-      "number": "48",
-      "bat": "R",
-      "throw": "R",
-      "position": "P",
-      "status": null,
-      "roster40": true,
-      "active": false,
-      "il": null
-    },
-    {
       "id": 656537,
       "name": "Derek Hill",
       "number": "49",
@@ -538,6 +526,18 @@
       "number": null,
       "bat": "R",
       "throw": "R",
+      "position": "P",
+      "status": null,
+      "roster40": true,
+      "active": false,
+      "il": null
+    },
+    {
+      "id": 641482,
+      "name": "Nestor Cortes",
+      "number": null,
+      "bat": "R",
+      "throw": "L",
       "position": "P",
       "status": null,
       "roster40": true,
