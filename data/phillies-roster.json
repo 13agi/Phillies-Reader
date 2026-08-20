@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T14:10:09.895637+00:00",
+  "updatedAt": "2026-08-20T19:45:15.788124+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,9 +10,9 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 44,
+    "total40": 45,
     "active": 26,
-    "il": 6,
+    "il": 7,
     "unknownStatus": 12
   },
   "players": [
@@ -239,10 +239,10 @@
       "bat": "R",
       "throw": "R",
       "position": "LF",
-      "status": null,
+      "status": "IL",
       "roster40": true,
       "active": false,
-      "il": null
+      "il": true
     },
     {
       "id": 548384,
@@ -488,6 +488,18 @@
       "id": 691330,
       "name": "Moisés Chace",
       "number": "75",
+      "bat": "R",
+      "throw": "R",
+      "position": "P",
+      "status": null,
+      "roster40": true,
+      "active": false,
+      "il": null
+    },
+    {
+      "id": 694851,
+      "name": "Andrew Hoffmann",
+      "number": null,
       "bat": "R",
       "throw": "R",
       "position": "P",
