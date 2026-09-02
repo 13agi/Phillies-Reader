@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T18:10:38.951324+00:00",
+  "updatedAt": "2026-09-02T00:14:10.275644+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -11,9 +11,9 @@
   },
   "roster": {
     "total40": 45,
-    "active": 26,
-    "il": 7,
-    "unknownStatus": 12
+    "active": 28,
+    "il": 6,
+    "unknownStatus": 11
   },
   "players": [
     {
@@ -119,10 +119,10 @@
       "bat": "S",
       "throw": "R",
       "position": "C",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 669016,
@@ -365,6 +365,18 @@
       "il": null
     },
     {
+      "id": 680880,
+      "name": "Grant Holman",
+      "number": "51",
+      "bat": "R",
+      "throw": "R",
+      "position": "P",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
       "id": 680742,
       "name": "Jonathan Bowlan",
       "number": "52",
@@ -527,18 +539,6 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
-      "status": null,
-      "roster40": true,
-      "active": false,
-      "il": null
-    },
-    {
-      "id": 680880,
-      "name": "Grant Holman",
-      "number": null,
-      "bat": "R",
-      "throw": "R",
-      "position": "P",
       "status": null,
       "roster40": true,
       "active": false,
