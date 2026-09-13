@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T11:03:59.705961+00:00",
+  "updatedAt": "2026-09-13T15:35:08.110063+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,9 +10,9 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 45,
+    "total40": 44,
     "active": 28,
-    "il": 6,
+    "il": 5,
     "unknownStatus": 11
   },
   "players": [
@@ -371,9 +371,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": "ACTIVE",
+      "status": null,
       "roster40": true,
-      "active": true,
+      "active": false,
       "il": null
     },
     {
@@ -443,10 +443,10 @@
       "bat": "R",
       "throw": "L",
       "position": "P",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 661395,
@@ -515,18 +515,6 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
-      "roster40": true,
-      "active": false,
-      "il": null
-    },
-    {
-      "id": 686551,
-      "name": "Christian Cairo",
-      "number": null,
-      "bat": "R",
-      "throw": "R",
-      "position": "SS",
       "status": null,
       "roster40": true,
       "active": false,
