@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T03:16:30.938387+00:00",
+  "updatedAt": "2026-09-16T10:49:33.194409+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -101,6 +101,18 @@
       "il": null
     },
     {
+      "id": 656941,
+      "name": "Kyle Schwarber",
+      "number": "12",
+      "bat": "L",
+      "throw": "R",
+      "position": "DH",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
       "id": 665561,
       "name": "Rafael Marchán",
       "number": "13",
@@ -167,18 +179,6 @@
       "bat": "L",
       "throw": "R",
       "position": "C",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 656941,
-      "name": "Kyle Schwarber",
-      "number": "21",
-      "bat": "L",
-      "throw": "R",
-      "position": "DH",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
