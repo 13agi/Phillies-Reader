@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T16:12:26.258649+00:00",
+  "updatedAt": "2026-09-17T20:56:02.645148+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,10 +10,10 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 44,
+    "total40": 45,
     "active": 28,
     "il": 6,
-    "unknownStatus": 10
+    "unknownStatus": 11
   },
   "players": [
     {
@@ -527,6 +527,18 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
+      "status": null,
+      "roster40": true,
+      "active": false,
+      "il": null
+    },
+    {
+      "id": 664353,
+      "name": "José Urquidy",
+      "number": null,
+      "bat": "R",
+      "throw": "R",
+      "position": "P",
       "status": null,
       "roster40": true,
       "active": false,
