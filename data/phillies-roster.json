@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T15:47:59.409193+00:00",
+  "updatedAt": "2026-09-18T20:23:09.984693+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -167,9 +167,9 @@
       "bat": "L",
       "throw": "L",
       "position": "P",
-      "status": "ACTIVE",
+      "status": null,
       "roster40": true,
-      "active": true,
+      "active": false,
       "il": null
     },
     {
@@ -485,6 +485,18 @@
       "il": null
     },
     {
+      "id": 664353,
+      "name": "José Urquidy",
+      "number": "70",
+      "bat": "R",
+      "throw": "R",
+      "position": "P",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
       "id": 686934,
       "name": "Alex McFarlane",
       "number": "71",
@@ -527,18 +539,6 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
-      "status": null,
-      "roster40": true,
-      "active": false,
-      "il": null
-    },
-    {
-      "id": 664353,
-      "name": "José Urquidy",
-      "number": null,
-      "bat": "R",
-      "throw": "R",
-      "position": "P",
       "status": null,
       "roster40": true,
       "active": false,
