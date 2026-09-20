@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T10:35:45.451901+00:00",
+  "updatedAt": "2026-09-20T15:24:52.212584+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -359,9 +359,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": "ACTIVE",
+      "status": null,
       "roster40": true,
-      "active": true,
+      "active": false,
       "il": null
     },
     {
@@ -467,9 +467,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
