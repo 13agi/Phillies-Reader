@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T12:06:15.694230+00:00",
+  "updatedAt": "2026-09-29T21:50:15.082676+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -11,9 +11,9 @@
   },
   "roster": {
     "total40": 44,
-    "active": 28,
+    "active": 26,
     "il": 5,
-    "unknownStatus": 11
+    "unknownStatus": 13
   },
   "players": [
     {
@@ -47,18 +47,6 @@
       "bat": "L",
       "throw": "R",
       "position": "2B",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 805249,
-      "name": "Otto Kemp",
-      "number": "4",
-      "bat": "R",
-      "throw": "R",
-      "position": "LF",
       "status": null,
       "roster40": true,
       "active": false,
@@ -251,6 +239,18 @@
       "bat": "L",
       "throw": "L",
       "position": "P",
+      "status": null,
+      "roster40": true,
+      "active": false,
+      "il": null
+    },
+    {
+      "id": 805249,
+      "name": "Otto Kemp",
+      "number": "31",
+      "bat": "R",
+      "throw": "R",
+      "position": "LF",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
@@ -467,9 +467,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": "ACTIVE",
+      "status": null,
       "roster40": true,
-      "active": true,
+      "active": false,
       "il": null
     },
     {
