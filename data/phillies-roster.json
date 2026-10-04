@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-04T11:45:59.028190+00:00",
+  "updatedAt": "2026-10-04T16:24:41.559489+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -11,9 +11,9 @@
   },
   "roster": {
     "total40": 44,
-    "active": 26,
+    "active": 39,
     "il": 5,
-    "unknownStatus": 13
+    "unknownStatus": 0
   },
   "players": [
     {
@@ -47,9 +47,9 @@
       "bat": "L",
       "throw": "R",
       "position": "2B",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -131,9 +131,9 @@
       "bat": "L",
       "throw": "R",
       "position": "RF",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -143,9 +143,9 @@
       "bat": "L",
       "throw": "L",
       "position": "CF",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -155,9 +155,9 @@
       "bat": "L",
       "throw": "L",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -239,9 +239,9 @@
       "bat": "L",
       "throw": "L",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -359,9 +359,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -371,9 +371,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -431,9 +431,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -467,9 +467,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -503,9 +503,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -515,9 +515,9 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -527,9 +527,9 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     },
     {
@@ -539,9 +539,9 @@
       "bat": "R",
       "throw": "L",
       "position": "P",
-      "status": null,
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
+      "active": true,
       "il": null
     }
   ]
