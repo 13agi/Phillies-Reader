@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-29T12:16:26.347110+00:00",
+  "updatedAt": "2026-10-29T22:25:02.679081+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,9 +10,9 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 44,
-    "active": 39,
-    "il": 5,
+    "total40": 37,
+    "active": 33,
+    "il": 4,
     "unknownStatus": 0
   },
   "players": [
@@ -35,18 +35,6 @@
       "bat": "L",
       "throw": "R",
       "position": "1B",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 650333,
-      "name": "Luis Arraez",
-      "number": "4",
-      "bat": "L",
-      "throw": "R",
-      "position": "2B",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
@@ -209,18 +197,6 @@
       "il": null
     },
     {
-      "id": 664761,
-      "name": "Alec Bohm",
-      "number": "28",
-      "bat": "R",
-      "throw": "R",
-      "position": "3B",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
       "id": 694025,
       "name": "Felix Reyes",
       "number": "29",
@@ -233,33 +209,9 @@
       "il": true
     },
     {
-      "id": 548384,
-      "name": "Brooks Raley",
-      "number": "30",
-      "bat": "L",
-      "throw": "L",
-      "position": "P",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
       "id": 805249,
       "name": "Otto Kemp",
       "number": "31",
-      "bat": "R",
-      "throw": "R",
-      "position": "LF",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 624641,
-      "name": "Edmundo Sosa",
-      "number": "33",
       "bat": "R",
       "throw": "R",
       "position": "LF",
@@ -329,18 +281,6 @@
       "il": null
     },
     {
-      "id": 621237,
-      "name": "José Alvarado",
-      "number": "46",
-      "bat": "L",
-      "throw": "L",
-      "position": "P",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
       "id": 656537,
       "name": "Derek Hill",
       "number": "49",
@@ -387,18 +327,6 @@
       "roster40": true,
       "active": true,
       "il": null
-    },
-    {
-      "id": 666969,
-      "name": "Adolis García",
-      "number": "53",
-      "bat": "R",
-      "throw": "R",
-      "position": "RF",
-      "status": "IL",
-      "roster40": true,
-      "active": false,
-      "il": true
     },
     {
       "id": 663767,
@@ -527,18 +455,6 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 641482,
-      "name": "Nestor Cortes",
-      "number": null,
-      "bat": "R",
-      "throw": "L",
-      "position": "P",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
