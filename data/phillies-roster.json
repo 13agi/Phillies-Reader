@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03T00:28:40.358889+00:00",
+  "updatedAt": "2026-11-03T13:36:34.829784+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,9 +10,9 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 36,
-    "active": 32,
-    "il": 4,
+    "total40": 38,
+    "active": 38,
+    "il": 0,
     "unknownStatus": 0
   },
   "players": [
@@ -155,10 +155,10 @@
       "bat": "R",
       "throw": "R",
       "position": "CF",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 691725,
@@ -191,10 +191,10 @@
       "bat": "R",
       "throw": "R",
       "position": "LF",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 805249,
@@ -227,10 +227,10 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 650559,
@@ -335,10 +335,10 @@
       "bat": "R",
       "throw": "R",
       "position": "P",
-      "status": "IL",
+      "status": "ACTIVE",
       "roster40": true,
-      "active": false,
-      "il": true
+      "active": true,
+      "il": null
     },
     {
       "id": 660604,
@@ -437,12 +437,36 @@
       "il": null
     },
     {
+      "id": 695391,
+      "name": "Brett Harris",
+      "number": null,
+      "bat": "R",
+      "throw": "R",
+      "position": "3B",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
       "id": 687515,
       "name": "Colby Thomas",
       "number": null,
       "bat": "R",
       "throw": "R",
       "position": "RF",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
+      "id": 694376,
+      "name": "Shay Whitcomb",
+      "number": null,
+      "bat": "R",
+      "throw": "R",
+      "position": "3B",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
