@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-02T14:43:36.633539+00:00",
+  "updatedAt": "2026-11-03T00:28:40.358889+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,8 +10,8 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 37,
-    "active": 33,
+    "total40": 36,
+    "active": 32,
     "il": 4,
     "unknownStatus": 0
   },
@@ -143,18 +143,6 @@
       "bat": "L",
       "throw": "L",
       "position": "P",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 596117,
-      "name": "Garrett Stubbs",
-      "number": "21",
-      "bat": "L",
-      "throw": "R",
-      "position": "C",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
