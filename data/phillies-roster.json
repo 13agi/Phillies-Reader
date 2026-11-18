@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T15:28:31.638628+00:00",
+  "updatedAt": "2026-11-18T00:30:14.823228+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,8 +10,8 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 38,
-    "active": 38,
+    "total40": 39,
+    "active": 39,
     "il": 0,
     "unknownStatus": 0
   },
@@ -443,6 +443,18 @@
       "bat": "R",
       "throw": "R",
       "position": "3B",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
+      "id": 804858,
+      "name": "Bryan Rincon",
+      "number": null,
+      "bat": "S",
+      "throw": "R",
+      "position": "SS",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
