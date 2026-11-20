@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T14:52:30.696361+00:00",
+  "updatedAt": "2026-11-20T23:39:31.191529+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies",
@@ -10,8 +10,8 @@
     "baseUrl": "https://statsapi.mlb.com/api/v1"
   },
   "roster": {
-    "total40": 39,
-    "active": 39,
+    "total40": 36,
+    "active": 36,
     "il": 0,
     "unknownStatus": 0
   },
@@ -233,18 +233,6 @@
       "il": null
     },
     {
-      "id": 650559,
-      "name": "Bryan De La Cruz",
-      "number": "41",
-      "bat": "R",
-      "throw": "R",
-      "position": "RF",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
       "id": 666200,
       "name": "Jesús Luzardo",
       "number": "44",
@@ -413,42 +401,6 @@
       "il": null
     },
     {
-      "id": 691330,
-      "name": "Moisés Chace",
-      "number": "75",
-      "bat": "R",
-      "throw": "R",
-      "position": "P",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 694851,
-      "name": "Andrew Hoffmann",
-      "number": null,
-      "bat": "R",
-      "throw": "R",
-      "position": "P",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
-      "id": 695391,
-      "name": "Brett Harris",
-      "number": null,
-      "bat": "R",
-      "throw": "R",
-      "position": "3B",
-      "status": "ACTIVE",
-      "roster40": true,
-      "active": true,
-      "il": null
-    },
-    {
       "id": 804858,
       "name": "Bryan Rincon",
       "number": null,
@@ -467,6 +419,18 @@
       "bat": "R",
       "throw": "R",
       "position": "RF",
+      "status": "ACTIVE",
+      "roster40": true,
+      "active": true,
+      "il": null
+    },
+    {
+      "id": 673929,
+      "name": "Jordan Leasure",
+      "number": null,
+      "bat": "R",
+      "throw": "R",
+      "position": "P",
       "status": "ACTIVE",
       "roster40": true,
       "active": true,
